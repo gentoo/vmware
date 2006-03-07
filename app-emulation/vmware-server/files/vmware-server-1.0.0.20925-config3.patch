@@ -1,0 +1,12 @@
+diff -urN vmware-distrib.orig/bin/vmware-config.pl vmware-distrib/bin/vmware-config.pl
+--- vmware-distrib.orig/bin/vmware-config.pl	2005-12-16 00:51:03.000000000 -0500
++++ vmware-distrib/bin/vmware-config.pl	2005-12-21 14:34:03.000000000 -0500
+@@ -1972,7 +1972,7 @@
+     . ' -E - | ' . shell_string($gHelper{'grep'}) . ' '
+     . shell_string($pattern));
+   chomp($header_page_offset);
+-  $header_page_offset =~ s/^$pattern \(?0x([0-9a-fA-F]{8,}).*$/$1/;
++  $header_page_offset =~ s/^$pattern \(?(\(unsigned long\))?0x([0-9a-fA-F]{8,}).*$/$1/;
+   if ($header_page_offset =~ /[0-9a-fA-F]{8,}/) {
+     # We found a valid page offset
+     if (defined($gSystem{'page_offset'}) and

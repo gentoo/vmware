@@ -1,0 +1,3 @@
+PATH=/opt/vmware/server/bin
+ROOTPATH=/opt/vmware/server/bin
+MANPATH=/opt/vmware/server/man

@@ -1,0 +1,6 @@
+#%PAM-1.0
+auth       sufficient       /emul/linux/x86/lib/security/pam_unix.so shadow nullok
+auth       required         /emul/linux/x86/lib/security/pam_unix_auth.so shadow nullok
+account    required         /emul/linux/x86/lib/security/pam_listfile.so item=group sense=allow file=/etc/vmware/vmwaregroup onerr=fail
+account    sufficient       /emul/linux/x86/lib/security/pam_unix.so
+account    required         /emul/linux/x86/lib/security/pam_unix_acct.so
