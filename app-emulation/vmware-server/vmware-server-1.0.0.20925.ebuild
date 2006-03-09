@@ -259,6 +259,9 @@ pkg_postinst() {
 	echo
 	ewarn "VMWare allows for the potential of overwriting files as root.  Only"
 	ewarn "give VMWare access to trusted individuals."
+	echo
+	ewarn "VMWare also has issues when running on a JFS filesystem.  For more"
+	ewarn "information see http://bugs.gentoo.org/show_bug.cgi?id=122500#c94"
 	#ewarn "For users of glibc-2.3.x, vmware-nat support is *still* broken on 2.6.x"
 }
 
