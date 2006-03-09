@@ -60,7 +60,6 @@ src_unpack() {
 	cd ${WORKDIR}
 	unpack ${FN}.zip
 	unpack ./${NP}.tar.gz
-	rm *.tar.gz *.rpm
 	cd ${S}
 }
 
@@ -155,7 +154,7 @@ pkg_postinst() {
 	for x in /etc/vmware-console/._cfg????_locations ; do
 		if [ -f $x ] ; then
 			cat $x >> /etc/vmware-console/locations
-			rm $x
+			rm -f $x
 		fi
 	done
 
