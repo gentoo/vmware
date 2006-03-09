@@ -127,7 +127,7 @@ src_install() {
 
 	dodir /etc/vmware/
 	cp -pPR etc/* ${D}/etc/vmware/
-	cp ${FILESDIR}/${P}-vmwaregroup ${D}/etc/vmware/vmwaregroup
+	echo "${VMWARE_GROUP}" > ${D}/etc/vmware/vmwaregroup
 
 	dodir /etc/vmware/init.d
 	dodir /etc/vmware/init.d/rc0.d
@@ -139,10 +139,6 @@ src_install() {
 	dodir /etc/vmware/init.d/rc6.d
 	dosym /etc/init.d/xinetd /etc/vmware/init.d
 	cp -pPR installer/services.sh ${D}/etc/vmware/init.d/vmware || die
-	dosed 's/mknod -m 600/mknod -m 660/' /etc/vmware/init.d/vmware || die
-	dosed '/c 119 "$vHubNr"/ a\
-		chown root:vmware /dev/vmnet*\
-		' /etc/vmware/init.d/vmware || die
 
 	# This is to fix a problem where if someone merges vmware and then
 	# before configuring vmware they upgrade or re-merge the vmware
@@ -165,14 +161,14 @@ src_install() {
 
 	dodir /etc/vmware
 	# this makes the vmware-vmx executable only executable by vmware group
-	fowners root:vmware ${dir}/sbin/vmware-authd ${dir}/lib/bin{,-debug}/vmware-vmx /etc/vmware \
+	fowners root:${VMWARE_GROUP} ${dir}/sbin/vmware-authd ${dir}/lib/bin{,-debug}/vmware-vmx /etc/vmware \
 		|| die "Changing permissions"
 	fperms 4750 ${dir}/lib/bin{,-debug}/vmware-vmx ${dir}/sbin/vmware-authd || die
 	fperms 770 /etc/vmware || die
 
 	# this adds udev rules for vmmon*
 	dodir /etc/udev/rules.d
-	echo 'KERNEL=="vmmon*", GROUP="vmware" MODE=660' > \
+	echo 'KERNEL=="vmmon*", GROUP="'${VMWARE_GROUP}'" MODE=660' > \
 		${D}/etc/udev/rules.d/60-vmware.rules || die
 
 	# Questions:
@@ -228,7 +224,7 @@ pkg_config() {
 
 pkg_postinst() {
 	update-mime-database /usr/share/mime
-	[ -d /etc/vmware ] && chown -R root:vmware /etc/vmware
+	[ -d /etc/vmware ] && chown -R root:${VMWARE_GROUP} /etc/vmware
 
 	# This is to fix the problem where the not_configured file doesn't get
 	# removed when the configuration is run. This doesn't remove the file

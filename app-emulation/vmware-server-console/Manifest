@@ -4,6 +4,9 @@ SHA256 ff3abe9d58fd673d8f3d2f7e967aa6db426e3e15b4d868dc1483682357a928b8 files/99
 MD5 76aa9b71f10b9bce20e6fac37a700533 files/digest-vmware-server-console-1.0.0.20925 313
 RMD160 67726db4156fb2350afd153873c7c0b330ac8855 files/digest-vmware-server-console-1.0.0.20925 313
 SHA256 f8bb79afe6e035d6f932cc28b91a1c90baac3b6584f1a698539b1d2f43460163 files/digest-vmware-server-console-1.0.0.20925 313
+MD5 aa1b576735134579f04b29763901dc4f files/vmware.xml 1592
+RMD160 0d7e9ed13ebb3c73dd847e95fa95499296609e8c files/vmware.xml 1592
+SHA256 56aafee80ad705e8d832f8853c36d763d37b87d1cb132a41c50eb63085ae854d files/vmware.xml 1592
 MD5 e21d7cdc32de0e18b04c907cc5127aa5 vmware-server-console-1.0.0.20925.ebuild 5089
 RMD160 0747a5364883e396ffb2a5f976a69c8b2d4a3d80 vmware-server-console-1.0.0.20925.ebuild 5089
 SHA256 60071fa342d4b1063910bc69ab5c61dd70e662ae93ce5b0aa006fc76dc573213 vmware-server-console-1.0.0.20925.ebuild 5089
