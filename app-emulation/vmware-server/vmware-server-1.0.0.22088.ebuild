@@ -35,23 +35,24 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? ( app-emulation/emul-linux-x86-baselibs
 	         app-emulation/emul-linux-x86-gtklibs 
 		   )
-		|| ( ( x11-libs/libXrandr
-			   x11-libs/libXcursor
-			   x11-libs/libXinerama
-			   x11-libs/libXi 
-			   x11-libs/libXft
-			 )
-			 ( virtual/x11 
-			   virtual/xft
-			 )
-		   )
-	>=dev-lang/perl-5
-	!app-emulation/vmware-player
-	!app-emulation/vmware-workstation
-	sys-apps/pciutils
-	sys-apps/xinetd
-	>=sys-apps/baselayout-1.11.14
-	~app-emulation/${PN}-modules-${PV}"
+	!amd64 ( || ( ( x11-libs/libXrandr
+					x11-libs/libXcursor
+					x11-libs/libXinerama
+					x11-libs/libXi 
+					x11-libs/libXft
+				  )
+				  ( virtual/x11 
+					virtual/xft
+				  )
+				)
+		    )
+			>=dev-lang/perl-5
+			!app-emulation/vmware-player
+			!app-emulation/vmware-workstation
+			sys-apps/pciutils
+			sys-apps/xinetd
+			>=sys-apps/baselayout-1.11.14
+			~app-emulation/${PN}-modules-${PV}"
 
 dir=/opt/vmware/server
 Ddir=${D}/${dir}
@@ -86,8 +87,10 @@ src_unpack() {
 
 	for sobj in `find ${S}/lib/perl5/site_perl/5.005/ -name *.so -and ! -name PAM.so -and ! -name POSIX.so`;
 	do
-		# echo $sobj
+		# Change the permissions for FEATURES="userpriv"
+		chmod u+w $sobj
 		chrpath -d $sobj
+		chmod u-w $sobj
 	done
 }
 
@@ -218,21 +221,21 @@ pkg_preinst() {
 }
 
 pkg_config() {
-	einfo "Running ${dir}/bin/vmware-config.pl"
-	${dir}/bin/vmware-config.pl
+	einfo "Running ${ROOT}${dir}/bin/vmware-config.pl"
+	${ROOT}${dir}/bin/vmware-config.pl
 }
 
 pkg_postinst() {
-	update-mime-database /usr/share/mime
-	[ -d /etc/vmware ] && chown -R root:${VMWARE_GROUP} /etc/vmware
+	update-mime-database ${ROOT}/usr/share/mime
+	[ -d ${ROOT}/etc/vmware ] && chown -R root:${VMWARE_GROUP} ${ROOT}/etc/vmware
 
 	# This is to fix the problem where the not_configured file doesn't get
 	# removed when the configuration is run. This doesn't remove the file
 	# It just tells the vmware-config.pl script it can delete it.
 	einfo "Updating /etc/vmware/locations"
-	for x in /etc/vmware/._cfg????_locations ; do
+	for x in "${ROOT}/etc/vmware/._cfg????_locations" ; do
 		if [ -f $x ] ; then
-			cat $x >> /etc/vmware/locations
+			cat $x >> "${ROOT}/etc/vmware/locations"
 			rm $x
 		fi
 	done

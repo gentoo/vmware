@@ -33,25 +33,26 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
 		 amd64? ( app-emulation/emul-linux-x86-gtklibs )
-		 || ( ( x11-libs/libSM
-				x11-libs/libICE
-				x11-libs/libX11
-				x11-libs/libXau
-				x11-libs/libXcursor
-				x11-libs/libXdmcp
-				x11-libs/libXext
-				x11-libs/libXfixes
-				x11-libs/libXft
-				x11-libs/libXi
-				x11-libs/libXrandr
-				x11-libs/libXrender
-				x11-libs/libXt
-				x11-libs/libXtst
-	     	  )
-			  virtual/x11
-	        )
+		 !amd64 ( || ( ( x11-libs/libSM
+						 x11-libs/libICE
+						 x11-libs/libX11
+						 x11-libs/libXau
+						 x11-libs/libXcursor
+						 x11-libs/libXdmcp
+						 x11-libs/libXext
+						 x11-libs/libXfixes
+						 x11-libs/libXft
+						 x11-libs/libXi
+						 x11-libs/libXrandr
+						 x11-libs/libXrender
+						 x11-libs/libXt
+						 x11-libs/libXtst
+	     	  		   )
+			  		   virtual/x11
+	        		 )
+				)
 		 >=dev-lang/perl-5
-		"
+		 "
 
 dir=/opt/vmware/server/console
 Ddir=${D}/${dir}
@@ -140,21 +141,21 @@ pkg_preinst() {
 }
 
 pkg_config() {
-	einfo "Running ${dir}/bin/vmware-config-console.pl"
-	${dir}/bin/vmware-config-console.pl
+	einfo "Running ${ROOT}${dir}/bin/vmware-config-console.pl"
+	${ROOT}${dir}/bin/vmware-config-console.pl
 }
 
 pkg_postinst() {
-	update-mime-database /usr/share/mime
+	update-mime-database "${ROOT}/usr/share/mime"
 
 	# This is to fix the problem where the not_configured file doesn't get
 	# removed when the configuration is run. This doesn't remove the file
 	# It just tells the vmware-config-console.pl script it can delete it.
 	einfo "Updating /etc/vmware-console/locations"
-	for x in /etc/vmware-console/._cfg????_locations ; do
+	for x in "${ROOT}/etc/vmware-console/._cfg????_locations" ; do
 		if [ -f $x ] ; then
-			cat $x >> /etc/vmware-console/locations
-			rm -f $x
+			cat $x >> "${ROOT}/etc/vmware-console/locations"
+			rm $x
 		fi
 	done
 
