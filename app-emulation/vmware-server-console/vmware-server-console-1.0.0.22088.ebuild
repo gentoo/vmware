@@ -27,6 +27,7 @@ RESTRICT="nostrip"
 DEPEND=">=sys-libs/glibc-2.3.5
 		virtual/os-headers
 		>=dev-lang/perl-5
+		>=sys-apps/portage-2.0.54
 		app-arch/unzip
 	   "
 # vmware-server-console should not use virtual/libc as this is a 

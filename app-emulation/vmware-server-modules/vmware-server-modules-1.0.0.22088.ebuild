@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE=""
-DEPEND=""
+DEPEND=">=sys-apps/portage-2.0.54"
 
 #CONFIG_CHECK="CRYPTO NET_RADIO SYSCTL"
 #ERROR_CRYPTO="${P} requires Cryptographic API support (CONFIG_CRYPTO)."
