@@ -33,25 +33,26 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
 		 amd64? ( app-emulation/emul-linux-x86-gtklibs )
-		 !amd64? ( || ( ( x11-libs/libSM
-						  x11-libs/libICE
-						  x11-libs/libX11
-						  x11-libs/libXau
-						  x11-libs/libXcursor
-						  x11-libs/libXdmcp
-						  x11-libs/libXext
-						  x11-libs/libXfixes
-						  x11-libs/libXft
-						  x11-libs/libXi
-						  x11-libs/libXrandr
-						  x11-libs/libXrender
-						  x11-libs/libXt
-						  x11-libs/libXtst
-	     	  		    )
-			  		    virtual/x11
-	        		  )
-				 )
-		 >=dev-lang/perl-5"
+		 !amd64 ( || ( ( x11-libs/libSM
+						 x11-libs/libICE
+						 x11-libs/libX11
+						 x11-libs/libXau
+						 x11-libs/libXcursor
+						 x11-libs/libXdmcp
+						 x11-libs/libXext
+						 x11-libs/libXfixes
+						 x11-libs/libXft
+						 x11-libs/libXi
+						 x11-libs/libXrandr
+						 x11-libs/libXrender
+						 x11-libs/libXt
+						 x11-libs/libXtst
+	     	  		   )
+			  		   virtual/x11
+	        		 )
+				)
+		 >=dev-lang/perl-5
+		 "
 
 dir=/opt/vmware/server/console
 Ddir=${D}/${dir}

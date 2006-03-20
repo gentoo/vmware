@@ -45,6 +45,7 @@ src_unpack() {
 		unpack ./${PARENT_PN}-distrib/lib/modules/source/${dir}.tar
 		cd ${S}/${dir}-only
 		epatch ${FILESDIR}/${P}-makefile.patch
+		epatch ${FILESDIR}/${P}-makefile2.patch
 		convert_to_m ${S}/${dir}-only/Makefile
 	done
 
