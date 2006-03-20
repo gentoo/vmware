@@ -1,0 +1,50 @@
+--- vmware-server-distrib/bin/vmware-config.pl	2006-03-17 21:13:22.000000000 +0100
++++ vmware-server-distrib/bin/vmware-config.pl	2006-03-17 22:37:00.000000000 +0100
+@@ -6278,10 +6278,36 @@
+   my $authd_conf_file = "$conf_dir/vmware-authd";
+   my $authd = db_get_answer('SBINDIR') . "/vmware-authd";
+ 
++  # Never overwrite an existing conf file unless it has the exact modification 
++  # date as in the database in which case we can be pretty sure that it is the 
++  # one that we wrote and it should be safe to assume that we can overwrite it.
++  if( -f $authd_conf_file ) {
++    my @statbuf = stat( $authd_conf_file );
++    if( ! defined( $statbuf[9] ) ) {
++      error( 
++        'Unable to get the last modification timestamp of file "' 
++        . $authd_conf_file . "\".\n\n" 
++      );
++    }
++    if( 
++      ! db_file_in( $authd_conf_file ) 
++      || db_file_ts( $authd_conf_file ) != $statbuf[9] 
++    ) {
++      query( 
++        'The file "' . $authd_conf_file . '" already exists and seems to have'
++        . ' been modified manually. Consequently, this program cannot add a "'
++        . $authd . '" entry in the file.  You will have to do it by hand'
++        . ' before running ' . vmware_product_name() . ".\n\n"
++        . ' Hit enter to continue.',
++            '', 0
++      );
++      return;
++    }
++  }
++
+   # Create the new vmware-authd file
+-  # XXX This file should be registered with the installer's database. --hpreg
+   if (not open(CONF, '>' . $authd_conf_file)) {
+-    query('Unable to create the "' . $authd_conf_file . '"file.  '
++    query('Unable to create the "' . $authd_conf_file . '" file.  '
+           . 'Consequently, this program cannot add a "' . $authd . '" entry '
+           . 'in the file.  You will have to do it by hand before running '
+           . vmware_product_name() . '.' .  "\n\n" . 'Hit enter to continue.',
+@@ -6304,6 +6330,8 @@
+ END
+   close CONF;
+ 
++  db_add_file( $authd_conf_file, 0x1 );
++
+   # Make sure the IP service is registered, as RH 9.0's xinetd is picky about
+   # that (was bug 26864). --hpreg
+   if (check_port_not_registered($port) == 1) {

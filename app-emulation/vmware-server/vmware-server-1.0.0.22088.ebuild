@@ -74,6 +74,10 @@ src_unpack() {
 	epatch ${FILESDIR}/${P}-config3.patch
 	# patch the configure script not to build the modules
 	epatch ${FILESDIR}/${P}-config4.patch
+	# patch the config script not to overwrite existing vmware-authd files
+	epatch ${FILESDIR}/${P}-config5.patch
+	# patch the config script to play nice with xinetd
+	epatch ${FILESDIR}/${P}-config6.patch
 	# patch the services file to modprobe the modules rather than insmod
 	epatch ${FILESDIR}/${P}-services.patch
 

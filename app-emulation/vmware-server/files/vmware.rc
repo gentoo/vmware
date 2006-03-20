@@ -4,7 +4,7 @@
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/files/vmware.rc,v 1.5 2005/12/19 16:16:08 wolf31o2 Exp $
 
 depend() {
-	need localmount
+	need localmount xinetd
 	use logger net
 	after samba
 }
