@@ -7,6 +7,6 @@ SHA256 fadf02891dd78611790f6b59c2ba7ec5aaaa9767bbe779d97e6c3b38aaaa7b94 files/vm
 MD5 adcad68386a2f83052102dc6798ec5b1 files/vmware-server-modules-1.0.0.22088-makefile2.patch 535
 RMD160 dbb5a1608a0387a0820f6e872497782c92a1fb96 files/vmware-server-modules-1.0.0.22088-makefile2.patch 535
 SHA256 41802b0831b12982b3166551ac3b6fdcce512aee7230ca1f71863511e4bbd697 files/vmware-server-modules-1.0.0.22088-makefile2.patch 535
-MD5 118743a5aa87acc28aa9a575bc12733a vmware-server-modules-1.0.0.22088.ebuild 1487
-RMD160 3d61d60adb413e8110ce3793e28366c3c514acbb vmware-server-modules-1.0.0.22088.ebuild 1487
-SHA256 afbd8dead0266a35c15e39e9395f65226dc85f24dddce7906820d1f23027bbe0 vmware-server-modules-1.0.0.22088.ebuild 1487
+MD5 5340a15732570ce7f0a708794d906663 vmware-server-modules-1.0.0.22088.ebuild 1362
+RMD160 2a40e322192ff430a42da512691ccf95e72476db vmware-server-modules-1.0.0.22088.ebuild 1362
+SHA256 7ebcc34b11cf57258ebc075b73e8c2bbbd59d4c60d4e92763df08b2af5e8b723 vmware-server-modules-1.0.0.22088.ebuild 1362
