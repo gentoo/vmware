@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit linux-mod eutils versionator
+inherit linux-mod eutils versionator toolchain-funcs
 
 PARENT_PN=${PN/-modules/}
 MY_PV="e.x.p-$(get_version_component_range 4)"
@@ -45,7 +45,9 @@ src_unpack() {
 		unpack ./${PARENT_PN}-distrib/lib/modules/source/${dir}.tar
 		cd ${S}/${dir}-only
 		epatch ${FILESDIR}/${P}-makefile.patch
-		epatch ${FILESDIR}/${P}-makefile2.patch
+		if [ $(gcc-major-version) == "4" ]; then
+			epatch ${FILESDIR}/${P}-makefile2.patch
+		fi
 		convert_to_m ${S}/${dir}-only/Makefile
 	done
 
