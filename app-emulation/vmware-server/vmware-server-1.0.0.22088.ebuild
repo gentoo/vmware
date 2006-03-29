@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Header: $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -15,7 +15,8 @@ S="${WORKDIR}/vmware-server-distrib"
 
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${NP}.tar.gz"
+SRC_URI="http://download3.vmware.com/software/vmserver/${NP}.tar.gz
+		 http://dev.gentoo.org/~wolf31o2/sources/dump/${P}-rpath-corrected-libs.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
@@ -64,7 +65,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	unpack ${NP}.tar.gz
+	unpack ${A}
 	cd ${S}
 	# patch the config to not install desktop/icon files
 	epatch ${FILESDIR}/${P}-config.patch
@@ -87,15 +88,16 @@ src_unpack() {
 	use amd64 && cp ${FILESDIR}/${P}-vmware-authd-amd64	${S}/etc/pam.d/vmware-authd
 
 	# Fix up all the broken rpaths
-	einfo "Removing empty RPATH variables from perl libraries..."
+	#einfo "Removing empty RPATH variables from perl libraries..."
 
-	for sobj in `find ${S}/lib/perl5/site_perl/5.005/ -name *.so -and ! -name PAM.so -and ! -name POSIX.so`;
-	do
+	#for sobj in `find ${S}/lib/perl5/site_perl/5.005/ -name *.so -and ! -name PAM.so -and ! -name POSIX.so`;
+	#do
 		# Change the permissions for FEATURES="userpriv"
-		chmod u+w $sobj
-		chrpath -d $sobj
-		chmod u-w $sobj
-	done
+	#	chmod u+w $sobj
+	#	echo $sobj
+	#	chrpath -d $sobj
+	#	chmod u-w $sobj
+	#done
 }
 
 src_install() {
