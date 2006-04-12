@@ -27,7 +27,6 @@ RESTRICT="nostrip"
 DEPEND=">=sys-libs/glibc-2.3.5
 		>=dev-lang/perl-5
 		sys-apps/pciutils
-		>=app-admin/chrpath-0.13
 		sys-apps/findutils
 		virtual/os-headers"
 # vmware-server should not use virtual/libc as this is a 
@@ -72,7 +71,7 @@ src_unpack() {
 	# patch the config to make /etc/vmware/config writable
 	epatch ${FILESDIR}/${P}-config2.patch
 	# patch the config to work with kernels above 2.6.12ish
-	epatch ${FILESDIR}/${P}-config3.patch
+	# epatch ${FILESDIR}/${P}-config3.patch
 	# patch the configure script not to build the modules
 	epatch ${FILESDIR}/${P}-config4.patch
 	# patch the config script not to overwrite existing vmware-authd files
