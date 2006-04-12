@@ -5,8 +5,8 @@ diff -uNr Makefile.kernel Makefile.kernel
  
  vm_check_build = $(shell if $(CC) $(CPPFLAGS) $(CFLAGS) $(CFLAGS_KERNEL) \
  	$(EXTRA_CFLAGS) -Iinclude2/asm/mach-default -DKBUILD_BASENAME=\"$(DRIVER)\" \
--	-Werror -S -o /dev/null -xc $(1) \
-+	-Wno-unused -Werror -S -o /dev/null -xc $(1) \
+-	-Wno-unused -Werror -S -o /dev/null -xc $(1) \
++	-Wno-unused -Wno-attributes -Werror -S -o /dev/null -xc $(1) \
  	> /dev/null 2>&1; then echo "$(2)"; else echo "$(3)"; fi)
  
  CC_WARNINGS := -Wall -Wstrict-prototypes 

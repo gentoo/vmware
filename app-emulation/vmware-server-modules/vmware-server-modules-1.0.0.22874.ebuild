@@ -47,6 +47,9 @@ src_unpack() {
 		epatch ${FILESDIR}/${P}-makefile.patch
 		if [ $(gcc-major-version) == "4" ]; then
 			epatch ${FILESDIR}/${P}-makefile2.patch
+			if [ $(gcc-minor-version) != "0" ]; then
+				epatch ${FILESDIR}/${P}-makefile3.patch
+			fi
 		fi
 		convert_to_m ${S}/${dir}-only/Makefile
 	done
