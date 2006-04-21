@@ -35,24 +35,26 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? ( app-emulation/emul-linux-x86-baselibs
 	         app-emulation/emul-linux-x86-gtklibs 
 		   )
-	!amd64 ( || ( ( x11-libs/libXrandr
-					x11-libs/libXcursor
-					x11-libs/libXinerama
-					x11-libs/libXi 
-					x11-libs/libXft
-				  )
-				  ( virtual/x11 
-					virtual/xft
-				  )
-				)
+	!amd64 ( || ( ( x11-libs/libX11
+			x11-libs/libXtst
+			x11-libs/libXext
+			x11-libs/libXt 
+			x11-libs/libICE
+			x11-libs/libSM
+			x11-libs/libXrender
+		      )
+		      ( virtual/x11 
+			virtual/xft
+		      )
 		    )
-			>=dev-lang/perl-5
-			!app-emulation/vmware-player
-			!app-emulation/vmware-workstation
-			sys-apps/pciutils
-			sys-apps/xinetd
-			>=sys-apps/baselayout-1.11.14
-			~app-emulation/${PN}-modules-${PV}"
+	       )
+	>=dev-lang/perl-5
+	!app-emulation/vmware-player
+	!app-emulation/vmware-workstation
+	sys-apps/pciutils
+	sys-apps/xinetd
+	>=sys-apps/baselayout-1.11.14
+	~app-emulation/${PN}-modules-${PV}"
 
 dir=/opt/vmware/server
 Ddir=${D}/${dir}
