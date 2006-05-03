@@ -54,7 +54,7 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	sys-apps/pciutils
 	sys-apps/xinetd
 	>=sys-apps/baselayout-1.11.14
-	~app-emulation/${PN}-modules-${PV}"
+	>=app-emulation/vmware-modules-101"
 
 dir=/opt/vmware/server
 Ddir=${D}/${dir}

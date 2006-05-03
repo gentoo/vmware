@@ -7,9 +7,9 @@ inherit linux-mod eutils versionator toolchain-funcs
 PARENT_PN=${PN/-modules/}
 MY_PV="e.x.p-$(get_version_component_range 4)"
 
-DESCRIPTION="Modules for Vmware Server"
+DESCRIPTION="Modules for Vmware Programs"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${PARENT_PN/vm/VM}-${MY_PV}.tar.gz"
+SRC_URI="http://ftp.cvut.cz/vmware/vmware-any-any-update${PV}.tar.gz"
 
 S=${WORKDIR}
 
@@ -42,17 +42,9 @@ src_unpack() {
 	for dir in vmmon vmnet; do
 		cd ${S}
 		# tar -xf ${DISTDIR}/$dir.tar
-		unpack ./${PARENT_PN}-distrib/lib/modules/source/${dir}.tar
+		unpack ./vmware-any-any-update${PV}/${dir}.tar
 		cd ${S}/${dir}-only
 		epatch ${FILESDIR}/${P}-makefile.patch
-		if [ $(gcc-major-version) == "4" ]; then
-			epatch ${FILESDIR}/${P}-makefile2.patch
-			if [ $(gcc-minor-version) != "0" ]; then
-				epatch ${FILESDIR}/${P}-makefile3.patch
-			fi
-		fi
 		convert_to_m ${S}/${dir}-only/Makefile
 	done
-
-	rm -fr ${S}/${PARENT_PN}-distrib
 }
