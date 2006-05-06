@@ -10,10 +10,10 @@ AUX 1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326 RMD160 0af990940c985a
 MD5 7586fe57565d4d49b7ea86e299c73d58 files/1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326
 RMD160 0af990940c985a547e8a9f0618f425c930958bd9 files/1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326
 SHA256 96bd84dedd7e6b0fcd4e277edd72bc5e9b8a2af61cf69e4dcc909939844afc8e files/1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326
-AUX 1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021 RMD160 5df7d833b2a9cc6308e3f810bab59fc8d0148cff SHA1 767f3e274d99bad6793e248b97bcd83e7c0e4940 SHA256 b80e09e61750cd9a1ec61567ac66f46c5a98609c9b4b8fdb00e8258388907f17 size 1021
-MD5 18efb525c50303690b7e62100ab679fd files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021
-RMD160 5df7d833b2a9cc6308e3f810bab59fc8d0148cff files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021
-SHA256 b80e09e61750cd9a1ec61567ac66f46c5a98609c9b4b8fdb00e8258388907f17 files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021
+AUX 1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1006 RMD160 7bf7ce36504739682dfa2bb4bf4275eaf422cc4a SHA1 d43c8acbc6b482702ec2a3934c5e25d94e9d67b8 SHA256 1591c38d7131df9e4c7031b9543be1b5bb3542af71102ea6675775234d9e727d size 1006
+MD5 0c846b6795fad7b2286b3ab5986c25d0 files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1006
+RMD160 7bf7ce36504739682dfa2bb4bf4275eaf422cc4a files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1006
+SHA256 1591c38d7131df9e4c7031b9543be1b5bb3542af71102ea6675775234d9e727d files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1006
 AUX 1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578 RMD160 8f6ac493645052e01a9f1d9a362b5f3e279c978a SHA1 9b100b25f96ceaaef635c8647aa8509fcf9a77bf SHA256 61fec28b0ca3816c4482ade0bc6c8873f0004ac8d4bf591bdd723ec1dce9539a size 578
 MD5 c1d1346424f0d696f0c574f0eef33880 files/1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578
 RMD160 8f6ac493645052e01a9f1d9a362b5f3e279c978a files/1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578
