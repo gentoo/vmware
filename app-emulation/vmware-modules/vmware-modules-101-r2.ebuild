@@ -19,7 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE=""
-DEPEND=">=sys-apps/portage-2.0.54"
+DEPEND="dev-lang/perl
+		>=sys-apps/portage-2.0.54
+		app-emulation/vmware-server"
 
 #CONFIG_CHECK="CRYPTO NET_RADIO SYSCTL"
 #ERROR_CRYPTO="${P} requires Cryptographic API support (CONFIG_CRYPTO)."
@@ -48,4 +50,19 @@ src_unpack() {
 		epatch ${FILESDIR}/${P}-makefile.patch
 		convert_to_m ${S}/${dir}-only/Makefile
 	done
+}
+
+src_compile() {
+	einfo "Determining build version..."
+	${S}/vmmon-only/getversion.pl > ${S}/module-build
+
+	linux-mod_src_compile
+}
+
+src_install() {
+	linux-mod_src_install
+	insinto /opt/vmware/
+	doins ${S}/module-build
+
+	linux-mod_src_install
 }

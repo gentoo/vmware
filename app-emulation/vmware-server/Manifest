@@ -1,39 +1,35 @@
+AUX 1.0.0.23869/001_all_no-desktop-icon.patch.bz2 591 RMD160 90a26ecdf04318f0fbeb80089c6a9b116e5d9b8f SHA1 1893a2c426b21cd9a74009268a767657c2bbbb0b SHA256 1ed521e8a076f71e81de7a9f2d1b1225ab402147d946ab1c8e214c948d3ebfe7 size 591
+MD5 a9e3d808aeb87a1d99e00731cc9b16fd files/1.0.0.23869/001_all_no-desktop-icon.patch.bz2 591
+RMD160 90a26ecdf04318f0fbeb80089c6a9b116e5d9b8f files/1.0.0.23869/001_all_no-desktop-icon.patch.bz2 591
+SHA256 1ed521e8a076f71e81de7a9f2d1b1225ab402147d946ab1c8e214c948d3ebfe7 files/1.0.0.23869/001_all_no-desktop-icon.patch.bz2 591
+AUX 1.0.0.23869/002_all_allow-write-access-to-config.patch.bz2 415 RMD160 0b0a707a452dea6b46496a87e4aff36977b0faea SHA1 6ab8652ea473657b44caa4239c1db5b0ad641e53 SHA256 3d5724f862e892da4da315409388f9bd4f0b69974464edfdd86c7f2300a593c5 size 415
+MD5 abaf9e4004f4f44786f642c60943368e files/1.0.0.23869/002_all_allow-write-access-to-config.patch.bz2 415
+RMD160 0b0a707a452dea6b46496a87e4aff36977b0faea files/1.0.0.23869/002_all_allow-write-access-to-config.patch.bz2 415
+SHA256 3d5724f862e892da4da315409388f9bd4f0b69974464edfdd86c7f2300a593c5 files/1.0.0.23869/002_all_allow-write-access-to-config.patch.bz2 415
+AUX 1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326 RMD160 0af990940c985a547e8a9f0618f425c930958bd9 SHA1 629fa56356fc7d192851462475d4ea68038d6dcc SHA256 96bd84dedd7e6b0fcd4e277edd72bc5e9b8a2af61cf69e4dcc909939844afc8e size 326
+MD5 7586fe57565d4d49b7ea86e299c73d58 files/1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326
+RMD160 0af990940c985a547e8a9f0618f425c930958bd9 files/1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326
+SHA256 96bd84dedd7e6b0fcd4e277edd72bc5e9b8a2af61cf69e4dcc909939844afc8e files/1.0.0.23869/004_all_do-not-build-modules.patch.bz2 326
+AUX 1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021 RMD160 5df7d833b2a9cc6308e3f810bab59fc8d0148cff SHA1 767f3e274d99bad6793e248b97bcd83e7c0e4940 SHA256 b80e09e61750cd9a1ec61567ac66f46c5a98609c9b4b8fdb00e8258388907f17 size 1021
+MD5 18efb525c50303690b7e62100ab679fd files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021
+RMD160 5df7d833b2a9cc6308e3f810bab59fc8d0148cff files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021
+SHA256 b80e09e61750cd9a1ec61567ac66f46c5a98609c9b4b8fdb00e8258388907f17 files/1.0.0.23869/005_all_do-not-overwrite-authd-file.patch.bz2 1021
+AUX 1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578 RMD160 8f6ac493645052e01a9f1d9a362b5f3e279c978a SHA1 9b100b25f96ceaaef635c8647aa8509fcf9a77bf SHA256 61fec28b0ca3816c4482ade0bc6c8873f0004ac8d4bf591bdd723ec1dce9539a size 578
+MD5 c1d1346424f0d696f0c574f0eef33880 files/1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578
+RMD160 8f6ac493645052e01a9f1d9a362b5f3e279c978a files/1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578
+SHA256 61fec28b0ca3816c4482ade0bc6c8873f0004ac8d4bf591bdd723ec1dce9539a files/1.0.0.23869/006_all_xinetd-sendsig-if-possible.patch.bz2 578
+AUX 1.0.0.23869/007_all_use-modprobe-over-insmod.patch.bz2 285 RMD160 2cf05a82e5f910b9ea1e7465d9b0ac0385ec0507 SHA1 56c2c96dbed4e5d9c3019c4e12615ff28c2a808f SHA256 64452897438eac7d607236cf1445257841be0c9b76643ea764c10651489f3f90 size 285
+MD5 62708ead43724d76b08f526a798c8e87 files/1.0.0.23869/007_all_use-modprobe-over-insmod.patch.bz2 285
+RMD160 2cf05a82e5f910b9ea1e7465d9b0ac0385ec0507 files/1.0.0.23869/007_all_use-modprobe-over-insmod.patch.bz2 285
+SHA256 64452897438eac7d607236cf1445257841be0c9b76643ea764c10651489f3f90 files/1.0.0.23869/007_all_use-modprobe-over-insmod.patch.bz2 285
 AUX 90vmware-server 91 RMD160 2a9e2e9d428a06ceac7faec500e6b1423da34b25 SHA1 e090847500dd99d161a46cd361ed2297b3d3ecae SHA256 3175cd9665850cf0d25a96849135c93ab129127370d55572f0137ba3d210e423 size 91
 MD5 d845f6ccdeb1a1ffda1fb84c09a473ee files/90vmware-server 91
 RMD160 2a9e2e9d428a06ceac7faec500e6b1423da34b25 files/90vmware-server 91
 SHA256 3175cd9665850cf0d25a96849135c93ab129127370d55572f0137ba3d210e423 files/90vmware-server 91
-AUX vmware-server-1.0.0.22874-config.patch 1131 RMD160 3ab69d825994cc3bb177143d27091fc292cec46a SHA1 14264460c8500f1ead267059e2b9b9a5dc8c057f SHA256 b4055370b0092e71a2b2b0f27edeb7bc063ad265f95ab4530e52c3ab3167ad62 size 1131
-MD5 23d97e5e436a0d827b48db3ed9948aa7 files/vmware-server-1.0.0.22874-config.patch 1131
-RMD160 3ab69d825994cc3bb177143d27091fc292cec46a files/vmware-server-1.0.0.22874-config.patch 1131
-SHA256 b4055370b0092e71a2b2b0f27edeb7bc063ad265f95ab4530e52c3ab3167ad62 files/vmware-server-1.0.0.22874-config.patch 1131
-AUX vmware-server-1.0.0.22874-config2.patch 647 RMD160 0f25f7dd60dfcb5a72b1f7b9cf344d6f431143a9 SHA1 cabd3dd071ef62d4c70f52d1a3e02334ec7f3a73 SHA256 41492cde60da6d449c0f427ac7bd65598838ec17ac0e3a5f545feeb1d29ea391 size 647
-MD5 3df74f4dfaa783b6a2f9eba3f0030afa files/vmware-server-1.0.0.22874-config2.patch 647
-RMD160 0f25f7dd60dfcb5a72b1f7b9cf344d6f431143a9 files/vmware-server-1.0.0.22874-config2.patch 647
-SHA256 41492cde60da6d449c0f427ac7bd65598838ec17ac0e3a5f545feeb1d29ea391 files/vmware-server-1.0.0.22874-config2.patch 647
-AUX vmware-server-1.0.0.22874-config4.patch 589 RMD160 b2153579c65a232de9c2e6dbd9bbe108d85f95e5 SHA1 394a67a30f1f29084836183303641915ce982bfd SHA256 916754b0616ea330490b9572be1a9216bb7dd441ba328b1e01e777b29fac4e1e size 589
-MD5 8b7edbd7b3b93bf2b437f88cfa375f28 files/vmware-server-1.0.0.22874-config4.patch 589
-RMD160 b2153579c65a232de9c2e6dbd9bbe108d85f95e5 files/vmware-server-1.0.0.22874-config4.patch 589
-SHA256 916754b0616ea330490b9572be1a9216bb7dd441ba328b1e01e777b29fac4e1e files/vmware-server-1.0.0.22874-config4.patch 589
-AUX vmware-server-1.0.0.22874-config5.patch 2113 RMD160 88619cb1a448e95c5b8dbf1e269abead6f849dfb SHA1 40b6a413cf6da2fb162c5a753d240dfbb1a42bc6 SHA256 c6056047d1226ada3328fea2d7827f632cfab9b155a001388294836a1ab8780e size 2113
-MD5 7fc2b46e200ef3ccf5e200e73b28c02d files/vmware-server-1.0.0.22874-config5.patch 2113
-RMD160 88619cb1a448e95c5b8dbf1e269abead6f849dfb files/vmware-server-1.0.0.22874-config5.patch 2113
-SHA256 c6056047d1226ada3328fea2d7827f632cfab9b155a001388294836a1ab8780e files/vmware-server-1.0.0.22874-config5.patch 2113
-AUX vmware-server-1.0.0.22874-config6.patch 1227 RMD160 f27ea918c99e6a3db0fba8d53b5329833aa4cc58 SHA1 43986e1a5af682db2799a336f10c62fa27b7ca46 SHA256 1fcbbdf11f99f80881ee43ae47ed099d5f10aa3985bfe16606fdf2d307836ff0 size 1227
-MD5 7990840c4bacdd7ce2baf98194c43f77 files/vmware-server-1.0.0.22874-config6.patch 1227
-RMD160 f27ea918c99e6a3db0fba8d53b5329833aa4cc58 files/vmware-server-1.0.0.22874-config6.patch 1227
-SHA256 1fcbbdf11f99f80881ee43ae47ed099d5f10aa3985bfe16606fdf2d307836ff0 files/vmware-server-1.0.0.22874-config6.patch 1227
-AUX vmware-server-1.0.0.22874-services.patch 448 RMD160 136dfcfe2df7a7ebf2844749f473a6c6d0bb3084 SHA1 0ad152b3cb738521296322b56e9f247926690e67 SHA256 9497f8ad6acb2460e27bd5430670e79129ec2ffbf6f5b8dae62084e5e56059ee size 448
-MD5 f5a4bba93e2ef942332dbe7105f2b204 files/vmware-server-1.0.0.22874-services.patch 448
-RMD160 136dfcfe2df7a7ebf2844749f473a6c6d0bb3084 files/vmware-server-1.0.0.22874-services.patch 448
-SHA256 9497f8ad6acb2460e27bd5430670e79129ec2ffbf6f5b8dae62084e5e56059ee files/vmware-server-1.0.0.22874-services.patch 448
-AUX vmware-server-1.0.0.22874-vmware-authd-amd64 460 RMD160 93b5083c435460b445bff4f934589ef563ce1efc SHA1 34cdb23333a0ead3edfc6c3ebcf044d554e7a281 SHA256 b74a8935915a9e8325c675de4f1a0c041870b85c897d55836bd898803c96a9cf size 460
-MD5 a03ce9b0007ec5f7ee20b513ec9364ff files/vmware-server-1.0.0.22874-vmware-authd-amd64 460
-RMD160 93b5083c435460b445bff4f934589ef563ce1efc files/vmware-server-1.0.0.22874-vmware-authd-amd64 460
-SHA256 b74a8935915a9e8325c675de4f1a0c041870b85c897d55836bd898803c96a9cf files/vmware-server-1.0.0.22874-vmware-authd-amd64 460
-AUX vmware-server-1.0.0.22874-vmware-authd-x86 315 RMD160 3624da708d60aa1c1319278553cc96ac07324bb4 SHA1 91bb3c7dd6651ac81765e23d4f83fcbd5ae9af0e SHA256 490794ea4c6e35fb4113c8cf17d3872ae5877ddec5f8e0164203e96cf48f5ef2 size 315
-MD5 a237d4e862ce8615d286c979dd9fd2fd files/vmware-server-1.0.0.22874-vmware-authd-x86 315
-RMD160 3624da708d60aa1c1319278553cc96ac07324bb4 files/vmware-server-1.0.0.22874-vmware-authd-x86 315
-SHA256 490794ea4c6e35fb4113c8cf17d3872ae5877ddec5f8e0164203e96cf48f5ef2 files/vmware-server-1.0.0.22874-vmware-authd-x86 315
+AUX vmware-authd 315 RMD160 3624da708d60aa1c1319278553cc96ac07324bb4 SHA1 91bb3c7dd6651ac81765e23d4f83fcbd5ae9af0e SHA256 490794ea4c6e35fb4113c8cf17d3872ae5877ddec5f8e0164203e96cf48f5ef2 size 315
+MD5 a237d4e862ce8615d286c979dd9fd2fd files/vmware-authd 315
+RMD160 3624da708d60aa1c1319278553cc96ac07324bb4 files/vmware-authd 315
+SHA256 490794ea4c6e35fb4113c8cf17d3872ae5877ddec5f8e0164203e96cf48f5ef2 files/vmware-authd 315
 AUX vmware.rc 1431 RMD160 862c9ea3471412123dcefca69b793ce597afe859 SHA1 1827c640fe5eb365331859fd024384b5bd6063d1 SHA256 6ec6c667133ea5445df8dd52d8accac6e0177bbdfb4d067b4c68a315acabdf13 size 1431
 MD5 8f5b4988c119df62fc6c4e8a6d113f92 files/vmware.rc 1431
 RMD160 862c9ea3471412123dcefca69b793ce597afe859 files/vmware.rc 1431
@@ -42,12 +38,12 @@ AUX vmware.xml 1592 RMD160 0d7e9ed13ebb3c73dd847e95fa95499296609e8c SHA1 02db2ee
 MD5 aa1b576735134579f04b29763901dc4f files/vmware.xml 1592
 RMD160 0d7e9ed13ebb3c73dd847e95fa95499296609e8c files/vmware.xml 1592
 SHA256 56aafee80ad705e8d832f8853c36d763d37b87d1cb132a41c50eb63085ae854d files/vmware.xml 1592
-DIST VMware-server-e.x.p-22874.tar.gz 109791654 RMD160 c7356ba7e40aad4bb7caf886503a9c70071766d8 SHA256 6f63ccdc167a969e52d9185dffa70960b5c2a49afb27193c38511af0649aa627 size 109791654
-DIST vmware-server-1.0.0.22874-rpath-corrected-libs.tar.bz2 73834 RMD160 7f64627b5b945e8d7dabe39c165a4b66b71fb4d3 SHA256 c42299dd033187c67b45b739da66583fbd94cdcba745200b89a25ac96cd9364b size 73834
-EBUILD vmware-server-1.0.0.22874-r1.ebuild 9487 RMD160 75804f11b10d46880848c72de5f3e5a6739168e1 SHA1 e277f688b13f519d55331718ff02d3adb7f269cd SHA256 fb979ffafdbceb9c9244fc6405e821a36fff2466358ae519e187429c04913598 size 9487
-MD5 3826388381aac5e10b82171381ca8795 vmware-server-1.0.0.22874-r1.ebuild 9487
-RMD160 75804f11b10d46880848c72de5f3e5a6739168e1 vmware-server-1.0.0.22874-r1.ebuild 9487
-SHA256 fb979ffafdbceb9c9244fc6405e821a36fff2466358ae519e187429c04913598 vmware-server-1.0.0.22874-r1.ebuild 9487
-MD5 396875f969eb13503175ed23573ef275 files/digest-vmware-server-1.0.0.22874-r1 626
-RMD160 8c579941b2f3b97f367ecaf0c21e2f3debbba470 files/digest-vmware-server-1.0.0.22874-r1 626
-SHA256 77d8c14a264f040040ffc1d9a388ca1580d364a3217fe499d3dac625175551b0 files/digest-vmware-server-1.0.0.22874-r1 626
+DIST VMware-server-e.x.p-23869.tar.gz 106669636 RMD160 ded4828f4f7d630babc6564031c82bac964c8b58 SHA256 d675a7249064bed1eee89d0f0cfad6d9eae3acb13ebcf2be18563ef1ed0a2761 size 106669636
+DIST vmware-server-1.0.0.23869-rpath-corrected-libs.tar.bz2 73834 RMD160 7f64627b5b945e8d7dabe39c165a4b66b71fb4d3 SHA256 c42299dd033187c67b45b739da66583fbd94cdcba745200b89a25ac96cd9364b size 73834
+EBUILD vmware-server-1.0.0.23869.ebuild 8560 RMD160 5bf5e4e280f936fe4eaf3a1a6c9f167d44e61143 SHA1 856fb26d2af70ae567eb5a4e69f606764e277aed SHA256 c0a757ddb99e7de4c525a4c014d31c1fda2e6f02d1d03d59ccdaf25e0d9b5baa size 8560
+MD5 4e0b121725299ffb85150ae05cb967ff vmware-server-1.0.0.23869.ebuild 8560
+RMD160 5bf5e4e280f936fe4eaf3a1a6c9f167d44e61143 vmware-server-1.0.0.23869.ebuild 8560
+SHA256 c0a757ddb99e7de4c525a4c014d31c1fda2e6f02d1d03d59ccdaf25e0d9b5baa vmware-server-1.0.0.23869.ebuild 8560
+MD5 86bed5ceecd60c191a5939bae0079cbf files/digest-vmware-server-1.0.0.23869 626
+RMD160 7bc628baa43745c6e9397d90938c7c3a46e173e3 files/digest-vmware-server-1.0.0.23869 626
+SHA256 b0a517f2e25ea346f26a57f13d6746cb610b3574463e63cdfc3e2c955135724d files/digest-vmware-server-1.0.0.23869 626

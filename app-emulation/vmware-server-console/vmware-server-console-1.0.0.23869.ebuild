@@ -8,11 +8,11 @@
 
 inherit eutils versionator
 
-MY_PN="VMware-console"
+MY_PN=${PN/vm/VM}
 MY_PV="e.x.p-$(get_version_component_range 4)"
 NP="${MY_PN}-${MY_PV}"
 FN="VMware-server-linux-client-${MY_PV}"
-S="${WORKDIR}/vmware-console-distrib"
+S="${WORKDIR}/${PN}-distrib"
 
 DESCRIPTION="VMware Remote Console for Linux"
 HOMEPAGE="http://www.vmware.com/"
@@ -55,7 +55,8 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 		 >=dev-lang/perl-5
 		 "
 
-dir=/opt/vmware/server/console
+etcdir="/etc/${PN}"
+dir="/opt/vmware/server/console"
 Ddir=${D}/${dir}
 
 src_unpack() {
@@ -80,13 +81,13 @@ src_install() {
 	insinto ${dir}/doc
 	doins doc/EULA || die "copying EULA"
 
-	doman ${S}/man/man1/vmware-console.1.gz || die "doman"
+	doman ${S}/man/man1/${PN}.1.gz || die "doman"
 
 	# vmware enviroment
-	doenvd ${FILESDIR}/99vmware-console || die "doenvd"
+	doenvd ${FILESDIR}/99${PN} || die "doenvd"
 
-	dodir /etc/vmware-console/
-	cp -pPR etc/* ${D}/etc/vmware-console/
+	dodir ${etcdir}
+	cp -pPR etc/* ${D}${etcdir}
 
 	insinto ${dir}/lib/icon
 	newins ${S}/doc/icon48x48.png ${PN}.png || die
@@ -94,14 +95,14 @@ src_install() {
 	insinto /usr/share/mime/packages
 	doins ${FILESDIR}/vmware.xml
 
-	make_desktop_entry vmware-console "VMWare Remote Console" ${PN}.png
+	make_desktop_entry ${PN} "VMWare Remote Console" ${PN}.png
 
 	dodir /usr/bin
-	dosym ${dir}/bin/vmware-console /usr/bin/vmware-console
+	dosym ${dir}/bin/${PN} /usr/bin/${PN}
 
 	# Questions:
-	einfo "Adding answers to /etc/vmware-console/locations"
-	locations="${D}/etc/vmware-console/locations"
+	einfo "Adding answers to ${etcdir}/locations"
+	locations="${D}${etcdir}/locations"
 	echo "answer BINDIR ${dir}/bin" >> ${locations}
 	echo "answer LIBDIR ${dir}/lib" >> ${locations}
 	echo "answer MANDIR ${dir}/man" >> ${locations}
@@ -119,31 +120,31 @@ pkg_preinst() {
 	#Note: it's a bit weird to use ${D} in a preinst script but it should work
 	#(drobbins, 1 Feb 2002)
 
-	einfo "Generating /etc/vmware-console/locations file."
+	einfo "Generating ${etcdir}/locations file."
 	d=`echo ${D} | wc -c`
-	for x in `find ${Ddir} ${D}/etc/vmware-console` ; do
+	for x in `find ${Ddir} ${D}${etcdir}` ; do
 		x="`echo ${x} | cut -c ${d}-`"
 		if [ -d ${D}/${x} ] ; then
-			echo "directory ${x}" >> ${D}/etc/vmware-console/locations
+			echo "directory ${x}" >> ${D}${etcdir}/locations
 		else
-			echo -n "file ${x}" >> ${D}/etc/vmware-console/locations
-			if [ "${x}" == "/etc/vmware-console/locations" ] ; then
-				echo "" >> ${D}/etc/vmware-console/locations
-			elif [ "${x}" == "/etc/vmware-console/not_configured" ] ; then
-				echo "" >> ${D}/etc/vmware-console/locations
+			echo -n "file ${x}" >> ${D}${etcdir}/locations
+			if [ "${x}" == "${etcdir}/locations" ] ; then
+				echo "" >> ${D}${etcdir}/locations
+			elif [ "${x}" == "${etcdir}/not_configured" ] ; then
+				echo "" >> ${D}${etcdir}/locations
 			else
-				echo -n " " >> ${D}/etc/vmware-console/locations
-				#perl -e "@a = stat('${D}${x}'); print \$a[9]" >> ${D}/etc/vmware-console/locations
-				find ${D}${x} -printf %T@ >> ${D}/etc/vmware-console/locations
-				echo "" >> ${D}/etc/vmware-console/locations
+				echo -n " " >> ${D}${etcdir}/locations
+				#perl -e "@a = stat('${D}${x}'); print \$a[9]" >> ${D}${etcdir}/locations
+				find ${D}${x} -printf %T@ >> ${D}${etcdir}/locations
+				echo "" >> ${D}${etcdir}/locations
 			fi
 		fi
 	done
 }
 
 pkg_config() {
-	einfo "Running ${ROOT}${dir}/bin/vmware-config-console.pl"
-	${ROOT}${dir}/bin/vmware-config-console.pl
+	einfo "Running ${ROOT}${dir}/bin/vmware-config-server-console.pl"
+	${ROOT}${dir}/bin/vmware-config-server-console.pl
 }
 
 pkg_postinst() {
@@ -152,16 +153,20 @@ pkg_postinst() {
 	# This is to fix the problem where the not_configured file doesn't get
 	# removed when the configuration is run. This doesn't remove the file
 	# It just tells the vmware-config-console.pl script it can delete it.
-	einfo "Updating /etc/vmware-console/locations"
-	for x in "${ROOT}/etc/vmware-console/._cfg????_locations" ; do
+	einfo "Updating ${etcdir}/locations"
+	for x in "${ROOT}${etcdir}/._cfg????_locations" ; do
 		if [ -f $x ] ; then
-			cat $x >> "${ROOT}/etc/vmware-console/locations"
+			cat $x >> "${ROOT}${etcdir}/locations"
 			rm $x
 		fi
 	done
 
 	einfo
-	einfo "You need to run ${dir}/bin/vmware-config-console.pl to complete the install."
+	einfo "You need to run"
+	einfo 
+	einfo "    ${dir}/bin/vmware-config-server-console.pl"
+	einfo
+	einfo "to complete the install."
 	einfo
 	einfo "For VMware Add-Ons just visit"
 	einfo "http://www.vmware.com/download/downloadaddons.html"
@@ -171,6 +176,6 @@ pkg_postinst() {
 pkg_postrm() {
 	einfo
 	einfo "To remove all traces of vmware you will need to remove the files"
-	einfo "in /etc/vmware-console/."
+	einfo "in ${etcdir}."
 	einfo
 }

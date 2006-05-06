@@ -6,7 +6,9 @@
 # to download VMWare. The agreeing to a licence is part of the configure step
 # which the user must run manually.
 
-inherit eutils versionator
+inherit vmware-pkg eutils versionator
+
+VMWARE_VME="VME_S1B1"
 
 MY_PN="VMware-server"
 MY_PV="e.x.p-$(get_version_component_range 4)"
@@ -16,7 +18,7 @@ S="${WORKDIR}/vmware-server-distrib"
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://download3.vmware.com/software/vmserver/${NP}.tar.gz
-		 http://dev.gentoo.org/~wolf31o2/sources/dump/${P}-rpath-corrected-libs.tar.bz2"
+		 http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${P}-rpath-corrected-libs.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
@@ -53,52 +55,31 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!app-emulation/vmware-workstation
 	sys-apps/pciutils
 	sys-apps/xinetd
-	>=sys-apps/baselayout-1.11.14
-	>=app-emulation/vmware-modules-101"
+	>=sys-apps/baselayout-1.11.14"
+PDEPEND=">=app-emulation/vmware-modules-101"
 
 dir=/opt/vmware/server
 Ddir=${D}/${dir}
 VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 
+EPATCH_SOURCE=${FILESDIR}/${P}
+
 pkg_setup() {
 	# This is due to both bugs #104480 and #106170
 	enewgroup "${VMWARE_GROUP}"
+
+	vmware_test_module_build
 }
 
 src_unpack() {
 	unpack ${A}
 	cd ${S}
-	# patch the config to not install desktop/icon files
-	epatch ${FILESDIR}/${P}-config.patch
-	# patch the config to make /etc/vmware/config writable
-	epatch ${FILESDIR}/${P}-config2.patch
-	# patch the config to work with kernels above 2.6.12ish
-	# epatch ${FILESDIR}/${P}-config3.patch
-	# patch the configure script not to build the modules
-	epatch ${FILESDIR}/${P}-config4.patch
-	# patch the config script not to overwrite existing vmware-authd files
-	epatch ${FILESDIR}/${P}-config5.patch
-	# patch the config script to play nice with xinetd
-	epatch ${FILESDIR}/${P}-config6.patch
-	# patch the services file to modprobe the modules rather than insmod
-	epatch ${FILESDIR}/${P}-services.patch
+	
+	epatch ${FILESDIR}/${PV}
 
 	# patch the vmware /etc/pam.d file to ensure that only 
 	# vmware group members can log in
-	cp ${FILESDIR}/${P}-vmware-authd-x86 ${S}/etc/pam.d/vmware-authd
-	use amd64 && cp ${FILESDIR}/${P}-vmware-authd-amd64	${S}/etc/pam.d/vmware-authd
-
-	# Fix up all the broken rpaths
-	#einfo "Removing empty RPATH variables from perl libraries..."
-
-	#for sobj in `find ${S}/lib/perl5/site_perl/5.005/ -name *.so -and ! -name PAM.so -and ! -name POSIX.so`;
-	#do
-		# Change the permissions for FEATURES="userpriv"
-	#	chmod u+w $sobj
-	#	echo $sobj
-	#	chrpath -d $sobj
-	#	chmod u-w $sobj
-	#done
+	cp ${FILESDIR}/vmware-authd ${S}/etc/pam.d/vmware-authd
 }
 
 src_install() {
@@ -134,6 +115,9 @@ src_install() {
 
 	# vmware enviroment
 	doenvd ${FILESDIR}/90vmware-server || die "doenvd"
+
+	# Fix the amd64 emulation pam stuff
+	use amd64 && dosed ":pam_:/emul/linux/x86/lib/security/pam_:" /etc/pam.d/vmware-authd
 
 	dodir /etc/vmware/
 	cp -pPR etc/* ${D}/etc/vmware/
