@@ -13,6 +13,7 @@ SRC_URI="http://ftp.cvut.cz/vmware/vmware-any-any-update${PV}.tar.gz"
 
 S=${WORKDIR}
 
+RESTRICT="userpriv"
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
