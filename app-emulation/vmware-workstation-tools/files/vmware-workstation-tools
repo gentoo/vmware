@@ -1,0 +1,90 @@
+#!/sbin/runscript
+#
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation-tools/files/5.0.0/vmware-workstation-tools,v 1.3 2006/05/08 13:56:34 wolf31o2 Exp $
+#
+# This script manages the services needed to run VMware software
+
+VMWARE_ETC_DIR=/etc/vmware-tools
+VMWARE_BIN_DIR=/usr/bin
+VMWARE_SBIN_DIR=/usr/sbin
+VMWARE_LIB_DIR=/usr/lib/vmware-tools
+
+VMWARE_GUESTD_PID=/var/run/vmware-guestd.pid
+VMWARE_GUESTD_BIN=${VMWARE_SBIN_DIR}/vmware-guestd
+VMWARE_CHECKVM_BIN=${VMWARE_SBIN_DIR}/vmware-checkvm
+
+VMWARE_CONFIG_TOOLS=${VMWARE_BIN_DIR}/vmware-config-tools.pl
+
+VMWARE_VMHGFS_MOD=vmhgfs
+
+VMWARE_NOT_CONFIGURED=${VMWARE_ETC_DIR}/not_configured
+
+# Is a given module loaded?
+isLoaded() {
+  local module="$1"
+
+  /sbin/lsmod | awk 'BEGIN {n = "no";} {if ($1 == "'"$module"'") n = "yes";} END {print n;}'
+}
+
+vmware_tools_load_module() {
+   if [ "`isLoaded "$1"`" = 'yes' ]; then
+      /sbin/rmmod "$1"
+   fi
+   /sbin/insmod -s -f "/lib/modules/`uname -r`/misc/$1.o" >/dev/null 2>&1 || /sbin/insmod -s -f "$1" >/dev/null 2>&1 || eend 1
+}
+
+vmware_tools_unload_module() {
+   if [ "`isLoaded "$1"`" = 'yes' ]; then
+      /sbin/rmmod "$1" >/dev/null 2>&1 || eend 1
+   fi
+}
+
+depend ()
+{
+	before checkfs
+}
+
+checkconfig ()
+{
+	if [ -f $VMWARE_NOT_CONFIGURED ]; then
+		eerror "Please run $VMWARE_CONFIG_TOOLS first"
+		eend 1
+		return 1
+	fi
+
+	if ! $VMWARE_CHECKVM_BIN > /dev/null 2>&1 ; then
+		eerror "Not running inside vmware"
+		eend 1
+		return 1
+	fi
+}
+
+start ()
+{
+	checkconfig || eend 1
+
+	ebegin "Loading vmware filesystem"
+	vmware_tools_load_module $VMWARE_VMHGFS_MOD
+	eend $?
+
+	ebegin "Starting vmware guestd"
+	start-stop-daemon -b --quiet -m --pidfile ${VMWARE_GUESTD_PID} --start --startas ${VMWARE_GUESTD_BIN}
+	eend $?
+
+}
+
+stop ()
+{
+	ebegin "Stopping vmware guestd"
+	start-stop-daemon --stop --pidfile ${VMWARE_GUESTD_PID} -x ${VMWARE_GUESTD_BIN}
+	eend $?
+
+	ebegin "Unloading vmware filesystem"
+	vmware_tools_unload_module $VMWARE_VMHGFS_MOD
+	eend $?
+}
+
+reload ()
+{
+	stop ; start
+}

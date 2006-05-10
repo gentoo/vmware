@@ -1,0 +1,62 @@
+# ChangeLog for app-emulation/vmware-workstation
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/ChangeLog,v 1.122 2006/04/17 18:36:54 wolf31o2 Exp $
+
+  17 Apr 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-3.2.1.2242-r7.ebuild,
+  -vmware-workstation-4.5.3.19414.ebuild,
+  -vmware-workstation-5.5.1.19175.ebuild:
+  Removing older ebuilds.
+
+  17 Apr 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r10.ebuild,
+  vmware-workstation-4.5.3.19414-r3.ebuild,
+  vmware-workstation-5.5.1.19175-r3.ebuild:
+  Marking stable on amd64/x86 (where applicable) to force users to upgrade to
+  the new update101 patch, which fixes compilation on several kernels.
+
+*vmware-workstation-5.5.1.19175-r3 (17 Apr 2006)
+*vmware-workstation-4.5.3.19414-r3 (17 Apr 2006)
+*vmware-workstation-3.2.1.2242-r10 (17 Apr 2006)
+
+  17 Apr 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-3.2.1.2242-r9.ebuild,
+  +vmware-workstation-3.2.1.2242-r10.ebuild,
+  -vmware-workstation-4.5.3.19414-r2.ebuild,
+  +vmware-workstation-4.5.3.19414-r3.ebuild,
+  -vmware-workstation-5.5.1.19175-r2.ebuild,
+  +vmware-workstation-5.5.1.19175-r3.ebuild:
+  Revision bump to bring in update101.
+
+  31 Mar 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-5.5.1.19175-r2.ebuild:
+  It helps if I actually add the patch to the ebuild. Closing bug #127023 and
+  bug #127661.
+
+*vmware-workstation-5.5.1.19175-r2 (31 Mar 2006)
+*vmware-workstation-4.5.3.19414-r2 (31 Mar 2006)
+*vmware-workstation-3.2.1.2242-r9 (31 Mar 2006)
+
+  31 Mar 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +files/vmware-workstation-5.5.1.19175-config3.patch,
+  -vmware-workstation-3.2.1.2242-r8.ebuild,
+  +vmware-workstation-3.2.1.2242-r9.ebuild,
+  -vmware-workstation-4.5.3.19414-r1.ebuild,
+  +vmware-workstation-4.5.3.19414-r2.ebuild,
+  -vmware-workstation-5.5.1.19175-r1.ebuild,
+  +vmware-workstation-5.5.1.19175-r2.ebuild:
+  Added patch for vmware-config.pl to allow for 2G/2G from 2.6.16 and closing
+  bug #127661 and bug #127023.
+
+*vmware-workstation-5.5.1.19175-r1 (20 Mar 2006)
+*vmware-workstation-4.5.3.19414-r1 (20 Mar 2006)
+*vmware-workstation-3.2.1.2242-r8 (20 Mar 2006)
+
+  20 Mar 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r7.ebuild,
+  +vmware-workstation-3.2.1.2242-r8.ebuild,
+  +vmware-workstation-4.5.3.19414-r1.ebuild,
+  +vmware-workstation-5.5.1.19175-r1.ebuild:
+  Added a new revision with vmware-any-any-update98 that should also resolve
+  bug #117696.
+
