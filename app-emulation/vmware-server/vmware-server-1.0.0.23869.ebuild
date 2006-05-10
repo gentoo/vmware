@@ -6,7 +6,7 @@
 # to download VMWare. The agreeing to a licence is part of the configure step
 # which the user must run manually.
 
-inherit vmware-pkg eutils versionator
+inherit vmware eutils versionator
 
 VMWARE_VME="VME_S1B1"
 
