@@ -6,22 +6,21 @@
 # to download VMWare. The agreeing to a licence is part of the configure step
 # which the user must run manually.
 
-inherit eutils
+inherit vmware eutils
 
-S=${WORKDIR}/vmware-distrib
-ANY_ANY="vmware-any-any-update101"
-NP="VMware-workstation-5.5.1-19175"
+MY_P="VMware-workstation-5.5.1-19175"
+
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
-SRC_URI="http://vmware-svca.www.conxion.com/software/wkst/${NP}.tar.gz
-	http://download3.vmware.com/software/wkst/${NP}.tar.gz
-	http://download.vmware.com/htdocs/software/wkst/${NP}.tar.gz
-	http://www.vmware.com/download1/software/wkst/${NP}.tar.gz
-	ftp://download1.vmware.com/pub/software/wkst/${NP}.tar.gz
-	http://vmware-chil.www.conxion.com/software/wkst/${NP}.tar.gz
-	http://vmware-heva.www.conxion.com/software/wkst/${NP}.tar.gz
-	http://vmware.wespe.de/software/wkst/${NP}.tar.gz
-	ftp://vmware.wespe.de/pub/software/wkst/${NP}.tar.gz
+SRC_URI="http://vmware-svca.www.conxion.com/software/wkst/${MY_P}.tar.gz
+	http://download3.vmware.com/software/wkst/${MY_P}.tar.gz
+	http://download.vmware.com/htdocs/software/wkst/${MY_P}.tar.gz
+	http://www.vmware.com/download1/software/wkst/${MY_P}.tar.gz
+	ftp://download1.vmware.com/pub/software/wkst/${MY_P}.tar.gz
+	http://vmware-chil.www.conxion.com/software/wkst/${MY_P}.tar.gz
+	http://vmware-heva.www.conxion.com/software/wkst/${MY_P}.tar.gz
+	http://vmware.wespe.de/software/wkst/${MY_P}.tar.gz
+	ftp://vmware.wespe.de/pub/software/wkst/${MY_P}.tar.gz
 	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
@@ -53,33 +52,13 @@ RDEPEND="sys-libs/glibc
 	sys-apps/pciutils"
 #	>=sys-apps/baselayout-1.11.14"
 
+S=${WORKDIR}/vmware-distrib
+
 dir=/opt/vmware/workstation
 Ddir=${D}/${dir}
-VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 
-pkg_setup() {
-	# This is due to both bugs #104480 and #106170
-	enewgroup "${VMWARE_GROUP}"
-}
-
-src_unpack() {
-	unpack ${NP}.tar.gz
-	cd ${S}
-	# patch the config to not install desktop/icon files
-	epatch ${FILESDIR}/${P}-config.patch
-	# patch the config to make /etc/vmware/config writable
-	epatch ${FILESDIR}/${P}-config2.patch
-	epatch ${FILESDIR}/${P}-config3.patch
-	unpack ${ANY_ANY}.tar.gz
-	mv -f ${ANY_ANY}/*.tar ${S}/lib/modules/source/
-	cd ${S}/${ANY_ANY}
-	chmod 755 ../lib/bin/vmware ../bin/vmnet-bridge ../lib/bin/vmware-vmx ../lib/bin-debug/vmware-vmx
-	# vmware any98 still doesn't patch the vmware binary
-	#./update vmware ../lib/bin/vmware || die
-	#./update bridge ../bin/vmnet-bridge || die
-	#./update vmx ../lib/bin/vmware-vmx || die
-	#./update vmxdebug ../lib/bin-debug/vmware-vmx || die
-}
+PATCHES="config.patch config2.patch config3.patch"
+RUN_UPDATE="no"
 
 src_install() {
 	dodir ${dir}/bin
@@ -114,24 +93,13 @@ src_install() {
 	dodir /etc/vmware/
 	cp -pPR etc/* ${D}/etc/vmware/
 
-	dodir /etc/vmware/init.d
-	dodir /etc/vmware/init.d/rc0.d
-	dodir /etc/vmware/init.d/rc1.d
-	dodir /etc/vmware/init.d/rc2.d
-	dodir /etc/vmware/init.d/rc3.d
-	dodir /etc/vmware/init.d/rc4.d
-	dodir /etc/vmware/init.d/rc5.d
-	dodir /etc/vmware/init.d/rc6.d
+	vmware_create_initd
+
 	cp -pPR installer/services.sh ${D}/etc/vmware/init.d/vmware || die
 	dosed 's/mknod -m 600/mknod -m 660/' /etc/vmware/init.d/vmware || die
 	dosed '/c 119 "$vHubNr"/ a\
 		chown root:vmware /dev/vmnet*\
 		' /etc/vmware/init.d/vmware || die
-
-	# This is to fix a problem where if someone merges vmware and then
-	# before configuring vmware they upgrade or re-merge the vmware
-	# package which would rmdir the /etc/vmware/init.d/rc?.d directories.
-	keepdir /etc/vmware/init.d/rc{0,1,2,3,4,5,6}.d
 
 	insinto ${dir}/lib/icon
 	doins ${S}/lib/share/icons/48x48/apps/${PN}.png || die
@@ -159,49 +127,7 @@ src_install() {
 	echo 'KERNEL=="vmmon*", GROUP="vmware" MODE=660' > \
 		${D}/etc/udev/rules.d/60-vmware.rules || die
 
-	# Questions:
-	einfo "Adding answers to /etc/vmware/locations"
-	locations="${D}/etc/vmware/locations"
-	echo "answer BINDIR ${dir}/bin" >> ${locations}
-	echo "answer LIBDIR ${dir}/lib" >> ${locations}
-	echo "answer MANDIR ${dir}/man" >> ${locations}
-	echo "answer DOCDIR ${dir}/doc" >> ${locations}
-	echo "answer RUN_CONFIGURATOR no" >> ${locations}
-	echo "answer INITDIR /etc/vmware/init.d" >> ${locations}
-	echo "answer INITSCRIPTSDIR /etc/vmware/init.d" >> ${locations}
-}
-
-pkg_preinst() {
-	# This must be done after the install to get the mtimes on each file
-	# right. This perl snippet gets the /etc/vmware/locations file code:
-	# perl -e "@a = stat('bin/vmware'); print \$a[9]"
-	# The above perl line and the find line below output the same thing.
-	# I would think the find line is faster to execute.
-	# find /opt/vmware/workstation/bin/vmware -printf %T@
-
-	#Note: it's a bit weird to use ${D} in a preinst script but it should work
-	#(drobbins, 1 Feb 2002)
-
-	einfo "Generating /etc/vmware/locations file."
-	d=`echo ${D} | wc -c`
-	for x in `find ${Ddir} ${D}/etc/vmware` ; do
-		x="`echo ${x} | cut -c ${d}-`"
-		if [ -d ${D}/${x} ] ; then
-			echo "directory ${x}" >> ${D}/etc/vmware/locations
-		else
-			echo -n "file ${x}" >> ${D}/etc/vmware/locations
-			if [ "${x}" == "/etc/vmware/locations" ] ; then
-				echo "" >> ${D}/etc/vmware/locations
-			elif [ "${x}" == "/etc/vmware/not_configured" ] ; then
-				echo "" >> ${D}/etc/vmware/locations
-			else
-				echo -n " " >> ${D}/etc/vmware/locations
-				#perl -e "@a = stat('${D}${x}'); print \$a[9]" >> ${D}/etc/vmware/locations
-				find ${D}${x} -printf %T@ >> ${D}/etc/vmware/locations
-				echo "" >> ${D}/etc/vmware/locations
-			fi
-		fi
-	done
+	vmware_run_questions
 }
 
 pkg_config() {
@@ -210,19 +136,7 @@ pkg_config() {
 }
 
 pkg_postinst() {
-	update-mime-database /usr/share/mime
-	[ -d /etc/vmware ] && chown -R root:vmware /etc/vmware
-
-	# This is to fix the problem where the not_configured file doesn't get
-	# removed when the configuration is run. This doesn't remove the file
-	# It just tells the vmware-config.pl script it can delete it.
-	einfo "Updating /etc/vmware/locations"
-	for x in /etc/vmware/._cfg????_locations ; do
-		if [ -f $x ] ; then
-			cat $x >> /etc/vmware/locations
-			rm $x
-		fi
-	done
+	vmware_pkg_postinst
 
 	einfo
 	einfo "You need to run ${dir}/bin/vmware-config.pl to complete the install."
@@ -243,7 +157,6 @@ pkg_postinst() {
 	echo
 	ewarn "VMWare allows for the potential of overwriting files as root.  Only"
 	ewarn "give VMWare access to trusted individuals."
-	#ewarn "For users of glibc-2.3.x, vmware-nat support is *still* broken on 2.6.x"
 }
 
 pkg_postrm() {

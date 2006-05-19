@@ -1,0 +1,18 @@
+# ChangeLog for vmware overlay
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 May 2006; Chris Gianelloni <wolf31o2@gentoo.org> :
+  I know that this is the first version of the ChangeLog, even though we have
+  already been committing, but I figured I would add this here to keep things
+  in order and so that people know what is going on with the overlay. I just
+  made some modifications to the vmware.eclass to give it support for
+  pkg_setup, src_unpack, pkg_preinst, and pkg_postinst. I also created a new
+  vmware-server revision, but since I haven't tested it yet, I have it marked
+  as -* so nobody gets it by accident and blames ikelos. The
+  vmware-workstation ebuild for 5.5.1 has been updated, and *should* work, but
+  I make no guarantees. I plan on slowly updating everything as time permits,
+  and will also be adding more functionality to the eclass. I'm really trying
+  to put the brunt of all the code from all of the packages into the eclass,
+  since they are all so similar. Anyway, enough of my ranting. Enjoy.
+

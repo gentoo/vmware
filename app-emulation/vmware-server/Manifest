@@ -44,6 +44,10 @@ EBUILD vmware-server-1.0.0.23869-r1.ebuild 8511 RMD160 d799cb6fb8e30cba3b3be5545
 MD5 5d70d96927f651df7c779575413d8396 vmware-server-1.0.0.23869-r1.ebuild 8511
 RMD160 d799cb6fb8e30cba3b3be554526bf0eafc6ae8ae vmware-server-1.0.0.23869-r1.ebuild 8511
 SHA256 ced79c3ce06fe4faae8f799f22aea327f3c07279e9c2ea4ce4b9f6ba21cd9516 vmware-server-1.0.0.23869-r1.ebuild 8511
+EBUILD vmware-server-1.0.0.23869-r2.ebuild 5720 RMD160 2bc06c3ba6b3a471b0bd1cbf2681c2e648be2c3d SHA1 8c0d4fd7add3c9c8ea69f0a3ba2c8e72bf3bfc1e SHA256 c40b14bff703b470dfa5587941c01623799b0c93a68e657e5ecec9235bb5cbad size 5720
+MD5 1b1155340fc354b4532c7b028c64f379 vmware-server-1.0.0.23869-r2.ebuild 5720
+RMD160 2bc06c3ba6b3a471b0bd1cbf2681c2e648be2c3d vmware-server-1.0.0.23869-r2.ebuild 5720
+SHA256 c40b14bff703b470dfa5587941c01623799b0c93a68e657e5ecec9235bb5cbad vmware-server-1.0.0.23869-r2.ebuild 5720
 EBUILD vmware-server-1.0.0.23869.ebuild 8620 RMD160 94f21a580a64499340b32bec163805deb99404ad SHA1 6510ff91a256de4841f3d4be1df90b606d33db1a SHA256 8e96f43f2f6b39f1fcf56ddcd23f89573e573d036bbcb18667623265d9eea19b size 8620
 MD5 cba926df51f932e13fdc5310bdb9bf8a vmware-server-1.0.0.23869.ebuild 8620
 RMD160 94f21a580a64499340b32bec163805deb99404ad vmware-server-1.0.0.23869.ebuild 8620
@@ -54,3 +58,6 @@ SHA256 b0a517f2e25ea346f26a57f13d6746cb610b3574463e63cdfc3e2c955135724d files/di
 MD5 86bed5ceecd60c191a5939bae0079cbf files/digest-vmware-server-1.0.0.23869-r1 626
 RMD160 7bc628baa43745c6e9397d90938c7c3a46e173e3 files/digest-vmware-server-1.0.0.23869-r1 626
 SHA256 b0a517f2e25ea346f26a57f13d6746cb610b3574463e63cdfc3e2c955135724d files/digest-vmware-server-1.0.0.23869-r1 626
+MD5 86bed5ceecd60c191a5939bae0079cbf files/digest-vmware-server-1.0.0.23869-r2 626
+RMD160 7bc628baa43745c6e9397d90938c7c3a46e173e3 files/digest-vmware-server-1.0.0.23869-r2 626
+SHA256 b0a517f2e25ea346f26a57f13d6746cb610b3574463e63cdfc3e2c955135724d files/digest-vmware-server-1.0.0.23869-r2 626
