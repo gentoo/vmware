@@ -50,6 +50,7 @@ vmware_create_initd() {
 }
 
 vmware_run_questions() {
+	vmware_determine_product
 	# Questions:
 	einfo "Adding answers to /etc/${product}/locations"
 	locations="${D}/etc/${product}/locations"
@@ -103,12 +104,10 @@ vmware_src_unpack() {
 	then
 		unpack "${MY_P}".tar.gz
 		cd "${S}"
-		if [[ -n "${PATCHES}" ]]
+		if [[ -d "${FILESDIR}/${PV}" ]]
 		then
-			for patch in ${PATCHES}
-			do
-				epatch ${FILESDIR}/${P}-${patch}
-			done
+			EPATCH_SUFFIX="patch"
+			epatch ${FILESDIR}/${PV}
 		fi
 		if [[ -n "${ANY_ANY}" ]]
 		then

@@ -1,0 +1,28 @@
+--- vmware-server-distrib/bin/vmware-config.pl	2006-03-20 20:04:45.000000000 +0000
++++ vmware-server-distrib/bin/vmware-config.pl	2006-03-20 20:08:01.000000000 +0000
+@@ -6255,17 +6255,17 @@
+ #Restart xinetd
+ sub restart_xinetd {
+   my $xinetd_restart = db_get_answer('INITSCRIPTSDIR') . '/xinetd';
++  if (!system(shell_string($gHelper{'killall'}) . ' -USR2 xinetd')) {
++    return;
++  }
+   if (-e $xinetd_restart) {
+-    if (!system(shell_string($xinetd_restart) . ' restart')) {
+-      return;
++    if (system(shell_string($xinetd_restart) . ' restart')) {
++      query('Unable to make the Internet super-server (xinetd) re-read its '
++            . 'configuration file.  Please restart xinetd by hand:' . "\n"
++            . '    killall -v -USR2 xinetd' . "\n\n"
++            . 'Hit enter to continue.', '', 0);
+     }
+   }
+-  if (system(shell_string($gHelper{'killall'}) . ' -USR2 xinetd')) {
+-    query('Unable to make the Internet super-server (xinetd) re-read its '
+-          . 'configuration file.  Please restart xinetd by hand:' . "\n"
+-          . '    killall -v -USR2 xinetd' . "\n\n"
+-          . 'Hit enter to continue.', '', 0);
+-  }
+ }
+ 
+ # Update the Internet super-server's configuration file, and make the

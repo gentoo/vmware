@@ -12,18 +12,18 @@ VMWARE_VME="VME_S1B1"
 
 MY_PN="VMware-server"
 MY_PV="e.x.p-$(get_version_component_range 4)"
-NP="${MY_PN}-${MY_PV}"
+MY_P="${MY_PN}-${MY_PV}"
 S="${WORKDIR}/vmware-server-distrib"
 
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${NP}.tar.gz
+SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
 		 http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${P}-rpath-corrected-libs.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="-* ~x86 ~amd64"
 RESTRICT="nostrip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
@@ -56,12 +56,12 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	sys-apps/pciutils
 	virtual/pam
 	sys-apps/xinetd"
-PDEPEND=">=app-emulation/vmware-modules-101"
+PDEPEND="app-emulation/vmware-modules"
+
+ANY_ANY=""
 
 dir=/opt/vmware/server
 Ddir=${D}/${dir}
-
-EPATCH_SOURCE=${FILESDIR}/${P}
 
 pkg_setup() {
 	vmware_pkg_setup
@@ -69,10 +69,8 @@ pkg_setup() {
 }
 
 src_unpack() {
-	unpack ${A}
-	cd ${S}
-	
-	epatch ${FILESDIR}/${PV}
+	vmware_src_unpack
+	unpack ${P}-rpath-corrected-libs.tar.bz2
 
 	# patch the vmware /etc/pam.d file to ensure that only 
 	# vmware group members can log in
@@ -145,11 +143,6 @@ src_install() {
 		|| die "Changing permissions"
 	fperms 4750 ${dir}/lib/bin{,-debug}/vmware-vmx ${dir}/sbin/vmware-authd || die
 	fperms 770 /etc/vmware || die
-
-	# this adds udev rules for vmmon*
-	dodir /etc/udev/rules.d
-	echo 'KERNEL=="vmmon*", GROUP="'${VMWARE_GROUP}'" MODE=660' > \
-		${D}/etc/udev/rules.d/60-vmware.rules || die
 
 	vmware_run_questions
 }

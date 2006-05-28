@@ -1,6 +1,24 @@
 # ChangeLog for vmware overlay
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $ Id: $
+
+  28 May 2006; Mike Auty <ikelos@gentoo.org> :
+  Ok, a lot of changes this time round:
+
+  * vmware-player converted to use vmware.eclass
+  * workstation/player converted to use vmware-modules
+  * udev rule creation moved to vmware-modules
+  * eclass modified to work with patch directories
+  * dhcpd.conf location fix added to vmware-server
+  * vmware-server converted to use vmware_src-unpack
+  * player/workstaton added a patch to use modprobe over insmod
+
+  I've tested the latest player/server ebuilds on x86.
+  Workstation installed fine, but without a license was hard to test.  5:)
+  I didn't want to mess with the any_any patching for the testing, so if 
+  that's required we'll have to add the any_any source back into SRC_URI,
+  and remove the ANY_ANY="" lines.  Note there may still be some ${product}
+  changes needed in the vmware-player ebuild too.
 
   19 May 2006; Chris Gianelloni <wolf31o2@gentoo.org> :
   I know that this is the first version of the ChangeLog, even though we have

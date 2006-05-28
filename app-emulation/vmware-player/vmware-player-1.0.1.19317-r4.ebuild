@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-5.5.1.19175-r3.ebuild,v 1.2 2006/04/17 18:31:49 wolf31o2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-1.0.1.19317-r3.ebuild,v 1.1 2006/04/17 14:04:03 wolf31o2 Exp $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -8,32 +8,25 @@
 
 inherit vmware eutils
 
-MY_P="VMware-workstation-5.5.1-19175"
-
+S=${WORKDIR}/vmware-player-distrib
+MY_P="VMware-player-1.0.1-19317"
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
-HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
-SRC_URI="http://vmware-svca.www.conxion.com/software/wkst/${MY_P}.tar.gz
-	http://download3.vmware.com/software/wkst/${MY_P}.tar.gz
-	http://download.vmware.com/htdocs/software/wkst/${MY_P}.tar.gz
-	http://www.vmware.com/download1/software/wkst/${MY_P}.tar.gz
-	ftp://download1.vmware.com/pub/software/wkst/${MY_P}.tar.gz
-	http://vmware-chil.www.conxion.com/software/wkst/${MY_P}.tar.gz
-	http://vmware-heva.www.conxion.com/software/wkst/${MY_P}.tar.gz
-	http://vmware.wespe.de/software/wkst/${MY_P}.tar.gz
-	ftp://vmware.wespe.de/pub/software/wkst/${MY_P}.tar.gz
-	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz"
+HOMEPAGE="http://www.vmware.com/products/player/"
+SRC_URI="http://download3.vmware.com/software/vmplayer/${MY_P}.tar.gz
+	mirror://gentoo/vmware.png"
 
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* amd64 x86"
-RESTRICT="nostrip"
+KEYWORDS="-* ~amd64 ~x86"
+RESTRICT="nostrip" # fetch"
 
-DEPEND="${RDEPEND} virtual/os-headers"
-# vmware-workstation should not use virtual/libc as this is a 
+ANY_ANY=""
+VMWARE_VME="VME_V55"
+
+DEPEND="${RDEPEND} virtual/os-headers
+	!app-emulation/vmware-workstation"
+# vmware-player should not use virtual/libc as this is a 
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
 	amd64? (
@@ -48,17 +41,18 @@ RDEPEND="sys-libs/glibc
 			virtual/x11 )
 		virtual/xft )
 	>=dev-lang/perl-5
-	!app-emulation/vmware-player
+	!app-emulation/vmware-workstation
+	!app-emulation/vmware-server
 	sys-apps/pciutils"
-#	>=sys-apps/baselayout-1.11.14"
+PDEPEND="app-emulation/vmware-modules"
 
-S=${WORKDIR}/vmware-distrib
-
-dir=/opt/vmware/workstation
+dir=/opt/vmware/player
 Ddir=${D}/${dir}
 
-PATCHES="config.patch config2.patch config3.patch"
-RUN_UPDATE="no"
+pkg_setup() {
+	vmware_pkg_setup
+	vmware_test_module_build
+}
 
 src_install() {
 	dodir ${dir}/bin
@@ -82,13 +76,11 @@ src_install() {
 	insinto ${dir}/doc
 	doins doc/EULA || die "copying EULA"
 
-	doman ${S}/man/man1/vmware.1.gz || die "doman"
-
 	# vmware service loader
 	newinitd ${FILESDIR}/vmware.rc vmware || die "newinitd"
 
 	# vmware enviroment
-	doenvd ${FILESDIR}/90vmware-workstation || die "doenvd"
+	doenvd ${FILESDIR}/90vmware-player || die "doenvd"
 
 	dodir /etc/vmware/
 	cp -pPR etc/* ${D}/etc/vmware/
@@ -98,8 +90,8 @@ src_install() {
 	cp -pPR installer/services.sh ${D}/etc/vmware/init.d/vmware || die
 	dosed 's/mknod -m 600/mknod -m 660/' /etc/vmware/init.d/vmware || die
 	dosed '/c 119 "$vHubNr"/ a\
-		chown root:vmware /dev/vmnet*\
-		' /etc/vmware/init.d/vmware || die
+			chown root:vmware /dev/vmnet*\
+			' /etc/vmware/init.d/vmware || die
 
 	insinto ${dir}/lib/icon
 	doins ${S}/lib/share/icons/48x48/apps/${PN}.png || die
@@ -107,10 +99,10 @@ src_install() {
 	insinto /usr/share/mime/packages
 	doins ${FILESDIR}/vmware.xml
 
-	make_desktop_entry vmware "VMWare Workstation" ${PN}.png
+	make_desktop_entry vmplayer "VMWare Player" ${PN}.png
 
 	dodir /usr/bin
-	dosym ${dir}/bin/vmware /usr/bin/vmware
+	dosym ${dir}/bin/vmplayer /usr/bin/vmplayer
 
 	# this removes the user/group warnings
 	chown -R root:0 ${D} || die
@@ -121,11 +113,6 @@ src_install() {
 		|| die "Changing permissions"
 	fperms 4750 ${dir}/lib/bin{,-debug}/vmware-vmx || die
 	fperms 770 /etc/vmware || die
-
-	# this adds udev rules for vmmon*
-	dodir /etc/udev/rules.d
-	echo 'KERNEL=="vmmon*", GROUP="vmware" MODE=660' > \
-		${D}/etc/udev/rules.d/60-vmware.rules || die
 
 	vmware_run_questions
 }
@@ -144,19 +131,21 @@ pkg_postinst() {
 	einfo "For VMware Add-Ons just visit"
 	einfo "http://www.vmware.com/download/downloadaddons.html"
 	einfo
-	einfo "After configuring, type 'vmware' to launch"
+	einfo "After configuring, type 'vmplayer' to launch"
 	einfo
 	einfo "Also note that when you reboot you should run:"
 	einfo "/etc/init.d/vmware start"
-	einfo "before trying to run vmware.  Or you could just add"
+	einfo "before trying to run vmplayer.  Or you could just add"
 	einfo "it to the default run level:"
 	einfo "rc-update add vmware default"
 	echo
-	ewarn "Remember, in order to run vmware, you have to"
+	ewarn "Remember, in order to run vmplayer, you have to"
 	ewarn "be in the '${VMWARE_GROUP}' group."
 	echo
 	ewarn "VMWare allows for the potential of overwriting files as root.  Only"
 	ewarn "give VMWare access to trusted individuals."
+
+	#ewarn "For users of glibc-2.3.x, vmware-nat support is *still* broken on 2.6.x"
 }
 
 pkg_postrm() {
