@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation-tools/vmware-workstation-tools-4.5.2.ebuild,v 1.3 2006/05/08 13:56:33 wolf31o2 Exp $
+# $Header: $
 
 inherit vmware eutils
 
@@ -17,11 +17,10 @@ SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 
 LICENSE="vmware"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="-* ~x86"
 IUSE="X"
 RESTRICT="strip"
 
-DEPEND=""
 RDEPEND="sys-apps/pciutils"
 
 dir=/opt/vmware/tools

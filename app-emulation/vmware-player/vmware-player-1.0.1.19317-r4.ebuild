@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-1.0.1.19317-r3.ebuild,v 1.1 2006/04/17 14:04:03 wolf31o2 Exp $
+# $Header: $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -18,10 +18,9 @@ SRC_URI="http://download3.vmware.com/software/vmplayer/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
-RESTRICT="nostrip" # fetch"
+KEYWORDS="-*"
+RESTRICT="strip" # fetch"
 
-ANY_ANY=""
 VMWARE_VME="VME_V55"
 
 DEPEND="${RDEPEND} virtual/os-headers

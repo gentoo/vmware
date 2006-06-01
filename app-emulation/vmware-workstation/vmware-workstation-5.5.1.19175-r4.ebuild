@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $ Id: $
+# $Header: $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -25,13 +25,12 @@ SRC_URI="http://vmware-svca.www.conxion.com/software/wkst/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* amd64 x86"
-RESTRICT="nostrip"
+KEYWORDS="-*"
+RESTRICT="strip"
 
-ANY_ANY=""
 VMWARE_VME="VME_V55"
 
-DEPEND="${RDEPEND} virtual/os-headers"
+DEPEND="virtual/os-headers"
 # vmware-workstation should not use virtual/libc as this is a 
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
@@ -50,16 +49,12 @@ RDEPEND="sys-libs/glibc
 	!app-emulation/vmware-player
 	!app-emulation/vmware-server
 	sys-apps/pciutils"
-#	>=sys-apps/baselayout-1.11.14"
 PDEPEND="app-emulation/vmware-modules"
 
 S=${WORKDIR}/vmware-distrib
 
-dir=/opt/vmware/workstation
-Ddir=${D}/${dir}
-
-PATCHES="config.patch config2.patch config3.patch"
 RUN_UPDATE="no"
+dir=/opt/vmware/workstation
 
 pkg_setup() {
 	vmware_test_module_build
@@ -67,51 +62,16 @@ pkg_setup() {
 }
 
 src_install() {
-	dodir ${dir}/bin
-	cp -pPR bin/* ${Ddir}/bin
+	not-vmware_src_install
 
-	dodir ${dir}/lib
-	cp -dr lib/* ${Ddir}/lib
-
-	# Since with Gentoo we compile everthing it doesn't make sense to keep
-	# the precompiled modules arround. Saves about 4 megs of disk space too.
-	rm -rf ${Ddir}/lib/modules/binary
-	# We also don't need to keep the icons around
-	rm -rf ${Ddir}/lib/share/icons
 	# We set vmware-vmx and vmware-ping suid
 	chmod u+s ${Ddir}/bin/vmware-ping
 	chmod u+s ${Ddir}/lib/bin/vmware-vmx
 
-	dodoc doc/* || die "dodoc"
-	# Fix for bug #91191
-	dodir ${dir}/doc
-	insinto ${dir}/doc
-	doins doc/EULA || die "copying EULA"
-
-	doman ${S}/man/man1/vmware.1.gz || die "doman"
-
-	# vmware service loader
-	newinitd ${FILESDIR}/vmware.rc vmware || die "newinitd"
-
-	# vmware enviroment
-	doenvd ${FILESDIR}/90vmware-workstation || die "doenvd"
-
-	dodir /etc/vmware/
-	cp -pPR etc/* ${D}/etc/vmware/
-
-	vmware_create_initd
-
-	cp -pPR installer/services.sh ${D}/etc/vmware/init.d/vmware || die
 	dosed 's/mknod -m 600/mknod -m 660/' /etc/vmware/init.d/vmware || die
 	dosed '/c 119 "$vHubNr"/ a\
 		chown root:vmware /dev/vmnet*\
 		' /etc/vmware/init.d/vmware || die
-
-	insinto ${dir}/lib/icon
-	doins ${S}/lib/share/icons/48x48/apps/${PN}.png || die
-	doicon ${S}/lib/share/icons/48x48/apps/${PN}.png || die
-	insinto /usr/share/mime/packages
-	doins ${FILESDIR}/vmware.xml
 
 	make_desktop_entry vmware "VMWare Workstation" ${PN}.png
 
@@ -127,13 +87,6 @@ src_install() {
 		|| die "Changing permissions"
 	fperms 4750 ${dir}/lib/bin{,-debug}/vmware-vmx || die
 	fperms 770 /etc/vmware || die
-
-	vmware_run_questions
-}
-
-pkg_config() {
-	einfo "Running ${dir}/bin/vmware-config.pl"
-	${dir}/bin/vmware-config.pl
 }
 
 pkg_postinst() {

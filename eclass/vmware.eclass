@@ -5,6 +5,8 @@
 # This eclass is for all vmware-* ebuilds in the tree and should contain all
 # of the common components across the multiple packages.
 
+# Only one package per "product" is allowed to be installed at any given time.
+
 inherit eutils
 
 EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_unpack
@@ -12,29 +14,22 @@ EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_unpack
 export ANY_ANY="vmware-any-any-update101"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
+export Ddir=${D}/${dir}
 
 vmware_test_module_failed() {
-		eerror
-		eerror "Please run:"
-		eerror
-		eerror "   emerge -C app-emulation/vmware-modules"
-		eerror
-		eerror "before attemping to install this package"
-		die "Please run 'emerge -C app-emulation/vmware-modules' before continuing"
+	eerror "You have an incompatible version of app-emulation/vmware-modules installed!"
+	echo
+	die "Please run 'emerge -C app-emulation/vmware-modules' before continuing"
 }
 
 vmware_test_module_build() {
 	if has_version "app-emulation/vmware-modules"; then
 		if test ! -e /opt/vmware/module-build; then
-			eerror
-			eerror "Unable to determine which package"
-			eerror "the vmware-modules were compiled for"
+			eerror "Unable to determine which package the vmware-modules were compiled for"
 			vmware_test_module_failed
 		else
 			if test "`cat /opt/vmware/module-build`" != $VMWARE_VME; then
-				eerror
-				eerror "The vmware-modules on this system were"
-				eerror "built for a different version of vmware"
+				eerror "The vmware-modules on this system were built for a different version of vmware"
 				vmware_test_module_failed
 			fi
 		fi
@@ -97,9 +92,14 @@ vmware_pkg_setup() {
 			cdrom_get_cds ${TARBALL}
 			;;
 	esac
+	# Here we should be doing a test_module_build, as all vmware products need
+	# modules compiled.  This is commented until we can get both the products
+	# and the tools using the same build system.
+	#vmware_test_module_build
 }
 
 vmware_src_unpack() {
+	# If there is anything to unpack, at all, then we should be using MY_P.
 	if [[ -n "${MY_P}" ]]
 	then
 		unpack "${MY_P}".tar.gz
@@ -109,6 +109,14 @@ vmware_src_unpack() {
 			EPATCH_SUFFIX="patch"
 			epatch ${FILESDIR}/${PV}
 		fi
+		if [[ -n "${PATCHES}" ]]
+		then
+			for patch in ${PATCHES}
+			do
+				epatch ${FILESDIR}/${patch}
+			done
+		fi
+
 		if [[ -n "${ANY_ANY}" ]]
 		then
 			unpack ${ANY_ANY}.tar.gz
@@ -132,6 +140,94 @@ vmware_src_unpack() {
 			fi
 		fi
 	fi
+}
+
+# This will need to be renamed once it is fully functional.
+not-vmware_src_install() {
+	# We won't want any perl scripts from VMware once we've finally got all
+	# of the configuration done, but for now, they're necessary.
+	#rm -f bin/*.pl
+
+	# As backwards as this seems, we're installing our icons first.
+	if [[ -e lib/share/icons/48x48/apps/${PN}.png ]]
+	then
+		doicon lib/share/icons/48x48/apps/${PN}.png
+	elif [[ -e doc/icon48x48.png ]]
+	then
+		newicon doc/icon48x48.png ${PN}.png
+	elif [[ -e ${DISTDIR}/${product}.png ]]
+	then
+		newicon ${DISTDIR}/${product}.png ${PN}.png
+	fi
+
+	# Since with Gentoo we compile everthing it doesn't make sense to keep
+	# the precompiled modules arround. Saves about 4 megs of disk space too.
+	rm -rf ${dir}/lib/modules/binary
+	# We also don't need to keep the icons around, or do we?
+	#rm -rf ${dir}/lib/share/icons
+
+	# Just like any good monkey, we install the documentation and man pages.
+	[[ -d doc ]] && dodoc doc/*
+	for x in man/*
+	do
+		doman man/${x}/* || die "doman"
+	done
+
+	# We loop through our directories and copy everything to our system.
+	for x in bin lib sbin
+	do
+		if [[ -e ${S}/${x} ]]
+		then
+			dodir ${dir}/${x}
+			cp -pPR ${x}/* ${Ddir}/${x} || die "copying ${x}"
+		fi
+	done
+
+	# If we have an /etc directory, we copy it.
+	if [[ -e ${S}/etc ]]
+	then
+		dodir /etc/${product}
+		cp -pPR etc/* ${D}/etc/${product}
+	fi
+
+	# If we have any helper files, we install them.  First, we check for an
+	# init script.
+	if [[ ${FILESDIR}/${PN}.rc ]]
+	then
+		newinitd ${FILESDIR}/${PN}.rc ${product} || die "newinitd"
+	fi
+	# Then we check for an environment file.
+	if [[ ${FILESDIR}/90${product} ]]
+	then
+		doenvd ${FILESDIR}/90${product} || die "doenvd"
+	fi
+	# Last, we check for any mime files.
+	if [[ ${FILESDIR}/${product}.xml ]]
+	then
+		insinto /usr/share/mime/packages
+		doins ${FILESDIR}/${product}.xml || die "mimetypes"
+	fi
+
+	# Blame bug #91191 for this one.
+	if [[ -e doc/EULA ]]
+	then
+		insinto ${dir}/doc
+		doins doc/EULA || die "copying EULA"
+	fi
+
+	# TODO: Replace this junk
+	# Everything after this point will hopefully go away once we can rid
+	# ourselves of the evil perl configuration scripts.
+
+	# We have to create a bunch of rc directories for the init script
+	vmware_create_initd || die "creating rc directories"
+
+	# Now, we copy in our services.sh file
+	exeinto /etc/${product}/init.d
+	newexe ${ANY_ANY}/services.sh ${product} || die "services.sh"
+
+	# Finally, we run the "questions"
+	vmware_run_questions || die "running questions"
 }
 
 vmware_pkg_preinst() {
