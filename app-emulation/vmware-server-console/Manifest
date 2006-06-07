@@ -12,10 +12,10 @@ EBUILD vmware-server-console-1.0.0.23869.ebuild 4953 RMD160 c48fc103da5eb9d15157
 MD5 555368ea61fcc6da9d6a9f073a037931 vmware-server-console-1.0.0.23869.ebuild 4953
 RMD160 c48fc103da5eb9d15157fcda8e4c3513379c7e84 vmware-server-console-1.0.0.23869.ebuild 4953
 SHA256 306ec13dc8fbcb12b7058bbcf692e34854e2b16fe9d650d71c9713299325f001 vmware-server-console-1.0.0.23869.ebuild 4953
-EBUILD vmware-server-console-1.0.0.24927.ebuild 4947 RMD160 7ff35c0fbe1579676e065c0c27835505066a17fa SHA1 d47fdc6d0805c2b8ad090b4056f1e4eb3ccc42a6 SHA256 b3ecd14631244b4eeed425f0efc1476639a4f42d32dcc7b2bd0e030714498f79
-MD5 10344d749784492c5959305f26a59bc0 vmware-server-console-1.0.0.24927.ebuild 4947
-RMD160 7ff35c0fbe1579676e065c0c27835505066a17fa vmware-server-console-1.0.0.24927.ebuild 4947
-SHA256 b3ecd14631244b4eeed425f0efc1476639a4f42d32dcc7b2bd0e030714498f79 vmware-server-console-1.0.0.24927.ebuild 4947
+EBUILD vmware-server-console-1.0.0.24927.ebuild 4947 RMD160 a5d8f0ee2f6f05fb64f032c7fc4ba4ed72ea455c SHA1 6f475a42c8e14499dbd26967a26e9108b6aaaeb3 SHA256 abc66e5fcd1a8745f9a54912b39715e7343622e1e4fca95837dec10cf68b1979
+MD5 c1bdcf7fdd0f5de7aba130a7a38f73d6 vmware-server-console-1.0.0.24927.ebuild 4947
+RMD160 a5d8f0ee2f6f05fb64f032c7fc4ba4ed72ea455c vmware-server-console-1.0.0.24927.ebuild 4947
+SHA256 abc66e5fcd1a8745f9a54912b39715e7343622e1e4fca95837dec10cf68b1979 vmware-server-console-1.0.0.24927.ebuild 4947
 MD5 322676dcbda83026e3e508ff58d77881 files/digest-vmware-server-console-1.0.0.23869 313
 RMD160 67e422935bcdc78b5eb850bfe47a718a94fa060d files/digest-vmware-server-console-1.0.0.23869 313
 SHA256 08c5a8a2cca094752436696355dc6760a0587ba16c8d3ffa18fb87956f082005 files/digest-vmware-server-console-1.0.0.23869 313
