@@ -2,6 +2,21 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  07 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Added a vmware-mod.eclass, and associated vmware-modules-1.0.0.15.ebuild for
+  vmware-server-1.0.0.24927.  As soon as an any-any update comes out that
+  supports this version, the ebuild will be altered to use that instead.
+  
+  In the meantime, I've published a small tar file containing the sources from
+  the vmware-server release itself.  Hopefully this won't happen very often. 
+  I've also added a vmware-modules-1.0.0.14.ebuild, which I'll eventually move 
+  the older vmware-server build over to (even though that'll expire soon), just
+  so you can see how it's supposed to work...  5:)
+
+  Also updated the vmware-server-console package to build 24927 too.  I need to
+  rework the 24927 ebuild PATCHES variable, so I don't need two copies of patches
+  floating around for the two versions in portage...
+
   01 Jun 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   Restored older (working) vmware-workstation and vmware-player ebuilds. I also
   masked the newer revisions of the ebuilds for both until I can get everything
