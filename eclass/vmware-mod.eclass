@@ -19,8 +19,7 @@ IUSE=""
 # Provide vaguely sensible defaults
 VMWARE_VER="VME_V55"
 
-DEPEND=">=sys-apps/portage-2.0.54
-		!app-emulation/vmware-modules"
+DEPEND=">=sys-apps/portage-2.0.54"
 
 S=${WORKDIR}
 

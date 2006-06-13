@@ -42,6 +42,18 @@ AUX vmware-workstation-4.5.3.19414-librarypath.patch 807 RMD160 91085288d7199624
 MD5 87e9f24e29aaec45c84f7e57a50f96f2 files/vmware-workstation-4.5.3.19414-librarypath.patch 807
 RMD160 91085288d7199624ef867c63ad6322c1ec8074dc files/vmware-workstation-4.5.3.19414-librarypath.patch 807
 SHA256 10093b2adcc98d5c6be0624945f4d2cfdbb6489fbdda4c0df088a08c69f2da91 files/vmware-workstation-4.5.3.19414-librarypath.patch 807
+AUX vmware-workstation-5.5.1.19175-config.patch 1131 RMD160 3ab69d825994cc3bb177143d27091fc292cec46a SHA1 14264460c8500f1ead267059e2b9b9a5dc8c057f SHA256 b4055370b0092e71a2b2b0f27edeb7bc063ad265f95ab4530e52c3ab3167ad62
+MD5 23d97e5e436a0d827b48db3ed9948aa7 files/vmware-workstation-5.5.1.19175-config.patch 1131
+RMD160 3ab69d825994cc3bb177143d27091fc292cec46a files/vmware-workstation-5.5.1.19175-config.patch 1131
+SHA256 b4055370b0092e71a2b2b0f27edeb7bc063ad265f95ab4530e52c3ab3167ad62 files/vmware-workstation-5.5.1.19175-config.patch 1131
+AUX vmware-workstation-5.5.1.19175-config2.patch 647 RMD160 0f25f7dd60dfcb5a72b1f7b9cf344d6f431143a9 SHA1 cabd3dd071ef62d4c70f52d1a3e02334ec7f3a73 SHA256 41492cde60da6d449c0f427ac7bd65598838ec17ac0e3a5f545feeb1d29ea391
+MD5 3df74f4dfaa783b6a2f9eba3f0030afa files/vmware-workstation-5.5.1.19175-config2.patch 647
+RMD160 0f25f7dd60dfcb5a72b1f7b9cf344d6f431143a9 files/vmware-workstation-5.5.1.19175-config2.patch 647
+SHA256 41492cde60da6d449c0f427ac7bd65598838ec17ac0e3a5f545feeb1d29ea391 files/vmware-workstation-5.5.1.19175-config2.patch 647
+AUX vmware-workstation-5.5.1.19175-config3.patch 671 RMD160 9e8a46b76621b67be28cba60524bc4dea0dbd068 SHA1 9ff01452cc40dc0570e727b75f415b5c779e9086 SHA256 df96cf12b9e7ab2578c134c94e43f11fb8a187a3a0ddf8f645a8aa126020caab
+MD5 c97a07443c0b9124d7cecec1e15bee07 files/vmware-workstation-5.5.1.19175-config3.patch 671
+RMD160 9e8a46b76621b67be28cba60524bc4dea0dbd068 files/vmware-workstation-5.5.1.19175-config3.patch 671
+SHA256 df96cf12b9e7ab2578c134c94e43f11fb8a187a3a0ddf8f645a8aa126020caab files/vmware-workstation-5.5.1.19175-config3.patch 671
 AUX vmware.rc 1424 RMD160 f72d33d084de6661231ed3d10599f9d9bb578c21 SHA1 0a84cf6787ed1f4cd545f5fb10e768df8abd6f63 SHA256 408be40a1e176ef2c74fae1e9cc9dcd716ece187b6b2bcf037892a4f5ae1394b
 MD5 e516aab6d83b21fc44a44fc1394999cf files/vmware.rc 1424
 RMD160 f72d33d084de6661231ed3d10599f9d9bb578c21 files/vmware.rc 1424
@@ -63,10 +75,18 @@ EBUILD vmware-workstation-4.5.3.19414-r3.ebuild 8570 RMD160 28f1aacdae661825a79d
 MD5 c594d28af7db7dbe1cc694b6b0600643 vmware-workstation-4.5.3.19414-r3.ebuild 8570
 RMD160 28f1aacdae661825a79d85eaf594c462b4c3889e vmware-workstation-4.5.3.19414-r3.ebuild 8570
 SHA256 a5349e5d699c83dd8623c3ebc3a43fca4e71e11fd8e781735ab98c53c12f16f1 vmware-workstation-4.5.3.19414-r3.ebuild 8570
-EBUILD vmware-workstation-5.5.1.19175-r4.ebuild 4941 RMD160 b3066b3a7732ab99b2a55b0912eb3a803f5f4b9b SHA1 89802de18a70475d18469a5f76b0602aba5cfdf6 SHA256 9391867210a976ed52fae18f966c471ae5ccbd4ea2422193e7f22389d9ce9e18
-MD5 a2bfe63eca9083ee8cbe2ccfa1432e2d vmware-workstation-5.5.1.19175-r4.ebuild 4941
-RMD160 b3066b3a7732ab99b2a55b0912eb3a803f5f4b9b vmware-workstation-5.5.1.19175-r4.ebuild 4941
-SHA256 9391867210a976ed52fae18f966c471ae5ccbd4ea2422193e7f22389d9ce9e18 vmware-workstation-5.5.1.19175-r4.ebuild 4941
+EBUILD vmware-workstation-5.5.1.19175-r3.ebuild 8763 RMD160 f52b89b6657f4faecbeb4aa8cfb8ec1651722986 SHA1 0682d0284deaeeeade8359da34da171d1177ea02 SHA256 21d59a434f3f728568f952e7c10519bacea7d49577488c7a2e0f875f73292c23
+MD5 12e6253db0fde8de4d9f326bfee4dc23 vmware-workstation-5.5.1.19175-r3.ebuild 8763
+RMD160 f52b89b6657f4faecbeb4aa8cfb8ec1651722986 vmware-workstation-5.5.1.19175-r3.ebuild 8763
+SHA256 21d59a434f3f728568f952e7c10519bacea7d49577488c7a2e0f875f73292c23 vmware-workstation-5.5.1.19175-r3.ebuild 8763
+EBUILD vmware-workstation-5.5.1.19175-r4.ebuild 3683 RMD160 529e953255c26391183713b6c9a3f1ff747ebc8f SHA1 978a1c6811c70fe260cd42b48dca2d16805f243d SHA256 d6f032c2437485dd443d1e35af2dddb426d8a129f53f7bab6acf47fda980bc54
+MD5 59779f94920dd908c5f22f11f2302025 vmware-workstation-5.5.1.19175-r4.ebuild 3683
+RMD160 529e953255c26391183713b6c9a3f1ff747ebc8f vmware-workstation-5.5.1.19175-r4.ebuild 3683
+SHA256 d6f032c2437485dd443d1e35af2dddb426d8a129f53f7bab6acf47fda980bc54 vmware-workstation-5.5.1.19175-r4.ebuild 3683
+EBUILD vmware-workstation-5.5.1.19175-r5.ebuild 3601 RMD160 1c97d0720d93fea1ea80b18c4ccb43c5e07d0452 SHA1 35f729dc42c526d095cc9b7841f8ffe271808806 SHA256 809807413b470cf0cf01c68b07deeba36d56a228cce528214bc2ab982f4dc9d4
+MD5 c6a9c7a22d9a7bf461dfb7184066398f vmware-workstation-5.5.1.19175-r5.ebuild 3601
+RMD160 1c97d0720d93fea1ea80b18c4ccb43c5e07d0452 vmware-workstation-5.5.1.19175-r5.ebuild 3601
+SHA256 809807413b470cf0cf01c68b07deeba36d56a228cce528214bc2ab982f4dc9d4 vmware-workstation-5.5.1.19175-r5.ebuild 3601
 MISC ChangeLog 2594 RMD160 fb98305bb5a29a78964f8468fe598941d11dbd3d SHA1 5f0ebce9087f9ffc0dfcaf4273deefdf4bd4438c SHA256 090510efcb9b8cbf513fd18972fb155f167a5b48c5bb26b39bec79270f6df665
 MD5 61b22ac916e53a7420dda62ad330cd83 ChangeLog 2594
 RMD160 fb98305bb5a29a78964f8468fe598941d11dbd3d ChangeLog 2594
@@ -81,6 +101,12 @@ SHA256 ad036c15186f38cd9210fc6ed5b4a4c90d0385dff11e4e84adc835ba48c5c6e7 files/di
 MD5 35adc6f03c0de1d5ad9f45cc5864c120 files/digest-vmware-workstation-4.5.3.19414-r3 774
 RMD160 f76ff1c6dd7ca511dcad74408060aa41fe77f794 files/digest-vmware-workstation-4.5.3.19414-r3 774
 SHA256 04b199e0a500a8184bc67bfc05b644d728291d6db704c2d40174f08c60697742 files/digest-vmware-workstation-4.5.3.19414-r3 774
+MD5 7e16d1df573c33f106193c1c5211b4be files/digest-vmware-workstation-5.5.1.19175-r3 575
+RMD160 c64ca9274b2acbab196011ad1dbb3e4a7de2cb82 files/digest-vmware-workstation-5.5.1.19175-r3 575
+SHA256 cb233f0c0052cb615d02f7fc2bb9d4e36f6fe91be8fcfbf211815e7228569244 files/digest-vmware-workstation-5.5.1.19175-r3 575
 MD5 dd252e747c2dc150d12fc88924efd568 files/digest-vmware-workstation-5.5.1.19175-r4 301
 RMD160 38d15569785de3bfa24378f057fafb53a7f98167 files/digest-vmware-workstation-5.5.1.19175-r4 301
 SHA256 6d6362f34ece35e97db65c25eb153c6231c0ba7fabb04a11c6c05d4f5374bbf8 files/digest-vmware-workstation-5.5.1.19175-r4 301
+MD5 dd252e747c2dc150d12fc88924efd568 files/digest-vmware-workstation-5.5.1.19175-r5 301
+RMD160 38d15569785de3bfa24378f057fafb53a7f98167 files/digest-vmware-workstation-5.5.1.19175-r5 301
+SHA256 6d6362f34ece35e97db65c25eb153c6231c0ba7fabb04a11c6c05d4f5374bbf8 files/digest-vmware-workstation-5.5.1.19175-r5 301

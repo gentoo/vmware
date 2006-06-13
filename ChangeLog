@@ -2,6 +2,16 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  13 Jun 2006; Mike AUty <ikelos@gentoo.org>:
+  Added revision bumps for vmware-player-1 and vmware-workstation-5.5, to use
+  the new style vmware-modules ebuilds.  These haven't been tested at all, but
+  are also keyworded "-*" so shouldn't cause any problems.  I've also added 
+  the required ebuilds for when vmware-workstations-{3,4} get given the 
+  vmware.eclass treatment.
+
+  Let me just reiterate that these ebuilds are *extremely* untested, not just
+  the normal untested you're used to...  5;)
+
   07 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Added a vmware-mod.eclass, and associated vmware-modules-1.0.0.15.ebuild for
   vmware-server-1.0.0.24927.  As soon as an any-any update comes out that
