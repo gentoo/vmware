@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
+# $Id: vmware-modules-101-r3.ebuild 51 2006-06-13 21:03:05Z ikelos $
 
 inherit linux-mod eutils versionator toolchain-funcs
 

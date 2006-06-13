@@ -2,7 +2,13 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
-  13 Jun 2006; Mike AUty <ikelos@gentoo.org>:
+  13 Jun 2006; Mike Auty <ikeloes@gentoo.org>:
+  Also today, I removed the last few svn:keywords that meant I had to keep
+  recalculating the manifests.  Handy though they might have been, it's easier
+  to do revbumps to differentiate the versions, than it is to manually keep 
+  redoing those manifests and checking them back in again...
+  
+  13 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Added revision bumps for vmware-player-1 and vmware-workstation-5.5, to use
   the new style vmware-modules ebuilds.  These haven't been tested at all, but
   are also keyworded "-*" so shouldn't cause any problems.  I've also added 
