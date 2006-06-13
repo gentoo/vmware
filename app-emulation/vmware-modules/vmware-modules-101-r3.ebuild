@@ -21,8 +21,10 @@ KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
 DEPEND="dev-lang/perl
 		>=sys-apps/portage-2.0.54
-		|| ( app-emulation/vmware-workstation
-			 app-emulation/vmware-player )"
+		|| ( app-emulation/vmware-server
+			 app-emulation/vmware-workstation
+			 app-emulation/vmware-player )
+		!>=app-emulation/vmware-server-1.0.0.24927"
 
 VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 

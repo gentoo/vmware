@@ -8,6 +8,14 @@ RMD160 d2f63ede9d9dbc6ec94ccede9177a5a15a678e62 files/vmware-modules-101-makefil
 SHA256 fadf02891dd78611790f6b59c2ba7ec5aaaa9767bbe779d97e6c3b38aaaa7b94 files/vmware-modules-101-makefile.patch 343
 DIST vmware-any-any-update101.tar.gz 296409 RMD160 d8994b91492257d8b8e08480ab27fc307fc34095 SHA1 43714052429c1574cdf086a052859657affff0b0 SHA256 b12e3a70117ef26a85c8e01a23ea7d21b62bbc86998368114f9f7932390d2037
 DIST vmware-modules-1.0.0.15.tar.gz 223887 RMD160 653f181b15bb8310c54df0dd8d2d566cf99def1e SHA1 edd3f49ebc1c2112cbdb01b8e86752533cb81ce4 SHA256 e8781a742abd6ae24cf22efc63b706222eb2077bc893833851b727d959339d64
+EBUILD vmware-modules-1.0.0.11.ebuild 246 RMD160 c3a4a1eb8aa954f937a97d79a182ed63f385026a SHA1 025fea8845a51b8880b8827a58f3786d764eb630 SHA256 5f47c773991d88028e963fef8c7c9488ad0fddc10d7cc81cf3688160e058e9fc
+MD5 1ff43e268bb51fa9c290a5de258a7614 vmware-modules-1.0.0.11.ebuild 246
+RMD160 c3a4a1eb8aa954f937a97d79a182ed63f385026a vmware-modules-1.0.0.11.ebuild 246
+SHA256 5f47c773991d88028e963fef8c7c9488ad0fddc10d7cc81cf3688160e058e9fc vmware-modules-1.0.0.11.ebuild 246
+EBUILD vmware-modules-1.0.0.13.ebuild 245 RMD160 db5e504f68cfda2bf4e3d8e7e8d9e272b7695315 SHA1 8cc3bea4315e074cb62430affaaaf2f11e0ad7fe SHA256 d7c89ae63f193c8b7fe837c08f8b98fba99b57b1e7de749af24480849d957db1
+MD5 f091def7a1d6362de55cc1267bc374ab vmware-modules-1.0.0.13.ebuild 245
+RMD160 db5e504f68cfda2bf4e3d8e7e8d9e272b7695315 vmware-modules-1.0.0.13.ebuild 245
+SHA256 d7c89ae63f193c8b7fe837c08f8b98fba99b57b1e7de749af24480849d957db1 vmware-modules-1.0.0.13.ebuild 245
 EBUILD vmware-modules-1.0.0.14.ebuild 246 RMD160 6b99bdc18a3c6e3e137c8bb1a4ccc7139e10a63f SHA1 3f220b41d93274175ca73d3f07e80b1e338b65cb SHA256 f50ce48d7edec1863cee745776adac7771d39ec50cd1c9a53bb8c326ff66702a
 MD5 a8a0215452aa433431c4de158213524a vmware-modules-1.0.0.14.ebuild 246
 RMD160 6b99bdc18a3c6e3e137c8bb1a4ccc7139e10a63f vmware-modules-1.0.0.14.ebuild 246
@@ -16,10 +24,16 @@ EBUILD vmware-modules-1.0.0.15.ebuild 320 RMD160 d7eb66a51279cdf5183c00bc31888c1
 MD5 d9724c151825a7944df03550d2587fd9 vmware-modules-1.0.0.15.ebuild 320
 RMD160 d7eb66a51279cdf5183c00bc31888c18ed68d300 vmware-modules-1.0.0.15.ebuild 320
 SHA256 7f442c307783874c0f7ef5b554828b91f7f9e01459acb69be294059052c8c0c5 vmware-modules-1.0.0.15.ebuild 320
-EBUILD vmware-modules-101-r3.ebuild 1650 RMD160 8638143fefeded068dd88edc555b91e0771d65bc SHA1 f30fa4e81d1a2da9e58ee49f04e0f0f24a83d0fb SHA256 356cf188816c5fa6121f7e9525dcc1125961a416ffd48b24d30c927cf133fa82
-MD5 72e5eb80e83eb74b2f35ef589a89d070 vmware-modules-101-r3.ebuild 1650
-RMD160 8638143fefeded068dd88edc555b91e0771d65bc vmware-modules-101-r3.ebuild 1650
-SHA256 356cf188816c5fa6121f7e9525dcc1125961a416ffd48b24d30c927cf133fa82 vmware-modules-101-r3.ebuild 1650
+EBUILD vmware-modules-101-r3.ebuild 1695 RMD160 c8430c2467bde404d9f1da500c9ffbf63fe2352d SHA1 1da2bd47c6ca9e0334e9bc80093d35cb9bc0b3dd SHA256 923e77b009eb48baeabf75e626adbe689d411c092495b0c85077d7b11b7af071
+MD5 1e4d351520ba369dafeba4fb54354b2f vmware-modules-101-r3.ebuild 1695
+RMD160 c8430c2467bde404d9f1da500c9ffbf63fe2352d vmware-modules-101-r3.ebuild 1695
+SHA256 923e77b009eb48baeabf75e626adbe689d411c092495b0c85077d7b11b7af071 vmware-modules-101-r3.ebuild 1695
+MD5 ba6f4b9f12358a7d5fd4d2aa7a7df366 files/digest-vmware-modules-1.0.0.11 274
+RMD160 dde69d8dc0b4f3d9a670d3a1fcf4dfaf797d8b2c files/digest-vmware-modules-1.0.0.11 274
+SHA256 0709bc0650eae2c2976c42f497ff0d5736bfa00de85d6c8c1c21173e38de5ff1 files/digest-vmware-modules-1.0.0.11 274
+MD5 ba6f4b9f12358a7d5fd4d2aa7a7df366 files/digest-vmware-modules-1.0.0.13 274
+RMD160 dde69d8dc0b4f3d9a670d3a1fcf4dfaf797d8b2c files/digest-vmware-modules-1.0.0.13 274
+SHA256 0709bc0650eae2c2976c42f497ff0d5736bfa00de85d6c8c1c21173e38de5ff1 files/digest-vmware-modules-1.0.0.13 274
 MD5 ba6f4b9f12358a7d5fd4d2aa7a7df366 files/digest-vmware-modules-1.0.0.14 274
 RMD160 dde69d8dc0b4f3d9a670d3a1fcf4dfaf797d8b2c files/digest-vmware-modules-1.0.0.14 274
 SHA256 0709bc0650eae2c2976c42f497ff0d5736bfa00de85d6c8c1c21173e38de5ff1 files/digest-vmware-modules-1.0.0.14 274
