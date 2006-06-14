@@ -14,7 +14,6 @@ EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_unpack
 export ANY_ANY="vmware-any-any-update101"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
-export Ddir=${D}/${dir}
 
 vmware_test_module_failed() {
 	eerror "You have an incompatible version of app-emulation/vmware-modules installed!"
@@ -162,16 +161,18 @@ not-vmware_src_install() {
 
 	# Since with Gentoo we compile everthing it doesn't make sense to keep
 	# the precompiled modules arround. Saves about 4 megs of disk space too.
-	rm -rf ${dir}/lib/modules/binary
+	rm -rf ${S}/lib/modules/binary
 	# We also don't need to keep the icons around, or do we?
-	#rm -rf ${dir}/lib/share/icons
+	#rm -rf ${S}/lib/share/icons
 
 	# Just like any good monkey, we install the documentation and man pages.
 	[[ -d doc ]] && dodoc doc/*
-	for x in man/*
+	[[ -d man ]] && cd man
+	for x in *
 	do
-		doman man/${x}/* || die "doman"
+		doman ${x}/* || die "doman"
 	done
+	cd "${S}"
 
 	# We loop through our directories and copy everything to our system.
 	for x in bin lib sbin
@@ -179,7 +180,7 @@ not-vmware_src_install() {
 		if [[ -e ${S}/${x} ]]
 		then
 			dodir ${dir}/${x}
-			cp -pPR ${x}/* ${Ddir}/${x} || die "copying ${x}"
+			cp -pPR ${S}/${x}/* ${Ddir}/${x} || die "copying ${x}"
 		fi
 	done
 
@@ -187,22 +188,24 @@ not-vmware_src_install() {
 	if [[ -e ${S}/etc ]]
 	then
 		dodir /etc/${product}
-		cp -pPR etc/* ${D}/etc/${product}
+		cp -pPR ${S}/etc/* ${D}/etc/${product}
+		fowners root:${VMWARE_GROUP} /etc/${product}
+		fperms 770 /etc/${product}
 	fi
 
 	# If we have any helper files, we install them.  First, we check for an
 	# init script.
-	if [[ ${FILESDIR}/${PN}.rc ]]
+	if [[ -e ${FILESDIR}/${PN}.rc ]]
 	then
 		newinitd ${FILESDIR}/${PN}.rc ${product} || die "newinitd"
 	fi
 	# Then we check for an environment file.
-	if [[ ${FILESDIR}/90${product} ]]
+	if [[ -e ${FILESDIR}/90${PN} ]]
 	then
-		doenvd ${FILESDIR}/90${product} || die "doenvd"
+		doenvd ${FILESDIR}/90${PN} || die "doenvd"
 	fi
 	# Last, we check for any mime files.
-	if [[ ${FILESDIR}/${product}.xml ]]
+	if [[ -e ${FILESDIR}/${PN}.xml ]]
 	then
 		insinto /usr/share/mime/packages
 		doins ${FILESDIR}/${product}.xml || die "mimetypes"
@@ -215,6 +218,53 @@ not-vmware_src_install() {
 		doins doc/EULA || die "copying EULA"
 	fi
 
+	# Do we have vmware-ping/vmware-vmx?  If so, make them setuid.
+	if [ -x ${Ddir}/bin/vmware-ping ]
+	then
+		fowners root:${VMWARE_GROUP} ${dir}/bin/vmware-ping
+		fperms 4750 ${dir}/bin/vmware-ping
+	fi
+	if [ -x ${Ddir}/lib/bin/vmware-vmx ]
+	then
+		fowners root:${VMWARE_GROUP} ${dir}/lib/bin/vmware-vmx
+		fperms 4750 ${dir}/lib/bin/vmware-vmx
+	fi
+	if [ -x ${Ddir}/lib/bin-debug/vmware-vmx ]
+	then
+		fowners root:${VMWARE_GROUP} ${dir}/lib/bin-debug/vmware-vmx
+		fperms 4750 ${dir}/lib/bin-debug/vmware-vmx
+	fi
+
+	# This removed the user/group warnings
+	chown -R root:0 ${D} || die
+
+	# Setup some udef rules
+	if [[ "${product}" == "${vmware}" ]]
+	then
+		dodir /etc/udev/rules.d
+		echo "KERNEL==\"vmmon*\", GROUP=\"${VMWARE_GROUP}\" MODE=660" > \
+			${D}/etc/udev/rules.d/60-vmware.rules || die
+	fi
+
+	# Set our full name for display and also for our icon
+	case ${shortname} in
+		workstation)
+			FULL_NAME="Workstation"
+			;;
+		player)
+			FULL_NAME="Player"
+			;;
+		server-console)
+			FULL_NAME="Server Console"
+			;;
+		esx-console)
+			FULL_NAME="ESX Console"
+			;;
+	esac
+	# We like desktop icons.
+	# TODO: Fix up the icon creation, across the board.
+#	make_desktop_entry ${PN} "VMware ${FULL_NAME}"
+
 	# TODO: Replace this junk
 	# Everything after this point will hopefully go away once we can rid
 	# ourselves of the evil perl configuration scripts.
@@ -225,6 +275,12 @@ not-vmware_src_install() {
 	# Now, we copy in our services.sh file
 	exeinto /etc/${product}/init.d
 	newexe ${ANY_ANY}/services.sh ${product} || die "services.sh"
+
+	# Then we "fix" it.
+	dosed -e 's/mknod -m 600/mknod -m 660/' \
+		-e '/c 119 "$vHubNr"/ a\
+		chown root:vmware /dev/vmnet*\
+		' /etc/${product}/init.d/${product} || die
 
 	# Finally, we run the "questions"
 	vmware_run_questions || die "running questions"
@@ -272,4 +328,43 @@ vmware_pkg_postinst() {
 			rm $x
 		fi
 	done
+
+	# This currently points to the perl scripts, which will eventually go away.
+	case product in
+		vmware)
+			config_program="vmware-config.pl"
+			;;
+	esac
+
+	echo
+	einfo "You need to run ${dir}/bin/${config_program} to complete the	install."
+	echo
+	einfo "For VMware Add-Ons just visit"
+	einfo "http://www.vmware.com/download/downloadaddons.html"
+	echo
+	einfo "After configuring, run ${PN} to launch"
+	echo
+	if [ "${product}" == "vmware" -o "${product}" == "vmware-tools" ]
+	then
+		einfo "Also note that when you reboot you should run:"
+		einfo "/etc/init.d/${product} start"
+		einfo "before trying to run ${product}.  Or you could just add it to"
+		einfo "the default runlevel:"
+		einfo "rc-update add ${product} default"
+		echo
+		ewarn "VMWare allows for the potential of overwriting files as root.  Only"
+		ewarn "give VMWare access to trusted individuals."
+		echo
+	fi
+	ewarn "Remember, in order to run VMware ${FULL_NAME}, you have to"
+	ewarn "be in the '${VMWARE_GROUP}' group."
+	echo
+}
+
+pkg_postrm() {
+	echo
+	einfo "To remove all traces of ${product} you will need to remove the files"
+	einfo "in /etc/${product}, /etc/init.d/${product}, /lib/modules/*/misc/vm*.o,"
+	einfo "Don't forget to rmmod the vm* modules, either."
+	echo
 }

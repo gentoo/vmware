@@ -2,6 +2,18 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  14 Jun 2006; Chris Gianelloni <wolf31o2@gentoo.org>:
+  Well, I've done quite a few changes.
+  
+  - Ported all of the remaining code from src_install in vmware-workstation to
+  vmware.eclass
+  - Ported vmware-workstation 3.x and 4.x to vmware-modules and the
+  vmware.eclass
+  - Removed all older versions/revisions that are currently in the portage tree,
+  as they're unnecessary
+  - Marked the new 5.5 version of vmware-workstation as ~amd64 and ~x86 as it
+  has now been tested and appears to work just fine
+
   13 Jun 2006; Mike Auty <ikeloes@gentoo.org>:
   Also today, I removed the last few svn:keywords that meant I had to keep
   recalculating the manifests.  Handy though they might have been, it's easier

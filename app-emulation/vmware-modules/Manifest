@@ -24,10 +24,10 @@ EBUILD vmware-modules-1.0.0.15.ebuild 320 RMD160 d7eb66a51279cdf5183c00bc31888c1
 MD5 d9724c151825a7944df03550d2587fd9 vmware-modules-1.0.0.15.ebuild 320
 RMD160 d7eb66a51279cdf5183c00bc31888c18ed68d300 vmware-modules-1.0.0.15.ebuild 320
 SHA256 7f442c307783874c0f7ef5b554828b91f7f9e01459acb69be294059052c8c0c5 vmware-modules-1.0.0.15.ebuild 320
-EBUILD vmware-modules-101-r3.ebuild 1695 RMD160 c8430c2467bde404d9f1da500c9ffbf63fe2352d SHA1 1da2bd47c6ca9e0334e9bc80093d35cb9bc0b3dd SHA256 923e77b009eb48baeabf75e626adbe689d411c092495b0c85077d7b11b7af071
-MD5 1e4d351520ba369dafeba4fb54354b2f vmware-modules-101-r3.ebuild 1695
-RMD160 c8430c2467bde404d9f1da500c9ffbf63fe2352d vmware-modules-101-r3.ebuild 1695
-SHA256 923e77b009eb48baeabf75e626adbe689d411c092495b0c85077d7b11b7af071 vmware-modules-101-r3.ebuild 1695
+EBUILD vmware-modules-101-r3.ebuild 1695 RMD160 7b8843f58f717c78ea588fb21f1082be43cc0298 SHA1 3a244a3f9ad3cf9cd8cf75ff60b3572ced2356ab SHA256 814cba7b159f16341e18b6862f99d65d5d0f5d90af3c4509d37fbaf19f482c22
+MD5 e6916fac0ab16ee50a4031d1dbf5a05f vmware-modules-101-r3.ebuild 1695
+RMD160 7b8843f58f717c78ea588fb21f1082be43cc0298 vmware-modules-101-r3.ebuild 1695
+SHA256 814cba7b159f16341e18b6862f99d65d5d0f5d90af3c4509d37fbaf19f482c22 vmware-modules-101-r3.ebuild 1695
 MD5 ba6f4b9f12358a7d5fd4d2aa7a7df366 files/digest-vmware-modules-1.0.0.11 274
 RMD160 dde69d8dc0b4f3d9a670d3a1fcf4dfaf797d8b2c files/digest-vmware-modules-1.0.0.11 274
 SHA256 0709bc0650eae2c2976c42f497ff0d5736bfa00de85d6c8c1c21173e38de5ff1 files/digest-vmware-modules-1.0.0.11 274
