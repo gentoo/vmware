@@ -5,5 +5,5 @@
 inherit vmware-mod
 
 KEYWORDS="-* ~amd64 ~x86"
-VMWARE_VER="VME_S1B1"
+VMWARE_VER="VME_V321"
 

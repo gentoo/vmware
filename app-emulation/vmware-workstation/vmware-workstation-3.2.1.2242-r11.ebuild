@@ -34,7 +34,7 @@ RDEPEND="sys-libs/glibc
 	virtual/xft
 	!app-emulation/vmware-player
 	!app-emulation/vmware-server
-	~app-emulation/vmware-modules-1.0.0.14
+	~app-emulation/vmware-modules-1.0.0.8
 	media-libs/gdk-pixbuf
 	>=dev-lang/perl-5
 	sys-apps/pciutils"

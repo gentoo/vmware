@@ -66,17 +66,18 @@ vmware-mod_src_install() {
 
 # Current VMWARE product mappings
 # 'VME_TOT'		= .0
-# 'VME_V3' 		= .1
-# 'VME_V32'		= .2
-# 'VME_V321'	= .3
-# 'VME_GSX1'	= .4
-# 'VME_GSX2'	= .5
-# 'VME_GSX251'	= .6
-# 'VME_GSX25'	= .7
-# 'VME_GSX32'	= .8
+# 'VME_GSX1'	= .1
+# 'VME_GSX2'	= .2
+# 'VME_GSX251'	= .3
+# 'VME_GSX25'	= .4
+# 'VME_GSX32'	= .5
+# 'VME_V3'		= .6
+# 'VME_V32'		= .7
+# 'VME_V321'	= .8
 # 'VME_V4'		= .9
 # 'VME_V45'		= .10
 # 'VME_V452'	= .11
 # 'VME_V5'		= .12
 # 'VME_V55'		= .13
 # 'VME_S1B1'	= .14
+# 'VME_S1??'	= .15

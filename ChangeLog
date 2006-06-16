@@ -3,6 +3,10 @@
 # $ Id: $
 
   16 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Ok, just double checked/lined up the vmware-module version numbers
+  with the packages building against them.
+  
+  16 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Just a couple quick changes.
   I modified the vmware-player-1.0.x-r5 ebuild, just a bit of clearing up.
   I also fixed a tiny typo in the vmware.eclass.
