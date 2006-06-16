@@ -238,14 +238,6 @@ not-vmware_src_install() {
 	# This removed the user/group warnings
 	chown -R root:0 ${D} || die
 
-	# Setup some udef rules
-	if [[ "${product}" == "${vmware}" ]]
-	then
-		dodir /etc/udev/rules.d
-		echo "KERNEL==\"vmmon*\", GROUP=\"${VMWARE_GROUP}\" MODE=660" > \
-			${D}/etc/udev/rules.d/60-vmware.rules || die
-	fi
-
 	# Set our full name for display and also for our icon
 	case ${shortname} in
 		workstation)
