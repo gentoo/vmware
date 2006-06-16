@@ -6,13 +6,17 @@
 # to download VMWare. The agreeing to a licence is part of the configure step
 # which the user must run manually.
 
-inherit vmware eutils
+inherit eutils vmware
 
 S=${WORKDIR}/vmware-player-distrib
 MY_P="VMware-player-1.0.1-19317"
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/player/"
 SRC_URI="http://download3.vmware.com/software/vmplayer/${MY_P}.tar.gz
+	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
+	http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
+	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
+	http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz
 	mirror://gentoo/vmware.png"
 
 LICENSE="vmware"
@@ -20,8 +24,6 @@ IUSE=""
 SLOT="0"
 KEYWORDS="-*"
 RESTRICT="strip" # fetch"
-
-VMWARE_VME="VME_V55"
 
 DEPEND="${RDEPEND} virtual/os-headers
 	!app-emulation/vmware-workstation"
@@ -114,39 +116,4 @@ src_install() {
 pkg_config() {
 	einfo "Running ${dir}/bin/vmware-config.pl"
 	${dir}/bin/vmware-config.pl
-}
-
-pkg_postinst() {
-	vmware_pkg_postinst
-
-	einfo
-	einfo "You need to run ${dir}/bin/vmware-config.pl to complete the install."
-	einfo
-	einfo "For VMware Add-Ons just visit"
-	einfo "http://www.vmware.com/download/downloadaddons.html"
-	einfo
-	einfo "After configuring, type 'vmplayer' to launch"
-	einfo
-	einfo "Also note that when you reboot you should run:"
-	einfo "/etc/init.d/vmware start"
-	einfo "before trying to run vmplayer.  Or you could just add"
-	einfo "it to the default run level:"
-	einfo "rc-update add vmware default"
-	echo
-	ewarn "Remember, in order to run vmplayer, you have to"
-	ewarn "be in the '${VMWARE_GROUP}' group."
-	echo
-	ewarn "VMWare allows for the potential of overwriting files as root.  Only"
-	ewarn "give VMWare access to trusted individuals."
-
-	#ewarn "For users of glibc-2.3.x, vmware-nat support is *still* broken on 2.6.x"
-}
-
-pkg_postrm() {
-	einfo
-	einfo "To remove all traces of vmware you will need to remove the files"
-	einfo "in /etc/vmware/, /etc/init.d/vmware, /lib/modules/*/misc/vm*.o,"
-	einfo "and .vmware/ in each users home directory. Don't forget to rmmod the"
-	einfo "vm* modules, either."
-	einfo
 }

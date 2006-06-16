@@ -330,7 +330,7 @@ vmware_pkg_postinst() {
 	done
 
 	# This currently points to the perl scripts, which will eventually go away.
-	case product in
+	case $product in
 		vmware)
 			config_program="vmware-config.pl"
 			;;
