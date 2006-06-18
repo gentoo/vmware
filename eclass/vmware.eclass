@@ -60,7 +60,7 @@ vmware_run_questions() {
 
 vmware_determine_product() {
 	# This is pretty easy, thanks to portage
-	shortname=$(echo ${PN} | cut -d- -f2)
+	shortname=$(echo ${PN} | cut -d- -f2-)
 	case ${shortname} in
 		workstation|server|player)
 			product="vmware"
@@ -208,7 +208,7 @@ not-vmware_src_install() {
 	if [[ -e ${FILESDIR}/${PN}.xml ]]
 	then
 		insinto /usr/share/mime/packages
-		doins ${FILESDIR}/${product}.xml || die "mimetypes"
+		doins ${FILESDIR}/${PN}.xml || die "mimetypes"
 	fi
 
 	# Blame bug #91191 for this one.
