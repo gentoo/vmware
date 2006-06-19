@@ -265,6 +265,10 @@ not-vmware_src_install() {
 	# TODO: Fix up the icon creation, across the board.
 	#make_desktop_entry ${PN} "VMware ${FULL_NAME}" ${PN}.png
 
+	# We like symlinks for console users.
+	# TODO: Fix up the symlink creation, across the board.
+	# dosym ${VMWARE_INSTALL_DIR}/bin/${PN} /usr/bin/${PN}
+
 	# TODO: Replace this junk
 	# Everything after this point will hopefully go away once we can rid
 	# ourselves of the evil perl configuration scripts.
