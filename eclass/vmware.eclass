@@ -259,7 +259,8 @@ not-vmware_src_install() {
 	done
 
 	# This removed the user/group warnings
-	chown -R root:0 ${D} || die
+	# But also broke vmware-server with FEATURES="userpriv" since it removes the set-UID bit
+	#chown -R root:${VMWARE_GROUP} ${D} || die
 
 	# We like desktop icons.
 	# TODO: Fix up the icon creation, across the board.
@@ -286,7 +287,7 @@ not-vmware_src_install() {
 		# Then we "fix" it.
 		dosed -e 's/mknod -m 600/mknod -m 660/' \
 			-e '/c 119 "$vHubNr"/ a\
-			chown root:vmware /dev/vmnet*\
+			chown root:'${VMWARE_GROUP}' /dev/vmnet*\
 			' ${config_dir}/init.d/${product} || die
 	fi
 

@@ -3,6 +3,13 @@
 # $ Id: $
 
   19 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Comment out a line in the eclass that was breaking vmware-server when
+  compiled with FEATURES="userpriv".  It seemed to reset all the permissions
+  including the set-UID bit.  It was only included to avoid permission
+  warnings with vmware-workstation.  If the warnings start again, we'll
+  try and figure out another workaround.
+  
+  19 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Refactored several bits of the vmware.eclass based on the inconsistent naming
   scheme used by vmware-server-console to locate it's configuration info.
 
