@@ -9,11 +9,12 @@
 
 inherit eutils
 
-EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_unpack
+EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_unpack pkg_postrm
 
 export ANY_ANY="vmware-any-any-update101"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
+export VMWARE_INSTALL_DIR=/opt/${PN//-//}
 
 vmware_test_module_failed() {
 	eerror "You have an incompatible version of app-emulation/vmware-modules installed!"
@@ -36,43 +37,70 @@ vmware_test_module_build() {
 }
 
 vmware_create_initd() {
-	dodir /etc/${product}/init.d/rc{0,1,2,3,4,5,6}.d
+	dodir ${config_dir}/init.d/rc{0,1,2,3,4,5,6}.d
 	# This is to fix a problem where if someone merges vmware and then
 	# before configuring vmware they upgrade or re-merge the vmware
 	# package which would rmdir the /etc/vmware/init.d/rc?.d directories.
-	keepdir /etc/${product}/init.d/rc{0,1,2,3,4,5,6}.d
+	keepdir ${config_dir}/init.d/rc{0,1,2,3,4,5,6}.d
 }
 
 vmware_run_questions() {
 	vmware_determine_product
 	# Questions:
-	einfo "Adding answers to /etc/${product}/locations"
-	locations="${D}/etc/${product}/locations"
-	echo "answer BINDIR ${dir}/bin" >> ${locations}
-	echo "answer LIBDIR ${dir}/lib" >> ${locations}
-	echo "answer MANDIR ${dir}/man" >> ${locations}
-	echo "answer DOCDIR ${dir}/doc" >> ${locations}
-	echo "answer SBINDIR ${dir}/sbin" >> ${locations}
-	echo "answer RUN_CONFIGURATOR no" >> ${locations}
-	echo "answer INITDIR /etc/${product}/init.d" >> ${locations}
-	echo "answer INITSCRIPTSDIR /etc/${product}/init.d" >> ${locations}
+	einfo "Adding answers to ${config_dir}/locations"
+	locations="${D}${config_dir}/locations"
+	echo "answer BINDIR ${VMWARE_INSTALL_DIR}/bin" >> ${locations}
+	echo "answer LIBDIR ${VMWARE_INSTALL_DIR}/lib" >> ${locations}
+	echo "answer MANDIR ${VMWARE_INSTALL_DIR}/man" >> ${locations}
+	echo "answer DOCDIR ${VMWARE_INSTALL_DIR}/doc" >> ${locations}
+	if [ "${product}" == "vmware" -o "${product}" == "vmware-tools" ]
+	then
+		echo "answer SBINDIR ${VMWARE_INSTALL_DIR}/sbin" >> ${locations}
+		echo "answer RUN_CONFIGURATOR no" >> ${locations}
+		echo "answer INITDIR ${config_dir}/init.d" >> ${locations}
+		echo "answer INITSCRIPTSDIR ${config_dir}/init.d" >> ${locations}
+	fi
 }
 
 vmware_determine_product() {
-	# This is pretty easy, thanks to portage
+	# Set the product category, and the category options
 	shortname=$(echo ${PN} | cut -d- -f2-)
 	case ${shortname} in
 		workstation|server|player)
 			product="vmware"
+			config_program="vmware-config.pl"
 			;;
 		server-console|esx-console|gsx-console)
 			product="vmware-console"
+			config_program="vmware-config-console.pl"
 			;;
 		workstation-tools|esx-tools|gsx-tools|server-tools)
 			product="vmware-tools"
 			;;
 		*)
 			product="unknown"
+			;;
+	esac
+	config_dir="/etc/${product}"
+
+	# Set per package options
+	case ${shortname} in
+		workstation)
+			FULL_NAME="Workstation"
+			;;
+		player)
+			FULL_NAME="Player"
+			;;
+		server)
+			FULL_NAME="Server"
+			;;
+		server-console)
+			FULL_NAME="Server Console"
+			config_program="vmware-config-server-console.pl"
+			config_dir="/etc/${PN}"
+			;;
+		esx-console)
+			FULL_NAME="ESX Console"
 			;;
 	esac
 }
@@ -91,10 +119,6 @@ vmware_pkg_setup() {
 			cdrom_get_cds ${TARBALL}
 			;;
 	esac
-	# Here we should be doing a test_module_build, as all vmware products need
-	# modules compiled.  This is commented until we can get both the products
-	# and the tools using the same build system.
-	#vmware_test_module_build
 }
 
 vmware_src_unpack() {
@@ -102,23 +126,14 @@ vmware_src_unpack() {
 	if [[ -n "${MY_P}" ]]
 	then
 		unpack "${MY_P}".tar.gz
-		cd "${S}"
-		if [[ -d "${FILESDIR}/${PV}" ]]
-		then
-			EPATCH_SUFFIX="patch"
-			epatch ${FILESDIR}/${PV}
-		fi
-		if [[ -n "${PATCHES}" ]]
-		then
-			for patch in ${PATCHES}
-			do
-				epatch ${FILESDIR}/${patch}
-			done
-		fi
 
 		if [[ -n "${ANY_ANY}" ]]
 		then
 			unpack ${ANY_ANY}.tar.gz
+			# Move the relevant ANY_ANY files now, so that they can be patched later...
+			mv -f ${ANY_ANY}/services.sh ${S}/installer/services.sh
+			# We should be able to get rid of this eventually,
+			# since we'll be using vmware-modules in future...
 			[[ "${product}" == "vmware" ]] && \
 				mv -f ${ANY_ANY}/*.tar ${S}/lib/modules/source
 			[[ -e lib/bin/vmware ]] && \
@@ -137,6 +152,21 @@ vmware_src_unpack() {
 				./update vmx ../lib/bin/vmware-vmx || die
 				./update vmxdebug ../lib/bin-debug/vmware-vmx || die
 			fi
+		fi
+		
+		# Run through any patches that might need to be applied
+		cd "${S}"
+		if [[ -d "${FILESDIR}/${PV}" ]]
+		then
+			EPATCH_SUFFIX="patch"
+			epatch ${FILESDIR}/${PV}
+		fi
+		if [[ -n "${PATCHES}" ]]
+		then
+			for patch in ${PATCHES}
+			do
+				epatch ${FILESDIR}/${patch}
+			done
 		fi
 	fi
 }
@@ -179,18 +209,18 @@ not-vmware_src_install() {
 	do
 		if [[ -e ${S}/${x} ]]
 		then
-			dodir ${dir}/${x}
-			cp -pPR ${S}/${x}/* ${Ddir}/${x} || die "copying ${x}"
+			dodir ${VMWARE_INSTALL_DIR}/${x}
+			cp -pPR ${S}/${x}/* ${D}${VMWARE_INSTALL_DIR}/${x} || die "copying ${x}"
 		fi
 	done
 
 	# If we have an /etc directory, we copy it.
 	if [[ -e ${S}/etc ]]
 	then
-		dodir /etc/${product}
-		cp -pPR ${S}/etc/* ${D}/etc/${product}
-		fowners root:${VMWARE_GROUP} /etc/${product}
-		fperms 770 /etc/${product}
+		dodir ${config_dir}
+		cp -pPR ${S}/etc/* ${D}${config_dir}
+		fowners root:${VMWARE_GROUP} ${config_dir}
+		fperms 770 ${config_dir}
 	fi
 
 	# If we have any helper files, we install them.  First, we check for an
@@ -214,65 +244,47 @@ not-vmware_src_install() {
 	# Blame bug #91191 for this one.
 	if [[ -e doc/EULA ]]
 	then
-		insinto ${dir}/doc
+		insinto ${VMWARE_INSTALL_DIR}/doc
 		doins doc/EULA || die "copying EULA"
 	fi
 
 	# Do we have vmware-ping/vmware-vmx?  If so, make them setuid.
-	if [ -x ${Ddir}/bin/vmware-ping ]
-	then
-		fowners root:${VMWARE_GROUP} ${dir}/bin/vmware-ping
-		fperms 4750 ${dir}/bin/vmware-ping
-	fi
-	if [ -x ${Ddir}/lib/bin/vmware-vmx ]
-	then
-		fowners root:${VMWARE_GROUP} ${dir}/lib/bin/vmware-vmx
-		fperms 4750 ${dir}/lib/bin/vmware-vmx
-	fi
-	if [ -x ${Ddir}/lib/bin-debug/vmware-vmx ]
-	then
-		fowners root:${VMWARE_GROUP} ${dir}/lib/bin-debug/vmware-vmx
-		fperms 4750 ${dir}/lib/bin-debug/vmware-vmx
-	fi
+	for p in /bin/vmware-ping /lib/bin/vmware-vmx /lib/bin-debug/vmware-vm /sbin/vmware-authd;
+	do
+		if [ -x ${D}${VMWARE_INSTALL_DIR}${p} ]
+		then
+			fowners root:${VMWARE_GROUP} ${VMWARE_INSTALL_DIR}${p}
+			fperms 4750 ${VMWARE_INSTALL_DIR}${p}
+		fi
+	done
 
 	# This removed the user/group warnings
 	chown -R root:0 ${D} || die
 
-	# Set our full name for display and also for our icon
-	case ${shortname} in
-		workstation)
-			FULL_NAME="Workstation"
-			;;
-		player)
-			FULL_NAME="Player"
-			;;
-		server-console)
-			FULL_NAME="Server Console"
-			;;
-		esx-console)
-			FULL_NAME="ESX Console"
-			;;
-	esac
 	# We like desktop icons.
 	# TODO: Fix up the icon creation, across the board.
-#	make_desktop_entry ${PN} "VMware ${FULL_NAME}"
+	#make_desktop_entry ${PN} "VMware ${FULL_NAME}" ${PN}.png
 
 	# TODO: Replace this junk
 	# Everything after this point will hopefully go away once we can rid
 	# ourselves of the evil perl configuration scripts.
 
-	# We have to create a bunch of rc directories for the init script
-	vmware_create_initd || die "creating rc directories"
+	if [ "${product}" == "vmware" -o "${product}" == "vmware-tools" ]
+	then
+	
+		# We have to create a bunch of rc directories for the init script
+		vmware_create_initd || die "creating rc directories"
 
-	# Now, we copy in our services.sh file
-	exeinto /etc/${product}/init.d
-	newexe ${ANY_ANY}/services.sh ${product} || die "services.sh"
+		# Now, we copy in our services.sh file
+		exeinto ${config_dir}/init.d
+		newexe installer/services.sh ${product} || die "services.sh"
 
-	# Then we "fix" it.
-	dosed -e 's/mknod -m 600/mknod -m 660/' \
-		-e '/c 119 "$vHubNr"/ a\
-		chown root:vmware /dev/vmnet*\
-		' /etc/${product}/init.d/${product} || die
+		# Then we "fix" it.
+		dosed -e 's/mknod -m 600/mknod -m 660/' \
+			-e '/c 119 "$vHubNr"/ a\
+			chown root:vmware /dev/vmnet*\
+			' ${config_dir}/init.d/${product} || die
+	fi
 
 	# Finally, we run the "questions"
 	vmware_run_questions || die "running questions"
@@ -285,22 +297,22 @@ vmware_pkg_preinst() {
 	#Note: it's a bit weird to use ${D} in a preinst script but it should work
 	#(drobbins, 1 Feb 2002)
 
-	einfo "Generating /etc/${product}/locations file."
+	einfo "Generating ${config_dir}/locations file."
 	d=`echo ${D} | wc -c`
-	for x in `find ${Ddir} ${D}/etc/${product}` ; do
+	for x in `find ${D}${VMWARE_INSTALL_DIR} ${D}${config_dir}` ; do
 		x="`echo ${x} | cut -c ${d}-`"
 		if [ -d ${D}/${x} ] ; then
-			echo "directory ${x}" >> ${D}/etc/${product}/locations
+			echo "directory ${x}" >> ${D}${config_dir}/locations
 		else
-			echo -n "file ${x}" >> ${D}/etc/${product}/locations
-			if [ "${x}" == "/etc/${product}/locations" ] ; then
-				echo "" >> ${D}/etc/${product}/locations
-			elif [ "${x}" == "/etc/${product}/not_configured" ] ; then
-				echo "" >> ${D}/etc/${product}/locations
+			echo -n "file ${x}" >> ${D}${config_dir}/locations
+			if [ "${x}" == "${config_dir}/locations" ] ; then
+				echo "" >> ${D}${config_dir}/locations
+			elif [ "${x}" == "${config_dir}/not_configured" ] ; then
+				echo "" >> ${D}${config_dir}/locations
 			else
-				echo -n " " >> ${D}/etc/${product}/locations
-				find ${D}${x} -printf %T@ >> ${D}/etc/${product}/locations
-				echo "" >> ${D}/etc/${product}/locations
+				echo -n " " >> ${D}${config_dir}/locations
+				find ${D}${x} -printf %T@ >> ${D}${config_dir}/locations
+				echo "" >> ${D}${config_dir}/locations
 			fi
 		fi
 	done
@@ -308,28 +320,23 @@ vmware_pkg_preinst() {
 
 vmware_pkg_postinst() {
 	update-mime-database /usr/share/mime
-	[[ -d /etc/${product} ]] && chown -R root:${VMWARE_GROUP} /etc/${product}
+	[[ -d ${config_dir} ]] && chown -R root:${VMWARE_GROUP} ${config_dir}
 
 	# This is to fix the problem where the not_configured file doesn't get
 	# removed when the configuration is run. This doesn't remove the file
 	# It just tells the vmware-config.pl script it can delete it.
-	einfo "Updating /etc/${product}/locations"
-	for x in /etc/${product}/._cfg????_locations ; do
+	einfo "Updating ${config_dir}/locations"
+	for x in ${config_dir}/._cfg????_locations ; do
 		if [ -f $x ] ; then
-			cat $x >> /etc/${product}/locations
+			cat $x >> ${config_dir}/locations
 			rm $x
 		fi
 	done
 
-	# This currently points to the perl scripts, which will eventually go away.
-	case $product in
-		vmware)
-			config_program="vmware-config.pl"
-			;;
-	esac
-
 	echo
-	einfo "You need to run ${dir}/bin/${config_program} to complete the	install."
+	einfo "You need to run "
+	einfo "    ${VMWARE_INSTALL_DIR}/bin/${config_program}"
+	einfo "to complete the install."
 	echo
 	einfo "For VMware Add-Ons just visit"
 	einfo "http://www.vmware.com/download/downloadaddons.html"
@@ -353,10 +360,16 @@ vmware_pkg_postinst() {
 	echo
 }
 
-pkg_postrm() {
+vmware_pkg_postrm() {
+	[ -z "${product}" ] && vmware_determine_product
+	local product_extras
+	if [ "${product}" == "vmware" ]
+	then
+		product_extras=" and /etc/init.d/${product}"
+	fi
 	echo
 	einfo "To remove all traces of ${product} you will need to remove the files"
-	einfo "in /etc/${product}, /etc/init.d/${product}, /lib/modules/*/misc/vm*.o,"
+	einfo "in ${config_dir}${product_extras}."
 	einfo "Don't forget to rmmod the vm* modules, either."
 	echo
 }

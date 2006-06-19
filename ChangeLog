@@ -2,6 +2,14 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  19 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Refactored several bits of the vmware.eclass based on the inconsistent naming
+  scheme used by vmware-server-console to locate it's configuration info.
+
+  I also finished off converting vmware-server over to the vmware.eclass
+  and pushed vmware-server-console over to it too.  Hopefully we're nearly there
+  now...  5:)
+  
   16 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Ok, just double checked/lined up the vmware-module version numbers
   with the packages building against them.
