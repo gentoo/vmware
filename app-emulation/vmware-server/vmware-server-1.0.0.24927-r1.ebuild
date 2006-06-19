@@ -24,7 +24,7 @@ SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* ~x86"
+KEYWORDS="-* ~x86 ~amd64"
 RESTRICT="nostrip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
