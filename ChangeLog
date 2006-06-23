@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  23 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Altered the vmware.eclass to create a VMWARE_GROUP for console products too.
+
   19 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Comment out a line in the eclass that was breaking vmware-server when
   compiled with FEATURES="userpriv".  It seemed to reset all the permissions

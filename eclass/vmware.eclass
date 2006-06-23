@@ -108,7 +108,7 @@ vmware_determine_product() {
 vmware_pkg_setup() {
 	vmware_determine_product
 	case ${product} in
-		vmware)
+		vmware|vmware-console)
 			# We create a group for VMware users due to bugs #104480 and #106170
 			enewgroup "${VMWARE_GROUP}"
 			;;
