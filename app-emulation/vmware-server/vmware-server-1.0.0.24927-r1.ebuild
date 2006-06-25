@@ -68,6 +68,7 @@ dir=/opt/vmware/server
 Ddir=${D}/${dir}
 
 src_unpack() {
+	EPATCH_SUFFIX="patch"
 	vmware_src_unpack
 	cd ${WORKDIR}
 	unpack ${P}-rpath-corrected-libs.tar.bz2
