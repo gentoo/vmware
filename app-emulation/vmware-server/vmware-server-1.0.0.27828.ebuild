@@ -14,11 +14,11 @@ MY_P="VMware-server-${MY_PV}"
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
-		 http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${P}-rpath-corrected-libs.tar.bz2
 		 http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 		 http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
 		 http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-		 http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz"
+		 http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz
+		 http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2"
 
 
 LICENSE="vmware"
@@ -64,13 +64,11 @@ S=${WORKDIR}/vmware-server-distrib
 RUN_UPDATE="no"
 PATCHES="general"
 
-dir=/opt/vmware/server
-Ddir=${D}/${dir}
-
 src_unpack() {
+	EPATCH_SUFFIX="patch"
 	vmware_src_unpack
 	cd ${WORKDIR}
-	unpack ${P}-rpath-corrected-libs.tar.bz2
+	unpack ${PN}-perl-fixed-rpath-libs.tar.bz2
 
 	# patch the vmware /etc/pam.d file to ensure that only 
 	# vmware group members can log in

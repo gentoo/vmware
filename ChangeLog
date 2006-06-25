@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  25 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Pushed out the latest builds for vmware-server/server-console (27828).
+  
   23 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Altered the vmware.eclass to create a VMWARE_GROUP for console products too.
 
