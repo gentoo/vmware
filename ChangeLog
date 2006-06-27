@@ -3,6 +3,10 @@
 # $ Id: $
 
   27 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Changed the vmware-server ebuild to make use of ${config_dir}.
+  It should also now start applying the amd64 pam.d patch correctly again.
+  
+  27 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Finally remove the old vmware-modules-101 ebuild, since it's not
   required by any packages in the tree anymore.  I hope to remove the
   vmware-pkg.eclass soon (I can't even remember which version of server

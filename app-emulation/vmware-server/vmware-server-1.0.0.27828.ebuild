@@ -79,11 +79,11 @@ src_install() {
 	not-vmware_src_install
 
 	# Fix the amd64 emulation pam stuff
-	use amd64 && dosed ":pam_:/emul/linux/x86/lib/security/pam_:" /etc/pam.d/vmware-authd
+	use amd64 && dosed ":pam_:/emul/linux/x86/lib/security/pam_:" ${config_dir}/pam.d/vmware-authd
 
-	echo "${VMWARE_GROUP}" > ${D}/etc/vmware/vmwaregroup
+	echo "${VMWARE_GROUP}" > ${D}${config_dir}/vmwaregroup
 
-	dosym /etc/init.d/xinetd /etc/vmware/init.d
+	dosym /etc/init.d/xinetd ${config_dir}/init.d
 
 	dodir /usr/bin
 	dosym ${dir}/bin/vmware /usr/bin/vmware
