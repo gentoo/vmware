@@ -2,6 +2,20 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  27 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Finally remove the old vmware-modules-101 ebuild, since it's not
+  required by any packages in the tree anymore.  I hope to remove the
+  vmware-pkg.eclass soon (I can't even remember which version of server
+  made use of it, but if that ever gets unmerged, vmware-pkg still needs
+  to be there).
+
+  Once all that's done, we should probably move not-vmware-src-install
+  over to vmware-src-install (and alias not-vmware-src-install to avoid
+  breakages).  After that, there's a few fix-ups (symlinks, desktop icons)
+  that need doing.  We're getting closer though, so it might be time
+  to start adding ~x86 to some of the workstation/player builds, to get
+  some people testing them... 5:)
+  
   25 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Pushed out the latest builds for vmware-server/server-console (27828).
   
