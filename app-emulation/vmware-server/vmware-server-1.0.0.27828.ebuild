@@ -38,7 +38,7 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? ( app-emulation/emul-linux-x86-baselibs
 	         app-emulation/emul-linux-x86-gtklibs 
 		   )
-	!amd64 ( || ( ( x11-libs/libX11
+	!amd64? ( || ( ( x11-libs/libX11
 			x11-libs/libXtst
 			x11-libs/libXext
 			x11-libs/libXt 

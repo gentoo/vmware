@@ -33,7 +33,7 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
 		 amd64? ( app-emulation/emul-linux-x86-gtklibs )
-		 !amd64 ( || ( ( x11-libs/libSM
+		 !amd64? ( || ( ( x11-libs/libSM
 						 x11-libs/libICE
 						 x11-libs/libX11
 						 x11-libs/libXau
