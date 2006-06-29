@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  29 Jun 2006; Mike Auty <ikelos@gentoo.org>:
+  Added the required files for the vmware-overlay to work as a Paludis
+  overlay.  Make note: new files are one thing, deviations that will break
+  the ebuild with portage are another...  5:)
+  
   27 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Changed the vmware-server ebuild to make use of ${config_dir}.
   It should also now start applying the amd64 pam.d patch correctly again.
