@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  02 Jul 2006; Mike Auty <ikelos@gentoo.org>:
+  Fixed a mistake in the vmware-mod.eclass, where I'd left out the EPATCH_SUFFIX.
+  It didn't show itself because I was always building the modules for the running
+  kernel.  And that why you have other people bugtest for you...  5:)
+  
   29 Jun 2006; Mike Auty <ikelos@gentoo.org>:
   Added the required files for the vmware-overlay to work as a Paludis
   overlay.  Make note: new files are one thing, deviations that will break

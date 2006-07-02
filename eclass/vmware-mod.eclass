@@ -50,6 +50,7 @@ vmware-mod_src_unpack() {
 		cd ${S}/${dir}-only
 		# Ensure it's not used
 		# rm getversion.pl
+		EPATCH_SUFFIX="patch"
 		epatch ${FILESDIR}/patches
 		convert_to_m ${S}/${dir}-only/Makefile
 	done
