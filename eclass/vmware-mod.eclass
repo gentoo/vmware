@@ -10,12 +10,16 @@ inherit eutils vmware linux-mod
 PARENT_PN=${PN/-modules/}
 
 PATCHSET="1"
+# MOD_FILE is to allow the overriding of the file and location to unpack from
+MOD_FILE="${ANY_ANY}"
+
 DESCRIPTION="Modules for Vmware Programs"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz"
 LICENSE="vmware"
 SLOT="0"
 IUSE=""
+
 # Provide vaguely sensible defaults
 VMWARE_VER="VME_V55"
 
@@ -30,36 +34,42 @@ S=${WORKDIR}
 
 EXPORT_FUNCTIONS pkg_setup src_unpack src_install 
 
-# Must define VMWARE_VER to make, otherwise it'll try and run getversion.pl,
-# which we've removed to ensure we never use it
+# Must define VMWARE_VER to make, otherwise it'll try and run getversion.pl
 BUILD_TARGETS="auto-build VMWARE_VER=${VMWARE_VER}"
+
+VMWARE_MODULE_LIST="vmmon vmnet"
 
 vmware-mod_pkg_setup() {
 	linux-mod_pkg_setup
 
-	MODULE_NAMES="vmmon(misc:${S}/vmmon-only)
-				  vmnet(misc:${S}/vmnet-only)"
+	for mod in ${VMWARE_MODULE_LIST}; do
+	MODULE_NAMES="${MODULE_NAMES}
+				  ${mod}(misc:${S}/${mod}-only)"
+	done
 }
 
 vmware-mod_src_unpack() {
 	unpack ${A}
 
-	for dir in vmmon vmnet; do
+	for mod in ${VMWARE_MODULE_LIST}; do
 		cd ${S}
-		unpack ./${ANY_ANY}/${dir}.tar
-		cd ${S}/${dir}-only
+		unpack ./${MOD_FILE}/${mod}.tar
+		cd ${S}/${mod}-only
 		# Ensure it's not used
 		# rm getversion.pl
 		EPATCH_SUFFIX="patch"
 		epatch ${FILESDIR}/patches
-		convert_to_m ${S}/${dir}-only/Makefile
+		convert_to_m ${S}/${mod}-only/Makefile
 	done
 }
 
 vmware-mod_src_install() {
 	# this adds udev rules for vmmon*
-	dodir /etc/udev/rules.d
-	echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' > ${D}/etc/udev/rules.d/60-vmware.rules || die
+	if [[ -n "`cat ${VMWARE_MODULE_LIST} | grep vmmon`" ]];
+	then
+		dodir /etc/udev/rules.d
+		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' > ${D}/etc/udev/rules.d/60-vmware.rules || die
+	fi
 	
 	linux-mod_src_install
 }

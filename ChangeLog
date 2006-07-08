@@ -2,6 +2,16 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  08 Jul 2006; Mike Auty <ikelos@gentoo.ogr>:
+  Re-arranged the vmware-mod.eclass.  It looks like it should be able to handle 
+  the various modules for the vmware-*-tools.  The problem is that since we don't
+  have a nice vmware-any-any package for the tool modules, we can't just use an
+  environment variable and a single source package.  So how do we go about
+  unpacking it from the provided tarball, if the main package is built elsewhere?
+  Do we require the file for both programs?  Do we augment the vmware-tools-modules
+  to require the install file, and if so, how do we know which version we installed?
+  Ideas on a postcard to...  5:)
+  
   08 Jul 2006; Mike Auty <ikelos@gentoo.org>:
   First attempt at a vmware-server-tools package, based on a user submitted ebuild
   (thanks to Anthony Red in bug 122670) and the vmware-workstation-tools ebuild.
