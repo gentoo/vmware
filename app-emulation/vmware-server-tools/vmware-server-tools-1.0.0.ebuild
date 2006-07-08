@@ -17,7 +17,7 @@ SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 
 LICENSE="vmware"
 SLOT="0"
-KEYWORDS="-* ~x86"
+KEYWORDS="-*"
 IUSE="X"
 RESTRICT="strip"
 
