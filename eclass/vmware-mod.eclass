@@ -9,7 +9,6 @@ inherit eutils vmware linux-mod
 
 PARENT_PN=${PN/-modules/}
 
-PATCHSET="1"
 # MOD_FILE is to allow the overriding of the file and location to unpack from
 MOD_FILE="${ANY_ANY}"
 
@@ -37,10 +36,19 @@ EXPORT_FUNCTIONS pkg_setup src_unpack src_install
 # Must define VMWARE_VER to make, otherwise it'll try and run getversion.pl
 BUILD_TARGETS="auto-build VMWARE_VER=${VMWARE_VER}"
 
-VMWARE_MODULE_LIST="vmmon vmnet"
-
 vmware-mod_pkg_setup() {
 	linux-mod_pkg_setup
+
+	vmware_determine_product
+
+	case ${product} in
+		vmware-tools)
+			VMWARE_MODULE_LIST="vmdesched vmhgfs vmmemctl vmxnet"
+			;;
+		*)
+			VMWARE_MODULE_LIST="vmmon vmnet"
+			;;
+	esac
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 	MODULE_NAMES="${MODULE_NAMES}
@@ -49,7 +57,16 @@ vmware-mod_pkg_setup() {
 }
 
 vmware-mod_src_unpack() {
-	unpack ${A}
+	case ${product} in
+		vmware-tools)
+			cp ${CDROM_ROOT}/${TARBALL} ${WORKDIR}
+			cd ${WORKDIR}
+			unpack ./${TARBALL}
+			;;
+		*)
+			unpack ${A}
+			;;
+	esac
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 		cd ${S}
@@ -65,7 +82,7 @@ vmware-mod_src_unpack() {
 
 vmware-mod_src_install() {
 	# this adds udev rules for vmmon*
-	if [[ -n "`cat ${VMWARE_MODULE_LIST} | grep vmmon`" ]];
+	if [[ -n "`echo ${VMWARE_MODULE_LIST} | grep vmmon`" ]];
 	then
 		dodir /etc/udev/rules.d
 		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' > ${D}/etc/udev/rules.d/60-vmware.rules || die

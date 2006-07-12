@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit vmware eutils
+inherit versionator vmware eutils vmware-mod
 
 DESCRIPTION="Guest-os tools for VMware Server"
 HOMEPAGE="http://www.vmware.com/"
@@ -17,29 +17,39 @@ SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 
 LICENSE="vmware"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="-* ~x86"
 IUSE="X"
 RESTRICT="strip"
 
 RDEPEND="sys-apps/pciutils"
 
 dir=/opt/vmware/tools
-Ddir=${D}/${dir}
 
-TARBALL="vmware-linux-tools.tar.gz"
-#VMwareTools-5.0.0-13124.tar.gz
+TARBALL="VMwareTools-$(get_version_component_range 1-3)-$(get_version_component_range 4).tar.gz"
+MOD_FILE="lib/modules/source"
 
 S=${WORKDIR}/vmware-tools-distrib
 
+pkg_setup() {
+	vmware-mod_pkg_setup
+	vmware_pkg_setup
+}
+
+src_unpack() {
+	vmware-mod_src_unpack	
+}
+
 src_install() {
+	vmware-mod_src_install
+
 	dodir ${dir}/bin
-	cp -pPR bin/* ${Ddir}/bin || die
+	cp -pPR bin/* ${D}/${dir}/bin || die
 
 	dodir ${dir}/lib
-	cp -dr lib/* ${Ddir}/lib || die
+	cp -dr lib/* ${D}/${dir}/lib || die
 	# Since with Gentoo we compile everthing it doesn't make sense to keep
 	# the precompiled modules arround. Saves about 4 megs of disk space too.
-	rm -rf ${Ddir}/lib/modules/binary || die
+	rm -rf ${D}/${dir}/lib/modules/binary || die
 
 	into ${dir}
 	# install the binaries
@@ -47,8 +57,8 @@ src_install() {
 	dosbin sbin/vmware-guestd || die
 
 	# install the config files
-	dodir ${etcdir}
-	cp -pPR etc/* ${Detcdir} || die
+	dodir ${config_dir}
+	cp -pPR etc/* ${D}/${config_dir} || die
 
 	# install the init scripts
 	newinitd ${FILESDIR}/${PN}.rc ${product} || die
@@ -64,16 +74,17 @@ src_install() {
 
 	vmware_create_initd || die
 
-	cp -pPR installer/services.sh ${D}/etc/${product}/init.d/${product} || die
+	cp -pPR installer/services.sh ${D}${config_dir}/init.d/${product} || die
 
 	vmware_run_questions || die
 }
 
 pkg_postinst() {
+	vmware-mod_pkg_postinst
 	vmware_pkg_postinst
 	einfo "To start using the vmware-tools, please run the following:"
 	einfo
-	einfo "  ${dir}/bin/vmware-config-tools.pl"
+	einfo "  ${dir}/bin/${config_program}"
 	einfo "  rc-update add vmware-tools default"
 	einfo "  /etc/init.d/vmware-tools start"
 	einfo

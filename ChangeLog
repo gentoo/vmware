@@ -3,6 +3,22 @@
 # $ Id: $
 
   12 Jul 2006; Mike Auty <ikelos@gentoo.org>:
+  Still UNUSABLE attempt at a vmware-server-tools ebuild.  It's currently descended
+  from vmware-mod.eclass, and does all the installation stuff itself.  It currently
+  needs the vmware.eclass too, but I'm hoping to move that need out of there, and
+  then maybe remove those bits in vmware.eclass that were expecting the tools to be
+  a part of it.
+
+  I decided to have just a single ebuild for each of the tools and have the modules
+  done as part of that, because of determining the location of the source files.
+  Rather than downloading them, I am actually trying to get them live from the cd-rom.
+  Issues with this are if the bits that need installing are different for different
+  versions, and if the number of ebuilds necessary grows too much.
+
+  Still, hopefully we'll have something going soon, we can remove the remaining instally
+  bits off to vmware.eclass or something, and then it should all be go...  5:)
+  
+  12 Jul 2006; Mike Auty <ikelos@gentoo.org>:
   Pushing out build 1.0.0.28343, which seems to be the final Vmware-server!  YAY!  5:)
   
   08 Jul 2006; Mike Auty <ikelos@gentoo.ogr>:
