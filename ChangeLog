@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  12 Jul 2006; Mike Auty <ikelos@gentoo.org>:
+  Pushing out build 1.0.0.28343, which seems to be the final Vmware-server!  YAY!  5:)
+  
   08 Jul 2006; Mike Auty <ikelos@gentoo.ogr>:
   Re-arranged the vmware-mod.eclass.  It looks like it should be able to handle 
   the various modules for the vmware-*-tools.  The problem is that since we don't
