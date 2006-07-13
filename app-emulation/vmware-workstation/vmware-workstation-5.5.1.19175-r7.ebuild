@@ -16,7 +16,7 @@ SRC_URI="mirror://vmware/software/wkst/${MY_P}.tar.gz
 
 LICENSE="vmware"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
 RESTRICT="strip"
 
@@ -47,11 +47,3 @@ RUN_UPDATE="no"
 dir=/opt/vmware/workstation
 Ddir=${D}/${dir}
 
-src_install() {
-	not-vmware_src_install
-
-#	dosed 's/mknod -m 600/mknod -m 660/' /etc/vmware/init.d/vmware || die
-#	dosed '/c 119 "$vHubNr"/ a\
-#		chown root:vmware /dev/vmnet*\
-#		' /etc/vmware/init.d/vmware || die
-}

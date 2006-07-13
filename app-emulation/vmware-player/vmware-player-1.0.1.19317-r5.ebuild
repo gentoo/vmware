@@ -22,7 +22,7 @@ SRC_URI="http://download3.vmware.com/software/vmplayer/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="-* ~amd64 ~x86"
 RESTRICT="strip" # fetch"
 
 DEPEND="${RDEPEND} virtual/os-headers

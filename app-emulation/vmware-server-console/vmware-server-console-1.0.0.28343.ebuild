@@ -66,7 +66,7 @@ src_unpack() {
 
 src_install() {
 	echo 'libdir = "'${VMWARE_INSTALL_DIR}'/lib"' > etc/config
-	not-vmware_src_install
+	vmware_src_install
 	
 	make_desktop_entry ${PN} "VMWare Remote Console" ${PN}.png
 

@@ -2,40 +2,63 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  13 Jul 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
+  This is another fairly large update from me, but it is mostly clean-up stuff.
+  
+  * Removed old and unused vmware-pkg.eclass
+  * Removed older "test" functions from vmware.eclass for the modules builds
+  * Changed not-vmware_src_install to vmware_src_install and exported it
+  * Added vmware-workstation-tools-5.5.1-r1 ebuild
+  * Renamed vmware-workstation-tools-4.5.3 ebuild to
+  vmware-workstation-tools-4.5.3-r1 so it is an "upgrade" for users
+  * Removed vmware-workstation-5.5.1.19175-r6
+  * Cleaned older vmware-server and vmware-server-console ebuilds
+  * Cleaned older vmware-player ebuilds
+  * Made sure everything has ~amd64 ~x86 KEYWORDS, except Workstation 3.x
+  * Made sure all digests were correct for packages I touched
+  
+  This is the preliminary clean-up for possible tree inclusion.  Hopefully,
+  there won't be much editing required, if any, for this stuff to start making
+  its way into the portage tree.
+
   12 Jul 2006; Mike Auty <ikelos@gentoo.org>:
-  Still UNUSABLE attempt at a vmware-server-tools ebuild.  It's currently descended
-  from vmware-mod.eclass, and does all the installation stuff itself.  It currently
-  needs the vmware.eclass too, but I'm hoping to move that need out of there, and
-  then maybe remove those bits in vmware.eclass that were expecting the tools to be
-  a part of it.
+  Still UNUSABLE attempt at a vmware-server-tools ebuild.  It's currently
+  descended from vmware-mod.eclass, and does all the installation stuff itself.
+  It currently needs the vmware.eclass too, but I'm hoping to move that need
+  out of there, and then maybe remove those bits in vmware.eclass that were
+  expecting the tools to be a part of it.
 
-  I decided to have just a single ebuild for each of the tools and have the modules
-  done as part of that, because of determining the location of the source files.
-  Rather than downloading them, I am actually trying to get them live from the cd-rom.
-  Issues with this are if the bits that need installing are different for different
-  versions, and if the number of ebuilds necessary grows too much.
+  I decided to have just a single ebuild for each of the tools and have the
+  modules done as part of that, because of determining the location of the
+  source files.  Rather than downloading them, I am actually trying to get them
+  live from the cd-rom.  Issues with this are if the bits that need installing
+  are different for different versions, and if the number of ebuilds necessary
+  grows too much.
 
-  Still, hopefully we'll have something going soon, we can remove the remaining instally
-  bits off to vmware.eclass or something, and then it should all be go...  5:)
+  Still, hopefully we'll have something going soon, we can remove the remaining
+  installation bits off to vmware.eclass or something, and then it should all
+  be good to go...  5:)
   
   12 Jul 2006; Mike Auty <ikelos@gentoo.org>:
-  Pushing out build 1.0.0.28343, which seems to be the final Vmware-server!  YAY!  5:)
+  Pushing out build 1.0.0.28343, which seems to be the final Vmware-server!
+  YAY!  5:)
   
   08 Jul 2006; Mike Auty <ikelos@gentoo.ogr>:
   Re-arranged the vmware-mod.eclass.  It looks like it should be able to handle 
-  the various modules for the vmware-*-tools.  The problem is that since we don't
-  have a nice vmware-any-any package for the tool modules, we can't just use an
-  environment variable and a single source package.  So how do we go about
-  unpacking it from the provided tarball, if the main package is built elsewhere?
-  Do we require the file for both programs?  Do we augment the vmware-tools-modules
-  to require the install file, and if so, how do we know which version we installed?
+  the various modules for the vmware-*-tools.  The problem is that since we
+  don't have a nice vmware-any-any package for the tool modules, we can't just
+  use an environment variable and a single source package.  So how do we go
+  about unpacking it from the provided tarball, if the main package is built
+  elsewhere?  Do we require the file for both programs?  Do we augment the
+  vmware-tools-modules to require the install file, and if so, how do we know
+  which version we installed?
   Ideas on a postcard to...  5:)
   
   08 Jul 2006; Mike Auty <ikelos@gentoo.org>:
-  First attempt at a vmware-server-tools package, based on a user submitted ebuild
-  (thanks to Anthony Red in bug 122670) and the vmware-workstation-tools ebuild.
-  There are likely to be a lot of changes to it, whilst I work out what it does,
-  during that time I'd suggest NOT using it...  5:)
+  First attempt at a vmware-server-tools package, based on a user submitted
+  ebuild (thanks to Anthony Red in bug 122670) and the vmware-workstation-tools
+  ebuild. There are likely to be a lot of changes to it, whilst I work out what
+  it does, during that time I'd suggest NOT using it...  5:)
 
   02 Jul 2006; Mike Auty <ikelos@gentoo.org>:
   Fixed a mistake in the vmware-mod.eclass, where I'd left out the EPATCH_SUFFIX.

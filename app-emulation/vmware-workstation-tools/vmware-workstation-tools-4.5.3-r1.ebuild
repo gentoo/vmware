@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit vmware eutils
+inherit eutils vmware
 
 DESCRIPTION="Guest-os tools for VMware Workstation"
 HOMEPAGE="http://www.vmware.com/"
@@ -64,7 +64,7 @@ src_install() {
 
 	vmware_create_initd || die
 
-	cp -pPR installer/services.sh ${D}/etc/${product}/init.d/${product} || die
+	cp -pPR installer/services.sh ${Detcdir}/init.d/${product} || die
 
 	vmware_run_questions || die
 }

@@ -49,7 +49,7 @@ dir=/opt/vmware/workstation
 Ddir=${D}/${dir}
 
 src_install() {
-	not-vmware_src_install
+	vmware_src_install
 	# We remove the rpath libgdk_pixbuf stuff, to resolve bug #81344.
 	perl -pi -e 's#/tmp/rrdharan/out#/opt/vmware/null/#sg' \
 		${Ddir}/lib/lib/libgdk_pixbuf.so.2/lib{gdk_pixbuf.so.2,pixbufloader-{xpm,png}.so.1.0.0} \

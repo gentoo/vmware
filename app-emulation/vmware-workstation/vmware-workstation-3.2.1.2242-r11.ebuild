@@ -61,7 +61,7 @@ src_compile() {
 }
 
 src_install() {
-	not-vmware_src_install
+	vmware_src_install
 	# We also remove libgdk_pixbuf stuff, to resolve bug #81344.
 	rm -rf ${Ddir}/lib/lib/libgdk_pixbuf.so.2
 

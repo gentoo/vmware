@@ -24,7 +24,7 @@ SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* ~x86 ~amd64"
+KEYWORDS="-* ~amd64 ~x86"
 RESTRICT="nostrip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
@@ -76,7 +76,7 @@ src_unpack() {
 }
 
 src_install() {
-	not-vmware_src_install
+	vmware_src_install
 
 	# Fix the amd64 emulation pam stuff
 	use amd64 && dosed "s:pam_:/emul/linux/x86/lib/security/pam_:" ${config_dir}/pam.d/vmware-authd

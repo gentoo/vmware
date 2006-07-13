@@ -9,32 +9,12 @@
 
 inherit eutils
 
-EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_unpack pkg_postrm
+EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_install src_unpack pkg_postrm
 
 export ANY_ANY="vmware-any-any-update101"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 export VMWARE_INSTALL_DIR=/opt/${PN//-//}
-
-vmware_test_module_failed() {
-	eerror "You have an incompatible version of app-emulation/vmware-modules installed!"
-	echo
-	die "Please run 'emerge -C app-emulation/vmware-modules' before continuing"
-}
-
-vmware_test_module_build() {
-	if has_version "app-emulation/vmware-modules"; then
-		if test ! -e /opt/vmware/module-build; then
-			eerror "Unable to determine which package the vmware-modules were compiled for"
-			vmware_test_module_failed
-		else
-			if test "`cat /opt/vmware/module-build`" != $VMWARE_VME; then
-				eerror "The vmware-modules on this system were built for a different version of vmware"
-				vmware_test_module_failed
-			fi
-		fi
-	fi
-}
 
 vmware_create_initd() {
 	dodir ${config_dir}/init.d/rc{0,1,2,3,4,5,6}.d
@@ -171,8 +151,7 @@ vmware_src_unpack() {
 	fi
 }
 
-# This will need to be renamed once it is fully functional.
-not-vmware_src_install() {
+vmware_src_install() {
 	# We won't want any perl scripts from VMware once we've finally got all
 	# of the configuration done, but for now, they're necessary.
 	#rm -f bin/*.pl
