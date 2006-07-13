@@ -9,9 +9,6 @@ inherit eutils vmware linux-mod
 
 PARENT_PN=${PN/-modules/}
 
-# MOD_FILE is to allow the overriding of the file and location to unpack from
-MOD_FILE="${ANY_ANY}"
-
 DESCRIPTION="Modules for Vmware Programs"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz"
@@ -21,6 +18,7 @@ IUSE=""
 
 # Provide vaguely sensible defaults
 VMWARE_VER="VME_V55"
+VMWARE_MOD_DIR="${ANY_ANY}"
 
 DEPEND=">=sys-apps/portage-2.0.54"
 
@@ -70,7 +68,7 @@ vmware-mod_src_unpack() {
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 		cd ${S}
-		unpack ./${MOD_FILE}/${mod}.tar
+		unpack ./${VMWARE_MOD_DIR}/${mod}.tar
 		cd ${S}/${mod}-only
 		# Ensure it's not used
 		# rm getversion.pl

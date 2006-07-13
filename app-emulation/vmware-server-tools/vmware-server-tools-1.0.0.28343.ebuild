@@ -26,7 +26,7 @@ RDEPEND="sys-apps/pciutils"
 dir=/opt/vmware/tools
 
 TARBALL="VMwareTools-$(get_version_component_range 1-3)-$(get_version_component_range 4).tar.gz"
-MOD_FILE="lib/modules/source"
+VMWARE_MOD_DIR="lib/modules/source"
 
 S=${WORKDIR}/vmware-tools-distrib
 
