@@ -7,10 +7,10 @@ MD5 aa1b576735134579f04b29763901dc4f files/vmware-server-console.xml 1592
 RMD160 0d7e9ed13ebb3c73dd847e95fa95499296609e8c files/vmware-server-console.xml 1592
 SHA256 56aafee80ad705e8d832f8853c36d763d37b87d1cb132a41c50eb63085ae854d files/vmware-server-console.xml 1592
 DIST VMware-server-linux-client-1.0.0-28343.zip 23381351 RMD160 9a82c4cd1915a11e8ca37938102654272415706d SHA1 f9feb3f39281f15c87696cf4cb569b0ca0acffc6 SHA256 3ce31c1971fcd76c88a5be6e1354a1d27016435c3abd36d76fc97880dbe1879b
-EBUILD vmware-server-console-1.0.0.28343.ebuild 2024 RMD160 99d61c8db356c999d878ac78901631b7a1f048bd SHA1 4744921ea67eb533991e0764c75716736aebba24 SHA256 a3195f407385be847bb35edc5bc7bb239c0ea1c20e82fdf7ba412a7e57a5b5e7
-MD5 3c5183b67816fe719afb0b1ef8137472 vmware-server-console-1.0.0.28343.ebuild 2024
-RMD160 99d61c8db356c999d878ac78901631b7a1f048bd vmware-server-console-1.0.0.28343.ebuild 2024
-SHA256 a3195f407385be847bb35edc5bc7bb239c0ea1c20e82fdf7ba412a7e57a5b5e7 vmware-server-console-1.0.0.28343.ebuild 2024
+EBUILD vmware-server-console-1.0.0.28343.ebuild 2020 RMD160 7b060f3633574cdaf1bf3c9693a8b88de3a1cedf SHA1 1ddc4f86a74eb647710dab85f8a4cd02bed36794 SHA256 e8d64d1ca48b44e7b9e1299e7795c5b909ac55f28f591f4e950bc9b6c7456a85
+MD5 b9e4b10aac8256358b172d1287f186eb vmware-server-console-1.0.0.28343.ebuild 2020
+RMD160 7b060f3633574cdaf1bf3c9693a8b88de3a1cedf vmware-server-console-1.0.0.28343.ebuild 2020
+SHA256 e8d64d1ca48b44e7b9e1299e7795c5b909ac55f28f591f4e950bc9b6c7456a85 vmware-server-console-1.0.0.28343.ebuild 2020
 MD5 7bf2861c758ff195a9b9ccfaa479cae4 files/digest-vmware-server-console-1.0.0.28343 313
 RMD160 74ce97d25046352a32488db4eb29420fce080d81 files/digest-vmware-server-console-1.0.0.28343 313
 SHA256 13ef720fcf7f1f9e50d6f01b3a58d0131a989f961883e92a735849f650973317 files/digest-vmware-server-console-1.0.0.28343 313
