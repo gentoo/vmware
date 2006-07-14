@@ -34,6 +34,10 @@ AUX 5.5.1.19175/007_all_use-modprobe-over-insmod.patch 448 RMD160 136dfcfe2df7a7
 MD5 f5a4bba93e2ef942332dbe7105f2b204 files/5.5.1.19175/007_all_use-modprobe-over-insmod.patch 448
 RMD160 136dfcfe2df7a7ebf2844749f473a6c6d0bb3084 files/5.5.1.19175/007_all_use-modprobe-over-insmod.patch 448
 SHA256 9497f8ad6acb2460e27bd5430670e79129ec2ffbf6f5b8dae62084e5e56059ee files/5.5.1.19175/007_all_use-modprobe-over-insmod.patch 448
+AUX 5.5.1.19175/009_all_init.d-modules-warning.patch 991 RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d SHA1 3742749baa606a57d447931f0af791696a49e660 SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498
+MD5 9689ef9d197dcc43dc2f390e6de4ec21 files/5.5.1.19175/009_all_init.d-modules-warning.patch 991
+RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d files/5.5.1.19175/009_all_init.d-modules-warning.patch 991
+SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498 files/5.5.1.19175/009_all_init.d-modules-warning.patch 991
 AUX 90vmware-workstation 106 RMD160 471fb03d54bb48c651d4543f1c8ece1bb9b40c0a SHA1 3db7ec2a3b37a84328bf3d481a58b42499ef520b SHA256 c8f7143551f516b901143e60fc74e822ca3d235477d1c2a135bb36cbc639cf1e
 MD5 aff74afc68b848e408f93e60bdf847c9 files/90vmware-workstation 106
 RMD160 471fb03d54bb48c651d4543f1c8ece1bb9b40c0a files/90vmware-workstation 106

@@ -3,6 +3,10 @@
 # $ Id: $
 
   14 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Added patch 009 to the latest versions of player, workstation and server.
+  This patch changes the "not configured" error message of the init script.
+  
+  14 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fixed up three broken manifests...
 
   13 Jul 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:

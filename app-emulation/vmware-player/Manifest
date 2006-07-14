@@ -18,6 +18,10 @@ AUX 1.0.1.19317/007_all_use-modprobe-over-insmod.patch 448 RMD160 136dfcfe2df7a7
 MD5 f5a4bba93e2ef942332dbe7105f2b204 files/1.0.1.19317/007_all_use-modprobe-over-insmod.patch 448
 RMD160 136dfcfe2df7a7ebf2844749f473a6c6d0bb3084 files/1.0.1.19317/007_all_use-modprobe-over-insmod.patch 448
 SHA256 9497f8ad6acb2460e27bd5430670e79129ec2ffbf6f5b8dae62084e5e56059ee files/1.0.1.19317/007_all_use-modprobe-over-insmod.patch 448
+AUX 1.0.1.19317/009_all_init.d-modules-warning.patch 991 RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d SHA1 3742749baa606a57d447931f0af791696a49e660 SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498
+MD5 9689ef9d197dcc43dc2f390e6de4ec21 files/1.0.1.19317/009_all_init.d-modules-warning.patch 991
+RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d files/1.0.1.19317/009_all_init.d-modules-warning.patch 991
+SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498 files/1.0.1.19317/009_all_init.d-modules-warning.patch 991
 AUX 90vmware-player 91 RMD160 025ff93348f5a838183e4f6108d7030168ca5ed5 SHA1 54c316adaafce41771eb26513c960dabbed61ce9 SHA256 9aee16313163bd9e161e81ef2876d086fb8972489100c4f8f0a4695ff16578f9
 MD5 40cfaf639df38a7cb04073555992d31e files/90vmware-player 91
 RMD160 025ff93348f5a838183e4f6108d7030168ca5ed5 files/90vmware-player 91
