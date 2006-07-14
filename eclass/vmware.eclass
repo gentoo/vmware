@@ -56,6 +56,7 @@ vmware_determine_product() {
 			;;
 		workstation-tools|esx-tools|gsx-tools|server-tools)
 			product="vmware-tools"
+			config_program="vmware-config-tools.pl"
 			;;
 		*)
 			product="unknown"
@@ -262,6 +263,10 @@ vmware_src_install() {
 		# Now, we copy in our services.sh file
 		exeinto ${config_dir}/init.d
 		newexe installer/services.sh ${product} || die "services.sh"
+
+		# Set the name
+		dosed "s:%LONGNAME%:Vmware ${FULL_NAME}:" ${config_dir}/init.d/${product}
+		[ "${shortname}" == "server" ] && dosed "s:%SHORTNAME%:wgs:" ${config_dir}/init.d/${product}
 
 		# Then we "fix" it.
 		dosed -e 's/mknod -m 600/mknod -m 660/' \

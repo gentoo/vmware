@@ -14,6 +14,10 @@ AUX 4.5.3.19414/002_all_pagebreak-detection-fix.patch 671 RMD160 9e8a46b76621b67
 MD5 c97a07443c0b9124d7cecec1e15bee07 files/4.5.3.19414/002_all_pagebreak-detection-fix.patch 671
 RMD160 9e8a46b76621b67be28cba60524bc4dea0dbd068 files/4.5.3.19414/002_all_pagebreak-detection-fix.patch 671
 SHA256 df96cf12b9e7ab2578c134c94e43f11fb8a187a3a0ddf8f645a8aa126020caab files/4.5.3.19414/002_all_pagebreak-detection-fix.patch 671
+AUX 4.5.3.19414/009_all_init.d-modules-warning.patch 991 RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d SHA1 3742749baa606a57d447931f0af791696a49e660 SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498
+MD5 9689ef9d197dcc43dc2f390e6de4ec21 files/4.5.3.19414/009_all_init.d-modules-warning.patch 991
+RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d files/4.5.3.19414/009_all_init.d-modules-warning.patch 991
+SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498 files/4.5.3.19414/009_all_init.d-modules-warning.patch 991
 AUX 5.5.1.19175/000_all_initd-location.patch 1131 RMD160 3ab69d825994cc3bb177143d27091fc292cec46a SHA1 14264460c8500f1ead267059e2b9b9a5dc8c057f SHA256 b4055370b0092e71a2b2b0f27edeb7bc063ad265f95ab4530e52c3ab3167ad62
 MD5 23d97e5e436a0d827b48db3ed9948aa7 files/5.5.1.19175/000_all_initd-location.patch 1131
 RMD160 3ab69d825994cc3bb177143d27091fc292cec46a files/5.5.1.19175/000_all_initd-location.patch 1131
@@ -51,7 +55,7 @@ MD5 aa1b576735134579f04b29763901dc4f files/vmware-workstation.xml 1592
 RMD160 0d7e9ed13ebb3c73dd847e95fa95499296609e8c files/vmware-workstation.xml 1592
 SHA256 56aafee80ad705e8d832f8853c36d763d37b87d1cb132a41c50eb63085ae854d files/vmware-workstation.xml 1592
 DIST VMware-workstation-3.2.1-2242.tar.gz 12577292 RMD160 f2a6c3cc38f3c3851446e8902237b958367293a1 SHA256 ec305ca65c2e513b5d809e59849176d15dcf6a8f88e3d9bc9ce8fdca59fc2dfc
-DIST VMware-workstation-4.5.3-19414.tar.gz 42444031 RMD160 0f0b7a2249a12b75c9d81b8906efb2e85e04878b SHA256 6873ff04a317e6d0cbf31d4dd2ffcacd99cd335fb329e47f2c5f924376ffdcd6
+DIST VMware-workstation-4.5.3-19414.tar.gz 42444031 RMD160 0f0b7a2249a12b75c9d81b8906efb2e85e04878b SHA1 f277dd75d9050b90d339b7f126a8575188791fb3 SHA256 6873ff04a317e6d0cbf31d4dd2ffcacd99cd335fb329e47f2c5f924376ffdcd6
 DIST VMware-workstation-5.5.1-19175.tar.gz 100090786 RMD160 79735996e1d79e96783db7d2dac67b7b7f605f47 SHA1 ed90b829b62d371eeb83cc41cd7bfb32d2a2f6e7 SHA256 7346676d0ec1c72c3f8d3e4ced37311a63c99d757998b162a08724466504e2c3
 DIST vmware-any-any-update101.tar.gz 296409 RMD160 d8994b91492257d8b8e08480ab27fc307fc34095 SHA1 43714052429c1574cdf086a052859657affff0b0 SHA256 b12e3a70117ef26a85c8e01a23ea7d21b62bbc86998368114f9f7932390d2037
 DIST vmware.png 470 RMD160 759a5530b3bb605e6bc2c1e203490163d320485d SHA1 2262b25fb3ec66ed7b209ff5205fb9b289ca1afc SHA256 9bec91ecc32fa913141ca303abf1abec988ebc7fb4f27389f173bf3493bffb9b
@@ -78,9 +82,9 @@ SHA256 bb60a871a58964feaa59ec824a5d511455054461f0394a57a8c9ca019a0f4593 metadata
 MD5 06613f1bd854b11e14774bbe05094e0e files/digest-vmware-workstation-3.2.1.2242-r11 688
 RMD160 15923ea2e0875879ebde850308f6a718c8f82fbd files/digest-vmware-workstation-3.2.1.2242-r11 688
 SHA256 25b5f843b78761e3e82bdde35dbd0f6a34fe98b69ec328429e989c00f7482c95 files/digest-vmware-workstation-3.2.1.2242-r11 688
-MD5 01d98507aee3bf83b89d91ce81af4756 files/digest-vmware-workstation-4.5.3.19414-r4 690
-RMD160 713d47df79c07e823d58bacb3ad77b88de22392a files/digest-vmware-workstation-4.5.3.19414-r4 690
-SHA256 8680fdda3d42fbf3dd3c2b514a2b2d67d02583b6c9eec43a4603560d71d38f50 files/digest-vmware-workstation-4.5.3.19414-r4 690
+MD5 35adc6f03c0de1d5ad9f45cc5864c120 files/digest-vmware-workstation-4.5.3.19414-r4 774
+RMD160 f76ff1c6dd7ca511dcad74408060aa41fe77f794 files/digest-vmware-workstation-4.5.3.19414-r4 774
+SHA256 04b199e0a500a8184bc67bfc05b644d728291d6db704c2d40174f08c60697742 files/digest-vmware-workstation-4.5.3.19414-r4 774
 MD5 7e16d1df573c33f106193c1c5211b4be files/digest-vmware-workstation-5.5.1.19175-r7 575
 RMD160 c64ca9274b2acbab196011ad1dbb3e4a7de2cb82 files/digest-vmware-workstation-5.5.1.19175-r7 575
 SHA256 cb233f0c0052cb615d02f7fc2bb9d4e36f6fe91be8fcfbf211815e7228569244 files/digest-vmware-workstation-5.5.1.19175-r7 575

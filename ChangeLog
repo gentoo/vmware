@@ -3,6 +3,10 @@
 # $ Id: $
 
   14 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Fixed up the LONGNAME/SHORTNAME issue when using the vmware-any-any init
+  script.  Also added patch 009 to the workstation-4.5 patchset.
+  
+  14 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Added patch 009 to the latest versions of player, workstation and server.
   This patch changes the "not configured" error message of the init script.
   
