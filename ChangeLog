@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  17 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Thanks to the eagle eyes of Cardoe, we now have a dependency in the vmware
+  eclass for the update-mime-info tool.  That should get inheritted automatically
+  by every ebuild, so this should fix it for all our packages.
+  
   14 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fixed up the LONGNAME/SHORTNAME issue when using the vmware-any-any init
   script.  Also added patch 009 to the workstation-4.5 patchset.

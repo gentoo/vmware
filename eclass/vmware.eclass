@@ -11,6 +11,8 @@ inherit eutils
 
 EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_install src_unpack pkg_postrm
 
+DEPEND="x11-misc/shared-mime-info"
+
 export ANY_ANY="vmware-any-any-update101"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
