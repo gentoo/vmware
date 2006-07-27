@@ -7,8 +7,6 @@
 # pkg_postinst, along with our own pkg_setup, src_unpack and src_compile
 inherit eutils vmware linux-mod
 
-PARENT_PN=${PN/-modules/}
-
 DESCRIPTION="Modules for Vmware Programs"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz"

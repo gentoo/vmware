@@ -36,7 +36,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	vmware-mod_src_unpack	
+	vmware-mod_src_unpack
 }
 
 src_install() {

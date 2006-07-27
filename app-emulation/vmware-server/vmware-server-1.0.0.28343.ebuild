@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id: vmware-server-1.0.0.23869.ebuild 44 2006-05-10 19:44:01Z ikelos $
+# $Header: $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -36,17 +36,17 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? ( app-emulation/emul-linux-x86-baselibs
-	         app-emulation/emul-linux-x86-gtklibs 
+	         app-emulation/emul-linux-x86-gtklibs
 		   )
 	!amd64? ( || ( ( x11-libs/libX11
 			x11-libs/libXtst
 			x11-libs/libXext
-			x11-libs/libXt 
+			x11-libs/libXt
 			x11-libs/libICE
 			x11-libs/libSM
 			x11-libs/libXrender
 		      )
-		      ( virtual/x11 
+		      ( virtual/x11
 			virtual/xft
 		      )
 		    )
@@ -100,7 +100,7 @@ pkg_postinst() {
 	einfo "To allow external users access to vmware-server you must edit"
 	einfo "    /etc/xinetd.d/vmware-authd"
 	einfo "and specify a new 'only_from' line"
-	echo 
+	echo
 	ewarn "VMWare Server also has issues when running on a JFS filesystem.  For more"
 	ewarn "information see http://bugs.gentoo.org/show_bug.cgi?id=122500#c94"
 }

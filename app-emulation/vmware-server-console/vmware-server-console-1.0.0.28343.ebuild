@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id: vmware-server-console-1.0.0.24927.ebuild 47 2006-06-07 21:17:23Z ikelos $
+# $Header: $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -67,7 +67,7 @@ src_unpack() {
 src_install() {
 	echo 'libdir = "'${VMWARE_INSTALL_DIR}'/lib"' > etc/config
 	vmware_src_install
-	
+
 	make_desktop_entry ${PN} "VMWare Remote Console" ${PN}.png
 
 	dodir /usr/bin
