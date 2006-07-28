@@ -55,7 +55,7 @@ vmware-mod_pkg_setup() {
 vmware-mod_src_unpack() {
 	case ${product} in
 		vmware-tools)
-			cp "${CDROM_ROOT}/${TARBALL}" "${WORKDIR}"
+			cp "${CDROM_ROOT}"/"${TARBALL}" "${WORKDIR}"
 			cd "${WORKDIR}"
 			unpack "./${TARBALL}"
 			;;
@@ -66,13 +66,13 @@ vmware-mod_src_unpack() {
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 		cd "${S}"
-		unpack "./${VMWARE_MOD_DIR}/${mod}.tar"
-		cd "${S}/${mod}-only"
+		unpack ./"${VMWARE_MOD_DIR}"/${mod}.tar
+		cd "${S}"/${mod}-only
 		# Ensure it's not used
 		# rm getversion.pl
 		EPATCH_SUFFIX="patch"
-		epatch "${FILESDIR}/patches"
-		convert_to_m "${S}/${mod}-only/Makefile"
+		epatch "${FILESDIR}"/patches
+		convert_to_m "${S}"/${mod}-only/Makefile
 	done
 }
 
