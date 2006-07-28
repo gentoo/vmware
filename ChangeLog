@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  28 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Fixing up quoting issues in the eclasses, kindly pointed out by phreak``.
+  
   27 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fix up basic repoman failings, in preparation for merging with the main tree...
   

@@ -20,7 +20,7 @@ VMWARE_MOD_DIR="${ANY_ANY}"
 
 DEPEND=">=sys-apps/portage-2.0.54"
 
-S=${WORKDIR}
+S="${WORKDIR}"
 
 # We needn't restrict this since it was only required to read
 # /etc/vmware/locations to determine the version (which is now fixed by
@@ -55,9 +55,9 @@ vmware-mod_pkg_setup() {
 vmware-mod_src_unpack() {
 	case ${product} in
 		vmware-tools)
-			cp ${CDROM_ROOT}/${TARBALL} ${WORKDIR}
-			cd ${WORKDIR}
-			unpack ./${TARBALL}
+			cp "${CDROM_ROOT}/${TARBALL}" "${WORKDIR}"
+			cd "${WORKDIR}"
+			unpack "./${TARBALL}"
 			;;
 		*)
 			unpack ${A}
@@ -65,14 +65,14 @@ vmware-mod_src_unpack() {
 	esac
 
 	for mod in ${VMWARE_MODULE_LIST}; do
-		cd ${S}
-		unpack ./${VMWARE_MOD_DIR}/${mod}.tar
-		cd ${S}/${mod}-only
+		cd "${S}"
+		unpack "./${VMWARE_MOD_DIR}/${mod}.tar"
+		cd "${S}/${mod}-only"
 		# Ensure it's not used
 		# rm getversion.pl
 		EPATCH_SUFFIX="patch"
-		epatch ${FILESDIR}/patches
-		convert_to_m ${S}/${mod}-only/Makefile
+		epatch "${FILESDIR}/patches"
+		convert_to_m "${S}/${mod}-only/Makefile"
 	done
 }
 
@@ -81,7 +81,7 @@ vmware-mod_src_install() {
 	if [[ -n "`echo ${VMWARE_MODULE_LIST} | grep vmmon`" ]];
 	then
 		dodir /etc/udev/rules.d
-		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' > ${D}/etc/udev/rules.d/60-vmware.rules || die
+		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' > "${D}/etc/udev/rules.d/60-vmware.rules" || die
 	fi
 	
 	linux-mod_src_install
