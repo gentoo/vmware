@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.0.28343.ebuild,v 1.1 2006/07/31 20:23:50 ikelos Exp $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -14,12 +14,11 @@ MY_P="VMware-server-${MY_PV}"
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
-		 http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
-		 http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
-		 http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-		 http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz
-		 http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2"
-
+		http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
+		http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
+		http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
+		http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz
+		http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
@@ -35,22 +34,25 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # vmware-server should not use virtual/libc as this is a 
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
-	amd64? ( app-emulation/emul-linux-x86-baselibs
-	         app-emulation/emul-linux-x86-gtklibs
-		   )
-	!amd64? ( || ( ( x11-libs/libX11
-			x11-libs/libXtst
-			x11-libs/libXext
-			x11-libs/libXt
-			x11-libs/libICE
-			x11-libs/libSM
-			x11-libs/libXrender
-		      )
-		      ( virtual/x11
+	amd64? (
+			app-emulation/emul-linux-x86-baselibs
+			app-emulation/emul-linux-x86-gtklibs
+	)
+	!amd64? (
 			virtual/xft
-		      )
-		    )
-	       )
+			|| (
+				(
+					x11-libs/libX11
+					x11-libs/libXtst
+					x11-libs/libXext
+					x11-libs/libXt
+					x11-libs/libICE
+					x11-libs/libSM
+					x11-libs/libXrender
+				)
+				virtual/x11
+			)
+	)
 	>=dev-lang/perl-5
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
