@@ -19,11 +19,11 @@ export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 export VMWARE_INSTALL_DIR=/opt/${PN//-//}
 
 vmware_create_initd() {
-	dodir ${config_dir}/init.d/rc{0,1,2,3,4,5,6}.d
+	dodir "${config_dir}"/init.d/rc{0,1,2,3,4,5,6}.d
 	# This is to fix a problem where if someone merges vmware and then
 	# before configuring vmware they upgrade or re-merge the vmware
 	# package which would rmdir the /etc/vmware/init.d/rc?.d directories.
-	keepdir ${config_dir}/init.d/rc{0,1,2,3,4,5,6}.d
+	keepdir "${config_dir}"/init.d/rc{0,1,2,3,4,5,6}.d
 }
 
 vmware_run_questions() {
@@ -47,7 +47,7 @@ vmware_run_questions() {
 vmware_determine_product() {
 	# Set the product category, and the category options
 	shortname=$(echo ${PN} | cut -d- -f2-)
-	case ${shortname} in
+	case "${shortname}" in
 		workstation|server|player)
 			product="vmware"
 			config_program="vmware-config.pl"
@@ -67,7 +67,7 @@ vmware_determine_product() {
 	config_dir="/etc/${product}"
 
 	# Set per package options
-	case ${shortname} in
+	case "${shortname}" in
 		workstation)
 			FULL_NAME="Workstation"
 			;;
@@ -90,7 +90,7 @@ vmware_determine_product() {
 
 vmware_pkg_setup() {
 	vmware_determine_product
-	case ${product} in
+	case "${product}" in
 		vmware|vmware-console)
 			# We create a group for VMware users due to bugs #104480 and #106170
 			enewgroup "${VMWARE_GROUP}"
@@ -112,13 +112,13 @@ vmware_src_unpack() {
 
 		if [[ -n "${ANY_ANY}" ]]
 		then
-			unpack ${ANY_ANY}.tar.gz
+			unpack "${ANY_ANY}".tar.gz
 			# Move the relevant ANY_ANY files now, so that they can be patched later...
-			mv -f ${ANY_ANY}/services.sh ${S}/installer/services.sh
+			mv -f "${ANY_ANY}"/services.sh "${S}"/installer/services.sh
 			# We should be able to get rid of this eventually,
 			# since we'll be using vmware-modules in future...
 			[[ "${product}" == "vmware" ]] && \
-				mv -f ${ANY_ANY}/*.tar ${S}/lib/modules/source
+				mv -f "${ANY_ANY}"/*.tar "${S}"/lib/modules/source
 			[[ -e lib/bin/vmware ]] && \
 				chmod 755 lib/bin/vmware
 			[[ -e bin/vmnet-bridge ]] && \
@@ -142,13 +142,13 @@ vmware_src_unpack() {
 		if [[ -d "${FILESDIR}/${PV}" ]]
 		then
 			EPATCH_SUFFIX="patch"
-			epatch ${FILESDIR}/${PV}
+			epatch "${FILESDIR}"/${PV}
 		fi
 		if [[ -n "${PATCHES}" ]]
 		then
 			for patch in ${PATCHES}
 			do
-				epatch ${FILESDIR}/${patch}
+				epatch "${FILESDIR}"/${patch}
 			done
 		fi
 	fi
@@ -166,14 +166,14 @@ vmware_src_install() {
 	elif [[ -e doc/icon48x48.png ]]
 	then
 		newicon doc/icon48x48.png ${PN}.png
-	elif [[ -e ${DISTDIR}/${product}.png ]]
+	elif [[ -e "${DISTDIR}/${product}.png" ]]
 	then
-		newicon ${DISTDIR}/${product}.png ${PN}.png
+		newicon "${DISTDIR}"/${product}.png ${PN}.png
 	fi
 
 	# Since with Gentoo we compile everthing it doesn't make sense to keep
 	# the precompiled modules arround. Saves about 4 megs of disk space too.
-	rm -rf ${S}/lib/modules/binary
+	rm -rf "${S}"/lib/modules/binary
 	# We also don't need to keep the icons around, or do we?
 	#rm -rf ${S}/lib/share/icons
 
@@ -189,54 +189,54 @@ vmware_src_install() {
 	# We loop through our directories and copy everything to our system.
 	for x in bin lib sbin
 	do
-		if [[ -e ${S}/${x} ]]
+		if [[ -e "${S}/${x}" ]]
 		then
-			dodir ${VMWARE_INSTALL_DIR}/${x}
-			cp -pPR ${S}/${x}/* ${D}${VMWARE_INSTALL_DIR}/${x} || die "copying ${x}"
+			dodir "${VMWARE_INSTALL_DIR}"/${x}
+			cp -pPR "${S}"/${x}/* "${D}""${VMWARE_INSTALL_DIR}"/${x} || die "copying ${x}"
 		fi
 	done
 
 	# If we have an /etc directory, we copy it.
-	if [[ -e ${S}/etc ]]
+	if [[ -e "${S}/etc" ]]
 	then
-		dodir ${config_dir}
-		cp -pPR ${S}/etc/* ${D}${config_dir}
-		fowners root:${VMWARE_GROUP} ${config_dir}
-		fperms 770 ${config_dir}
+		dodir "${config_dir}"
+		cp -pPR "${S}"/etc/* "${D}""${config_dir}"
+		fowners root:${VMWARE_GROUP} "${config_dir}"
+		fperms 770 "${config_dir}"
 	fi
 
 	# If we have any helper files, we install them.  First, we check for an
 	# init script.
-	if [[ -e ${FILESDIR}/${PN}.rc ]]
+	if [[ -e "${FILESDIR}/${PN}.rc" ]]
 	then
-		newinitd ${FILESDIR}/${PN}.rc ${product} || die "newinitd"
+		newinitd "${FILESDIR}"/${PN}.rc ${product} || die "newinitd"
 	fi
 	# Then we check for an environment file.
-	if [[ -e ${FILESDIR}/90${PN} ]]
+	if [[ -e "${FILESDIR}/90${PN}" ]]
 	then
-		doenvd ${FILESDIR}/90${PN} || die "doenvd"
+		doenvd "${FILESDIR}"/90${PN} || die "doenvd"
 	fi
 	# Last, we check for any mime files.
-	if [[ -e ${FILESDIR}/${PN}.xml ]]
+	if [[ -e "${FILESDIR}/${PN}.xml" ]]
 	then
 		insinto /usr/share/mime/packages
-		doins ${FILESDIR}/${PN}.xml || die "mimetypes"
+		doins "${FILESDIR}"/${PN}.xml || die "mimetypes"
 	fi
 
 	# Blame bug #91191 for this one.
 	if [[ -e doc/EULA ]]
 	then
-		insinto ${VMWARE_INSTALL_DIR}/doc
+		insinto "${VMWARE_INSTALL_DIR}"/doc
 		doins doc/EULA || die "copying EULA"
 	fi
 
 	# Do we have vmware-ping/vmware-vmx?  If so, make them setuid.
 	for p in /bin/vmware-ping /lib/bin/vmware-vmx /lib/bin-debug/vmware-vm /sbin/vmware-authd;
 	do
-		if [ -x ${D}${VMWARE_INSTALL_DIR}${p} ]
+		if [ -x "${D}${VMWARE_INSTALL_DIR}${p}" ]
 		then
-			fowners root:${VMWARE_GROUP} ${VMWARE_INSTALL_DIR}${p}
-			fperms 4750 ${VMWARE_INSTALL_DIR}${p}
+			fowners root:${VMWARE_GROUP} "${VMWARE_INSTALL_DIR}"${p}
+			fperms 4750 "${VMWARE_INSTALL_DIR}"${p}
 		fi
 	done
 
@@ -263,18 +263,18 @@ vmware_src_install() {
 		vmware_create_initd || die "creating rc directories"
 
 		# Now, we copy in our services.sh file
-		exeinto ${config_dir}/init.d
+		exeinto "${config_dir}"/init.d
 		newexe installer/services.sh ${product} || die "services.sh"
 
 		# Set the name
-		dosed "s:%LONGNAME%:Vmware ${FULL_NAME}:" ${config_dir}/init.d/${product}
-		[ "${shortname}" == "server" ] && dosed "s:%SHORTNAME%:wgs:" ${config_dir}/init.d/${product}
+		dosed "s:%LONGNAME%:Vmware ${FULL_NAME}:" "${config_dir}"/init.d/${product}
+		[ "${shortname}" == "server" ] && dosed "s:%SHORTNAME%:wgs:" "${config_dir}"/init.d/${product}
 
 		# Then we "fix" it.
 		dosed -e 's/mknod -m 600/mknod -m 660/' \
 			-e '/c 119 "$vHubNr"/ a\
 			chown root:'${VMWARE_GROUP}' /dev/vmnet*\
-			' ${config_dir}/init.d/${product} || die
+			' "${config_dir}"/init.d/${product} || die
 	fi
 
 	# Finally, we run the "questions"
@@ -292,18 +292,18 @@ vmware_pkg_preinst() {
 	d=`echo ${D} | wc -c`
 	for x in `find ${D}${VMWARE_INSTALL_DIR} ${D}${config_dir}` ; do
 		x="`echo ${x} | cut -c ${d}-`"
-		if [ -d ${D}/${x} ] ; then
-			echo "directory ${x}" >> ${D}${config_dir}/locations
+		if [ -d "${D}/${x}" ] ; then
+			echo "directory ${x}" >> "${D}${config_dir}"/locations
 		else
-			echo -n "file ${x}" >> ${D}${config_dir}/locations
+			echo -n "file ${x}" >> "${D}${config_dir}"/locations
 			if [ "${x}" == "${config_dir}/locations" ] ; then
-				echo "" >> ${D}${config_dir}/locations
+				echo "" >> "${D}${config_dir}"/locations
 			elif [ "${x}" == "${config_dir}/not_configured" ] ; then
-				echo "" >> ${D}${config_dir}/locations
+				echo "" >> "${D}${config_dir}"/locations
 			else
-				echo -n " " >> ${D}${config_dir}/locations
-				find ${D}${x} -printf %T@ >> ${D}${config_dir}/locations
-				echo "" >> ${D}${config_dir}/locations
+				echo -n " " >> "${D}${config_dir}"/locations
+				find ${D}${x} -printf %T@ >> "${D}${config_dir}"/locations
+				echo "" >> "${D}${config_dir}"/locations
 			fi
 		fi
 	done
@@ -311,15 +311,15 @@ vmware_pkg_preinst() {
 
 vmware_pkg_postinst() {
 	update-mime-database /usr/share/mime
-	[[ -d ${config_dir} ]] && chown -R root:${VMWARE_GROUP} ${config_dir}
+	[[ -d "${config_dir}" ]] && chown -R root:${VMWARE_GROUP} ${config_dir}
 
 	# This is to fix the problem where the not_configured file doesn't get
 	# removed when the configuration is run. This doesn't remove the file
 	# It just tells the vmware-config.pl script it can delete it.
 	einfo "Updating ${config_dir}/locations"
-	for x in ${config_dir}/._cfg????_locations ; do
+	for x in "${config_dir}"/._cfg????_locations ; do
 		if [ -f $x ] ; then
-			cat $x >> ${config_dir}/locations
+			cat $x >> "${config_dir}"/locations
 			rm $x
 		fi
 	done

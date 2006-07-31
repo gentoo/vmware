@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  31 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Fixing up quoting issues in the eclasses.  Might have gone overboard in
+  the vmware.eclass, but at least it won't sting us in the tail if we 
+  add a space in later for any reason...
+  
   28 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fixing up quoting issues in the eclasses, kindly pointed out by phreak``.
   
