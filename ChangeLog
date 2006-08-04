@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  04 Aug 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Updated the patch for vmware-modules to use any kernel path, rather than
+  just /usr/linux/src, with a new patch courtesy of Alon Bar-Lev (see bug #137422).
+  
   31 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fixing up quoting issues in the eclasses.  Might have gone overboard in
   the vmware.eclass, but at least it won't sting us in the tail if we 

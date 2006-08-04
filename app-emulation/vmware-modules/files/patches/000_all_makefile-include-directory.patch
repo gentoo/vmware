@@ -6,7 +6,7 @@ diff -uNr Makefile Makefile
  
  # Header directory for the running kernel
 -HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
-+HEADER_DIR = /usr/src/linux/include
++HEADER_DIR = ${KERNEL_DIR}/include
  
  BUILD_DIR = $(HEADER_DIR)/..
  
