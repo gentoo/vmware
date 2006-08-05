@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  05 Aug 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Added a fix from bug 142855 for issues arising if KBUILD_OUTPUT is set.
+  
   04 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   Added a new revision of vmware-player and vmware-workstation-tools (5.5) for
   testing.  The new revisions of both fully utilize the vmware eclass, so they
@@ -12,7 +15,7 @@
   04 Aug 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Updated the patch for vmware-modules to use any kernel path, rather than
   just /usr/src/linux, with a new patch courtesy of Alon Bar-Lev
-  (see bug #137422).
+  (see bug 137422).
   
   31 Jul 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fixing up quoting issues in the eclasses.  Might have gone overboard in
