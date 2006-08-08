@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  08 Aug 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Try to keep the main tree and overlay synched, by copying over the minor
+  edits in vmware.eclass
+
   05 Aug 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Added a fix from bug 142855 for issues arising if KBUILD_OUTPUT is set.
   

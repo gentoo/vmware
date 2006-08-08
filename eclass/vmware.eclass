@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/eclass/vmware.eclass,v 1.2 2006/08/04 15:43:26 wolf31o2 Exp $
 
 # This eclass is for all vmware-* ebuilds in the tree and should contain all
 # of the common components across the multiple packages.
@@ -192,7 +192,8 @@ vmware_src_install() {
 		if [[ -e "${S}/${x}" ]]
 		then
 			dodir "${VMWARE_INSTALL_DIR}"/${x}
-			cp -pPR "${S}"/${x}/* "${D}""${VMWARE_INSTALL_DIR}"/${x} || die "copying ${x}"
+			cp -pPR "${S}"/${x}/* "${D}""${VMWARE_INSTALL_DIR}"/${x} \
+				|| die "copying ${x}"
 		fi
 	done
 
@@ -241,7 +242,8 @@ vmware_src_install() {
 	done
 
 	# This removed the user/group warnings
-	# But also broke vmware-server with FEATURES="userpriv" since it removes the set-UID bit
+	# But also broke vmware-server with FEATURES="userpriv" since it removes
+	# the set-UID bit
 	#chown -R root:${VMWARE_GROUP} ${D} || die
 
 	# We like desktop icons.
@@ -267,8 +269,10 @@ vmware_src_install() {
 		newexe installer/services.sh ${product} || die "services.sh"
 
 		# Set the name
-		dosed "s:%LONGNAME%:Vmware ${FULL_NAME}:" "${config_dir}"/init.d/${product}
-		[ "${shortname}" == "server" ] && dosed "s:%SHORTNAME%:wgs:" "${config_dir}"/init.d/${product}
+		dosed "s:%LONGNAME%:Vmware ${FULL_NAME}:" \
+			"${config_dir}"/init.d/${product}
+		[ "${shortname}" == "server" ] && dosed "s:%SHORTNAME%:wgs:" \
+			"${config_dir}"/init.d/${product}
 
 		# Then we "fix" it.
 		dosed -e 's/mknod -m 600/mknod -m 660/' \
