@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  11 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
+  Sync eclass with portage tree.  See bug #137423 for more information.
+
   09 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   Removed vmware-player, since it has been moved to the tree.
 

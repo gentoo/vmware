@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/vmware.eclass,v 1.2 2006/08/04 15:43:26 wolf31o2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/vmware.eclass,v 1.4 2006/08/11 13:56:18 wolf31o2 Exp $
 
 # This eclass is for all vmware-* ebuilds in the tree and should contain all
 # of the common components across the multiple packages.
@@ -179,11 +179,14 @@ vmware_src_install() {
 
 	# Just like any good monkey, we install the documentation and man pages.
 	[[ -d doc ]] && dodoc doc/*
-	[[ -d man ]] && cd man
-	for x in *
-	do
-		doman ${x}/* || die "doman"
-	done
+	if [[ -d man ]]
+	then
+		cd man
+		for x in *
+		do
+			doman ${x}/* || die "doman"
+		done
+	fi
 	cd "${S}"
 
 	# We loop through our directories and copy everything to our system.
