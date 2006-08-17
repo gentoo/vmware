@@ -13,7 +13,7 @@ EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_install src_unpack pkg_p
 
 DEPEND="x11-misc/shared-mime-info"
 
-export ANY_ANY="vmware-any-any-update103"
+export ANY_ANY="vmware-any-any-update104"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 export VMWARE_INSTALL_DIR=/opt/${PN//-//}

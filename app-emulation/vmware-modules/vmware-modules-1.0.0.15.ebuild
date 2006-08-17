@@ -4,8 +4,8 @@
 
 inherit vmware-mod
 
-SRC_URI="http://download3.vmware.com/software/vmserver/VMware-server-1.0.0-28343.tar.gz"
+SRC_URI="http://download3.vmware.com/software/vmserver/VMware-server-1.0.1-29996.tar.gz"
 KEYWORDS="-* ~amd64 ~x86"
-# VMWARE_VER="VME_S1" ???
+VMWARE_VER="VME_S1B1"
 
 VMWARE_MOD_DIR="vmware-server-distrib/lib/modules/source"
