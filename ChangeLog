@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  03 Sep 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Added an experimental patch vmware-modules-1.0.0.15 in an attempt to fix bug
+  146004.
+
   17 Aug 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Version bump vmware-server-1.0.1.29996.
   Version bump vmware.eclass to use vmware-any-any104.

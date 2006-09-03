@@ -86,9 +86,6 @@ src_install() {
 	echo "${VMWARE_GROUP}" > ${D}${config_dir}/vmwaregroup
 
 	dosym /etc/init.d/xinetd ${config_dir}/init.d
-
-	dodir /usr/bin
-	dosym ${dir}/bin/vmware /usr/bin/vmware
 }
 
 pkg_config() {

@@ -72,6 +72,9 @@ vmware-mod_src_unpack() {
 		# rm getversion.pl
 		EPATCH_SUFFIX="patch"
 		epatch "${FILESDIR}"/patches
+		if [ -e "${FILESDIR}"/${PV} ]; then
+			epatch "${FILESDIR}"/${PV}
+		fi
 		convert_to_m "${S}"/${mod}-only/Makefile
 	done
 }

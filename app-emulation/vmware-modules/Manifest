@@ -1,3 +1,7 @@
+AUX 1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540 RMD160 6584535f723c68a2af16d52a901898542dd5677c SHA1 16a3f8e0b8ba69fb9331d1e018945f4b1284cb5a SHA256 05a5dafa719b07bbb2b52417d80d3859671cb86b69f3b0178ffdd05cab8e2e00
+MD5 bbd8f5e8197e317dad6aebe12506c764 files/1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540
+RMD160 6584535f723c68a2af16d52a901898542dd5677c files/1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540
+SHA256 05a5dafa719b07bbb2b52417d80d3859671cb86b69f3b0178ffdd05cab8e2e00 files/1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540
 AUX patches/000_all_makefile-include-directory.patch 342 RMD160 ae8b7c2e628681fff153bfa10242e62df5ab2e10 SHA1 be4f203063e676dc022ce600e15479b6ea56b954 SHA256 2da16602ef3c4cb040ac80a9fed18660fadcae2e843f425da0872f50aa5356db
 MD5 d2a8db48485977f21067a20798219821 files/patches/000_all_makefile-include-directory.patch 342
 RMD160 ae8b7c2e628681fff153bfa10242e62df5ab2e10 files/patches/000_all_makefile-include-directory.patch 342
