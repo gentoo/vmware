@@ -2,6 +2,12 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  13 Sep 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Since I think the patch is probably only relevant to gcc-4.1, I've moved it
+  out of the patch directory and applied it directly if the gcc version matches.
+  I'm going to leave the eclass changes in place (but only in the overlay),
+  since they'll probably be handy in the future...
+
   03 Sep 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Added an experimental patch vmware-modules-1.0.0.15 in an attempt to fix bug
   146004.

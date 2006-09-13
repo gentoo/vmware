@@ -1,7 +1,7 @@
-AUX 1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540 RMD160 6584535f723c68a2af16d52a901898542dd5677c SHA1 16a3f8e0b8ba69fb9331d1e018945f4b1284cb5a SHA256 05a5dafa719b07bbb2b52417d80d3859671cb86b69f3b0178ffdd05cab8e2e00
-MD5 bbd8f5e8197e317dad6aebe12506c764 files/1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540
-RMD160 6584535f723c68a2af16d52a901898542dd5677c files/1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540
-SHA256 05a5dafa719b07bbb2b52417d80d3859671cb86b69f3b0178ffdd05cab8e2e00 files/1.0.0.15/000_all_makefile-ignore-pedantic-errors.patch 540
+AUX 1.0.0.15-gcc4-ignore-pedantic-errors.patch 540 RMD160 6584535f723c68a2af16d52a901898542dd5677c SHA1 16a3f8e0b8ba69fb9331d1e018945f4b1284cb5a SHA256 05a5dafa719b07bbb2b52417d80d3859671cb86b69f3b0178ffdd05cab8e2e00
+MD5 bbd8f5e8197e317dad6aebe12506c764 files/1.0.0.15-gcc4-ignore-pedantic-errors.patch 540
+RMD160 6584535f723c68a2af16d52a901898542dd5677c files/1.0.0.15-gcc4-ignore-pedantic-errors.patch 540
+SHA256 05a5dafa719b07bbb2b52417d80d3859671cb86b69f3b0178ffdd05cab8e2e00 files/1.0.0.15-gcc4-ignore-pedantic-errors.patch 540
 AUX patches/000_all_makefile-include-directory.patch 342 RMD160 ae8b7c2e628681fff153bfa10242e62df5ab2e10 SHA1 be4f203063e676dc022ce600e15479b6ea56b954 SHA256 2da16602ef3c4cb040ac80a9fed18660fadcae2e843f425da0872f50aa5356db
 MD5 d2a8db48485977f21067a20798219821 files/patches/000_all_makefile-include-directory.patch 342
 RMD160 ae8b7c2e628681fff153bfa10242e62df5ab2e10 files/patches/000_all_makefile-include-directory.patch 342
@@ -16,10 +16,10 @@ EBUILD vmware-modules-1.0.0.13.ebuild 189 RMD160 3b87cad3107ac8ba674478e43e49fb2
 MD5 494315b628818e68747ae719693d5fb1 vmware-modules-1.0.0.13.ebuild 189
 RMD160 3b87cad3107ac8ba674478e43e49fb2937bf8526 vmware-modules-1.0.0.13.ebuild 189
 SHA256 01a9d3adf551f489f657cffe6d03e838cce95a9ed8da42e5008d5c805e8f406e vmware-modules-1.0.0.13.ebuild 189
-EBUILD vmware-modules-1.0.0.15.ebuild 337 RMD160 6206bb3e3fd32984cff1ca471e931063c8c326c9 SHA1 fa24c4ec2d2a0e3738935ce3e2d17a3849058e19 SHA256 f25b85aff89af3f80b58d4444ac9e835ec625777028d0293fdcd35fa54ed4668
-MD5 a2e1c7095da25f6e39899b244477772b vmware-modules-1.0.0.15.ebuild 337
-RMD160 6206bb3e3fd32984cff1ca471e931063c8c326c9 vmware-modules-1.0.0.15.ebuild 337
-SHA256 f25b85aff89af3f80b58d4444ac9e835ec625777028d0293fdcd35fa54ed4668 vmware-modules-1.0.0.15.ebuild 337
+EBUILD vmware-modules-1.0.0.15.ebuild 634 RMD160 4ac343634e87426c9d5437c849f2cf956c660981 SHA1 2ec0f56672d67231b464fc30e05b1b598cfd1abf SHA256 a7fb415620014a31b5348d7c3fcd52c6a9b01e1b34bd1136d66d55cc9bf55bb7
+MD5 89c6795e9f4c48a25dad6e4710f7bef4 vmware-modules-1.0.0.15.ebuild 634
+RMD160 4ac343634e87426c9d5437c849f2cf956c660981 vmware-modules-1.0.0.15.ebuild 634
+SHA256 a7fb415620014a31b5348d7c3fcd52c6a9b01e1b34bd1136d66d55cc9bf55bb7 vmware-modules-1.0.0.15.ebuild 634
 EBUILD vmware-modules-1.0.0.8.ebuild 190 RMD160 d4023a332d396d9ef37d94bc56ef8c2da290bf7f SHA1 d884a5ca082a259634651d10eb682b42146a8c0a SHA256 29cd22e70823751704af276d193c6b07c26cc54cde374448ce5476053e0d6fdb
 MD5 e6931a22a36eb027f603f13b832b1b8c vmware-modules-1.0.0.8.ebuild 190
 RMD160 d4023a332d396d9ef37d94bc56ef8c2da290bf7f vmware-modules-1.0.0.8.ebuild 190
