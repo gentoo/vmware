@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  21 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
+  Sync vmware.eclass with the in-tree version and fix the variables in
+  vmware-workstation-tools.
+
   13 Sep 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Since I think the patch is probably only relevant to gcc-4.1, I've moved it
   out of the patch directory and applied it directly if the gcc version matches.

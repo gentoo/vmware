@@ -6,8 +6,8 @@ inherit eutils vmware
 
 DESCRIPTION="Guest-os tools for VMware Workstation"
 HOMEPAGE="http://www.vmware.com/"
-
 SRC_URI=""
+
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
