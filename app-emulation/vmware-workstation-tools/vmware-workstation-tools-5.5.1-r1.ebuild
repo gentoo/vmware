@@ -20,6 +20,7 @@ dir=/opt/vmware/tools
 Ddir=${D}/${dir}
 #TARBALL="vmware-linux-tools.tar.gz"
 TARBALL="VMwareTools-5.5.1-19175.tar.gz"
+MY_P=${TARBALL/.tar.gz/}
 
 S=${WORKDIR}/vmware-tools-distrib
 

@@ -25,6 +25,7 @@ Ddir=${D}/${dir}
 
 #TARBALL="vmware-linux-tools.tar.gz"
 TARBALL="VMwareTools-5.5.1-19175.tar.gz"
+MY_P=${TARBALL/.tar.gz/}
 
 src_install() {
 	vmware_src_install

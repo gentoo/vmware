@@ -3,6 +3,9 @@
 # $ Id: $
 
   22 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
+  We should be setting MY_P if we expect our tarball to be unpacked.  Ooops...
+
+  22 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   Manifest/digest fix.
 
   21 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
