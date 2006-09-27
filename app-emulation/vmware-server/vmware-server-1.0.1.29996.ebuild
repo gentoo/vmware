@@ -54,6 +54,7 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 			)
 	)
 	>=dev-lang/perl-5
+	!<sys-apps/dbus-0.62
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
 	~app-emulation/vmware-modules-1.0.0.15
