@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  27 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
+  Updated vmware.eclass and vmware-mods.eclass from portage.
+
   22 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   We should be setting MY_P if we expect our tarball to be unpacked.  Ooops...
 

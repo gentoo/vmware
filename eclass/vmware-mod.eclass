@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/eclass/vmware-mod.eclass,v 1.2 2006/08/08 19:16:42 ikelos Exp $
 
 
 # Ensure vmware comes before linux-mod since we want linux-mod's pkg_preinst and
@@ -72,9 +72,6 @@ vmware-mod_src_unpack() {
 		# rm getversion.pl
 		EPATCH_SUFFIX="patch"
 		epatch "${FILESDIR}"/patches
-		if [ -e "${FILESDIR}"/${PV} ]; then
-			epatch "${FILESDIR}"/${PV}
-		fi
 		convert_to_m "${S}"/${mod}-only/Makefile
 	done
 }
@@ -84,12 +81,12 @@ vmware-mod_src_install() {
 	if [[ -n "`echo ${VMWARE_MODULE_LIST} | grep vmmon`" ]];
 	then
 		dodir /etc/udev/rules.d
-		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' > "${D}/etc/udev/rules.d/60-vmware.rules" || die
+		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' >> "${D}/etc/udev/rules.d/60-vmware.rules" || die
+		echo 'KERNEL=="vmnet*", GROUP="'$VMWARE_GROUP'" MODE=660' >> "${D}/etc/udev/rules.d/60-vmware.rules" || die
 	fi
 	
 	linux-mod_src_install
 }
-
 
 # Current VMWARE product mappings
 # 'VME_TOT'		= .0

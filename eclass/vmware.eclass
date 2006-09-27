@@ -276,12 +276,6 @@ vmware_src_install() {
 			"${config_dir}"/init.d/${product}
 		[ "${shortname}" == "server" ] && dosed "s:%SHORTNAME%:wgs:" \
 			"${config_dir}"/init.d/${product}
-
-		# Then we "fix" it.
-		dosed -e 's/mknod -m 600/mknod -m 660/' \
-			-e '/c 119 "$vHubNr"/ a\
-			chown root:'${VMWARE_GROUP}' /dev/vmnet*\
-			' "${config_dir}"/init.d/${product} || die
 	fi
 
 	# Finally, we run the "questions"
