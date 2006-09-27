@@ -52,6 +52,7 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	        		 )
 				)
 		 >=dev-lang/perl-5
+		 !<sys-apps/dbus-0.62
 		 "
 
 etcdir="/etc/${PN}"
