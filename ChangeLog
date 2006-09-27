@@ -3,6 +3,9 @@
 # $ Id: $
 
   27 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
+  Sync vmware.eclass with the in-tree version due to bug #148682.
+
+  27 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   Updated vmware.eclass and vmware-mods.eclass from portage.
 
   22 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
