@@ -136,7 +136,7 @@ vmware_src_unpack() {
 				./update vmxdebug ../lib/bin-debug/vmware-vmx || die
 			fi
 		fi
-		
+
 		# Run through any patches that might need to be applied
 		cd "${S}"
 		if [[ -d "${FILESDIR}/${PV}" ]]
@@ -151,6 +151,8 @@ vmware_src_unpack() {
 				epatch "${FILESDIR}"/${patch}
 			done
 		fi
+		# Unpack our new libs.
+		unpack vmware-libssl.so.0.9.7l.tar.bz2
 	fi
 }
 

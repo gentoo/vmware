@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server-console/vmware-server-console-1.0.1.29996-r2.ebuild,v 1.1 2006/10/02 23:03:26 ikelos Exp $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -15,7 +15,9 @@ S="${WORKDIR}/${PN}-distrib"
 
 DESCRIPTION="VMware Remote Console for Linux"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${FN}.zip"
+SRC_URI="http://download3.vmware.com/software/vmserver/${FN}.zip
+		http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libssl.so.0.9.7l.tar.bz2
+		mirror://gentoo/vmware-libssl.so.0.9.7l.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
@@ -69,7 +71,7 @@ src_install() {
 	echo 'libdir = "'${VMWARE_INSTALL_DIR}'/lib"' > etc/config
 	vmware_src_install
 
-	make_desktop_entry ${PN} "VMWare Remote Console" ${PN}.png
+	make_desktop_entry ${PN} "VMWare Remote Console" ${PN}.png System
 
 	dodir /usr/bin
 	dosym ${VMWARE_INSTALL_DIR}/bin/${PN} /usr/bin/${PN}

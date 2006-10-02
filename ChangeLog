@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  02 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Sync vmware.eclass, vmware-server and vmware-server-console with the in-tree version.
+  
   02 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org> ChangeLog:
   Updated eclass with the in-tree version for bug #148862.
 
