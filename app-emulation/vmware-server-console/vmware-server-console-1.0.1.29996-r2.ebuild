@@ -10,6 +10,7 @@ inherit eutils versionator vmware
 
 MY_PN=${PN/vm/VM}
 MY_PV=$(replace_version_separator 3 '-')
+MY_P="${MY_PN}-${MY_PV}"
 FN="VMware-server-linux-client-${MY_PV}"
 S="${WORKDIR}/${PN}-distrib"
 
@@ -63,8 +64,9 @@ ANY_ANY=""
 src_unpack() {
 	cd ${WORKDIR}
 	unpack ${A}
-	unpack ./${MY_PN}-${MY_PV}.tar.gz
+	unpack ./${MY_P}.tar.gz
 	cd ${S}
+	unpack vmware-libssl.so.0.9.7l.tar.bz2
 }
 
 src_install() {
