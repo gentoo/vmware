@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  03 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Hope this openssl problem can finally be done with.
+  Thanks Chris for getting the libraries built and done so quickly!!!  5:)
+  
   02 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Oops, very quick fix for vmware-server-console to actually unpack the new openssl lib
   (since we don't inherit the unpack of vmware.eclass).  Hopefully got it out in time...

@@ -21,7 +21,9 @@ SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
 		http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2
 		mirror://gentoo/${PN}-perl-fixed-rpath-libs.tar.bz2
 		http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libssl.so.0.9.7l.tar.bz2
-		mirror://gentoo/vmware-libssl.so.0.9.7l.tar.bz2"
+		mirror://gentoo/vmware-libssl.so.0.9.7l.tar.bz2
+		http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libcrypto.so.0.9.7l.tar.bz2
+		mirror://gentoo/vmware-libcrypto.so.0.9.7l.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
