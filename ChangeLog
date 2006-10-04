@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  04 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Synced up the vmware.eclass from the overlay and fixed up a directory/file mismatch.
+
   03 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Hope this openssl problem can finally be done with.
   Thanks Chris for getting the libraries built and done so quickly!!!  5:)

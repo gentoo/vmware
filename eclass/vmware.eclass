@@ -152,7 +152,10 @@ vmware_src_unpack() {
 			done
 		fi
 		# Unpack our new libs.
-		unpack vmware-libssl.so.0.9.7l.tar.bz2
+		[ -f "${DISTDIR}"/vmware-libssl.so.0.9.7l.tar.bz2 ] && \
+			unpack vmware-libssl.so.0.9.7l.tar.bz2
+		[ -f "${DISTDIR}"/vmware-libcrypto.so.0.9.7l.tar.bz2 ] && \
+			unpack vmware-libcrypto.so.0.9.7l.tar.bz2
 	fi
 }
 
@@ -197,6 +200,13 @@ vmware_src_install() {
 		rm -rf "${S}"/lib/lib/libssl.so.0.9.7
 		# Now, we move in our own
 		cp -pPR "${S}"/libssl.so.0.9.7 "${S}"/lib/lib
+	fi
+	# We remove the shipped libcrypto for bug #148682
+	if [ -d "${S}"/lib/lib/libcrypto.so.0.9.7 ]
+	then
+		rm -rf "${S}"/lib/lib/libcrypto.so.0.9.7
+		# Now, we move in our own
+		cp -pPR "${S}"/libcrypto.so.0.9.7 "${S}"/lib/lib
 	fi
 
 	# We loop through our directories and copy everything to our system.
