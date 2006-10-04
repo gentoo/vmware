@@ -15,7 +15,7 @@ SLOT="0"
 IUSE=""
 
 # Provide vaguely sensible defaults
-VMWARE_VER="VME_V55"
+[[ -z "${VMWARE_VME}" ]] && VMWARE_VME="VME_V55"
 VMWARE_MOD_DIR="${ANY_ANY}"
 
 DEPEND=">=sys-apps/portage-2.0.54"

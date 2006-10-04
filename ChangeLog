@@ -3,6 +3,10 @@
 # $ Id: $
 
   04 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Reorder VMWARE_VER to ensure it gets picked up in time.
+  Fix for bug 149679 thanks to Jason Urbank.
+
+  04 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Synced up the vmware.eclass from the overlay and fixed up a directory/file mismatch.
 
   03 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
