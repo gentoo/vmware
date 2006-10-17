@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  17 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  Fix a typo in vmware-mod before it gets in the tree.
+  Also clean up some whitespace errors.
+
   04 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Reorder VMWARE_VER to ensure it gets picked up in time.
   Fix for bug 149679 thanks to Jason Urbank.

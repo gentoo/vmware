@@ -15,7 +15,7 @@ SLOT="0"
 IUSE=""
 
 # Provide vaguely sensible defaults
-[[ -z "${VMWARE_VME}" ]] && VMWARE_VME="VME_V55"
+[[ -z "${VMWARE_VER}" ]] && VMWARE_VER="VME_V55"
 VMWARE_MOD_DIR="${ANY_ANY}"
 
 DEPEND=">=sys-apps/portage-2.0.54"
@@ -27,7 +27,7 @@ S="${WORKDIR}"
 # VMWARE_VER)
 # RESTRICT="userpriv"
 
-EXPORT_FUNCTIONS pkg_setup src_unpack src_install 
+EXPORT_FUNCTIONS pkg_setup src_unpack src_install
 
 # Must define VMWARE_VER to make, otherwise it'll try and run getversion.pl
 BUILD_TARGETS="auto-build VMWARE_VER=${VMWARE_VER} KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
@@ -84,7 +84,7 @@ vmware-mod_src_install() {
 		echo 'KERNEL=="vmmon*", GROUP="'$VMWARE_GROUP'" MODE=660' >> "${D}/etc/udev/rules.d/60-vmware.rules" || die
 		echo 'KERNEL=="vmnet*", GROUP="'$VMWARE_GROUP'" MODE=660' >> "${D}/etc/udev/rules.d/60-vmware.rules" || die
 	fi
-	
+
 	linux-mod_src_install
 }
 
