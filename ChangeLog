@@ -3,6 +3,10 @@
 # $ Id: $
 
   17 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
+  I just realized the typo was causing vmware-any-any not to build with server.
+  Out goes the huge 100 Mb download, it should all work fine now, sorry.  5:(
+  
+  17 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Fix a typo in vmware-mod before it gets in the tree.
   Also clean up some whitespace errors.
 
