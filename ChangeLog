@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  30 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -app-emulation/vmware-modules/vmware-modules-1.0.0.8.ebuild:
+  Removed vmware-modules-0.0.8 since we no longer support VMware Workstation
+  3.2.1 in the main tree.
+
   17 Oct 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   I just realized the typo was causing vmware-any-any not to build with server.
   Out goes the huge 100 Mb download, it should all work fine now, sorry.  5:(
