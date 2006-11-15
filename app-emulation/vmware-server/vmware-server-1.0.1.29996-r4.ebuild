@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.1.29996-r2.ebuild,v 1.1 2006/10/02 22:59:16 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.1.29996-r4.ebuild,v 1.2 2006/10/30 15:53:14 wolf31o2 Exp $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -41,23 +41,16 @@ DEPEND=">=sys-libs/glibc-2.3.5
 RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? (
 			app-emulation/emul-linux-x86-baselibs
-			app-emulation/emul-linux-x86-gtklibs
-	)
+			app-emulation/emul-linux-x86-gtklibs )
 	!amd64? (
 			virtual/xft
-			|| (
-				(
-					x11-libs/libX11
-					x11-libs/libXtst
-					x11-libs/libXext
-					x11-libs/libXt
-					x11-libs/libICE
-					x11-libs/libSM
-					x11-libs/libXrender
-				)
-				virtual/x11
-			)
-	)
+			x11-libs/libX11
+			x11-libs/libXtst
+			x11-libs/libXext
+			x11-libs/libXt
+			x11-libs/libICE
+			x11-libs/libSM
+			x11-libs/libXrender )
 	>=dev-lang/perl-5
 	!<sys-apps/dbus-0.62
 	!app-emulation/vmware-player
