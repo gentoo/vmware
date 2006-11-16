@@ -3,6 +3,12 @@
 # $ Id: $
 
   16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +app-emulation/vmware-workstation-tools/files/5.5.2/000_all_initd-scripts.
+  patch:
+  Added the 5.5.2 directory to vmware-workstation-tools, so it'll patch
+  correctly.
+
+  16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
   +app-emulation/vmware-esx-tools/files/90vmware-tools,
   +app-emulation/vmware-esx-tools/files/vmware-esx-tools,
   +app-emulation/vmware-esx-tools/files/vmware-esx-tools.rc,
