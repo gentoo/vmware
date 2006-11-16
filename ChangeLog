@@ -3,6 +3,19 @@
 # $ Id: $
 
   16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +app-emulation/vmware-esx-tools/files/90vmware-tools,
+  +app-emulation/vmware-esx-tools/files/vmware-esx-tools,
+  +app-emulation/vmware-esx-tools/files/vmware-esx-tools.rc,
+  +app-emulation/vmware-esx-tools/files/xorg.conf,
+  +app-emulation/vmware-esx-tools/metadata.xml:
+  Initial import of ESX tools. This should work, but requires some manual
+  intervention. Before running the vmware-config-tools.pl, you need to rmmod
+  pcnet32. You will also need to rm /etc/vmware-tools/not_configured and
+  /etc/init.d/vmware-tools start afterwards. I will be working on making sure
+  this works with the eclass soon enough with a -r1 revision. Feel free to use
+  this now, using the above instructions.
+
+  16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
   -app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.1-r1.
   ebuild,
   app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.1-r2.e
@@ -12,7 +25,8 @@
   Added vmware-workstation-tools-5.5.2 and removed the -r1 ebuild for 5.5.1.
 
   15 Nov 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
-  Brought the overlay back in sync with the main tree for vmware-modules and vmware-server{-console}.
+  Brought the overlay back in sync with the main tree for vmware-modules and
+  vmware-server{-console}.
   Also updated to vmware-any-any105 for testing.
 
   30 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
