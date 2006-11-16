@@ -2,6 +2,15 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.1-r1.
+  ebuild,
+  app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.1-r2.e
+  build,
+  +app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.2.ebu
+  ild:
+  Added vmware-workstation-tools-5.5.2 and removed the -r1 ebuild for 5.5.1.
+
   15 Nov 2006; Mike Auty <ikelos@gentoo.org> ChangeLog:
   Brought the overlay back in sync with the main tree for vmware-modules and vmware-server{-console}.
   Also updated to vmware-any-any105 for testing.
