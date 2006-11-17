@@ -2,6 +2,13 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  17 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-esx-tools/vmware-esx-tools-3.0.1.ebuild,
+  +app-emulation/vmware-esx-tools/vmware-esx-tools-3.0.1-r1.ebuild:
+  Added a new revision of the ESX tools, which should work with the new
+  eclass. I have not tested it yet, but will do so next week if someone else
+  hasn't let me know that it works by then.
+
   16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
   +app-emulation/vmware-workstation-tools/files/5.5.2/000_all_initd-scripts.
   patch:

@@ -4,7 +4,7 @@
 
 inherit eutils
 
-DESCRIPTION="Guest-os tools for VMware Workstation"
+DESCRIPTION="Guest-os tools for VMware ESX"
 HOMEPAGE="http://www.vmware.com/"
 
 SRC_URI=""
