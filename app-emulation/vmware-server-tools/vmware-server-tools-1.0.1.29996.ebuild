@@ -39,11 +39,6 @@ src_unpack() {
 	vmware_src_unpack
 }
 
-src_compile() {
-	vmware-mod_src_compile
-	vmware_src_compile
-}
-
 src_install() {
 	vmware-mod_src_install
 	vmware_src_install
@@ -52,10 +47,10 @@ src_install() {
 	keepdir ${VMWARE_INSTALL_DIR}/sbin
 
 	# if we have X, install the default config
-	if use X ; then
-		insinto /etc/X11
-		doins ${FILESDIR}/xorg.conf
-	fi
+	#if use X ; then
+	#	insinto /etc/X11
+	#	doins ${FILESDIR}/xorg.conf
+	#fi
 }
 
 pkg_postinst() {
