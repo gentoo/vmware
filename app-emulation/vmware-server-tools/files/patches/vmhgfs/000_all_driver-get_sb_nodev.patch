@@ -1,0 +1,54 @@
+--- driver.c.orig 2006-11-12 19:29:18.000000000 +0200
++++ driver.c 2006-11-12 20:01:28.000000000 +0200
+@@ -760,7 +765,9 @@
+    inode->i_uid = 0;   /* This is bogus, should be the mount owner. */
+    inode->i_gid = 0;   /* This is bogus, should be the mount owner. */
+    inode->i_rdev = 0;  /* Device nodes are not supported */
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 18)
+    inode->i_blksize = HGFS_BLOCKSIZE;
++#endif
+    inode->i_blocks = (attr->size + HGFS_BLOCKSIZE - 1) / HGFS_BLOCKSIZE;
+    inode->i_size = attr->size;
+    HGFS_SET_TIME(inode->i_atime, attr->accessTime);
+@@ -4207,9 +4214,15 @@
+ *-----------------------------------------------------------------------------
+ */
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 18)
+ int
+ HgfsStatfs(struct super_block *sb,	    // IN : The superblock
+            struct compat_kstatfs *stat) // OUT: Stat to fill in
++#else
++int
++HgfsStatfs(struct dentry *dentry,	    // IN : The superblock
++           struct compat_kstatfs *stat) // OUT: Stat to fill in
++#endif
+ {
+ LOG(6, (KERN_DEBUG "VMware hgfs: HgfsStatfs: was called\n"));
+ 
+@@ -4437,6 +4450,7 @@
+ *-----------------------------------------------------------------------------
+ */
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 18)
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 5, 70)
+ static struct super_block *
+ HgfsGetSb(struct file_system_type *fs_type,
+@@ -4454,6 +4468,17 @@
+ return get_sb_nodev(fs_type, flags, rawData, HgfsReadSuper);
+ }
+ #else
++int
++HgfsGetSb(struct file_system_type *fs_type,
++ int flags,
++ const char *dev_name,
++ void *rawData,
++ struct vfsmount *vfsmount)
++{
++ return get_sb_nodev(fs_type, flags, rawData, HgfsReadSuper, vfsmount);
++}
++#endif
++#else
+ 
+ 
+ /* 

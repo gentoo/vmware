@@ -1,0 +1,57 @@
+# Copyright 1999-2006 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+inherit versionator vmware-mod eutils vmware
+
+DESCRIPTION="Guest-os tools for VMware Server"
+HOMEPAGE="http://www.vmware.com/"
+SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
+	http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
+	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
+	http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz"
+
+LICENSE="vmware"
+SLOT="0"
+KEYWORDS="-* ~amd64 ~x86"
+IUSE="X"
+RESTRICT=""
+
+RDEPEND="sys-apps/pciutils"
+
+S=${WORKDIR}/vmware-tools-distrib
+
+RUN_UPDATE="no"
+
+TARBALL="VMwareTools-$(get_version_component_range 1-3)-$(get_version_component_range 4).tar.gz"
+VMWARE_MOD_DIR="lib/modules/source"
+
+
+pkg_setup() {
+	vmware-mod_pkg_setup
+	vmware_pkg_setup
+}
+
+src_unpack() {
+	vmware-mod_src_unpack
+	vmware_src_unpack
+}
+
+src_compile() {
+	vmware-mod_src_compile
+	vmware_src_compile
+}
+
+src_install() {
+	vmware-mod_src_install
+	vmware_src_install
+
+	dodir ${VMWARE_INSTALL_DIR}/sbin
+	keepdir ${VMWARE_INSTALL_DIR}/sbin
+
+	# if we have X, install the default config
+	if use X ; then
+		insinto /etc/X11
+		doins ${FILESDIR}/xorg.conf
+	fi
+}
