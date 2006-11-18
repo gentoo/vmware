@@ -17,7 +17,9 @@ KEYWORDS="-* ~amd64 ~x86"
 IUSE="X"
 RESTRICT=""
 
-RDEPEND="sys-apps/pciutils"
+RDEPEND="sys-apps/pciutils
+		 X? ( x11-drivers/xf86-video-vmware
+		      x11-drivers/xf86-input-vmmouse )"
 
 S=${WORKDIR}/vmware-tools-distrib
 
@@ -53,5 +55,13 @@ src_install() {
 	if use X ; then
 		insinto /etc/X11
 		doins ${FILESDIR}/xorg.conf
+	fi
+}
+
+pkg_postinst() {
+	if use X; then
+		einfo You should now alter your xorg.conf
+		einfo  Video Driver: vmware
+		einfo  Mouse Driver: vmmouse
 	fi
 }
