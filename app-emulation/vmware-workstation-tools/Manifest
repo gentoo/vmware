@@ -2,6 +2,14 @@ AUX 5.5.1/000_all_initd-scripts.patch 1339 RMD160 0b074f1001c7fac558be71e764b251
 MD5 e0995d0a6484d507abc077ea4bbc51b0 files/5.5.1/000_all_initd-scripts.patch 1339
 RMD160 0b074f1001c7fac558be71e764b2511a6612e44a files/5.5.1/000_all_initd-scripts.patch 1339
 SHA256 5c430054d25e3fd2632d1496b10f55e93b5eed96859eeab1269164f6600ad02c files/5.5.1/000_all_initd-scripts.patch 1339
+AUX 5.5.2/000_all_initd-scripts.patch 1339 RMD160 0b074f1001c7fac558be71e764b2511a6612e44a SHA1 c39d057e66bc4e6a0eaba413f6813682176e0bc1 SHA256 5c430054d25e3fd2632d1496b10f55e93b5eed96859eeab1269164f6600ad02c
+MD5 e0995d0a6484d507abc077ea4bbc51b0 files/5.5.2/000_all_initd-scripts.patch 1339
+RMD160 0b074f1001c7fac558be71e764b2511a6612e44a files/5.5.2/000_all_initd-scripts.patch 1339
+SHA256 5c430054d25e3fd2632d1496b10f55e93b5eed96859eeab1269164f6600ad02c files/5.5.2/000_all_initd-scripts.patch 1339
+AUX 5.5.3/000_all_initd-scripts.patch 1339 RMD160 0b074f1001c7fac558be71e764b2511a6612e44a SHA1 c39d057e66bc4e6a0eaba413f6813682176e0bc1 SHA256 5c430054d25e3fd2632d1496b10f55e93b5eed96859eeab1269164f6600ad02c
+MD5 e0995d0a6484d507abc077ea4bbc51b0 files/5.5.3/000_all_initd-scripts.patch 1339
+RMD160 0b074f1001c7fac558be71e764b2511a6612e44a files/5.5.3/000_all_initd-scripts.patch 1339
+SHA256 5c430054d25e3fd2632d1496b10f55e93b5eed96859eeab1269164f6600ad02c files/5.5.3/000_all_initd-scripts.patch 1339
 AUX 90vmware-tools 88 RMD160 0b7743c0c55d5ab36684c274f3bba3d92239090e SHA1 f56dae84f0fdd0844184c9e497e87c9201893d51 SHA256 137040e747111019299cf7c3a4d668fec68ee848e1131e54802fd164e9b98f27
 MD5 ecd5e9b34bd5e5ce29955c46b7fc4cca files/90vmware-tools 88
 RMD160 0b7743c0c55d5ab36684c274f3bba3d92239090e files/90vmware-tools 88
@@ -18,7 +26,7 @@ AUX xorg.conf 2646 RMD160 c3e2e153b3b9520fc8d5fa20e9e8f7a6c3790084 SHA1 a44f4240
 MD5 bd0505ab92d03f82b898858d45787f58 files/xorg.conf 2646
 RMD160 c3e2e153b3b9520fc8d5fa20e9e8f7a6c3790084 files/xorg.conf 2646
 SHA256 2503352f7fd53f23e51d53017f76167a2da0fdfbb9eb434c85573108c6bc53c8 files/xorg.conf 2646
-DIST vmware-any-any-update104.tar.gz 297243 RMD160 426616f026de409ca057ec1a0913dc9b3d43ef03 SHA1 9ca5224d832f2b0c0041a1e6afa0103915cdad0f SHA256 c0a9efad2677e93ed914e296131916f8b316377644c5d8c716e6575cd58b3c69
+DIST vmware-any-any-update105.tar.gz 296970 RMD160 5da1b91c81ff1023c8f4dbc3ae02f7f180785e67 SHA1 179812c0750f450754b82fbc0f57e44dd2b84945 SHA256 568939479294b4200e667ec0e3ad0d24f0e37356ccb3267b21de803530694426
 EBUILD vmware-workstation-tools-4.5.3-r1.ebuild 2158 RMD160 80134a7eadf99ca576af1b2e0bb2a12f2ad98b44 SHA1 9ded5440c507b1cddaeefb68efe49f58c7216a06 SHA256 52940c4c724c6492563077fad9da1079b28de46c2005b6988ed16b29949e8037
 MD5 b5c887af10d2209ba72eeec8680fbc75 vmware-workstation-tools-4.5.3-r1.ebuild 2158
 RMD160 80134a7eadf99ca576af1b2e0bb2a12f2ad98b44 vmware-workstation-tools-4.5.3-r1.ebuild 2158
@@ -31,6 +39,10 @@ EBUILD vmware-workstation-tools-5.5.2.ebuild 839 RMD160 5d1b1d5acfb9a094b8434ea7
 MD5 9bcba48026074b240bac32817eaaf4b8 vmware-workstation-tools-5.5.2.ebuild 839
 RMD160 5d1b1d5acfb9a094b8434ea7faea98fb28f76ca2 vmware-workstation-tools-5.5.2.ebuild 839
 SHA256 7d9c07f14bb66dc6bea2f0cfd3bcd5219aa0f7aeb7b012c9da15864f0523d737 vmware-workstation-tools-5.5.2.ebuild 839
+EBUILD vmware-workstation-tools-5.5.3.34685.ebuild 839 RMD160 dddce89b648920a08b43c089a37e383a3b62c291 SHA1 1d1c61c96da643fb4f419e3d714b5cecf24e61b0 SHA256 e5deb36ccd478fb5bc6e749be2c31383ae15b6d99ac56f98aeb6d11d86ad6571
+MD5 7740ed17f2aaef4376d1a92e73d55cbc vmware-workstation-tools-5.5.3.34685.ebuild 839
+RMD160 dddce89b648920a08b43c089a37e383a3b62c291 vmware-workstation-tools-5.5.3.34685.ebuild 839
+SHA256 e5deb36ccd478fb5bc6e749be2c31383ae15b6d99ac56f98aeb6d11d86ad6571 vmware-workstation-tools-5.5.3.34685.ebuild 839
 MISC ChangeLog 2492 RMD160 681bc4c99aaa6172d2a30f7f2710b4808aafeb27 SHA1 d9dd79d60ab62e503c09c79b12c6f64f4b5b4f10 SHA256 8a8c7867ea4cf0680686a7033ce1949517c4fc30efcdded66a216764541bb995
 MD5 b48cadd2fc4b478039dd240741b4bc13 ChangeLog 2492
 RMD160 681bc4c99aaa6172d2a30f7f2710b4808aafeb27 ChangeLog 2492
@@ -39,12 +51,15 @@ MISC metadata.xml 159 RMD160 fc7f68a382390e5916b0fb43f37a893fad4f9798 SHA1 f46b0
 MD5 7cc95faad4185e8ed375248bc73a17fc metadata.xml 159
 RMD160 fc7f68a382390e5916b0fb43f37a893fad4f9798 metadata.xml 159
 SHA256 8581ae1c90a48f50fa0542c7fb28cb8984baaf12f50fa18f33e467081effb215 metadata.xml 159
-MD5 72f72907eef594a978b2704a6cf2b745 files/digest-vmware-workstation-tools-4.5.3-r1 274
-RMD160 559b8a659200406b9830e697e7616afcb658ff18 files/digest-vmware-workstation-tools-4.5.3-r1 274
-SHA256 97aaec03f8f451be30c7d64ffcde48826c1bf7b63395eca863d0a31deea95130 files/digest-vmware-workstation-tools-4.5.3-r1 274
+MD5 baca77d2270add57b34bdf5a741627e8 files/digest-vmware-workstation-tools-4.5.3-r1 274
+RMD160 c61ea374b61d2913280e74d304cef2a4594dd825 files/digest-vmware-workstation-tools-4.5.3-r1 274
+SHA256 cb9f8bdef0f77dbd2358a7059acb0e5cabbe62f7a489369e13fcfcbd370e08e1 files/digest-vmware-workstation-tools-4.5.3-r1 274
 MD5 d41d8cd98f00b204e9800998ecf8427e files/digest-vmware-workstation-tools-5.5.1-r2 0
 RMD160 9c1185a5c5e9fc54612808977ee8f548b2258d31 files/digest-vmware-workstation-tools-5.5.1-r2 0
 SHA256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 files/digest-vmware-workstation-tools-5.5.1-r2 0
 MD5 d41d8cd98f00b204e9800998ecf8427e files/digest-vmware-workstation-tools-5.5.2 0
 RMD160 9c1185a5c5e9fc54612808977ee8f548b2258d31 files/digest-vmware-workstation-tools-5.5.2 0
 SHA256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 files/digest-vmware-workstation-tools-5.5.2 0
+MD5 d41d8cd98f00b204e9800998ecf8427e files/digest-vmware-workstation-tools-5.5.3.34685 0
+RMD160 9c1185a5c5e9fc54612808977ee8f548b2258d31 files/digest-vmware-workstation-tools-5.5.3.34685 0
+SHA256 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 files/digest-vmware-workstation-tools-5.5.3.34685 0
