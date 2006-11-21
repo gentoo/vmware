@@ -29,8 +29,8 @@ MY_P=${TARBALL/.tar.gz/}
 src_install() {
 	vmware_src_install
 
-	dodir ${dir}/sbin
-	keepdir ${dir}/sbin
+	dodir ${dir}/sbin ${dir}/bin
+	keepdir ${dir}/sbin ${dir}/bin
 
 	# if we have X, install the default config
 	if use X ; then

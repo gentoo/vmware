@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-esx-tools/vmware-esx-tools-3.0.1-r1.ebuild:
+  Made sure we keep both sbin and bin for vmware-esx-tools.
+
   21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> ++,
   -app-emulation/vmware-workstation-tools/metadata.xml:
   Renamed 5.5.3 vmware-workstation-tools ebuild to match the other ebuilds.
