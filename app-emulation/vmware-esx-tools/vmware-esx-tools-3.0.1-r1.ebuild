@@ -20,9 +20,10 @@ S=${WORKDIR}/vmware-tools-distrib
 
 RUN_UPDATE="no"
 
-dir=/opt/vmware/tools
+dir=/opt/vmware/esx/tools
 Ddir=${D}/${dir}
 
+ANY_ANY=
 TARBALL="VMwareTools-3.0.1-32039.tar.gz"
 MY_P=${TARBALL/.tar.gz/}
 
