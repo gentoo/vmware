@@ -108,7 +108,12 @@ vmware_src_unpack() {
 	# If there is anything to unpack, at all, then we should be using MY_P.
 	if [[ -n "${MY_P}" ]]
 	then
-		unpack "${MY_P}".tar.gz
+		if [[ -e "${CD_ROOT}"/${MY_P}.tar.gz ]]
+		then
+			unpack "${CD_ROOT}"/${MY_P}.tar.gz
+		else
+			unpack "${MY_P}".tar.gz
+		fi
 
 		if [[ -n "${ANY_ANY}" ]]
 		then
