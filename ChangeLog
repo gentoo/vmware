@@ -3,6 +3,9 @@
 # $ Id: $
 
   21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
+  Yeah, should be CDROM_ROOT, not CD_ROOT.
+
+  21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
   Made sure we check the CD for MY_P.tar.gz when doing our unpack.
 
   21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
