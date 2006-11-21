@@ -90,11 +90,13 @@ vmware_determine_product() {
 
 vmware_pkg_setup() {
 	vmware_determine_product
+	# We create a group for VMware users due to bugs #104480 and #106170
+	enewgroup "${VMWARE_GROUP}"
+}
+
+vmware_src_unpack() {
+	vmware_determine_product
 	case "${product}" in
-		vmware|vmware-console)
-			# We create a group for VMware users due to bugs #104480 and #106170
-			enewgroup "${VMWARE_GROUP}"
-			;;
 		vmware-tools)
 			# We grab our tarball from "CD"
 			einfo "You will need ${TARBALL} from the VMware installation."
@@ -102,9 +104,6 @@ vmware_pkg_setup() {
 			cdrom_get_cds ${TARBALL}
 			;;
 	esac
-}
-
-vmware_src_unpack() {
 	# If there is anything to unpack, at all, then we should be using MY_P.
 	if [[ -n "${MY_P}" ]]
 	then

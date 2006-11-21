@@ -3,6 +3,9 @@
 # $ Id: $
 
   21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
+  Moved CD fetching to src_unpack, so binary packages don't need the CD.
+
+  21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
   OK, unpack doesn't like absolute paths.
 
   21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
