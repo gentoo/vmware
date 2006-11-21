@@ -110,7 +110,7 @@ vmware_src_unpack() {
 	then
 		if [[ -e "${CDROM_ROOT}"/${MY_P}.tar.gz ]]
 		then
-			unpack "${CDROM_ROOT}"/${MY_P}.tar.gz
+			tar xzf "${CDROM_ROOT}"/${MY_P}.tar.gz
 		else
 			unpack "${MY_P}".tar.gz
 		fi
