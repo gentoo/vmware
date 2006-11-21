@@ -3,6 +3,18 @@
 # $ Id: $
 
   21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-workstation-tools/vmware-workstation-tools-4.5.3-r1.e
+  build,
+  app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.1-r2.e
+  build,
+  app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.2.ebui
+  ld,
+  app-emulation/vmware-workstation-tools/vmware-workstation-tools-5.5.3.ebui
+  ld:
+  Added ANY_ANY to all of the vmware-workstation-tools ebuilds, so we don't
+  unpack it, since they aren't listed in SRC_URI.
+
+  21 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-esx-tools/vmware-esx-tools-3.0.1-r1.ebuild:
   Added ANY_ANY so we don't pull down the files, and changed dir to
   /opt/vmware/esx/tools instead of /opt/vmware/tools.

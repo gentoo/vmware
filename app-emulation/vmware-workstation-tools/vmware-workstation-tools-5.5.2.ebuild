@@ -23,6 +23,7 @@ RUN_UPDATE="no"
 dir=/opt/vmware/tools
 Ddir=${D}/${dir}
 
+ANY_ANY=
 TARBALL="VMwareTools-5.5.2-29772.tar.gz"
 MY_P=${TARBALL/.tar.gz/}
 
