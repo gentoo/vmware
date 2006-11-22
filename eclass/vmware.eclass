@@ -155,11 +155,18 @@ vmware_src_unpack() {
 				epatch "${FILESDIR}"/${patch}
 			done
 		fi
-		# Unpack our new libs.
-		[ -f "${DISTDIR}"/vmware-libssl.so.0.9.7l.tar.bz2 ] && \
-			unpack vmware-libssl.so.0.9.7l.tar.bz2
-		[ -f "${DISTDIR}"/vmware-libcrypto.so.0.9.7l.tar.bz2 ] && \
-			unpack vmware-libcrypto.so.0.9.7l.tar.bz2
+		# Unpack our new libs
+		for a in ${A}
+		do
+			case ${a} in
+				vmware-libssl.so.0.9.7l.tar.bz2)
+					unpack vmware-libssl.so.0.9.7l.tar.bz2
+					;;
+				/vmware-libcrypto.so.0.9.7l.tar.bz2)
+					unpack vmware-libcrypto.so.0.9.7l.tar.bz2
+					;;
+			esac
+		done
 	fi
 }
 
@@ -199,14 +206,14 @@ vmware_src_install() {
 	cd "${S}"
 
 	# We remove the shipped libssl for bug #148682
-	if [ -d "${S}"/lib/lib/libssl.so.0.9.7 ]
+	if [ -d "${S}"/libssl.so.0.9.7 ]
 	then
 		rm -rf "${S}"/lib/lib/libssl.so.0.9.7
 		# Now, we move in our own
 		cp -pPR "${S}"/libssl.so.0.9.7 "${S}"/lib/lib
 	fi
 	# We remove the shipped libcrypto for bug #148682
-	if [ -d "${S}"/lib/lib/libcrypto.so.0.9.7 ]
+	if [ -d "${S}"/libcrypto.so.0.9.7 ]
 	then
 		rm -rf "${S}"/lib/lib/libcrypto.so.0.9.7
 		# Now, we move in our own
