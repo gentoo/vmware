@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  29 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
+  Fixed bug #156387 with a sync from the tree.
+
   22 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
   Make sure we only unpack the openssl stuff if it is listed in SRC_URI, not
   if it exists in DISTDIR. We also only remove the openssl stuff if we have

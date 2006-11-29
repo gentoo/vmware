@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/eclass/vmware.eclass,v 1.17 2006/11/29 21:12:32 wolf31o2 Exp $
 
 # This eclass is for all vmware-* ebuilds in the tree and should contain all
 # of the common components across the multiple packages.
@@ -13,7 +13,7 @@ EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_install src_unpack pkg_p
 
 DEPEND="x11-misc/shared-mime-info"
 
-export ANY_ANY="vmware-any-any-update105"
+export ANY_ANY="vmware-any-any-update104"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 export VMWARE_INSTALL_DIR=/opt/${PN//-//}
@@ -162,7 +162,7 @@ vmware_src_unpack() {
 				vmware-libssl.so.0.9.7l.tar.bz2)
 					unpack vmware-libssl.so.0.9.7l.tar.bz2
 					;;
-				/vmware-libcrypto.so.0.9.7l.tar.bz2)
+				vmware-libcrypto.so.0.9.7l.tar.bz2)
 					unpack vmware-libcrypto.so.0.9.7l.tar.bz2
 					;;
 			esac
