@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  09 Dec 2006; Mike Auty <ikelos@gentoo.org> eclass/vmware.eclass:
+  Added in code to remove the PAX MPROTECT restrciction on certain vmware
+  binaries.  Should fix bug #157602.
+
   01 Dec 2006; Mike Auty <ikelos@gentoo.org> eclass/vmware.eclass:
   Fix regression where we slipped back to any-any104, from 105 (which fixes
   2.6.19 build issues).  Going to push this change to the main tree this

@@ -7,7 +7,7 @@
 
 # Only one package per "product" is allowed to be installed at any given time.
 
-inherit eutils
+inherit pax-utils eutils
 
 EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_install src_unpack pkg_postrm
 
@@ -140,6 +140,11 @@ vmware_src_unpack() {
 				./update vmxdebug ../lib/bin-debug/vmware-vmx || die
 			fi
 		fi
+
+		# Remove PAX MPROTECT flag from all applicable files in /bin, /sbin for
+		# the vmware package only (since modules, tools and console should not
+		# need to generate code on the fly in memory).
+		[[ "${product}" == "vmware" ]] && pax-mark -m $(list-paxables ${S}/{bin,sbin}/{vmware-serverd,vmware-vmx})
 
 		# Run through any patches that might need to be applied
 		cd "${S}"
