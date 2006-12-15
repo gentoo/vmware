@@ -7,9 +7,9 @@ inherit versionator vmware-mod eutils vmware
 DESCRIPTION="Guest-os tools for VMware Server"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/obselete/${ANY_ANY}.tar.gz
+	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/obselete/${ANY_ANY}.tar.gz"
+	http://knihovny.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz"
 
 LICENSE="vmware"
 SLOT="0"
@@ -35,8 +35,8 @@ pkg_setup() {
 }
 
 src_unpack() {
-	vmware-mod_src_unpack
 	vmware_src_unpack
+	vmware-mod_src_unpack
 }
 
 src_install() {

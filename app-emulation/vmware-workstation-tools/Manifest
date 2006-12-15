@@ -27,10 +27,10 @@ MD5 bd0505ab92d03f82b898858d45787f58 files/xorg.conf 2646
 RMD160 c3e2e153b3b9520fc8d5fa20e9e8f7a6c3790084 files/xorg.conf 2646
 SHA256 2503352f7fd53f23e51d53017f76167a2da0fdfbb9eb434c85573108c6bc53c8 files/xorg.conf 2646
 DIST vmware-any-any-update105.tar.gz 296970 RMD160 5da1b91c81ff1023c8f4dbc3ae02f7f180785e67 SHA1 179812c0750f450754b82fbc0f57e44dd2b84945 SHA256 568939479294b4200e667ec0e3ad0d24f0e37356ccb3267b21de803530694426
-EBUILD vmware-workstation-tools-4.5.3-r1.ebuild 2135 RMD160 9855380c0e8c749f7b64327ca0ab8dd8b4d713a5 SHA1 53f60cedd7bcfb2f3a47d776c12fc5d0ec829266 SHA256 80cd3d260540f6f762bd60fb9cdee4ffc7fe2e45f0adb95a11ca50d32d55d717
-MD5 f8e5bf51e1c437c8e379e8dad90b9b11 vmware-workstation-tools-4.5.3-r1.ebuild 2135
-RMD160 9855380c0e8c749f7b64327ca0ab8dd8b4d713a5 vmware-workstation-tools-4.5.3-r1.ebuild 2135
-SHA256 80cd3d260540f6f762bd60fb9cdee4ffc7fe2e45f0adb95a11ca50d32d55d717 vmware-workstation-tools-4.5.3-r1.ebuild 2135
+EBUILD vmware-workstation-tools-4.5.3-r1.ebuild 2135 RMD160 4a5256c2be13e550a2d8b1552ab65efd14c70936 SHA1 8b9a7894a49b1ae9fa1ad99ed1eab940a286608e SHA256 53ef1dd714a1ff4c36643fe28140e4b792391916e46cf970449b4187aa6f8126
+MD5 81382c74c8c0c45432f2bf4f419affa5 vmware-workstation-tools-4.5.3-r1.ebuild 2135
+RMD160 4a5256c2be13e550a2d8b1552ab65efd14c70936 vmware-workstation-tools-4.5.3-r1.ebuild 2135
+SHA256 53ef1dd714a1ff4c36643fe28140e4b792391916e46cf970449b4187aa6f8126 vmware-workstation-tools-4.5.3-r1.ebuild 2135
 EBUILD vmware-workstation-tools-5.5.1-r2.ebuild 848 RMD160 70289449bbba20b689c93e3987e2938446712f57 SHA1 4a3709a2537babcce95cd04bfe5712c19e4618cf SHA256 60a518aac266605f50249b90ad8c5514ea1dc6b9cba4b0a149927a3d3bd9535a
 MD5 add6ea36aa4d2cb517f7cc43c1f4685a vmware-workstation-tools-5.5.1-r2.ebuild 848
 RMD160 70289449bbba20b689c93e3987e2938446712f57 vmware-workstation-tools-5.5.1-r2.ebuild 848
