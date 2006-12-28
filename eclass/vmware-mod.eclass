@@ -37,14 +37,16 @@ vmware-mod_pkg_setup() {
 
 	vmware_determine_product
 
-	case ${product} in
-		vmware-tools)
-			VMWARE_MODULE_LIST="vmdesched vmhgfs vmmemctl vmxnet"
-			;;
-		*)
-			VMWARE_MODULE_LIST="vmmon vmnet"
-			;;
-	esac
+	if [[ -z "${VMWARE_MODULE_LIST}" ]]; then
+		case ${product} in
+			vmware-tools)
+				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST}vmdesched vmhgfs vmmemctl vmxnet"
+				;;
+			*)
+				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST}vmmon vmnet"
+				;;
+		esac
+	fi
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 	MODULE_NAMES="${MODULE_NAMES}

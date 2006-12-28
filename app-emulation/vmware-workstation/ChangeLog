@@ -1,0 +1,294 @@
+# ChangeLog for app-emulation/vmware-workstation
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/ChangeLog,v 1.150 2006/12/14 18:35:44 wolf31o2 Exp $
+
+  14 Dec 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-4.5.3.19414-r7.ebuild,
+  vmware-workstation-5.5.3.34685.ebuild:
+  Fixed typo for bug #158134.
+
+  04 Dec 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-4.5.3.19414-r7.ebuild,
+  vmware-workstation-5.5.3.34685.ebuild:
+  Removed RESTRICT=stricter since it has been removed from portage. This is
+  for bug #131633. If you have any problems with this, please reply to that
+  bug report.
+
+  01 Dec 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-5.5.1.19175-r7.ebuild,
+  -vmware-workstation-5.5.2.29772.ebuild,
+  vmware-workstation-5.5.3.34685.ebuild:
+  Updated digest/Manifest for vmware-any-any-update105, marked 5.5.3 stable on
+  amd64/x86, and removing older 5.5 ebuilds.
+
+*vmware-workstation-5.5.3.34685 (20 Nov 2006)
+
+  20 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +files/5.5.3.34685/000_all_initd-location.patch,
+  +files/5.5.3.34685/001_all_fix-permissions.patch,
+  +files/5.5.3.34685/002_all_pagebreak-detection-fix.patch,
+  +files/5.5.3.34685/004_all_do-not-build-modules.patch,
+  +files/5.5.3.34685/007_all_use-modprobe-over-insmod.patch,
+  +files/5.5.3.34685/009_all_init.d-modules-warning.patch,
+  +vmware-workstation-5.5.3.34685.ebuild:
+  Added 5.5.3 version and closing bug #155593. Remember, kids, every time you
+  file a 0-day bump request, God kills a kitten. Please think of the kittens.
+
+  16 Nov 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-5.5.2.29772.ebuild:
+  Added another mirror for VMware Workstation 5.5.2, so it can be fetched
+  properly.
+
+  30 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-4.5.3.19414-r4.ebuild,
+  -vmware-workstation-4.5.3.19414-r6.ebuild,
+  -vmware-workstation-5.5.1.19175-r4.ebuild,
+  -vmware-workstation-5.5.1.19175-r6.ebuild:
+  Cleaning up some older ebuilds.
+
+  30 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -files/3.2.1.2242/vmware-glibc-2.3.2-compat.c,
+  -files/3.2.1.2242/90vmware-workstation, -files/3.2.1.2242/vmware,
+  -files/3.2.1.2242/vmware-config.pl-gcc-generalized.patch,
+  -vmware-workstation-3.2.1.2242-r12.ebuild:
+  Removing VMware 3.2.1 as it is unmaintainable due to my being unable to test
+  fixes on it and upstream has abandoned support for it, so new patches are no
+  longer made for this product.
+
+  24 Oct 2006; Simon Stelling <blubb@gentoo.org>
+  vmware-workstation-4.5.3.19414-r7.ebuild,
+  vmware-workstation-5.5.1.19175-r7.ebuild:
+  stable on amd64 wrt bug 148682
+
+  20 Oct 2006; Joshua Jackson <tsunam@gentoo.org>
+  vmware-workstation-4.5.3.19414-r7.ebuild,
+  vmware-workstation-5.5.1.19175-r7.ebuild:
+  Stable x86; bug #148682
+
+*vmware-workstation-5.5.1.19175-r7 (03 Oct 2006)
+*vmware-workstation-4.5.3.19414-r7 (03 Oct 2006)
+
+  03 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +vmware-workstation-4.5.3.19414-r7.ebuild,
+  +vmware-workstation-5.5.1.19175-r7.ebuild,
+  vmware-workstation-5.5.2.29772.ebuild:
+  New revision ebuilds to hopefully finally fix bug #148682.
+
+*vmware-workstation-5.5.1.19175-r6 (02 Oct 2006)
+*vmware-workstation-4.5.3.19414-r6 (02 Oct 2006)
+
+  02 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-4.5.3.19414-r5.ebuild,
+  +vmware-workstation-4.5.3.19414-r6.ebuild,
+  -vmware-workstation-5.5.1.19175-r5.ebuild,
+  +vmware-workstation-5.5.1.19175-r6.ebuild,
+  vmware-workstation-5.5.2.29772.ebuild:
+  Alright, we are revision-bumping again so that we pull in my pre-compiled
+  libssl.so.0.9.7 for bug #148862.
+
+  02 Oct 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-3.2.1.2242-r11.ebuild,
+  vmware-workstation-3.2.1.2242-r12.ebuild:
+  Marking 3.2.1.2242-r12 stable on x86 because it gives identical output to -r11.
+
+  29 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +files/4.5.3.19414/000_all_initd-location.patch,
+  +files/4.5.3.19414/001_all_fix-permissions.patch,
+  +files/4.5.3.19414/004_all_do-not-build-modules.patch,
+  +files/4.5.3.19414/007_all_use-modprobe-over-insmod.patch:
+  Added some more patches from 5.5 to hopefully resolve bug #122322.
+
+*vmware-workstation-5.5.2.29772 (28 Sep 2006)
+
+  28 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +files/5.5.2.29772/000_all_initd-location.patch,
+  +files/5.5.2.29772/001_all_fix-permissions.patch,
+  +files/5.5.2.29772/002_all_pagebreak-detection-fix.patch,
+  +files/5.5.2.29772/004_all_do-not-build-modules.patch,
+  +files/5.5.2.29772/007_all_use-modprobe-over-insmod.patch,
+  +files/5.5.2.29772/009_all_init.d-modules-warning.patch,
+  +vmware-workstation-5.5.2.29772.ebuild:
+  Version bump to 5.5.2, which I am leaving masked for the time being because
+  I hate the idea of forcing more than 100MB on people that they don't need. I
+  will unmask this once I come up with a better solution.
+
+  28 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  vmware-workstation-3.2.1.2242-r12.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  vmware-workstation-4.5.3.19414-r5.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild,
+  vmware-workstation-5.5.1.19175-r5.ebuild:
+  TEXTREL->TEXTRELS and added stricter to RESTRICT.  Closing bug #143100.
+
+  28 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  vmware-workstation-3.2.1.2242-r12.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  vmware-workstation-4.5.3.19414-r5.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild,
+  vmware-workstation-5.5.1.19175-r5.ebuild:
+  Changed VMWare to VMware.
+
+*vmware-workstation-5.5.1.19175-r5 (27 Sep 2006)
+*vmware-workstation-4.5.3.19414-r5 (27 Sep 2006)
+*vmware-workstation-3.2.1.2242-r12 (27 Sep 2006)
+
+  27 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  +vmware-workstation-3.2.1.2242-r12.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  +vmware-workstation-4.5.3.19414-r5.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild,
+  +vmware-workstation-5.5.1.19175-r5.ebuild:
+  Revision bump to force an upgrade due to bug #148682.
+
+  15 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  Added a bunch of QA variable information for bug #143100.
+
+  10 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  Alright, uncomment the creation of our own VMware desktop entry, change it
+  to use type=System, and add an entry for VMware Player. This makes the icons
+  the same as what is provided by upstream.
+
+  09 Sep 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  Remove the desktop entry that we're creating in favor the the
+  VMware-supplied versions.
+
+  25 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  files/digest-vmware-workstation-3.2.1.2242-r11,
+  files/digest-vmware-workstation-4.5.3.19414-r4,
+  files/digest-vmware-workstation-5.5.1.19175-r4, Manifest:
+  Redigested for vmware-any-any-update104.
+
+  25 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -files/vmware-workstation-4.5.3.19414-librarypath.patch,
+  -files/vmware-workstation-5.5.1.19175-config.patch,
+  -files/vmware-workstation-5.5.1.19175-config2.patch,
+  -files/vmware-workstation-5.5.1.19175-config3.patch, -files/vmware.rc,
+  -files/vmware.xml, -vmware-workstation-3.2.1.2242-r10.ebuild,
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  -vmware-workstation-4.5.3.19414-r3.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  -vmware-workstation-5.5.1.19175-r3.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  Stable on amd64/x86 and removing older ebuilds.
+
+  09 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  Fix icons to point to the right place. Blame Paul Varner
+  <fuzzyray@gentoo.org> on bug #123655.
+
+  09 Aug 2006; Mike Auty <ikelos@gentoo.org>
+  vmware-workstation-3.2.1.2242-r10.ebuild,
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  vmware-workstation-4.5.3.19414-r3.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  vmware-workstation-5.5.1.19175-r3.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  -m Alter ebuild so that the metadata cache is invalidated.
+
+  08 Aug 2006; Mike Auty <ikelos@gentoo.org>
+  files/digest-vmware-workstation-3.2.1.2242-r11,
+  files/digest-vmware-workstation-4.5.3.19414-r4,
+  files/digest-vmware-workstation-5.5.1.19175-r4, Manifest:
+  New digests to work with vmware-any-any103, which fixes some problems with
+  the 2.6.18 kernel.
+
+  04 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r11.ebuild,
+  vmware-workstation-4.5.3.19414-r4.ebuild,
+  vmware-workstation-5.5.1.19175-r4.ebuild:
+  Fix up the icon creation for each of the new revisions.
+
+*vmware-workstation-5.5.1.19175-r4 (04 Aug 2006)
+*vmware-workstation-4.5.3.19414-r4 (04 Aug 2006)
+*vmware-workstation-3.2.1.2242-r11 (04 Aug 2006)
+
+  04 Aug 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +files/4.5.3.19414/000_all_librarypath.patch,
+  +files/5.5.1.19175/000_all_initd-location.patch,
+  +files/4.5.3.19414/002_all_pagebreak-detection-fix.patch,
+  +files/5.5.1.19175/001_all_fix-permissions.patch,
+  +files/4.5.3.19414/009_all_init.d-modules-warning.patch,
+  +files/5.5.1.19175/002_all_pagebreak-detection-fix.patch,
+  +files/5.5.1.19175/004_all_do-not-build-modules.patch,
+  +files/5.5.1.19175/007_all_use-modprobe-over-insmod.patch,
+  +files/5.5.1.19175/009_all_init.d-modules-warning.patch,
+  +files/vmware-workstation.rc, +files/vmware-workstation.xml,
+  +vmware-workstation-3.2.1.2242-r11.ebuild,
+  +vmware-workstation-4.5.3.19414-r4.ebuild,
+  +vmware-workstation-5.5.1.19175-r4.ebuild:
+  Moved vmware-workstation ebuilds using the new vmware eclass from the vmware
+  overlay to the tree.
+
+  27 Jul 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r10.ebuild,
+  vmware-workstation-4.5.3.19414-r3.ebuild,
+  vmware-workstation-5.5.1.19175-r3.ebuild:
+  Changed to use mirror://vmware instead of the individual sites.
+
+  17 Apr 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-3.2.1.2242-r7.ebuild,
+  -vmware-workstation-4.5.3.19414.ebuild,
+  -vmware-workstation-5.5.1.19175.ebuild:
+  Removing older ebuilds.
+
+  17 Apr 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r10.ebuild,
+  vmware-workstation-4.5.3.19414-r3.ebuild,
+  vmware-workstation-5.5.1.19175-r3.ebuild:
+  Marking stable on amd64/x86 (where applicable) to force users to upgrade to
+  the new update101 patch, which fixes compilation on several kernels.
+
+*vmware-workstation-5.5.1.19175-r3 (17 Apr 2006)
+*vmware-workstation-4.5.3.19414-r3 (17 Apr 2006)
+*vmware-workstation-3.2.1.2242-r10 (17 Apr 2006)
+
+  17 Apr 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  -vmware-workstation-3.2.1.2242-r9.ebuild,
+  +vmware-workstation-3.2.1.2242-r10.ebuild,
+  -vmware-workstation-4.5.3.19414-r2.ebuild,
+  +vmware-workstation-4.5.3.19414-r3.ebuild,
+  -vmware-workstation-5.5.1.19175-r2.ebuild,
+  +vmware-workstation-5.5.1.19175-r3.ebuild:
+  Revision bump to bring in update101.
+
+  31 Mar 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-5.5.1.19175-r2.ebuild:
+  It helps if I actually add the patch to the ebuild. Closing bug #127023 and
+  bug #127661.
+
+*vmware-workstation-5.5.1.19175-r2 (31 Mar 2006)
+*vmware-workstation-4.5.3.19414-r2 (31 Mar 2006)
+*vmware-workstation-3.2.1.2242-r9 (31 Mar 2006)
+
+  31 Mar 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  +files/vmware-workstation-5.5.1.19175-config3.patch,
+  -vmware-workstation-3.2.1.2242-r8.ebuild,
+  +vmware-workstation-3.2.1.2242-r9.ebuild,
+  -vmware-workstation-4.5.3.19414-r1.ebuild,
+  +vmware-workstation-4.5.3.19414-r2.ebuild,
+  -vmware-workstation-5.5.1.19175-r1.ebuild,
+  +vmware-workstation-5.5.1.19175-r2.ebuild:
+  Added patch for vmware-config.pl to allow for 2G/2G from 2.6.16 and closing
+  bug #127661 and bug #127023.
+
+*vmware-workstation-5.5.1.19175-r1 (20 Mar 2006)
+*vmware-workstation-4.5.3.19414-r1 (20 Mar 2006)
+*vmware-workstation-3.2.1.2242-r8 (20 Mar 2006)
+
+  20 Mar 2006; Chris Gianelloni <wolf31o2@gentoo.org>
+  vmware-workstation-3.2.1.2242-r7.ebuild,
+  +vmware-workstation-3.2.1.2242-r8.ebuild,
+  +vmware-workstation-4.5.3.19414-r1.ebuild,
+  +vmware-workstation-5.5.1.19175-r1.ebuild:
+  Added a new revision with vmware-any-any-update98 that should also resolve
+  bug #117696.
+

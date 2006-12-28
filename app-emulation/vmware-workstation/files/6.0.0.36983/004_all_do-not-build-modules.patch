@@ -1,0 +1,20 @@
+--- vmware-distrib.orig/bin/vmware-config.pl	2006-12-25 19:21:28.000000000 +0000
++++ vmware-distrib/bin/vmware-config.pl	2006-12-25 19:22:31.000000000 +0000
+@@ -9768,13 +9768,13 @@
+     configure_gtk2();
+ #   createMimePackageFile();
+ #   configureDesktopFiles();
+-    configure_mon();
++#   configure_mon();
+     if (isDesktopProduct()) {
+-      build_vmblock();
++#     build_vmblock();
+     }
+-    configure_pp();
++#   configure_pp();
+     configure_net();
+-    build_vmnet();
++#   build_vmnet();
+   }
+ 
+    configure_eclipse_plugin();
