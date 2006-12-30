@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  30 Dec 2006; Mike Auty <ikelos@gentoo.org>:
+  Removed a -f from the modprobe-over-insmod patch for server.
+  Leaving this to test for a little while, if there's no complaints
+  it'll get pushed out to the masses (not sure whether to revbump).
+
   28 Dec 2006; Mike Auty <ikelos@gentoo.org>:
   Right, just added in the beta for workstation 6.  It's *very& experimental,
   as in, we won't support it at all, hence why it's -* keyword masked.
@@ -12,8 +17,8 @@
     Not too much of a problem, since the debugging builds run quite slowly, either 
     fix the permissions or remove the directory and symlink .../lib/bin to 
     .../lib/bin-debug.
-  * vmware seemed to just fail spontaneously when I started it on the latest gnome ~x86,
-    but it starts ok (if looking a little ugly) when run as 
+  * vmware seemed to just fail spontaneously when I started it on the latest gnome 
+    ~x86, but it starts ok (if looking a little ugly) when run as 
     "VMWARE_USE_SHIPPED_GTK=force vmware"
   * A couple of extra dependencies were needed (simply because they didn't match 
     up properly) so I've added libview and libsexymm which weren't already on my 
