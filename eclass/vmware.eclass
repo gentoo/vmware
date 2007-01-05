@@ -365,22 +365,22 @@ vmware_pkg_postinst() {
 	done
 
 	echo
-	einfo "You need to run "
-	einfo "    ${VMWARE_INSTALL_DIR}/bin/${config_program}"
-	einfo "to complete the install."
+	elog "You need to run "
+	elog "    ${VMWARE_INSTALL_DIR}/bin/${config_program}"
+	elog "to complete the install."
 	echo
 	einfo "For VMware Add-Ons just visit"
 	einfo "http://www.vmware.com/download/downloadaddons.html"
 	echo
-	einfo "After configuring, run ${PN} to launch"
+	elog "After configuring, run ${PN} to launch"
 	echo
 	if [ "${product}" == "vmware" -o "${product}" == "vmware-tools" ]
 	then
-		einfo "Also note that when you reboot you should run:"
-		einfo "/etc/init.d/${product} start"
-		einfo "before trying to run ${product}.  Or you could just add it to"
-		einfo "the default runlevel:"
-		einfo "rc-update add ${product} default"
+		elog "Also note that when you reboot you should run:"
+		elog "    /etc/init.d/${product} start"
+		elog "before trying to run ${product}.  Or you could just add it to"
+		elog "the default runlevel:"
+		elog "    rc-update add ${product} default"
 		echo
 		ewarn "VMWare allows for the potential of overwriting files as root.  Only"
 		ewarn "give VMWare access to trusted individuals."
@@ -399,8 +399,8 @@ vmware_pkg_postrm() {
 		product_extras=" and /etc/init.d/${product}"
 	fi
 	echo
-	einfo "To remove all traces of ${product} you will need to remove the files"
-	einfo "in ${config_dir}${product_extras}."
-	einfo "Don't forget to rmmod the vm* modules, either."
+	elog "To remove all traces of ${product} you will need to remove the files"
+	elog "in ${config_dir}${product_extras}."
+	elog "If the vmware-modules package is installed, you may no longer need it."
 	echo
 }

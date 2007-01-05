@@ -94,10 +94,10 @@ pkg_config() {
 
 pkg_postinst() {
 	vmware_pkg_postinst
-	einfo "Remember by default xinetd only allows connections from localhost"
-	einfo "To allow external users access to vmware-server you must edit"
-	einfo "    /etc/xinetd.d/vmware-authd"
-	einfo "and specify a new 'only_from' line"
+	elog "Remember by default xinetd only allows connections from localhost"
+	elog "To allow external users access to vmware-server you must edit"
+	elog "    /etc/xinetd.d/vmware-authd"
+	elog "and specify a new 'only_from' line"
 	echo
 	ewarn "VMWare Server also has issues when running on a JFS filesystem.  For more"
 	ewarn "information see http://bugs.gentoo.org/show_bug.cgi?id=122500#c94"
