@@ -13,7 +13,7 @@ EXPORT_FUNCTIONS pkg_preinst pkg_postinst pkg_setup src_install src_unpack pkg_p
 
 DEPEND="x11-misc/shared-mime-info"
 
-export ANY_ANY="vmware-any-any-update105"
+export ANY_ANY="vmware-any-any-update107"
 #export TOOLS_ANY="vmware-tools-any-update1"
 export VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 export VMWARE_INSTALL_DIR=/opt/${PN//-//}
@@ -372,7 +372,12 @@ vmware_pkg_postinst() {
 	einfo "For VMware Add-Ons just visit"
 	einfo "http://www.vmware.com/download/downloadaddons.html"
 	echo
-	elog "After configuring, run ${PN} to launch"
+	if [ "${PN}" == "vmware-player" ]
+	then
+		elog "After configuring, run vmplayer to launch"
+	else
+		elog "After configuring, run ${PN} to launch"
+	fi
 	echo
 	if [ "${product}" == "vmware" -o "${product}" == "vmware-tools" ]
 	then
