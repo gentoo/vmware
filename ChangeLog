@@ -15,26 +15,26 @@
   it'll get pushed out to the masses (not sure whether to revbump).
 
   28 Dec 2006; Mike Auty <ikelos@gentoo.org>:
-  Right, just added in the beta for workstation 6.  It's *very& experimental,
+  Right, just added in the beta for workstation 6.  It's *very* experimental,
   as in, we won't support it at all, hence why it's -* keyword masked.
 
   Things that currently go wrong with it:
-  
-  * /opt/vmware/workstation/lib/bin-debug/* don't get the correct suid permissions.
-    Not too much of a problem, since the debugging builds run quite slowly, either 
-    fix the permissions or remove the directory and symlink .../lib/bin to 
-    .../lib/bin-debug.
-  * vmware seemed to just fail spontaneously when I started it on the latest gnome 
-    ~x86, but it starts ok (if looking a little ugly) when run as 
-    "VMWARE_USE_SHIPPED_GTK=force vmware"
-  * A couple of extra dependencies were needed (simply because they didn't match 
-    up properly) so I've added libview and libsexymm which weren't already on my 
-    system.  These may not be necessary, it depends if we want to use all system 
-    libs or are happy mixing and matching.
+
+  * /opt/vmware/workstation/lib/bin-debug/* don't get the correct suid
+  permissions. Not too much of a problem, since the debugging builds run quite
+  slowly, either fix the permissions or remove the directory and symlink
+  ../lib/bin to .../lib/bin-debug.
+  * vmware seemed to just fail spontaneously when I started it on the latest
+  gnome ~x86, but it starts ok (if looking a little ugly) when run as
+  "VMWARE_USE_SHIPPED_GTK=force vmware"
+  * A couple of extra dependencies were needed (simply because they didn't match
+  up properly) so I've added libview and libsexymm which weren't already on my
+  system.  These may not be necessary, it depends if we want to use all system 
+  libs or are happy mixing and matching.
   * Some of the patches changed because of the addition of the vmblock module,
-    so whilst the module builds, I'm uncertain if there's any additional
-    configuration needed for the driver itself.  Gonna have to dive back into the
-    perl for that.
+  so whilst the module builds, I'm uncertain if there's any additional
+  configuration needed for the driver itself.  Gonna have to dive back into
+  the perl for that.
 
   The good news is it seems to run quite quickly, and supports USB 2.0! 5:)
 
