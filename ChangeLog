@@ -2,10 +2,14 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
-  31 Jan 2006; Mike Auty <ikelos@gentoo.org>:
+  23 Feb 2007; Mike Auty <ikelos@gentoo.org>:
+  Fix up the dates in this changelog, 5;)
+  and also bump to any-any108.
+  
+  31 Jan 2007; Mike Auty <ikelos@gentoo.org>:
   Sync the server ebuild with the tree, and bump to any-any107.
   
-  05 Jan 2006; Mike Auty <ikelos@gentoo.org>:
+  05 Jan 2007; Mike Auty <ikelos@gentoo.org>:
   Update the server and eclass einfo/elog statements in line with the 
   portage ebuilds.
   
