@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  03 Mar 2007; Mike Auty <ikelos@gentoo.org>:
+  Version bump to 1.0.2.39867.
+  
   23 Feb 2007; Mike Auty <ikelos@gentoo.org>:
   Fix up the dates in this changelog, 5;)
   and also bump to any-any108.
