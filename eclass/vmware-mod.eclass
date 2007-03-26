@@ -29,11 +29,10 @@ S="${WORKDIR}"
 
 EXPORT_FUNCTIONS pkg_setup src_unpack src_install
 
-# Must define VMWARE_VER to make, otherwise it'll try and run getversion.pl
-BUILD_TARGETS="auto-build VMWARE_VER=${VMWARE_VER} KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
-
 vmware-mod_pkg_setup() {
 	linux-mod_pkg_setup
+	# Must define VMWARE_VER to make, otherwise it'll try and run getversion.pl
+	BUILD_TARGETS="auto-build VMWARE_VER=${VMWARE_VER} KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
 
 	vmware_determine_product
 

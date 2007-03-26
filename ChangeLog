@@ -3,6 +3,10 @@
 # $ Id: $
 
   26 Mar 2007; Mike Auty <ikelos@gentoo.org>:
+  Fix the location of BUILD_TARGETS so that all the variables are
+  correctly initialized.  Bug 172337, thanks Georgi.
+  
+  26 Mar 2007; Mike Auty <ikelos@gentoo.org>:
   Removed ~amd64 support from vmware-server-tools after a
   report of compilation failure.
   
