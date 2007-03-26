@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  26 Mar 2007; Mike Auty <ikelos@gentoo.org>:
+  Removed ~amd64 support from vmware-server-tools after a
+  report of compilation failure.
+  
   04 Mar 2007; Mike Auty <ikelos@gentoo.org>:
   Fixed up vmware-server-tools-1.0.2 to work with both 2.6.18 and 2.6.19
   using a patch courtesy from Aaron Gipson.
