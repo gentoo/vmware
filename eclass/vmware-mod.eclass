@@ -39,7 +39,8 @@ vmware-mod_pkg_setup() {
 	if [[ -z "${VMWARE_MODULE_LIST}" ]]; then
 		case ${product} in
 			vmware-tools)
-				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST}vmdesched vmhgfs vmmemctl vmxnet"
+				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmhgfs vmmemctl vmxnet"
+				use amd64 || VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmdesched"
 				;;
 			*)
 				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST}vmmon vmnet"

@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  31 Mar 2007; Mike Auty <ikelos@gentoo.org>:
+  Attempt to allow vmware-server-tools to compile under amd64.
+  
   26 Mar 2007; Mike Auty <ikelos@gentoo.org>:
   Fix the location of BUILD_TARGETS so that all the variables are
   correctly initialized.  Bug 172337, thanks Georgi.
