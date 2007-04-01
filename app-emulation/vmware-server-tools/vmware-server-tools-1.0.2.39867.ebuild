@@ -16,7 +16,8 @@ RESTRICT=""
 
 RDEPEND="sys-apps/pciutils
 		 X? ( x11-drivers/xf86-video-vmware
-		      x11-drivers/xf86-input-vmmouse )"
+		      x11-drivers/xf86-input-vmmouse )
+		 !app-emulation/vmware-workstation-tools"
 
 S=${WORKDIR}/vmware-tools-distrib
 
