@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  01 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Add in vmware-server-tools initd script and block on
+  vmware-workstation-tools.
+  
   31 Mar 2007; Mike Auty <ikelos@gentoo.org>:
   Attempt to allow vmware-server-tools to compile under amd64.
   
