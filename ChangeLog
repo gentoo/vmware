@@ -2,6 +2,13 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  09 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Fix up vmware-server-tools configs:
+    Only build vmxnet vmdesched for server-tools
+    Only build vmdesched if not on amd64
+    Comment out all the module compilation problems
+    Use modprobe to add the required modules
+
   01 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Add in vmware-server-tools initd script and block on
   vmware-workstation-tools.

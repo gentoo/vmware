@@ -1,3 +1,7 @@
+AUX 1.0.2.39867/000_all_vmware-tools.patch 2417 RMD160 fc56363385f9240327c843c430a8132c554be8c7 SHA1 331052c3fee8c2cb43c2a04aa62e7bb0ecea947d SHA256 28d791a04f9d65bbb10ad63f4db49a4f0ee3570aa02845da6e1ea2d80e11c11b
+MD5 97b28d79449971c45809ba329ef3524e files/1.0.2.39867/000_all_vmware-tools.patch 2417
+RMD160 fc56363385f9240327c843c430a8132c554be8c7 files/1.0.2.39867/000_all_vmware-tools.patch 2417
+SHA256 28d791a04f9d65bbb10ad63f4db49a4f0ee3570aa02845da6e1ea2d80e11c11b files/1.0.2.39867/000_all_vmware-tools.patch 2417
 AUX patches/000_all_makefile-include-directory.patch 343 RMD160 d2f63ede9d9dbc6ec94ccede9177a5a15a678e62 SHA1 63f6090628109526eb7aca02081feaf2a1af0f6f SHA256 fadf02891dd78611790f6b59c2ba7ec5aaaa9767bbe779d97e6c3b38aaaa7b94
 MD5 b90ff7e76d6c548c562b6bb276ad28ae files/patches/000_all_makefile-include-directory.patch 343
 RMD160 d2f63ede9d9dbc6ec94ccede9177a5a15a678e62 files/patches/000_all_makefile-include-directory.patch 343
@@ -14,10 +18,10 @@ AUX vmware-server-tools.rc 1412 RMD160 78959a8bc75c10aa83a68249c3967a24924a0cd4 
 MD5 0c0ac177faf8e3bace2046c99697eb05 files/vmware-server-tools.rc 1412
 RMD160 78959a8bc75c10aa83a68249c3967a24924a0cd4 files/vmware-server-tools.rc 1412
 SHA256 fc2beb14bd6724c68dc9a92e1cfb30ac40085917fe80a1f609e13ea9ba82b95c files/vmware-server-tools.rc 1412
-EBUILD vmware-server-tools-1.0.2.39867.ebuild 1196 RMD160 fba6301c824ffe822f976c9c550e5475dee88bad SHA1 c6fb685e0197d765a525855d14ebe4a085980a49 SHA256 f91b32a83b500192cabab4767fafc2e8623339d50bccbd2b569ce1037dd3f391
-MD5 a3c44d7267bd27901f54f632cef65f0f vmware-server-tools-1.0.2.39867.ebuild 1196
-RMD160 fba6301c824ffe822f976c9c550e5475dee88bad vmware-server-tools-1.0.2.39867.ebuild 1196
-SHA256 f91b32a83b500192cabab4767fafc2e8623339d50bccbd2b569ce1037dd3f391 vmware-server-tools-1.0.2.39867.ebuild 1196
+EBUILD vmware-server-tools-1.0.2.39867.ebuild 1093 RMD160 f1932d40fc1db1176ec1d429e38f8dd11c590a4b SHA1 2673953ab606a4c97539d4200a2e68106b633b6f SHA256 d7001160aea0b51ee863039966d69a53cb53194db9af38c3e166774fc6b0c537
+MD5 eca76c0b9f0c954e9f4c9f296dfd9e4a vmware-server-tools-1.0.2.39867.ebuild 1093
+RMD160 f1932d40fc1db1176ec1d429e38f8dd11c590a4b vmware-server-tools-1.0.2.39867.ebuild 1093
+SHA256 d7001160aea0b51ee863039966d69a53cb53194db9af38c3e166774fc6b0c537 vmware-server-tools-1.0.2.39867.ebuild 1093
 MISC metadata.xml 159 RMD160 fc7f68a382390e5916b0fb43f37a893fad4f9798 SHA1 f46b02a39bcd0165558de67ff4256cfc812418a3 SHA256 8581ae1c90a48f50fa0542c7fb28cb8984baaf12f50fa18f33e467081effb215
 MD5 7cc95faad4185e8ed375248bc73a17fc metadata.xml 159
 RMD160 fc7f68a382390e5916b0fb43f37a893fad4f9798 metadata.xml 159

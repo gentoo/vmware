@@ -1,0 +1,57 @@
+diff -uNr vmware-tools-distrib.orig/bin/vmware-config-tools.pl vmware-tools-distrib/bin/vmware-config-tools.pl
+--- vmware-tools-distrib.orig/bin/vmware-config-tools.pl	2007-02-05 03:37:33.000000000 +0000
++++ vmware-tools-distrib/bin/vmware-config-tools.pl	2007-04-09 17:31:58.000000000 +0100
+@@ -3311,11 +3311,15 @@
+     $mod_dir = db_get_answer('LIBDIR') . '/modules';
+   }
+ 
++  $gOption{'compile'} = 1;
++  return 'yes';
++
+   if (($name eq 'vmxnet') and (not is64BitKernel())) {
+     # Figure out the correct network script.
+     my $init_dir = db_get_answer('INITSCRIPTSDIR');
+     my $network_path = find_first_exist("$init_dir/network",
+-                                        "$init_dir/networking");
++                                        "$init_dir/networking",
++                                        "/bin/false");
+     if (!defined($network_path)) {
+       print wrap("Can not find $init_dir/network and $init_dir/networking.\n\n", 0);
+       return 'no';
+@@ -8342,13 +8346,13 @@
+   configure_vmmemctl();
+ 
+   if (vmware_product() eq 'tools-for-linux') {
+-    configure_vmhgfs();
++    # configure_vmhgfs();
+     write_module_config();
+   }
+ 
+   write_tools_config();
+ 
+-  configure_X();
++  # configure_X();
+ 
+   # vmware-user and its autostarting only exist on Linux currently
+   if (vmware_product() eq 'tools-for-linux') {
+@@ -8391,7 +8395,7 @@
+ 
+   my $network_path = find_first_exist("/etc/init.d/network",
+                                       "/etc/init.d/networking");
+-  if (vmware_product() eq 'tools-for-linux' and
++  if (vmware_product() eq 'tools-for-linux-off' and
+       db_get_answer('VMXNET_CONFED') eq 'yes') {
+     print wrap('To use the vmxnet driver, restart networking using the '
+ 	       . 'following commands: ' . "\n"
+diff -uNr vmware-tools-distrib.orig/installer/services.sh vmware-tools-distrib/installer/services.sh
+--- vmware-tools-distrib.orig/installer/services.sh	2007-02-05 03:37:33.000000000 +0000
++++ vmware-tools-distrib/installer/services.sh	2007-04-09 17:18:16.000000000 +0100
+@@ -543,7 +543,7 @@
+    if [ "`isLoaded "$1"`" = 'yes' ]; then
+       /sbin/rmmod "$1"
+    fi
+-   /sbin/insmod -s -f "/lib/modules/`uname -r`/misc/$1.o" >/dev/null 2>&1 || /sbin/insmod -s -f "$1" >/dev/null 2>&1 || exit 1
++   /sbin/modprobe $1 || /sbin/insmod -s -f "/lib/modules/`uname -r`/misc/$1.o" >/dev/null 2>&1 || /sbin/insmod -s -f "$1" >/dev/null 2>&1 || exit 1
+    exit 0
+ }
+ 

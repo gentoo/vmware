@@ -39,7 +39,8 @@ vmware-mod_pkg_setup() {
 	if [[ -z "${VMWARE_MODULE_LIST}" ]]; then
 		case ${product} in
 			vmware-tools)
-				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmhgfs vmmemctl vmxnet"
+				VMWARE_MODULES_LIST="${VMWARE_MODULE_LIST} vmxnet"
+				[ "$shortname" != "server-tools" ] && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmhgfs vmmemctl"
 				use amd64 || VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmdesched"
 				;;
 			*)
@@ -57,9 +58,7 @@ vmware-mod_pkg_setup() {
 vmware-mod_src_unpack() {
 	case ${product} in
 		vmware-tools)
-			cp "${CDROM_ROOT}"/"${TARBALL}" "${WORKDIR}"
-			cd "${WORKDIR}"
-			unpack "./${TARBALL}"
+			# Do nothing, this should be dealt with by vmware.eclass unpack
 			;;
 		*)
 			unpack ${A}

@@ -4,6 +4,8 @@
 
 inherit versionator vmware-mod eutils vmware
 
+MY_P="VMwareTools-$(get_version_component_range 1-3)-$(get_version_component_range 4)"
+
 DESCRIPTION="Guest-os tools for VMware Server"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI=""
@@ -23,7 +25,7 @@ S=${WORKDIR}/vmware-tools-distrib
 
 RUN_UPDATE="no"
 ANY_ANY=""
-TARBALL="VMwareTools-$(get_version_component_range 1-3)-$(get_version_component_range 4).tar.gz"
+TARBALL="${MY_P}.tar.gz"
 VMWARE_MOD_DIR="lib/modules/source"
 
 
@@ -43,12 +45,6 @@ src_install() {
 
 	dodir ${VMWARE_INSTALL_DIR}/sbin
 	keepdir ${VMWARE_INSTALL_DIR}/sbin
-
-	# if we have X, install the default config
-	#if use X ; then
-	#	insinto /etc/X11
-	#	doins ${FILESDIR}/xorg.conf
-	#fi
 }
 
 pkg_postinst() {
