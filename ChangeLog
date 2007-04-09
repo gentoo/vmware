@@ -3,6 +3,10 @@
 # $ Id: $
 
   09 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Fix up misconfiguration warning when stopping vmware-server
+  whilst a server is still running.  Bug 173752.
+  
+  09 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Sync changes in the tree back into the overlay.
   
   09 Apr 2007; Mike Auty <ikelos@gentoo.org>:
