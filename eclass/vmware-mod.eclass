@@ -18,8 +18,6 @@ IUSE=""
 [[ -z "${VMWARE_VER}" ]] && VMWARE_VER="VME_V55"
 VMWARE_MOD_DIR="${ANY_ANY}"
 
-DEPEND=">=sys-apps/portage-2.0.54"
-
 S="${WORKDIR}"
 
 # We needn't restrict this since it was only required to read
