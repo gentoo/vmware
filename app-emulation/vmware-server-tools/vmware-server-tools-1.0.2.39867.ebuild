@@ -17,6 +17,7 @@ IUSE="X"
 RESTRICT=""
 
 RDEPEND="sys-apps/pciutils
+		 sys-apps/ethtool
 		 X? ( x11-drivers/xf86-video-vmware
 		      x11-drivers/xf86-input-vmmouse )
 		 !app-emulation/vmware-workstation-tools"
