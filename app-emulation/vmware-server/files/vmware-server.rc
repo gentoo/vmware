@@ -1,7 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2004 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/files/vmware-server.rc,v 1.1 2006/07/31 20:23:50 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/files/vmware-server.rc,v 1.3 2007/04/09 17:49:47 ikelos Exp $
 
 depend() {
 	need localmount xinetd
@@ -16,17 +16,17 @@ vmware-prettify() {
 	msgtype=0
 	while read line
 	do
-		[ "$line" == "" ] && continue
-		if [ "$msgtype" -le "0" ]
+		[[ "${line}" == "" ]] && continue
+		if [[ "${msgtype}" -le "0" ]]
 		then
-			if [ "$msgtype" == "-1" ]
+			if [[ "${msgtype}" == "-1" ]]
 			then
-				ewarn $line
+				ewarn ${line}
 				continue
 			fi
-			if [ "${line/*:*/}" == "" ]
+			if [[ "${line/*:*/}" == "" ]]
 			then
-				einfon $line
+				einfon ${line}
 				echo
 				eend 0
 				msgtype=1
@@ -37,7 +37,7 @@ vmware-prettify() {
 				eend 0
 				msgtype=0
 			else
-				ewarn $line
+				ewarn ${line}
 				msgtype=-1
 				waserror=1
 			fi
@@ -45,25 +45,25 @@ vmware-prettify() {
 		fi
 
 		# Strip out anything after the <esc> code
-		message=`echo $line | sed -e "s/^\(.*\).*$/\1/"`
-		einfon "  $message"
+		message=`echo ${line} | sed -e "s/^\(.*\).*$/\1/"`
+		einfon "  ${message}"
 		echo
 
-		echo $line | grep done > /dev/null
+		echo ${line} | grep done > /dev/null
 		status=$?
-		eend $status
+		eend ${status}
 
-		if [ "$status" != "0" ]
+		if [[ "${status}" != "0" ]]
 		then
-			logger -p local0.err -t vmware-${state} "$line"
-			waserror=$status
+			logger -p local0.err -t vmware-${state} "${line}"
+			waserror=${status}
 		fi
 	done
-	if [ "$msgtype" == "-1" ]
+	if [[ "${msgtype}" == "-1" ]]
 	then
 		eend 1 "VMware is not properly configured! See above."
 	fi
-	return $waserror
+	return ${waserror}
 }
 
 start() {
