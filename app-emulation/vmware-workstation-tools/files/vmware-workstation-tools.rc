@@ -7,7 +7,7 @@ depend() {
 	before checkfs
 }
 
-vmware-prettify() {
+vmware_prettify() {
 	# Yea, the code is ugly but the output is pretty
 	state=$1
 	waserror=0
@@ -62,11 +62,11 @@ start() {
 	test -x /etc/vmware-tools/init.d/vmware || \
 		eend 1 "vmware init script not found. Aborting" || return 1
 
-	/etc/vmware-tools/init.d/vmware start | vmware-prettify start
+	/etc/vmware-tools/init.d/vmware start | vmware_prettify start
 	return $?
 }
 
 stop() {
-	/etc/vmware-tools/init.d/vmware stop | vmware-prettify stop
+	/etc/vmware-tools/init.d/vmware stop | vmware_prettify stop
 	return $?
 }

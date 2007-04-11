@@ -14,10 +14,10 @@ AUX patches/vmhgfs/001_all_kernel-2.6.19-mount.patch 1047 RMD160 34824e2c4b7b2bb
 MD5 4bb51b0e3d626700c3b396b9d14ef01c files/patches/vmhgfs/001_all_kernel-2.6.19-mount.patch 1047
 RMD160 34824e2c4b7b2bbd93cd8c409126cf39ba7b86c0 files/patches/vmhgfs/001_all_kernel-2.6.19-mount.patch 1047
 SHA256 de0ed1136921ea355a79cf7a5b283258d644c4028abc5cdd6bfbed5339e46b75 files/patches/vmhgfs/001_all_kernel-2.6.19-mount.patch 1047
-AUX vmware-server-tools.rc 1412 RMD160 78959a8bc75c10aa83a68249c3967a24924a0cd4 SHA1 1226f5e10c4611a28ddb0566244a809da66dfbdd SHA256 fc2beb14bd6724c68dc9a92e1cfb30ac40085917fe80a1f609e13ea9ba82b95c
-MD5 0c0ac177faf8e3bace2046c99697eb05 files/vmware-server-tools.rc 1412
-RMD160 78959a8bc75c10aa83a68249c3967a24924a0cd4 files/vmware-server-tools.rc 1412
-SHA256 fc2beb14bd6724c68dc9a92e1cfb30ac40085917fe80a1f609e13ea9ba82b95c files/vmware-server-tools.rc 1412
+AUX vmware-server-tools.rc 1412 RMD160 9aca72fc864fbefb4cb80d0a4a2730b6e0b52cab SHA1 f0eec6f2611b7e98bb8c6e2a4aad06ce7088b5f7 SHA256 2a9f2ef723a74083c18dec797aab6531175d07822c795bcf5b53278aa83630ad
+MD5 efc0233275715ebbedf22a5aa775887a files/vmware-server-tools.rc 1412
+RMD160 9aca72fc864fbefb4cb80d0a4a2730b6e0b52cab files/vmware-server-tools.rc 1412
+SHA256 2a9f2ef723a74083c18dec797aab6531175d07822c795bcf5b53278aa83630ad files/vmware-server-tools.rc 1412
 EBUILD vmware-server-tools-1.0.2.39867.ebuild 1113 RMD160 c34e4efe25b79298adb0c094e273b6f6d8ef24e1 SHA1 321880eb19afc512709d6bd32be2f426c1105cff SHA256 aba3a385c99ca3cc135e3c4895e9db019f4c45df0385ef5f9f966f98fad64ff4
 MD5 b93ba5dad0204bc2a45aa9f6043155e6 vmware-server-tools-1.0.2.39867.ebuild 1113
 RMD160 c34e4efe25b79298adb0c094e273b6f6d8ef24e1 vmware-server-tools-1.0.2.39867.ebuild 1113

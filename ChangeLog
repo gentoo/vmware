@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  11 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Fix up a naming issue when bash is called as sh for baselayout-2.
+  
   09 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Fix up misconfiguration warning when stopping vmware-server
   whilst a server is still running.  Bug 173752.
