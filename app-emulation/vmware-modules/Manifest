@@ -15,7 +15,7 @@ MD5 58b71f6120139172fa6065ab7a2a691d files/patches/020_all_epoll-def-warnings.pa
 RMD160 b9152d9af93862c99c72abc1ef97639351d82141 files/patches/020_all_epoll-def-warnings.patch 435
 SHA256 2033f23fc8d696e1a9d20c6c446703166ea82a4e5e448494e6a52ef09bac7521 files/patches/020_all_epoll-def-warnings.patch 435
 DIST VMware-workstation-e.x.p-36983.i386.tar.gz 202626242 RMD160 1d5f9b2dc407caff9a3da37d8a21f0c5937ed1ce SHA1 43d5df8fcc86925c05a25e60cb0f2a01b3c9a74a SHA256 44edf4f73a869c8d390a0b0a34eda48258316710c759354f1c5c8deb0624acec
-DIST vmware-any-any-update108.tar.gz 296976 RMD160 27ac3469d17e815a2f9564a7298b02a4b8cfb370 SHA1 6bd4c433cc8b6398b4abe514b72f073b7e48362b SHA256 048357bc3b180529db5e5adbc8a8efa7aebcd0b846d2319d37918e7398cde45c
+DIST vmware-any-any-update109.tar.gz 295773 RMD160 823b961d7b8f8a97af02f0bb2ed775fa5840ec54 SHA1 504380f59620ce47197975d5b326129fae6d7019 SHA256 392dd7d4fd990efcbd664f982d71e8ad8ba1d08425ab37e640a1bee0909b67a8
 EBUILD vmware-modules-1.0.0.11-r1.ebuild 311 RMD160 c1022016ab270313119855fe76745f9e5411ef26 SHA1 3f4408471a775cc68d2401808f2b8bec4f950cd7 SHA256 7a8c427e8c4c55feb3ff87d7085938373bd9154e771cc8ba2ee969eb0cd771cb
 MD5 707b0a7edf016c7b3fc187f43b1f17c5 vmware-modules-1.0.0.11-r1.ebuild 311
 RMD160 c1022016ab270313119855fe76745f9e5411ef26 vmware-modules-1.0.0.11-r1.ebuild 311
@@ -36,15 +36,15 @@ MISC metadata.xml 159 RMD160 fc7f68a382390e5916b0fb43f37a893fad4f9798 SHA1 f46b0
 MD5 7cc95faad4185e8ed375248bc73a17fc metadata.xml 159
 RMD160 fc7f68a382390e5916b0fb43f37a893fad4f9798 metadata.xml 159
 SHA256 8581ae1c90a48f50fa0542c7fb28cb8984baaf12f50fa18f33e467081effb215 metadata.xml 159
-MD5 aa25e0c2a7f304ee426b7f8126455d87 files/digest-vmware-modules-1.0.0.11-r1 274
-RMD160 0b7529f4cfe2249244b62f7071e47eec7d23675e files/digest-vmware-modules-1.0.0.11-r1 274
-SHA256 18f5f8284be4c66f64fdc522975fcdb5ee0156bac46185b90df0f7034daf6753 files/digest-vmware-modules-1.0.0.11-r1 274
-MD5 aa25e0c2a7f304ee426b7f8126455d87 files/digest-vmware-modules-1.0.0.13-r1 274
-RMD160 0b7529f4cfe2249244b62f7071e47eec7d23675e files/digest-vmware-modules-1.0.0.13-r1 274
-SHA256 18f5f8284be4c66f64fdc522975fcdb5ee0156bac46185b90df0f7034daf6753 files/digest-vmware-modules-1.0.0.13-r1 274
-MD5 aa25e0c2a7f304ee426b7f8126455d87 files/digest-vmware-modules-1.0.0.15-r1 274
-RMD160 0b7529f4cfe2249244b62f7071e47eec7d23675e files/digest-vmware-modules-1.0.0.15-r1 274
-SHA256 18f5f8284be4c66f64fdc522975fcdb5ee0156bac46185b90df0f7034daf6753 files/digest-vmware-modules-1.0.0.15-r1 274
+MD5 a0fd1b2338593481abe997770abec0c8 files/digest-vmware-modules-1.0.0.11-r1 274
+RMD160 e2e80c345f5f9753fda9cf828d9df809a6965ddc files/digest-vmware-modules-1.0.0.11-r1 274
+SHA256 68e8d90f647216692b7f12907b3d14627683690a0d8738782856446cd7f88076 files/digest-vmware-modules-1.0.0.11-r1 274
+MD5 a0fd1b2338593481abe997770abec0c8 files/digest-vmware-modules-1.0.0.13-r1 274
+RMD160 e2e80c345f5f9753fda9cf828d9df809a6965ddc files/digest-vmware-modules-1.0.0.13-r1 274
+SHA256 68e8d90f647216692b7f12907b3d14627683690a0d8738782856446cd7f88076 files/digest-vmware-modules-1.0.0.13-r1 274
+MD5 a0fd1b2338593481abe997770abec0c8 files/digest-vmware-modules-1.0.0.15-r1 274
+RMD160 e2e80c345f5f9753fda9cf828d9df809a6965ddc files/digest-vmware-modules-1.0.0.15-r1 274
+SHA256 68e8d90f647216692b7f12907b3d14627683690a0d8738782856446cd7f88076 files/digest-vmware-modules-1.0.0.15-r1 274
 MD5 90b29a844a96a04fdbb50d4c44329511 files/digest-vmware-modules-1.0.0.16 316
 RMD160 63955601456929c5dc9dedd544e3510c3f865ae0 files/digest-vmware-modules-1.0.0.16 316
 SHA256 41523fb5125cac84b70f6048d6e960882a5d5dc9e336adedf100c9be95005a4e files/digest-vmware-modules-1.0.0.16 316
