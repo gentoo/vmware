@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  15 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Version bump to 1.0.0.15 and remove patch Spanky added a while ago.
+
   11 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Fix up a naming issue when bash is called as sh for baselayout-2.
   
