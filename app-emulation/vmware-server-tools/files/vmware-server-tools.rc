@@ -59,14 +59,14 @@ vmware_prettify() {
 }
 
 start() {
-	test -x /etc/vmware-tools/init.d/vmware || \
+	test -x /etc/vmware-tools/init.d/vmware-tools || \
 		eend 1 "vmware init script not found. Aborting" || return 1
 
-	/etc/vmware-tools/init.d/vmware start | vmware_prettify start
+	/etc/vmware-tools/init.d/vmware-tools start | vmware_prettify start
 	return $?
 }
 
 stop() {
-	/etc/vmware-tools/init.d/vmware stop | vmware_prettify stop
+	/etc/vmware-tools/init.d/vmware-tools stop | vmware_prettify stop
 	return $?
 }
