@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-5.5.3.34685.ebuild,v 1.4 2006/12/14 18:35:44 wolf31o2 Exp $
 
@@ -32,7 +32,7 @@ RDEPEND="sys-libs/glibc
 		x11-libs/libXinerama
 		x11-libs/libXi
 		x11-libs/libview
-		x11-libs/libsexymm
+		dev-cpp/libsexymm
 		virtual/xft )
 	!app-emulation/vmware-player
 	!app-emulation/vmware-server
