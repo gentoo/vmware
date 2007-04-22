@@ -8,6 +8,6 @@ VMWARE_VER="VME_S1B1"
 inherit vmware-mod
 
 VMWARE_MODULE_LIST="vmmon vmnet vmblock"
-SRC_URI="http://www.example.com/VMware-workstation-e.x.p-36983.i386.tar.gz"
+SRC_URI="http://www.example.com/VMware-workstation-6.0.0-44426.i386.tar.gz"
 VMWARE_MOD_DIR="vmware-distrib/lib/modules/source/"
 

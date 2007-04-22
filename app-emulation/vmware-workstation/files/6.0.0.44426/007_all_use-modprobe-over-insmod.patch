@@ -1,0 +1,12 @@
+diff -uNr vmware-server-distrib/installer/services.sh vmware-server-distrib.new/installer/services.sh
+--- vmware-server-distrib/installer/services.sh	2006-02-05 00:21:25.000000000 +0000
++++ vmware-server-distrib.new/installer/services.sh	2006-02-20 23:48:07.000000000 +0000
+@@ -538,7 +538,7 @@
+ }
+ 
+ vmware_load_module() {
+-   /sbin/insmod -s -f "/lib/modules/`uname -r`/misc/$1.o" || exit 1
++   /sbin/modprobe -s -f "$1" || exit 1
+    exit 0
+ }
+ 

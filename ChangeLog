@@ -2,6 +2,13 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  22 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Version bumped vmware workstation 6.0.0.44426.
+  Problems still existing with the beta:
+  	Using gnome-2.18.0 seems to be missing a symbol.
+	Using baselayout-2 the config trying to stop a stopped service fails.
+	The application icons don't install/work properly.
+  
   18 Apr 2007; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-workstation/vmware-workstation-6.0.0.36983.ebuild:
   Changed x11-libs/libsexymm to dev-cpp/libsexymm to match what's in the tree.
