@@ -5,7 +5,7 @@
 
 depend() {
 	need localmount
-	use logger net
+	use logger net hald
 	after samba
 }
 

@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  23 Apr 2007; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-workstation/files/vmware-workstation.rc:
+  Added use hald to vmware-workstation init script due to bug #155450.
+
   22 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Version bumped vmware workstation 6.0.0.44426.
   Problems still existing with the beta:
