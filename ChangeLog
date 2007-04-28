@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  28 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Version bump vmware server 1.0.3.44356.
+  Fixed up vmware-workstation-6 ebuild to support native amd64.
+  
   23 Apr 2007; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-workstation/files/vmware-workstation.rc:
   Added use hald to vmware-workstation init script due to bug #155450.

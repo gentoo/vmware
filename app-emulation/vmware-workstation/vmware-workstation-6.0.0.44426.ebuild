@@ -2,14 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-5.5.3.34685.ebuild,v 1.4 2006/12/14 18:35:44 wolf31o2 Exp $
 
-inherit vmware eutils
+inherit vmware eutils versionator
 
-MY_P="VMware-workstation-6.0.0-44426.i386"
+MY_PN="VMware-workstation-$(replace_version_separator 3 - $PV)"
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
-SRC_URI="mirror://vmware/software/wkst/${MY_P}.tar.gz
-	http://download.softpedia.ro/linux/${MY_P}.tar.gz
+SRC_URI="
+	x86? ( 
+		mirror://vmware/software/wkst/${MY_PN}.i386.tar.gz
+		http://download.softpedia.ro/linux/${MY_PN}.i386.tar.gz
+	)
+	amd64? (
+		mirror://vmware/software/wkst/${MY_PN}.x86_64.tar.gz
+		http://download.softpedia.ro/linux/${MY_PN}.x86_64.tar.gz
+	)
 	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
@@ -25,7 +32,15 @@ RESTRICT="strip"
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
 	amd64? (
-		app-emulation/emul-linux-x86-gtklibs )
+		x11-libs/libXrandr
+		x11-libs/libXcursor
+		x11-libs/libXinerama
+		x11-libs/libXi
+		x11-libs/libview
+		dev-cpp/libsexymm
+		dev-cpp/cairomm
+		dev-cpp/libgnomecanvasmm
+		virtual/xft )
 	x86? (
 		x11-libs/libXrandr
 		x11-libs/libXcursor
@@ -80,6 +95,15 @@ QA_EXECSTACK_amd64="${dir:1}/bin/vmnet-bridge
 	${dir:1}/lib/bin/vmplayer
 	${dir:1}/lib/bin-debug/vmware-vmx
 	${dir:1}/lib/lib/libpixops.so.2.0.1/libpixops.so.2.0.1"
+
+pkg_setup() {
+	if use x86; then
+		MY_P="${MY_PN}.i386"
+	elif use amd64; then
+		MY_P="${MY_PN}.x86_64"
+	fi
+	vmware_pkg_setup
+}
 
 src_install() {
 	vmware_src_install
