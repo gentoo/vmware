@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  29 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Forgot to bump vmware server console at the same time.
+  
   28 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Version bump vmware server 1.0.3.44356.
   Fixed up vmware-workstation-6 ebuild to support native amd64.
