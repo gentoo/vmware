@@ -3,6 +3,10 @@
 # $ Id: $
 
   29 Apr 2007; Mike Auty <ikelos@gentoo.org>:
+  Eagle eyed Percy Jahn spotted the typo in vmware-mod.eclass,
+  which is now fixed.
+  
+  29 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Forgot to bump vmware server console at the same time.
   
   28 Apr 2007; Mike Auty <ikelos@gentoo.org>:
