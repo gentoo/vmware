@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  07 May 2007; Mike Auty <ikelos@gentoo.org>:
+  Cleanup and resync vmware-server ebuilds with tree.
+  
   29 Apr 2007; Mike Auty <ikelos@gentoo.org>:
   Eagle eyed Percy Jahn spotted the typo in vmware-mod.eclass,
   which is now fixed.
