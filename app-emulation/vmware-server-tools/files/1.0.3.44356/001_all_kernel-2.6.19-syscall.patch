@@ -1,0 +1,14 @@
+diff -Naurd original/vmdesched-only/compat_kernel.h modified/vmdesched-only/compat_kernel.h
+--- compat_kernel.h.org 2007-02-16 15:34:36.000000000 +0100
++++ compat_kernel.h 2007-02-16 15:36:35.000000000 +0100
+@@ -18,8 +18,9 @@
+  * provided by x86-64, arm and other (but not by i386).
+  */ 
+ #define __NR_compat_exit __NR_exit
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,19)
+ static inline _syscall1(int, compat_exit, int, exit_code);
+-
++#endif
+ 
+ /*
+  * wait_for_completion and friends did not exist before 2.4.9.

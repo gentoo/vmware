@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  08 May 2007; Mike Auty <ikelos@gentoo.org>:
+  Add in a patch for server-tools on >=2.6.20.
+
   07 May 2007; Mike Auty <ikelos@gentoo.org>:
   Cleanup and resync vmware-server ebuilds with tree.
   
