@@ -2,14 +2,14 @@ AUX 1.0.3.44356/000_all_vmware-tools.patch 2417 RMD160 fc56363385f9240327c843c43
 MD5 97b28d79449971c45809ba329ef3524e files/1.0.3.44356/000_all_vmware-tools.patch 2417
 RMD160 fc56363385f9240327c843c430a8132c554be8c7 files/1.0.3.44356/000_all_vmware-tools.patch 2417
 SHA256 28d791a04f9d65bbb10ad63f4db49a4f0ee3570aa02845da6e1ea2d80e11c11b files/1.0.3.44356/000_all_vmware-tools.patch 2417
-AUX 1.0.3.44356/001_all_kernel-2.6.19-syscall.patch 513 RMD160 43bdf0fcf84e7e247ec6f7eb459d1f2d19ed7149 SHA1 26cb06a5f696542c6b5b69c041c606cedafbb4a1 SHA256 950971212cb606dc9e7facdce97173c75c57dbdb5bb8f924d791bb52ffe1cbce
-MD5 da6307826b61129bf6b01697acd7a19b files/1.0.3.44356/001_all_kernel-2.6.19-syscall.patch 513
-RMD160 43bdf0fcf84e7e247ec6f7eb459d1f2d19ed7149 files/1.0.3.44356/001_all_kernel-2.6.19-syscall.patch 513
-SHA256 950971212cb606dc9e7facdce97173c75c57dbdb5bb8f924d791bb52ffe1cbce files/1.0.3.44356/001_all_kernel-2.6.19-syscall.patch 513
 AUX patches/000_all_makefile-include-directory.patch 343 RMD160 d2f63ede9d9dbc6ec94ccede9177a5a15a678e62 SHA1 63f6090628109526eb7aca02081feaf2a1af0f6f SHA256 fadf02891dd78611790f6b59c2ba7ec5aaaa9767bbe779d97e6c3b38aaaa7b94
 MD5 b90ff7e76d6c548c562b6bb276ad28ae files/patches/000_all_makefile-include-directory.patch 343
 RMD160 d2f63ede9d9dbc6ec94ccede9177a5a15a678e62 files/patches/000_all_makefile-include-directory.patch 343
 SHA256 fadf02891dd78611790f6b59c2ba7ec5aaaa9767bbe779d97e6c3b38aaaa7b94 files/patches/000_all_makefile-include-directory.patch 343
+AUX patches/vmdesched/001_all_kernel-2.6.19-syscall.patch 513 RMD160 43bdf0fcf84e7e247ec6f7eb459d1f2d19ed7149 SHA1 26cb06a5f696542c6b5b69c041c606cedafbb4a1 SHA256 950971212cb606dc9e7facdce97173c75c57dbdb5bb8f924d791bb52ffe1cbce
+MD5 da6307826b61129bf6b01697acd7a19b files/patches/vmdesched/001_all_kernel-2.6.19-syscall.patch 513
+RMD160 43bdf0fcf84e7e247ec6f7eb459d1f2d19ed7149 files/patches/vmdesched/001_all_kernel-2.6.19-syscall.patch 513
+SHA256 950971212cb606dc9e7facdce97173c75c57dbdb5bb8f924d791bb52ffe1cbce files/patches/vmdesched/001_all_kernel-2.6.19-syscall.patch 513
 AUX patches/vmhgfs/000_all_driver-get_sb_nodev.patch 666 RMD160 e4a1bad6f93a2bb3461cf374cc5ccfdc15bbf09b SHA1 4900b70fd8697e99482ce079785ca4b7262f9024 SHA256 d97a48b9b23b24d589968d00f53e05410fed31d30b72612835d1c7183c56b284
 MD5 30aebf8fa2ae8a3b66b88a766f63e23a files/patches/vmhgfs/000_all_driver-get_sb_nodev.patch 666
 RMD160 e4a1bad6f93a2bb3461cf374cc5ccfdc15bbf09b files/patches/vmhgfs/000_all_driver-get_sb_nodev.patch 666
