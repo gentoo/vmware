@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit versionator vmware-mod eutils vmware
+inherit linux-mod versionator vmware-mod eutils vmware
 
 MY_P="VMwareTools-$(get_version_component_range 1-3)-$(get_version_component_range 4)"
 
@@ -49,6 +49,7 @@ src_install() {
 }
 
 pkg_postinst() {
+	linux-mod_pkg_postinst
 	if use X; then
 		einfo You should now alter your xorg.conf
 		einfo  Video Driver: vmware
