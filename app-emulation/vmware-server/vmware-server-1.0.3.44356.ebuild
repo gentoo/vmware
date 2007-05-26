@@ -81,6 +81,8 @@ src_install() {
 
 	# Fix the amd64 emulation pam stuff
 	use amd64 && dosed "s:pam_:/lib32/security/pam_:" ${config_dir}/pam.d/vmware-authd
+	  # Remove libpam on amd64 because it's linked against the wrong paths
+	use adm64 && rm ${D}/opt/vmware/server/lib/lib/libpam.so.0/libpam.so
 
 	echo "${VMWARE_GROUP}" > ${D}${config_dir}/vmwaregroup
 

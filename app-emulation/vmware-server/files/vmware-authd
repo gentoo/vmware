@@ -1,6 +1,4 @@
 #%PAM-1.0
-auth       sufficient       pam_unix.so shadow nullok
-auth       required         pam_unix_auth.so shadow nullok
+auth       required         pam_unix.so shadow nullok
 account    required         pam_listfile.so item=group sense=allow file=/etc/vmware/vmwaregroup onerr=fail
-account    sufficient       pam_unix.so
-account    required         pam_unix_acct.so
+account    required         pam_unix.so
