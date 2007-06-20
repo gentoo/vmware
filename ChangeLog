@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  20 Jun 2007; Mike Auty <ikelos@gentoo.org>:
+  Removed old expired vmware-workstations.
+  Added new vmware-workstation ebuild.
+
   26 May 2007; Mike Auty <ikelos@gentoo.org>:
   Update vmware-modules-1.0.0.16 and for the new vmware-player-2.0 which was also added.
   Fixed up amd64 PAM settings in vmware-server hopefully.
