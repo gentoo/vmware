@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  21 Jun 2007; Mike Auty <ikelos@gentoo.org>:
+  Added fetch restrictions to workstation-6.
+  
   20 Jun 2007; Mike Auty <ikelos@gentoo.org>:
   Removed old expired vmware-workstations.
   Added new vmware-workstation ebuild.

@@ -26,7 +26,7 @@ LICENSE="vmware"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RESTRICT="strip"
+RESTRICT="strip fetch"
 
 # vmware-workstation should not use virtual/libc as this is a 
 # precompiled binary package thats linked to glibc.
@@ -109,6 +109,10 @@ pkg_setup() {
 	fi
 
 	vmware_pkg_setup
+}
+
+pkg_nofetch() {
+	einfo "Please download the ${MY_PN}.tar.gz at ${HOMEPAGE}"
 }
 
 src_install() {
