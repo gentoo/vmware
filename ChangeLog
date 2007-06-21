@@ -4,6 +4,7 @@
 
   21 Jun 2007; Mike Auty <ikelos@gentoo.org>:
   Added fetch restrictions to workstation-6.
+  Change the icon installation also.
   
   20 Jun 2007; Mike Auty <ikelos@gentoo.org>:
   Removed old expired vmware-workstations.

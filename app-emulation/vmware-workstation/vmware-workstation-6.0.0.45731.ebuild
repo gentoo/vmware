@@ -118,9 +118,9 @@ pkg_nofetch() {
 src_install() {
 	vmware_src_install
 
-	doicon lib/share/pixmaps/vmware-player.png
-	make_desktop_entry vmware "VMWare Workstation" ${PN}.png System
-	make_desktop_entry vmplayer "VMWare Player" vmware-player.png System
+	ICONDIR=/opt/vmware/workstation/lib/share/icons/hicolor/scalable/apps/
+	make_desktop_entry vmware "VMWare Workstation" ${ICONDIR}/${PN}.svg System
+	make_desktop_entry vmplayer "VMWare Player" ${ICONDIR}/vmware-player.svg System
 
 	# Nasty hack to ensure the EULA is included
 	insinto /opt/vmware/workstation/lib/share
