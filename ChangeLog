@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  08 Jul 2007; Mike Auty <ikelos@gentoo.org>:
+  Attempt to get vmware-any-any-update fetched from the gentoo mirrors, even with fetch restrictions.
+  Also ensure fetch restrictions message is correct.
+
   21 Jun 2007; Mike Auty <ikelos@gentoo.org>:
   Added fetch restrictions to workstation-6.
   Change the icon installation also.

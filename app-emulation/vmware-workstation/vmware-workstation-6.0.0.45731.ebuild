@@ -17,6 +17,7 @@ SRC_URI="
 		mirror://vmware/software/wkst/${MY_PN}.x86_64.tar.gz
 		http://download.softpedia.ro/linux/${MY_PN}.x86_64.tar.gz
 	)
+	mirror://gentoo/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
@@ -112,6 +113,12 @@ pkg_setup() {
 }
 
 pkg_nofetch() {
+	if use x86; then
+		MY_P="${MY_PN}.i386"
+	elif use amd64; then
+		MY_P="${MY_PN}.x86_64"
+	fi
+
 	einfo "Please download the ${MY_PN}.tar.gz at ${HOMEPAGE}"
 }
 
