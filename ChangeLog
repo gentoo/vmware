@@ -6,6 +6,7 @@
   Bump to vmware-any-any-update110.
   Add patch for 2.6.22 to 1.0.0.16 (110 should take care of <1.0.0.16).
   Revert bash changes, to allow vmware to start with baselayout-2/dash.
+  Try to fix up vmware-workstation-tools for version 6.
 
   08 Jul 2007; Mike Auty <ikelos@gentoo.org>:
   Attempt to get vmware-any-any-update fetched from the gentoo mirrors, even with fetch restrictions.

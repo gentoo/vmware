@@ -10,6 +10,7 @@ depend() {
 vmware_prettify() {
 	# Yea, the code is ugly but the output is pretty
 	state=$1
+	errorcode=$2
 	waserror=0
 	msgtype=0
 	while read line
@@ -55,18 +56,18 @@ vmware_prettify() {
 	then
 		eend 1 "VMware is not properly configured! See above."
 	fi
-	return $waserror
+	return $errorcode
 }
 
 start() {
-	test -x /etc/vmware-tools/init.d/vmware || \
+	test -x /etc/vmware-tools/init.d/vmware-tools || \
 		eend 1 "vmware init script not found. Aborting" || return 1
 
-	/etc/vmware-tools/init.d/vmware start | vmware_prettify start
+	/etc/vmware-tools/init.d/vmware-tools start | vmware_prettify start $?
 	return $?
 }
 
 stop() {
-	/etc/vmware-tools/init.d/vmware stop | vmware_prettify stop
+	/etc/vmware-tools/init.d/vmware-tools stop | vmware_prettify stop $?
 	return $?
 }
