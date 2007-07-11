@@ -1,0 +1,249 @@
+diff -u -r vmnet-only.old/bridge.c vmnet-only/bridge.c
+--- vmnet-only.old/bridge.c	2007-06-19 19:08:25.000000000 +0200
++++ vmnet-only/bridge.c	2007-06-19 19:07:47.000000000 +0200
+@@ -1083,12 +1083,21 @@
+ VNetBridgeComputeHeaderPos(struct sk_buff *skb) // IN: buffer to examine
+ {
+    /* Maybe some kernel gets it right... */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   if (skb_transport_header(skb) != skb_network_header(skb)) {
++#else
+    if (skb->h.raw != skb->nh.raw) {
++#endif
+       return;
+    }
++
+    switch (be16_to_cpu(skb->protocol)) {
+       case ETH_P_IP:
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++         skb->transport_header = skb->network_header + (skb_network_header(skb)[0] & 0x0F) * 4;
++#else
+          skb->h.raw = skb->nh.raw + (skb->nh.raw[0] & 0x0F) * 4;
++#endif
+ 	 return;
+       default:
+          LOG(3, (KERN_DEBUG "Unknown EII protocol %04X: csum at %d\n", 
+@@ -1146,19 +1155,32 @@
+    if (((struct ethhdr *)skb->mac.raw)->h_proto != htons(ETH_P_IP)) {
+       return ERR_PTR(-EPFNOSUPPORT);
+    }
+-
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   if (((struct iphdr *)skb_network_header(skb))->protocol != IPPROTO_TCP) {
++#else
+    if (skb->nh.iph->protocol != IPPROTO_TCP) {
++#endif
+       return ERR_PTR(-EPROTONOSUPPORT);
+    }
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   macHdrLen = skb->network_header - skb->mac_header;
++   ipHdrLen = ((struct iphdr *)skb_network_header(skb))->ihl << 2;
++   tcpHdrLen = ((struct tcphdr *)skb_transport_header(skb))->doff << 2;
++#else
+    macHdrLen = skb->nh.raw - skb->mac.raw;
+    ipHdrLen = skb->nh.iph->ihl << 2;
+    tcpHdrLen = skb->h.th->doff << 2;
++#endif
+    allHdrLen = macHdrLen + ipHdrLen + tcpHdrLen;
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   ipID = ntohs(((struct iphdr *)skb_network_header(skb))->id);
++   seqNo = ntohl(((struct tcphdr *)skb_transport_header(skb))->seq);
++#else
+    ipID = ntohs(skb->nh.iph->id);
+    seqNo = ntohl(skb->h.th->seq);
+-
++#endif
+    /* Host TCP stack populated this (MSS) for the host NIC driver */
+    bytesPerPacket = skb_shinfo(skb)->tso_size;
+ 
+@@ -1194,10 +1216,15 @@
+       memcpy(skb_put(newSkb, allHdrLen), skb->data, allHdrLen);
+ 
+       /* Fix up pointers to different layers */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++      skb_reset_mac_header(newSkb);
++      skb_set_network_header(newSkb, macHdrLen);
++      skb_set_transport_header(newSkb, macHdrLen + ipHdrLen);
++#else
+       newSkb->mac.raw = newSkb->data;
+       newSkb->nh.raw = newSkb->data + macHdrLen;
+       newSkb->h.raw = newSkb->nh.raw + ipHdrLen;
+-
++#endif
+       /* Payload copy */
+       skb_copy_bits(skb, curByteOffset, newSkb->tail, payloadSize);
+       skb_put(newSkb, payloadSize);
+@@ -1206,6 +1233,27 @@
+       bytesLeft -= payloadSize;
+ 
+       /* Fix up IP hdr */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++      ((struct iphdr *)skb_network_header(newSkb))->tot_len = htons(payloadSize + tcpHdrLen + ipHdrLen);
++      ((struct iphdr *)skb_network_header(newSkb))->id = htons(ipID);
++      ((struct iphdr *)skb_network_header(newSkb))->check = 0;
++      /* Recompute new IP checksum */
++      ((struct iphdr *)skb_network_header(newSkb))->check =
++         ip_fast_csum((uint8 *)((struct iphdr *)skb_network_header(newSkb)), ((struct iphdr *)skb_network_header(newSkb))->ihl);
++
++      /* Fix up TCP hdr */
++      ((struct tcphdr *)skb_transport_header(newSkb))->seq = htonl(seqNo);
++      /* Clear FIN/PSH if not last packet */
++      if (bytesLeft > 0) {
++         ((struct tcphdr *)skb_transport_header(newSkb))->fin = 0;
++         ((struct tcphdr *)skb_transport_header(newSkb))->psh = 0;
++      }
++      /* Recompute partial TCP checksum */
++      ((struct tcphdr *)skb_transport_header(newSkb))->check =
++         ~csum_tcpudp_magic(((struct iphdr *)skb_network_header(newSkb))->saddr,
++                            ((struct iphdr *)skb_network_header(newSkb))->daddr,
++                            payloadSize+tcpHdrLen, IPPROTO_TCP, 0);
++#else
+       newSkb->nh.iph->tot_len = htons(payloadSize + tcpHdrLen + ipHdrLen);
+       newSkb->nh.iph->id = htons(ipID);
+       newSkb->nh.iph->check = 0;
+@@ -1225,6 +1273,7 @@
+          ~csum_tcpudp_magic(newSkb->nh.iph->saddr,
+                             newSkb->nh.iph->daddr,
+                             payloadSize+tcpHdrLen, IPPROTO_TCP, 0);
++#endif
+ 
+       /* Offset of field */
+       newSkb->csum = offsetof(struct tcphdr, check);
+@@ -1370,8 +1419,13 @@
+ #  endif
+ 
+    if (bridge->smac) {
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++      if (VNetCallSMACFunc(bridge->smac, &skb, skb_mac_header(skb), 
++                           SMAC_CheckPacketFromHost) != 
++#else
+       if (VNetCallSMACFunc(bridge->smac, &skb, skb->mac.raw, 
+                            SMAC_CheckPacketFromHost) != 
++#endif
+           PacketStatusForwardPacket) {
+          LOG(4, (KERN_NOTICE "bridge-%s: packet dropped .\n",
+                  bridge->name));
+@@ -1392,7 +1446,11 @@
+ #endif
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   skb_push(skb, skb->data - skb_mac_header(skb));
++#else
+    skb_push(skb, skb->data - skb->mac.raw);
++#endif
+    LOG(3, (KERN_DEBUG "bridge-%s: receive %d\n",
+ 	   bridge->name, (int) skb->len));
+ 
+diff -u -r vmnet-only.old/filter.c vmnet-only/filter.c
+--- vmnet-only.old/filter.c	2007-06-19 19:08:29.000000000 +0200
++++ vmnet-only/filter.c	2007-06-19 19:07:47.000000000 +0200
+@@ -229,9 +229,22 @@
+    /* When the host receives, hooknum is NF_IP_LOCAL_IN. */
+    transmit = (hooknum == NF_IP_POST_ROUTING);
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   ip = (struct iphdr *) skb_network_header(skb);
++#else
+    ip = skb->nh.iph;
++#endif
+    packetHeader = (uint8 *)ip;
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++   if (transmit) {
++      /* skb all set up for us. */
++      packet = skb_transport_header(skb);
++   } else {
++      /* skb hasn't had a chance to be processed by TCP yet. */
++      packet = skb_network_header(skb) + (ip->ihl << 2);
++   }
++#else
+    if (transmit) {
+       /* skb all set up for us. */
+       packet = skb->h.raw;
+@@ -239,7 +252,7 @@
+       /* skb hasn't had a chance to be processed by TCP yet. */
+       packet = skb->nh.raw + (ip->ihl << 2);
+    }
+-
++#endif
+    HostFilterPrint(("PacketFilter: IP ver %d ihl %d tos %d len %d id %d\n"
+                     "              offset %d ttl %d proto %d xsum %d\n"
+                     "              src 0x%08x dest 0x%08x %s\n",
+@@ -259,13 +272,22 @@
+        * know why, but in such cases, this calculation will lead to a negative
+        * packetLength, and the packet to be dropped.
+        */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++      packetLength = skb->len - (skb->network_header - skb->mac_header) - (ip->ihl << 2);
++#else
+       packetLength = skb->len - (skb->nh.raw - skb->mac.raw) - (ip->ihl << 2);
++#endif
+    }
+ 
+    if (packetLength < 0) {
+       HostFilterPrint(("PacketFilter: ill formed packet for IPv4\n"));
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++      HostFilterPrint(("skb: len %d h.raw %p nh.raw %p mac.raw %p, packetLength %d\n",
++                       skb->len, skb_transport_header(skb), skb_network_header(skb), skb_mac_header(skb), packetLength));
++#else
+       HostFilterPrint(("skb: len %d h.raw %p nh.raw %p mac.raw %p, packetLength %d\n",
+                        skb->len, skb->h.raw, skb->nh.raw, skb->mac.raw, packetLength));
++#endif
+       verdict = NF_DROP;
+       DropPacket(VNET_FILTER_ACTION_DRP_SHORT, packetHeader, packet, 0);
+       goto out_unlock;
+diff -u -r vmnet-only.old/userif.c vmnet-only/userif.c
+--- vmnet-only.old/userif.c	2007-06-19 19:08:34.000000000 +0200
++++ vmnet-only/userif.c	2007-06-19 19:07:47.000000000 +0200
+@@ -627,13 +627,21 @@
+     */
+    if (skb->pkt_type == PACKET_OUTGOING && 	/* Packet must be outgoing */
+        skb->ip_summed == VM_CHECKSUM_PARTIAL &&	/* Without checksum */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++       skb->transport_header != skb->network_header &&		/* We must know where header is */
++#else
+        skb->h.raw != skb->nh.raw &&		/* We must know where header is */
++#endif
+        skb->len == count) {			/* No truncation may occur */
+       size_t skl;
+       int csum;
+       u_int16_t csum16;
+       
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++      skl = skb_transport_header(skb) - skb->data;
++#else
+       skl = skb->h.raw - skb->data;
++#endif
+       if (VNetCopyDatagram(skb, buf, skl)) {
+ 	 return -EFAULT;
+       }
+diff -u -r vmnet-only.old/vnetInt.h vmnet-only/vnetInt.h
+--- vmnet-only.old/vnetInt.h	2007-06-19 19:08:41.000000000 +0200
++++ vmnet-only/vnetInt.h	2007-06-19 19:07:47.000000000 +0200
+@@ -22,6 +22,15 @@
+       skb_datarefp(clone) == skb_datarefp(skb) \
+    )
+ #endif
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 22)
++#define DEV_QUEUE_XMIT(skb, dev, pri)	(                 \
++    (skb)->dev = (dev),                                   \
++    (skb)->priority = (pri),                              \
++    skb_reset_mac_header(skb),                            \
++    skb_set_network_header(skb, sizeof (struct ethhdr)),  \
++    dev_queue_xmit(skb)                                   \
++  )
++#else
+ #define DEV_QUEUE_XMIT(skb, dev, pri)	(                 \
+     (skb)->dev = (dev),                                   \
+     (skb)->priority = (pri),                              \
+@@ -29,6 +38,7 @@
+     (skb)->nh.raw = (skb)->data + sizeof (struct ethhdr), \
+     dev_queue_xmit(skb)                                   \
+   )
++#endif
+ #ifdef KERNEL_2_3_15
+ #  define dev_lock_list()		read_lock(&dev_base_lock)
+ #  define dev_unlock_list()		read_unlock(&dev_base_lock)

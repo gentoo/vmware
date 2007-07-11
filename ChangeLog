@@ -2,6 +2,11 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  11 Jul 2007; Mike Auty <ikelos@gentoo.org>:
+  Bump to vmware-any-any-update110.
+  Add patch for 2.6.22 to 1.0.0.16 (110 should take care of <1.0.0.16).
+  Revert bash changes, to allow vmware to start with baselayout-2/dash.
+
   08 Jul 2007; Mike Auty <ikelos@gentoo.org>:
   Attempt to get vmware-any-any-update fetched from the gentoo mirrors, even with fetch restrictions.
   Also ensure fetch restrictions message is correct.
