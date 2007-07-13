@@ -3,6 +3,10 @@
 # $ Id: $
 
   13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-player/vmware-player-2.0.0.45731.ebuild:
+  Added another mirror.
+
+  13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
   -app-emulation/vmware-esx-tools/vmware-esx-tools-3.0.1.ebuild,
   -app-emulation/vmware-esx-tools/files/vmware-esx-tools:
   Removing older version of the vmware-esx-tools ebuild.
