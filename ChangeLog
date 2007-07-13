@@ -3,6 +3,10 @@
 # $ Id: $
 
   13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-server/vmware-server-1.0.3.44356.ebuild:
+  Added another mirror.
+
+  13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-player/vmware-player-2.0.0.45731.ebuild:
   Added another mirror.
 
