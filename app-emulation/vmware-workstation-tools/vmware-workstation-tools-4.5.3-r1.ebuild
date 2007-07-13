@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,6 +7,8 @@ inherit eutils vmware
 DESCRIPTION="Guest-os tools for VMware Workstation"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
+	http://platan.vc.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
+	http://platan.vc.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz"

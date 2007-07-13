@@ -3,6 +3,11 @@
 # $ Id: $
 
   13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-workstation-tools/vmware-workstation-tools-4.5.3-r1.e
+  build:
+  Added another mirror.
+
+  13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-workstation/vmware-workstation-6.0.0.45731.ebuild:
   Added another mirror.
 
