@@ -11,13 +11,13 @@ HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
 SRC_URI="
 	x86? ( 
 		mirror://vmware/software/wkst/${MY_PN}.i386.tar.gz
-		http://download.softpedia.ro/linux/${MY_PN}.i386.tar.gz
-	)
+		http://download.softpedia.ro/linux/${MY_PN}.i386.tar.gz )
 	amd64? (
 		mirror://vmware/software/wkst/${MY_PN}.x86_64.tar.gz
-		http://download.softpedia.ro/linux/${MY_PN}.x86_64.tar.gz
-	)
+		http://download.softpedia.ro/linux/${MY_PN}.x86_64.tar.gz )
 	mirror://gentoo/${ANY_ANY}.tar.gz
+	http://platan.vc.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
+	http://platan.vc.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
