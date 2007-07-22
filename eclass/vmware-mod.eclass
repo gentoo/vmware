@@ -9,7 +9,8 @@ inherit eutils vmware linux-mod
 
 DESCRIPTION="Modules for Vmware Programs"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz"
+SRC_URI="http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
+		 http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz"
 LICENSE="vmware"
 SLOT="0"
 IUSE=""
