@@ -2,11 +2,11 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
-  22 Jul 2007; Mike Auty <ikelos@gentoo.org>
+  22 Jul 2007; Mike Auty <ikelos@gentoo.org>:
   Updated the any-any mirror location in vmware-mod.eclass.
   Also bumped to vmware-any-any-update111 which should cure compilation issues on post 2.6.21.
 
-  18 Jul 2007; Mike Auty <ikelos@gentoo.org>
+  18 Jul 2007; Mike Auty <ikelos@gentoo.org>:
   Redigested a lot of the overlay ebuilds, something funny digest-wise has been going on recently...
 
   13 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
