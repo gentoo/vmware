@@ -9,7 +9,7 @@ MY_PN="VMware-workstation-$(replace_version_separator 3 - $PV)"
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
 SRC_URI="
-	x86? ( 
+	x86? (
 		mirror://vmware/software/wkst/${MY_PN}.i386.tar.gz
 		http://download.softpedia.ro/linux/${MY_PN}.i386.tar.gz )
 	amd64? (
@@ -29,7 +29,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 RESTRICT="strip fetch"
 
-# vmware-workstation should not use virtual/libc as this is a 
+# vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
 	amd64? (
@@ -120,6 +120,8 @@ pkg_nofetch() {
 	fi
 
 	einfo "Please download the ${MY_PN}.tar.gz at ${HOMEPAGE}"
+	einfo "${ANY_ANY}.tar.gz is also necessary for compilation"
+	einfo "but should already have been fetched."
 }
 
 src_install() {

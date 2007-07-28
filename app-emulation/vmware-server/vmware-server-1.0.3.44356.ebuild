@@ -58,6 +58,8 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
 	~app-emulation/vmware-modules-1.0.0.15
+    !<app-emulation/vmware-modules-1.0.0.15
+	!>=app-emulation/vmware-modules-1.0.0.16
 	sys-apps/pciutils
 	virtual/pam
 	sys-apps/xinetd"
