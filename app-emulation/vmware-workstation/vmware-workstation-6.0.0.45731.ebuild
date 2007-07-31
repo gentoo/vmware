@@ -119,7 +119,7 @@ pkg_nofetch() {
 		MY_P="${MY_PN}.x86_64"
 	fi
 
-	einfo "Please download the ${MY_PN}.tar.gz at ${HOMEPAGE}"
+	einfo "Please download the ${MY_P}.tar.gz at ${HOMEPAGE}"
 	einfo "${ANY_ANY}.tar.gz is also necessary for compilation"
 	einfo "but should already have been fetched."
 }

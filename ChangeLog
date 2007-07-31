@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  31 Jul 2007; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-workstation/vmware-workstation-6.0.0.45731.ebuild:
+  Typo fix.
+
   28 Jul 2007; Mike Auty <ikelos@gentoo.org>:
   Big re-sync with the main tree.
   Hopefully baselayout-2 rc's are still here, but not in the tree.
