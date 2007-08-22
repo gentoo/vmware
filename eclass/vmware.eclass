@@ -142,7 +142,8 @@ vmware_src_unpack() {
 		# Remove PAX MPROTECT flag from all applicable files in /bin, /sbin for
 		# the vmware package only (since modules, tools and console should not
 		# need to generate code on the fly in memory).
-		[[ "${product}" == "vmware" ]] && pax-mark -m $(list-paxables ${S}/{bin,sbin}/{vmware-serverd,vmware-vmx})
+		[[ "${product}" == "vmware" ]] && pax-mark -m \
+		$(list-paxables ${S}/{bin{,-debug},sbin}/{vmware-serverd,vmware-vmx})
 
 		# Run through any patches that might need to be applied
 		cd "${S}"
