@@ -38,6 +38,8 @@ vmware-mod_pkg_setup() {
 	BUILD_TARGETS="auto-build VMWARE_VER=${VMWARE_VER} KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
 
 	vmware_determine_product
+	# We create a group for VMware users due to bugs #104480 and #106170
+	enewgroup "${VMWARE_GROUP}"
 
 	if [[ -z "${VMWARE_MODULE_LIST}" ]]; then
 		case ${product} in
