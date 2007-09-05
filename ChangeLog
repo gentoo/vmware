@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  05 Sep 2007; Mike Auty <ikelos@gentoo.org>:
+  Changed vmware-modules-1.0.0.16 to use vmware-any-any.
+
   22 Aug 2007; Chris Gianelloni <wolf31o2@gentoo.org> eclass/vmware.eclass:
   Add debug version of vmware/vmware-vmx to pax allow list.
 
