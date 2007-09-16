@@ -31,14 +31,14 @@ LICENSE="vmware"
 IUSE=""
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-RESTRICT="nostrip"
+RESTRICT="strip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
 	>=dev-lang/perl-5
 	sys-apps/pciutils
 	sys-apps/findutils
 	virtual/os-headers"
-# vmware-server should not use virtual/libc as this is a 
+# vmware-server should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? (
@@ -75,7 +75,7 @@ src_unpack() {
 	cd ${WORKDIR}
 	unpack ${PN}-perl-fixed-rpath-libs.tar.bz2
 
-	# patch the vmware /etc/pam.d file to ensure that only 
+	# patch the vmware /etc/pam.d file to ensure that only
 	# vmware group members can log in
 	cp ${FILESDIR}/vmware-authd ${S}/etc/pam.d/vmware-authd
 }
@@ -108,4 +108,3 @@ pkg_postinst() {
 	ewarn "VMWare Server also has issues when running on a JFS filesystem.  For more"
 	ewarn "information see http://bugs.gentoo.org/show_bug.cgi?id=122500#c94"
 }
-

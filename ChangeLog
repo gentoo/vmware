@@ -3,6 +3,9 @@
 # $ Id: $
 
   16 Sep 2007; Mike Auty <ikelos@gentoo.org>:
+  Synchronizing with the main tree.
+  
+  16 Sep 2007; Mike Auty <ikelos@gentoo.org>:
   Initial commit of open-vm-tools for all gentoo guests.
   Huge thanks to Elias Probst for contributing this ebuild.
 
