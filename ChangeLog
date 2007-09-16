@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  16 Sep 2007; Mike Auty <ikelos@gentoo.org>:
+  Initial commit of open-vm-tools for all gentoo guests.
+  Huge thanks to Elias Probst for contributing this ebuild.
+
   05 Sep 2007; Mike Auty <ikelos@gentoo.org>:
   Changed vmware-modules-1.0.0.16 to use vmware-any-any.
 

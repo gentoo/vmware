@@ -1,0 +1,53 @@
+diff -ruN open-vm-tools-2007.09.04-56574.orig/configure open-vm-tools-2007.09.04-56574/configure
+--- open-vm-tools-2007.09.04-56574.orig/configure	2007-09-07 09:05:19.000000000 +0200
++++ open-vm-tools-2007.09.04-56574/configure	2007-09-14 22:26:20.000000000 +0200
+@@ -25442,7 +25442,7 @@
+ ###
+ ### Create the Makefiles
+ ###
+-ac_config_files="$ac_config_files Makefile lib/Makefile lib/atomic/Makefile lib/atomic/shared/Makefile lib/auth/Makefile lib/backdoor/Makefile lib/backdoor/shared/Makefile lib/conf/Makefile lib/dict/Makefile lib/dnd/Makefile lib/err/Makefile lib/eventManager/Makefile lib/file/Makefile lib/fileUtf8/Makefile lib/foundryMsg/Makefile lib/guestApp/Makefile lib/guestInfo/Makefile lib/hgfs/Makefile lib/hgfsBd/Makefile lib/hgfsServer/Makefile lib/hgfsServerManagerGuest/Makefile lib/hgfsServerPolicyGuest/Makefile lib/deployPkg/Makefile lib/impersonate/Makefile lib/message/Makefile lib/message/shared/Makefile lib/misc/Makefile lib/misc/shared/Makefile lib/netUtil/Makefile lib/panic/Makefile lib/panicDefault/Makefile lib/printer/Makefile lib/procMgr/Makefile lib/rpcIn/Makefile lib/rpcOut/Makefile lib/rpcOut/shared/Makefile lib/rpcVmx/Makefile lib/SLPv2Parser/Makefile lib/socketMgr/Makefile lib/strUtil/Makefile lib/string/Makefile lib/string/shared/Makefile lib/sync/Makefile lib/sync/shared/Makefile lib/syncDriver/Makefile lib/system/Makefile lib/toolsLogger/Makefile lib/user/Makefile lib/vixTools/Makefile lib/vmBackupLib/Makefile lib/vmCheck/Makefile lib/vmSignal/Makefile lib/wiper/Makefile guestd/Makefile vmware-user/Makefile toolbox/Makefile hgfsclient/Makefile hgfsmounter/Makefile checkvm/Makefile libguestlib/Makefile"
++ac_config_files="$ac_config_files Makefile lib/Makefile lib/atomic/Makefile lib/atomic/shared/Makefile lib/auth/Makefile lib/backdoor/Makefile lib/backdoor/shared/Makefile lib/conf/Makefile lib/dict/Makefile lib/dnd/Makefile lib/err/Makefile lib/eventManager/Makefile lib/file/Makefile lib/fileUtf8/Makefile lib/foundryMsg/Makefile lib/guestApp/Makefile lib/guestInfo/Makefile lib/hgfs/Makefile lib/hgfsBd/Makefile lib/hgfsServer/Makefile lib/hgfsServerManagerGuest/Makefile lib/hgfsServerPolicyGuest/Makefile lib/deployPkg/Makefile lib/impersonate/Makefile lib/message/Makefile lib/message/shared/Makefile lib/misc/Makefile lib/misc/shared/Makefile lib/netUtil/Makefile lib/panic/Makefile lib/panicDefault/Makefile lib/printer/Makefile lib/procMgr/Makefile lib/rpcIn/Makefile lib/rpcOut/Makefile lib/rpcOut/shared/Makefile lib/rpcVmx/Makefile lib/SLPv2Parser/Makefile lib/socketMgr/Makefile lib/strUtil/Makefile lib/string/Makefile lib/string/shared/Makefile lib/sync/Makefile lib/sync/shared/Makefile lib/syncDriver/Makefile lib/system/Makefile lib/toolsLogger/Makefile lib/user/Makefile lib/vixTools/Makefile lib/vmBackupLib/Makefile lib/vmCheck/Makefile lib/vmSignal/Makefile lib/wiper/Makefile guestd/Makefile vmware-user/Makefile  hgfsclient/Makefile hgfsmounter/Makefile checkvm/Makefile libguestlib/Makefile"
+ 
+ 
+ ###
+@@ -26131,7 +26131,7 @@
+     "lib/wiper/Makefile") CONFIG_FILES="$CONFIG_FILES lib/wiper/Makefile" ;;
+     "guestd/Makefile") CONFIG_FILES="$CONFIG_FILES guestd/Makefile" ;;
+     "vmware-user/Makefile") CONFIG_FILES="$CONFIG_FILES vmware-user/Makefile" ;;
+-    "toolbox/Makefile") CONFIG_FILES="$CONFIG_FILES toolbox/Makefile" ;;
++    "") CONFIG_FILES="$CONFIG_FILES " ;;
+     "hgfsclient/Makefile") CONFIG_FILES="$CONFIG_FILES hgfsclient/Makefile" ;;
+     "hgfsmounter/Makefile") CONFIG_FILES="$CONFIG_FILES hgfsmounter/Makefile" ;;
+     "checkvm/Makefile") CONFIG_FILES="$CONFIG_FILES checkvm/Makefile" ;;
+diff -ruN open-vm-tools-2007.09.04-56574.orig/Makefile.am open-vm-tools-2007.09.04-56574/Makefile.am
+--- open-vm-tools-2007.09.04-56574.orig/Makefile.am	2007-09-07 09:05:07.000000000 +0200
++++ open-vm-tools-2007.09.04-56574/Makefile.am	2007-09-14 22:26:12.000000000 +0200
+@@ -22,7 +22,6 @@
+ SUBDIRS += lib
+ SUBDIRS += guestd
+ SUBDIRS += vmware-user
+-SUBDIRS += toolbox
+ SUBDIRS += hgfsclient
+ # hgfsmounter is only needed on Linux.
+ if LINUX
+diff -ruN open-vm-tools-2007.09.04-56574.orig/Makefile.in open-vm-tools-2007.09.04-56574/Makefile.in
+--- open-vm-tools-2007.09.04-56574.orig/Makefile.in	2007-09-07 09:05:23.000000000 +0200
++++ open-vm-tools-2007.09.04-56574/Makefile.in	2007-09-14 22:26:01.000000000 +0200
+@@ -79,7 +79,7 @@
+   distclean-recursive maintainer-clean-recursive
+ ETAGS = etags
+ CTAGS = ctags
+-DIST_SUBDIRS = lib guestd vmware-user toolbox hgfsclient hgfsmounter \
++DIST_SUBDIRS = lib guestd vmware-user  hgfsclient hgfsmounter \
+ 	checkvm libguestlib
+ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+ distdir = $(PACKAGE)-$(VERSION)
+@@ -220,7 +220,7 @@
+ target_alias = @target_alias@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = lib guestd vmware-user toolbox hgfsclient $(am__append_1) \
++SUBDIRS = lib guestd vmware-user  hgfsclient $(am__append_1) \
+ 	checkvm libguestlib
+ MODULES = vmblock vmhgfs vmmemctl vmxnet
+ all: all-recursive
