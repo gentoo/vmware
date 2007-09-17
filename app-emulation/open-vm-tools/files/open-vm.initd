@@ -5,24 +5,26 @@
 
 DND_TMPDIR="/tmp/VMwareDnD"
 USER_GROUP="root:vmware"
-DND_TMPDIR_PERMS="-m1777"
+DND_TMPDIR_PERMS="1777"
 GUESTD_BIN="/usr/sbin/vmware-guestd"
-LOGFLE="/var/log/vmware-guestd.log"
 PIDFILE="/var/run/vmware-guestd.pid"
+MOUNTPOINT="/proc/fs/vmblock/mountPoint"
 
 depend() {
 	before checkfs net X
 }
 
 start() {
-	
-	ebegin "Loading vmblock module"
-	modprobe vmblock
-	eend $?
-	sleep 0.25
-	
+	if ! grep -q -w vmblock /proc/modules;
+	then
+		ebegin "Loading vmblock module"
+		modprobe vmblock
+		eend $?
+		sleep 0.25
+	fi
+
 	ebegin "Mounting vmblock device"
-	mount -t vmblock none /proc/fs/vmblock/mountPoint
+	mount -t vmblock none ${MOUNTPOINT}
 	eend $?
 
 	if [[ ! -d "${DND_TMPDIR}" ]];
@@ -54,7 +56,10 @@ stop() {
 	eend $ret
 
 	ebegin "Unmounting vmblock device"
-	umount /proc/fs/vmblock/mountPoint 1>&2 > /dev/null
+	if grep -q -w "${MOUNTPOINT}" /proc/mounts;
+	then
+		umount ${MOUNTPOINT} 1>&2 > /dev/null
+	fi
 	eend 0
 
 	ebegin "Stopping vmware-guestd"

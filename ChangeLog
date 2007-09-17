@@ -3,6 +3,11 @@
 # $ Id: $
 
   17 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/files/open-vm.initd, eclass/vmware.eclass,
+  eclass/vmware-mod.eclass:
+  Some fixes and changes from Elias Probst.
+
+  17 Sep 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/files/open-vm.initd:
   Make extra changes to open-vm.initd
 
