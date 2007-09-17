@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  17 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/files/open-vm.initd:
+  Make extra changes to open-vm.initd
+
   16 Sep 2007; Mike Auty <ikelos@gentoo.org>:
   Synchronizing with the main tree.
   
