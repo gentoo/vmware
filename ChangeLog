@@ -3,6 +3,10 @@
 # $ Id: $
 
   17 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20070904.56574.ebuild:
+  Fix up open-vm-tools to install libguestlib.so and .a
+
+  17 Sep 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/files/open-vm.initd, eclass/vmware.eclass,
   eclass/vmware-mod.eclass:
   Some fixes and changes from Elias Probst.

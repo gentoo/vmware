@@ -89,7 +89,7 @@ src_compile() {
 src_install() {
 
 	linux-mod_src_install
-	
+
 	if use pam; then
 		LIB="$(get_libdir)"
 		PAMFILE="${D}/etc/pam.d/vmware-guestd"
@@ -125,10 +125,13 @@ src_install() {
 		newsbin ${i}/${i} vmware-${i} || die "Failed installing ${i}"
 	done
 	
+	dolib libguestlib/.libs/libguestlib.{so.0.0.0,a}
+
 	# Deal with the hgfsmounter
 	into ${ROOT}
 	newsbin hgfsmounter/hgfsmounter mount.vmhgfs
 	fperms u+s ${ROOT}sbin/mount.vmhgfs
+	### FROM THIS POINT ON, into IS SET TO ${ROOT} not /usr !!!
 
 	# Install the /etc/ files
 	insinto ${ROOT}etc/vmware-tools
@@ -138,12 +141,6 @@ src_install() {
 	use X && doins ${FILESDIR}/xautostart.conf
 	newinitd ${FILESDIR}/open-vm.initd vmware-tools
 	
-	# not needed anymore - the initscript takes care of this
-	# as it is in /tmp - portage shouldn't have to take care of removing
-	# it on unmerging the package
-	#diropts -m1777
-	#dodir ${ROOT}tmp/vmware/dnd
-
 	if use X;
 	then
 		elog "To be able to use the drag'n'drop feature of VMware for file"
