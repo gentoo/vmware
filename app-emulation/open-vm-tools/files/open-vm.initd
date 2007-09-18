@@ -23,10 +23,6 @@ start() {
 		sleep 0.25
 	fi
 
-	ebegin "Mounting vmblock device"
-	mount -t vmblock none ${MOUNTPOINT}
-	eend $?
-
 	if [[ ! -d "${DND_TMPDIR}" ]];
 	then
 		# einfo "Creating the VM drag and drop directory"
@@ -34,6 +30,11 @@ start() {
 		chown "${USER_GROUP}" "${DND_TMPDIR}"
 		chmod "${DND_TMPDIR_PERMS}" "${DND_TMPDIR}"
 	fi
+
+    # DnD_TMPDIR must exist before vmblock can be mounted
+	ebegin "Mounting vmblock device"
+	mount -t vmblock none ${MOUNTPOINT}
+	eend $?
 	
 	ebegin "Starting vmware-guestd"
 	start-stop-daemon --chuid "${USER_GROUP}" --start --quiet --exec ${GUESTD_BIN} -- --background "${PIDFILE}"
