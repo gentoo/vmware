@@ -3,6 +3,12 @@
 # $ Id: $
 
   18 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server/files/vmware-server.rc,
+  app-emulation/vmware-workstation/files/vmware-workstation.rc:
+  Make some changes to the rc files to be more POSIX compliant. Also added
+  support to vmware-workstation for Drag and Drop into the host.
+
+  18 Sep 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/files/open-vm.initd:
   Fix the order of creating the DnD directory and mount the vmblock filesystem.
 

@@ -16,59 +16,71 @@ vmware_prettify() {
 	msgtype=0
 	while read line
 	do
-		[ "$line" = "" ] && continue
+		[ "${line}" = "" ] && continue
 		if [ ${msgtype} -le 0 ]
 		then
 			if [ ${msgtype} -eq -1 ]
 			then
-				ewarn $line
+				ewarn ${line}
 				continue
 			fi
-			if echo ${line} | fgrep -q :
-			then
-				einfon $line
+			case ${line} in
+			*:*)
+				einfon ${line}
 				echo
 				eend 0
-				msgtype=1
-			else
-				ewarn $line
+				msgtype=1;;
+			*)
+				ewarn ${line}
 				msgtype=-1
-				waserror=1
-			fi
+				waserror=1;;
+			esac
 			continue
 		fi
 
 		# Strip out anything after the <esc> code
-		message=`echo $line | sed -e "s/^\(.*\).*$/\1/"`
-		einfon "  $message"
+		message=`echo ${line} | sed -e "s/^\(.*\).*$/\1/"`
+		einfon "  ${message}"
 		echo
 
 		echo ${line} | grep -q done
 		status=$?
-		eend $status
+		eend ${status}
 
-		if [ $status -eq 0 ]
+		if [ ${status} -eq 0 ]
 		then
-			logger -p local0.err -t vmware-${state} "$line"
-			waserror=$status
+			logger -p local0.err -t vmware-${state} "${line}"
+			waserror=${status}
 		fi
 	done
-	if [ "$msgtype" = "-1" ]
+	if [ "${msgtype}" = "-1" ]
 	then
 		eend 1 "VMware is not properly configured! See above."
 	fi
-	return $waserror
+	return ${waserror}
 }
 
 start() {
 	test -x /etc/vmware/init.d/vmware || \
 		eend 1 "vmware init script not found. Aborting" || return 1
 
+	if modinfo vmblock > /dev/null 2>&1;
+	then
+		ebegin "Loading vmblock for drag and drop support"
+		local result
+		modprobe vmblock || eend 1 "Failed to load vmblock driver"
+		test ! -e /tmp/VMwareDnD && mkdir /tmp/VMwareDnD
+		chmod 1777 /tmp/VMwareDnD
+		mount -t vmblock none /proc/fs/vmblock/mountPoint || eend 1 "Failed to mount the vmblock filesystem"
+		eend 0
+	fi
+
 	/etc/vmware/init.d/vmware start | vmware_prettify start
 	return $?
 }
 
 stop() {
+	umount /proc/fs/vmblock/mountPoint > /dev/null 2>&1
 	/etc/vmware/init.d/vmware stop | vmware_prettify stop
 	return $?
 }
