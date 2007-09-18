@@ -49,7 +49,7 @@ vmware-mod_pkg_setup() {
 				use amd64 || VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmdesched"
 				;;
 			*)
-				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST}vmmon vmnet"
+				VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmmon vmnet"
 				;;
 		esac
 	fi

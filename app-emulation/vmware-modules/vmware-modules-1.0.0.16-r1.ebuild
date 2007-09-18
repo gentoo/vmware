@@ -5,4 +5,6 @@
 KEYWORDS="amd64 x86"
 VMWARE_VER="VME_V6"
 
+VMWARE_MODULE_LIST="vmblock vmmon vmnet"
+
 inherit vmware-mod
