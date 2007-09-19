@@ -2,6 +2,21 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  19 Sep 2007; Mike Auty <ikelos@gentoo.org> ++, ++,
+  -app-emulation/vmware-workstation/files/6.0.0.45731/000_all_initd-location
+  .patch,
+  -app-emulation/vmware-workstation/files/6.0.0.45731/001_all_fix-permission
+  s.patch,
+  -app-emulation/vmware-workstation/files/6.0.0.45731/002_all_pagebreak-dete
+  ction-fix.patch,
+  -app-emulation/vmware-workstation/files/6.0.0.45731/004_all_do-not-build-m
+  odules.patch,
+  -app-emulation/vmware-workstation/files/6.0.0.45731/007_all_use-modprobe-o
+  ver-insmod.patch, ++,
+  -app-emulation/vmware-workstation/files/6.0.0.45731/009_all_init.d-modules
+  -warning.patch:
+  Version bump vmware-workstation-6.
+
   19 Sep 2007; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-player/files/2.0.0.45731/000_all_initd-location.patc
   h,
