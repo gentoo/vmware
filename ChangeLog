@@ -3,6 +3,11 @@
 # $ Id: $
 
   19 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-player/files/2.0.1.55017/011_all_legit-modules-only.
+  patch:
+  Fix up extra check in vmware-config.pl
+
+  19 Sep 2007; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-workstation/files/6.0.1.55017/011_all_legit-modules-
   only.patch:
   Fix up extra check in vmware-config.pl.
