@@ -22,6 +22,10 @@ AUX 6.0.1.55017/009_all_init.d-modules-warning.patch 991 RMD160 6205e976db47cd33
 MD5 9689ef9d197dcc43dc2f390e6de4ec21 files/6.0.1.55017/009_all_init.d-modules-warning.patch 991
 RMD160 6205e976db47cd3361b5eca8593414d411a2ab8d files/6.0.1.55017/009_all_init.d-modules-warning.patch 991
 SHA256 5fbc9f101abb3816a732f64a75e90ce7fcb6783c3cd7bae521d8785e88634498 files/6.0.1.55017/009_all_init.d-modules-warning.patch 991
+AUX 6.0.1.55017/011_all_legit-modules-only.patch 646 RMD160 484d15ebc05fb93d69866987cf805afdbba019c9 SHA1 f36a8b4b7153cfe213ee7cd1e82c871f3c9efa90 SHA256 b66a534d93ae7dc76b54631cbbaccc751691941ab704a9c1e566a9c866b15729
+MD5 b996ca7dd835e1cd5dd34d3e2eec7dd6 files/6.0.1.55017/011_all_legit-modules-only.patch 646
+RMD160 484d15ebc05fb93d69866987cf805afdbba019c9 files/6.0.1.55017/011_all_legit-modules-only.patch 646
+SHA256 b66a534d93ae7dc76b54631cbbaccc751691941ab704a9c1e566a9c866b15729 files/6.0.1.55017/011_all_legit-modules-only.patch 646
 AUX 90vmware-workstation 106 RMD160 471fb03d54bb48c651d4543f1c8ece1bb9b40c0a SHA1 3db7ec2a3b37a84328bf3d481a58b42499ef520b SHA256 c8f7143551f516b901143e60fc74e822ca3d235477d1c2a135bb36cbc639cf1e
 MD5 aff74afc68b848e408f93e60bdf847c9 files/90vmware-workstation 106
 RMD160 471fb03d54bb48c651d4543f1c8ece1bb9b40c0a files/90vmware-workstation 106
