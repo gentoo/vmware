@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  19 Sep 2007; Mike Auty <ikelos@gentoo.org> :
+  Version bump vmware-server and vmware-server-console.
+
   18 Sep 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server/files/vmware-server.rc,
   app-emulation/vmware-workstation/files/vmware-workstation.rc:
