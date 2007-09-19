@@ -3,6 +3,10 @@
 # $ Id: $
 
   19 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-modules/files/1.0.0.16-kernel-2.6.22.patch :
+  Version bump vmware-modules because vmware changed it, yet again.
+
+  19 Sep 2007; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-player/files/2.0.1.55017/011_all_legit-modules-only.
   patch:
   Fix up extra check in vmware-config.pl

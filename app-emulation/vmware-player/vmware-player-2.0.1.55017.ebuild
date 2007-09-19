@@ -45,9 +45,9 @@ RDEPEND="sys-libs/glibc
 	>=dev-lang/perl-5
 	!app-emulation/vmware-workstation
 	!app-emulation/vmware-server
-	~app-emulation/vmware-modules-1.0.0.16
-	!<app-emulation/vmware-modules-1.0.0.16
-	!>=app-emulation/vmware-modules-1.0.0.17
+	~app-emulation/vmware-modules-1.0.0.17
+	!<app-emulation/vmware-modules-1.0.0.17
+	!>=app-emulation/vmware-modules-1.0.0.18
 	sys-apps/pciutils"
 
 RUN_UPDATE="no"
