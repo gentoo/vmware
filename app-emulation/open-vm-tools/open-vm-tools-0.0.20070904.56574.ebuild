@@ -140,6 +140,7 @@ src_install() {
 	# ressources when checking continuously for processes that will never appear
 	use X && doins ${FILESDIR}/xautostart.conf
 	newinitd ${FILESDIR}/open-vm.initd vmware-tools
+	newconfd ${FILESDIR}/open-vm.confd vmware-tools
 	
 	if use X;
 	then

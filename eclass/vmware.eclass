@@ -402,9 +402,11 @@ vmware_pkg_postrm() {
 	then
 		product_extras=" and /etc/init.d/${product}"
 	fi
-	echo
-	elog "To remove all traces of ${product} you will need to remove the files"
-	elog "in ${config_dir}${product_extras}."
-	elog "If the vmware-modules package is installed, you may no longer need it."
-	echo
+	if ! has_version app-emulation/${PN}; then
+		echo
+		elog "To remove all traces of ${product} you will need to remove the files"
+		elog "in ${config_dir}${product_extras}."
+		elog "If the vmware-modules package is installed, you may no longer need it."
+		echo
+	fi
 }
