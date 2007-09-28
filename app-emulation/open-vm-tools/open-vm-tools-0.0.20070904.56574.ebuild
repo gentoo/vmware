@@ -146,8 +146,7 @@ src_install() {
 	then
 		elog "To be able to use the drag'n'drop feature of VMware for file"
 		elog "exchange, you need to do this:"
-		elog "	Add 'vmblock' to your list of autoloaded modules"
-		elog "	Add 'vmware-guestd' to your default runlevel"
+		elog "	Add 'vmware-tools' to your default runlevel"
 		elog "	Add the users which should have access to this function"
 		elog "	to the group 'vmware'"
 	fi
