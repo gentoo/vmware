@@ -15,7 +15,7 @@ depend() {
 }
 
 start() {
-	if "${VM_DRAG_AND_DROP}" == "yes";
+	if [ "${VM_DRAG_AND_DROP}" == "yes" ];
 	then
 
 		if ! grep -q -w vmblock /proc/modules;
@@ -48,7 +48,7 @@ start() {
 stop() {
 	local ret
 	
-	if "${VM_DRAG_AND_DROP}" == "yes";
+	if [ "${VM_DRAG_AND_DROP}" == "yes" ];
 	then
 		ebegin "Cleaning the contents of ${DND_TMPDIR}"
 		# First check, whether ${DND_TMPDIR} isn valid... we shouldn't risk deleting the content of ""/*

@@ -3,6 +3,10 @@
 # $ Id: $
 
   28 Sep 2007; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/files/open-vm.initd:
+  Fix bad test syntax.
+
+  28 Sep 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20070904.56574.ebuild:
   Fix up digest and post-install information.
 
