@@ -2,6 +2,11 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  06 Oct 2007; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server-console/vmware-server-console-1.0.4.56528.ebui
+  ld:
+  Ensure vmware-server-console installs a vmware group.
+
   28 Sep 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/files/open-vm.initd:
   Fix bad test syntax.

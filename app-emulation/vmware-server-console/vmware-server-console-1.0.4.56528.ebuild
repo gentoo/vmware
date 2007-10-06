@@ -58,6 +58,11 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 etcdir="/etc/${PN}"
 ANY_ANY=""
 
+pkg_setup() {
+	vmware_pkg_setup
+	enewgroup "${VMWARE_GROUP}"
+}
+
 src_unpack() {
 	cd ${WORKDIR}
 	unpack ${A}
