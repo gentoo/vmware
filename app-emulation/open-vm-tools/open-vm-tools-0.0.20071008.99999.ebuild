@@ -17,7 +17,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="-x86 -amd64 -*"
 IUSE="pam X xinerama"
 DEPEND="
 		virtual/linux-sources
