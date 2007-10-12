@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  12 Oct 2007; Mike Auty <ikelos@gentoo.org> ++:
+  Initial commit of 2007-10-08-SNAPSHOT for open-vm-tools.
+
   06 Oct 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server-console/vmware-server-console-1.0.4.56528.ebui
   ld:
