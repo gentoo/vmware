@@ -2,6 +2,22 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  12 Oct 2007; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-server-tools/files/1.0.3.44356/000_all_vmware-tools.
+  patch,
+  -app-emulation/vmware-server-tools/files/patches/000_all_makefile-include-
+  directory.patch,
+  -app-emulation/vmware-server-tools/files/patches/vmdesched/001_all_kernel-
+  2.6.19-syscall.patch,
+  -app-emulation/vmware-server-tools/files/patches/vmhgfs/000_all_driver-get
+  _sb_nodev.patch,
+  -app-emulation/vmware-server-tools/files/patches/vmhgfs/001_all_kernel-2.6
+  .19-mount.patch,
+  -app-emulation/vmware-server-tools/files/vmware-server-tools.rc,
+  -app-emulation/vmware-server-tools/metadata.xml:
+  Remove the obsolete vmware-server-tools. People should try out open-vm-tools
+  instead.
+
   12 Oct 2007; Mike Auty <ikelos@gentoo.org> +manifest1_obsolete:
   Get rid of those pesky digest- files.
 
