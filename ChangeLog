@@ -2,6 +2,11 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  15 Oct 2007; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild:
+  Typo fix in amd64 check. Thanks to Daniel Robbins <drobbins@funtoo.org> for
+  pointing it out.
+
   12 Oct 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20071008.99999.ebuild:
   Fix up ebuild breakage.
