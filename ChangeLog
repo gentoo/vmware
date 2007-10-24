@@ -2,6 +2,38 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  24 Oct 2007; Mike Auty <ikelos@gentoo.org> ++, ++, ++,
+  -app-emulation/vmware-player/files/2.0.1.55017/000_all_initd-location.patc
+  h,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/000_all_initd-location
+  .patch, ++,
+  -app-emulation/vmware-player/files/2.0.1.55017/001_all_fix-permissions.pat
+  ch,
+  -app-emulation/vmware-player/files/2.0.1.55017/002_all_pagebreak-detection
+  -fix.patch,
+  -app-emulation/vmware-player/files/2.0.1.55017/004_all_do-not-build-module
+  s.patch,
+  -app-emulation/vmware-player/files/2.0.1.55017/007_all_use-modprobe-over-i
+  nsmod.patch,
+  -app-emulation/vmware-player/files/2.0.1.55017/009_all_init.d-modules-warn
+  ing.patch,
+  -app-emulation/vmware-player/files/2.0.1.55017/011_all_legit-modules-only.
+  patch,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/001_all_fix-permission
+  s.patch,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/002_all_pagebreak-dete
+  ction-fix.patch,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/004_all_do-not-build-m
+  odules.patch,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/007_all_use-modprobe-o
+  ver-insmod.patch,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/009_all_init.d-modules
+  -warning.patch,
+  -app-emulation/vmware-workstation/files/6.0.1.55017/011_all_legit-modules-
+  only.patch, eclass/vmware.eclass:
+  Bump vmware-workstation and vmware-player. Also bump vmware-any-any-update
+  to 114.
+
   15 Oct 2007; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild:
   Typo fix in amd64 check. Thanks to Daniel Robbins <drobbins@funtoo.org> for
