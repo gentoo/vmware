@@ -8,7 +8,7 @@ VMWARE_VER="VME_V6" # THIS VALUE IS JUST A PLACE HOLDER
 inherit eutils vmware-mod
 
 VMWARE_MODULE_LIST="vmmon vmnet vmblock"
-SRC_URI="x86? ( mirror://vmware/software/vmplayer/VMware-player-2.0.1-55017.i386.tar.gz )
-		 amd64? ( mirror://vmware/software/vmplayer/VMware-player-2.0.1-55017.x86_64.tar.gz )"
+SRC_URI="x86? ( mirror://vmware/software/vmplayer/VMware-player-2.0.2-59824.i386.tar.gz )
+		 amd64? ( mirror://vmware/software/vmplayer/VMware-player-2.0.2-59824.x86_64.tar.gz )"
 VMWARE_MOD_DIR="vmware-player-distrib/lib/modules/source/"
 
