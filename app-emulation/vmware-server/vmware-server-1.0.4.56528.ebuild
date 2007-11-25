@@ -1,6 +1,6 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.3.44356.ebuild,v 1.1 2007/05/07 18:06:36 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild,v 1.3 2007/11/25 13:08:59 ikelos Exp $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -58,7 +58,7 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
 	~app-emulation/vmware-modules-1.0.0.15
-    !<app-emulation/vmware-modules-1.0.0.15
+	!<app-emulation/vmware-modules-1.0.0.15
 	!>=app-emulation/vmware-modules-1.0.0.16
 	sys-apps/pciutils
 	virtual/pam
@@ -72,12 +72,12 @@ PATCHES="general"
 src_unpack() {
 	EPATCH_SUFFIX="patch"
 	vmware_src_unpack
-	cd ${WORKDIR}
+	cd "${WORKDIR}"
 	unpack ${PN}-perl-fixed-rpath-libs.tar.bz2
 
 	# patch the vmware /etc/pam.d file to ensure that only
 	# vmware group members can log in
-	cp ${FILESDIR}/vmware-authd ${S}/etc/pam.d/vmware-authd
+	cp "${FILESDIR}/vmware-authd" "${S}/etc/pam.d/vmware-authd"
 }
 
 src_install() {
@@ -86,16 +86,16 @@ src_install() {
 	# Fix the amd64 emulation pam stuff
 	use amd64 && dosed "s:pam_:/lib32/security/pam_:" ${config_dir}/pam.d/vmware-authd
 	  # Remove libpam on amd64 because it's linked against the wrong paths
-	use amd64 && rm ${D}/opt/vmware/server/lib/lib/libpam.so.0/libpam.so
+	use amd64 && rm "${D}/opt/vmware/server/lib/lib/libpam.so.0/libpam.so"
 
-	echo "${VMWARE_GROUP}" > ${D}${config_dir}/vmwaregroup
+	echo "${VMWARE_GROUP}" > "${D}${config_dir}/vmwaregroup"
 
 	dosym /etc/init.d/xinetd ${config_dir}/init.d
 }
 
 pkg_config() {
 	einfo "Running ${ROOT}${dir}/bin/vmware-config.pl"
-	${ROOT}${dir}/bin/vmware-config.pl
+	"${ROOT}${dir}/bin/vmware-config.pl"
 }
 
 pkg_postinst() {

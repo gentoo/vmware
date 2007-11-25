@@ -1,7 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2004 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/files/vmware-server.rc,v 1.4 2007/04/28 10:00:58 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/files/vmware-server.rc,v 1.6 2007/09/20 17:13:13 ikelos Exp $
 
 depend() {
 	need localmount xinetd

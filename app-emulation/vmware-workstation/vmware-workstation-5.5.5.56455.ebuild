@@ -1,6 +1,6 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-5.5.4.44386.ebuild,v 1.4 2007/07/13 00:36:15 wolf31o2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-5.5.5.56455.ebuild,v 1.3 2007/10/11 07:14:54 kingtaco Exp $
 
 inherit vmware eutils
 
