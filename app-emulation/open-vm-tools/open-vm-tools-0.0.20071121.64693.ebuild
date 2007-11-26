@@ -135,8 +135,9 @@ src_install() {
 	### FROM THIS POINT ON, into IS SET TO ${ROOT} not /usr !!!
 
 	# Install the /etc/ files
+	exeinto ${ROOT}etc/vmware-tools
+	doexe scripts/linux/*
 	insinto ${ROOT}etc/vmware-tools
-	doins scripts/*
 	doins ${FILESDIR}/tools.conf
 	# Only install this, when X is being used. Else it's useless waste of
 	# ressources when checking continuously for processes that will never appear
