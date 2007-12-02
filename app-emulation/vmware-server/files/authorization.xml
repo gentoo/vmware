@@ -1,0 +1,11 @@
+<ConfigRoot>
+  <ACEData id="10">
+    <ACEDataEntity>ha-folder-root</ACEDataEntity>
+    <ACEDataId>10</ACEDataId>
+    <ACEDataIsGroup>true</ACEDataIsGroup>
+    <ACEDataPropagate>true</ACEDataPropagate>
+    <ACEDataRoleId>-1</ACEDataRoleId>
+    <ACEDataUser>vmware</ACEDataUser>
+  </ACEData>
+  <NextAceId>11</NextAceId>
+</ConfigRoot>

@@ -85,6 +85,12 @@ pkg_setup() {
 	vmware_pkg_setup
 }
 
+src_install() {
+	vmware_src_install
+
+	insinto /etc/vmware/hostd
+	doins ${FILESDIR}/authorization.xml
+}
 
 pkg_config() {
 	einfo "Running ${ROOT}${dir}/bin/vmware-config.pl"

@@ -2,6 +2,12 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  02 Dec 2007; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-server/files/authorization.xml:
+  Bump to vmware-any-any-update115.
+  Remove need for any-any in server-1,2, workstation-6, player-2.
+  Add in initial (but not really usable) vmware server-2 beta.
+
   26 Nov 2007; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693.ebuild:
   Ensure default scripts are installed and executable.
