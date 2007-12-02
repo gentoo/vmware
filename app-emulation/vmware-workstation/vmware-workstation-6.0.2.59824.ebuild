@@ -6,6 +6,8 @@ inherit vmware eutils versionator
 
 MY_PN="VMware-workstation-$(replace_version_separator 3 - $PV)"
 
+ANY_ANY=""
+
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
 SRC_URI="
@@ -15,13 +17,7 @@ SRC_URI="
 	amd64? (
 		mirror://vmware/software/wkst/${MY_PN}.x86_64.tar.gz
 		http://download.softpedia.ro/linux/${MY_PN}.x86_64.tar.gz )
-	mirror://gentoo/${ANY_ANY}.tar.gz
-	http://platan.vc.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://platan.vc.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz"
+	"
 
 LICENSE="vmware"
 SLOT="0"

@@ -10,12 +10,6 @@ DESCRIPTION="Emulate a complete PC on your PC without the usual performance over
 HOMEPAGE="http://www.vmware.com/products/player/"
 SRC_URI="x86? ( mirror://vmware/software/vmplayer/${MY_PN}.i386.tar.gz )
 	amd64? ( mirror://vmware/software/vmplayer/${MY_PN}.x86_64.tar.gz )
-	http://platan.vc.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://platan.vc.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libssl.so.0.9.7l.tar.bz2
 	mirror://gentoo/vmware-libssl.so.0.9.7l.tar.bz2
 	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libcrypto.so.0.9.7l.tar.bz2
@@ -50,6 +44,7 @@ RDEPEND="sys-libs/glibc
 	!>=app-emulation/vmware-modules-1.0.0.18
 	sys-apps/pciutils"
 
+ANY_ANY=""
 RUN_UPDATE="no"
 
 dir=/opt/vmware/player

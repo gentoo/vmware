@@ -9,11 +9,18 @@
 inherit eutils versionator vmware
 
 MY_PV=$(replace_version_separator 3 '-' )
-MY_P="VMware-server-${MY_PV}"
+MY_PV="e.x.p-$(get_version_component_range 4)"
+MY_PN="VMware-server-${MY_PV}"
 
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
+SRC_URI="
+	x86? (
+		mirror://vmware/software/vmserver/${MY_PN}.i386.tar.gz
+		http://download.softpedia.ro/linux/${MY_PN}.i386.tar.gz )
+	amd64? (
+		mirror://vmware/software/vmserver/${MY_PN}.x86_64.tar.gz
+		http://download.softpedia.ro/linux/${MY_PN}.x86_64.tar.gz )
 	http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2
 	mirror://gentoo/${PN}-perl-fixed-rpath-libs.tar.bz2
 	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libssl.so.0.9.7l.tar.bz2
@@ -24,7 +31,7 @@ SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="-*"
 RESTRICT="strip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
@@ -51,42 +58,33 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!<sys-apps/dbus-0.62
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
-	~app-emulation/vmware-modules-1.0.0.15
-	!<app-emulation/vmware-modules-1.0.0.15
-	!>=app-emulation/vmware-modules-1.0.0.16
+	~app-emulation/vmware-modules-1.0.0.18
+	!<app-emulation/vmware-modules-1.0.0.18
+	!>=app-emulation/vmware-modules-1.0.0.19
 	sys-apps/pciutils
 	virtual/pam
 	sys-apps/xinetd"
 
 S=${WORKDIR}/vmware-server-distrib
 
-RUN_UPDATE="no"
 ANY_ANY=""
-PATCHES="general"
+RUN_UPDATE="no"
 
-src_unpack() {
-	EPATCH_SUFFIX="patch"
-	vmware_src_unpack
-	cd "${WORKDIR}"
-	unpack ${PN}-perl-fixed-rpath-libs.tar.bz2
+pkg_setup() {
+	if use x86; then
+		MY_P="${MY_PN}.i386"
+	elif use amd64; then
+		MY_P="${MY_PN}.x86_64"
+	fi
 
-	# patch the vmware /etc/pam.d file to ensure that only
-	# vmware group members can log in
-	cp "${FILESDIR}/vmware-authd" "${S}/etc/pam.d/vmware-authd"
+	if ! built_with_use ">=dev-cpp/gtkmm-2.4" accessibility ; then
+		eerror "Rebuild dev-cpp/gtkmm with USE=\"accessibility\""
+		die "VMware workstation only works with gtkmm built with USE=\"accessibility\"."
+	fi
+
+	vmware_pkg_setup
 }
 
-src_install() {
-	vmware_src_install
-
-	# Fix the amd64 emulation pam stuff
-	use amd64 && dosed "s:pam_:/lib32/security/pam_:" ${config_dir}/pam.d/vmware-authd
-	  # Remove libpam on amd64 because it's linked against the wrong paths
-	use amd64 && rm "${D}/opt/vmware/server/lib/lib/libpam.so.0/libpam.so"
-
-	echo "${VMWARE_GROUP}" > "${D}${config_dir}/vmwaregroup"
-
-	dosym /etc/init.d/xinetd ${config_dir}/init.d
-}
 
 pkg_config() {
 	einfo "Running ${ROOT}${dir}/bin/vmware-config.pl"

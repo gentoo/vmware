@@ -1,0 +1,26 @@
+diff -uNr vmware-server-distrib.orig/bin/vmware-config.pl vmware-server-distrib/bin/vmware-config.pl
+--- vmware-server-distrib.orig/bin/vmware-config.pl	2007-12-02 11:44:35.000000000 +0000
++++ vmware-server-distrib/bin/vmware-config.pl	2007-12-02 11:46:11.000000000 +0000
+@@ -10200,18 +10200,18 @@
+   }
+ 
+   if (vmware_product() ne 'server') {
+-    configure_mon();
++    # configure_mon();
+     if (vmware_product() ne 'wgs') {
+       # XXX This is not supported for beta 1.
+       configure_vmci();
+     }
+-    configure_pp();
++    # configure_pp();
+     configure_net();
+-    build_vmnet();
++    # build_vmnet();
+   }
+  
+   if (isDesktopProduct()) {
+-    build_vmblock();
++    # build_vmblock();
+     # createMimePackageFile();
+     # configureDesktopFiles();
+     configure_eclipse_plugin();
