@@ -1,11 +1,11 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693.ebuild,v 1.2 2007/12/22 23:05:54 mr_bones_ Exp $
 
-inherit eutils linux-mod versionator
+inherit eutils linux-mod autotools versionator
 
 MY_DATE="$(get_version_component_range 3)"
-MY_BUILD="SNAPSHOT"
+MY_BUILD="$(get_version_component_range 4)"
 MY_PV="${MY_DATE:0:4}.${MY_DATE:4:2}.${MY_DATE:6:2}-${MY_BUILD}"
 MY_P="${PN}-${MY_PV}"
 
@@ -22,7 +22,7 @@ IUSE="pam X xinerama"
 DEPEND="
 		virtual/linux-sources
 		sys-apps/ethtool
-		X? ( 
+		X? (
 			x11-libs/libX11
 			x11-libs/gtk+
 			)
@@ -43,7 +43,7 @@ RDEPEND="${DEPEND/virtual\/linux\-sources/}
 "
 
 VMWARE_MOD_DIR="modules/linux"
-VMWARE_MODULE_LIST="vmblock vmhgfs vmmemctl vmxnet"
+VMWARE_MODULE_LIST="vmblock vmhgfs vmsync vmmemctl vmxnet"
 
 pkg_setup() {
 
@@ -67,19 +67,24 @@ pkg_setup() {
 }
 
 src_unpack() {
-	unpack ${A}
+	unpack "${A}"
+	cd "${S}"
+	eautoreconf
 }
 
 src_compile() {
-	cd ${S}
+	#if ! use X; then
+	#	epatch ${FILESDIR}/disable-toolbox.patch
+	#	rm -rf ${S}/toolbox
+	#fi
 
 	econf \
 	$(use_with X x) \
 	$(use_enable xinerama multimon) \
 	|| die "Error: econf failed!"
 
-	linux-mod_src_compile 
-	
+	linux-mod_src_compile
+
 	emake || die
 }
 
@@ -90,24 +95,24 @@ src_install() {
 	if use pam; then
 		LIB="$(get_libdir)"
 		PAMFILE="${D}/etc/pam.d/vmware-guestd"
-		dodir ${ROOT}${LIB}
-		dodir ${ROOT}etc/pam.d
-		echo '#%PAM-1.0' > ${PAMFILE}
-		if [[ -e ${ROOT}${LIB}/security/pam_unix2.so ]];
+		dodir "${ROOT}${LIB}"
+		dodir "${ROOT}etc/pam.d"
+		echo '#%PAM-1.0' > "${PAMFILE}"
+		if [[ -e "${ROOT}${LIB}/security/pam_unix2.so" ]];
 		then
 			PAM_VER=2
 		fi
-	
-		echo -e	"auth\tsufficient\t${ROOT}${LIB}/security/pam_unix${PAM_VER}.so\tshadow\tnullok" >> ${PAMFILE}
-		echo -e "auth\trequired\t${ROOT}${LIB}/security/pam_unix_auth.so\tshadow\tnullok" >> ${PAMFILE}
-		echo -e "account\tsufficient\t${ROOT}${LIB}/security/pam_unix${PAM_VER}.so" >> ${PAMFILE}
-		echo -e "account\trequired\t${ROOT}${LIB}/security/pam_unix_acct.so" >> ${PAMFILE}
+
+		echo -e "auth\tsufficient\t${ROOT}${LIB}/security/pam_unix${PAM_VER}.so\tshadow\tnullok" >> "${PAMFILE}"
+		echo -e "auth\trequired\t${ROOT}${LIB}/security/pam_unix_auth.so\tshadow\tnullok" >> "${PAMFILE}"
+		echo -e "account\tsufficient\t${ROOT}${LIB}/security/pam_unix${PAM_VER}.so" >> "${PAMFILE}"
+		echo -e "account\trequired\t${ROOT}${LIB}/security/pam_unix_acct.so" >> "${PAMFILE}"
 
 	fi
 
 	# Install the various tools
-	cd ${S}
-	VMWARE_BIN_LIST="hgfsclient" # xferlogs
+	cd "${S}"
+	VMWARE_BIN_LIST="hgfsclient xferlogs"
 	VMWARE_SBIN_LIST="guestd checkvm"
 	if use X; then
 		# Fix up the vmware-user tool's name
@@ -121,24 +126,26 @@ src_install() {
 	for i in ${VMWARE_SBIN_LIST}; do
 		newsbin ${i}/${i} vmware-${i} || die "Failed installing ${i}"
 	done
-	
+
 	dolib libguestlib/.libs/libguestlib.{so.0.0.0,a}
 
 	# Deal with the hgfsmounter
-	into ${ROOT}
+	into "${ROOT}"
 	newsbin hgfsmounter/hgfsmounter mount.vmhgfs
-	fperms u+s ${ROOT}sbin/mount.vmhgfs
+	fperms u+s "${ROOT}sbin/mount.vmhgfs"
 	### FROM THIS POINT ON, into IS SET TO ${ROOT} not /usr !!!
 
 	# Install the /etc/ files
-	insinto ${ROOT}etc/vmware-tools
-	doins ${FILESDIR}/tools.conf
+	exeinto "${ROOT}etc/vmware-tools"
+	doexe scripts/linux/*
+	insinto "${ROOT}etc/vmware-tools"
+	doins "${FILESDIR}/tools.conf"
 	# Only install this, when X is being used. Else it's useless waste of
 	# ressources when checking continuously for processes that will never appear
-	use X && doins ${FILESDIR}/xautostart.conf
-	newinitd ${FILESDIR}/open-vm.initd vmware-tools
-	newconfd ${FILESDIR}/open-vm.confd vmware-tools
-	
+	use X && doins "${FILESDIR}/xautostart.conf"
+	newinitd "${FILESDIR}/open-vm.initd" vmware-tools
+	newconfd "${FILESDIR}/open-vm.confd" vmware-tools
+
 	if use X;
 	then
 		elog "To be able to use the drag'n'drop feature of VMware for file"
@@ -148,4 +155,3 @@ src_install() {
 		elog "	to the group 'vmware'"
 	fi
 }
-

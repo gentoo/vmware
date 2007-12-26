@@ -2,6 +2,13 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  26 Dec 2007; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/open-vm-tools/open-vm-tools-0.0.20070904.56574.ebuild,
+  -app-emulation/open-vm-tools/open-vm-tools-0.0.20071008.99999.ebuild,
+  -app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693.ebuild,
+  +app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693-r1.ebuild:
+  Bump open-vm-tools with eautoreconf to try to fix bug 200376.
+
   02 Dec 2007; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-server/files/authorization.xml:
   Bump to vmware-any-any-update115.
