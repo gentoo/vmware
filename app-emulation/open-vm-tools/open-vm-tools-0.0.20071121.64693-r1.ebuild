@@ -69,15 +69,11 @@ pkg_setup() {
 src_unpack() {
 	unpack "${A}"
 	cd "${S}"
+	epatch "${FILESDIR}/${PN}-hardened.patch"
 	eautoreconf
 }
 
 src_compile() {
-	#if ! use X; then
-	#	epatch ${FILESDIR}/disable-toolbox.patch
-	#	rm -rf ${S}/toolbox
-	#fi
-
 	econf \
 	$(use_with X x) \
 	$(use_enable xinerama multimon) \

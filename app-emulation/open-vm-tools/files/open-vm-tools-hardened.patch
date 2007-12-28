@@ -1,0 +1,12 @@
+diff -uNr open-vm-tools-2007.11.21-64693.orig/checkvm/Makefile.am open-vm-tools-2007.11.21-64693/checkvm/Makefile.am
+--- open-vm-tools-2007.11.21-64693.orig/checkvm/Makefile.am	2007-11-21 08:10:27.000000000 +0000
++++ open-vm-tools-2007.11.21-64693/checkvm/Makefile.am	2007-12-28 21:29:36.000000000 +0000
+@@ -18,7 +18,7 @@
+ noinst_PROGRAMS = checkvm
+ 
+ AM_CFLAGS =
+-AM_CFLAGS += @COMMON_CFLAGS@
++AM_CFLAGS += -nopie @COMMON_CFLAGS@
+ 
+ checkvm_SOURCES =
+ checkvm_SOURCES += checkvm.c
