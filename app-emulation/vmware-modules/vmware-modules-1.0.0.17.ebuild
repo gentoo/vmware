@@ -12,3 +12,9 @@ SRC_URI="x86? ( mirror://vmware/software/vmplayer/VMware-player-2.0.2-59824.i386
 		 amd64? ( mirror://vmware/software/vmplayer/VMware-player-2.0.2-59824.x86_64.tar.gz )"
 VMWARE_MOD_DIR="vmware-player-distrib/lib/modules/source/"
 
+
+src_unpack() {
+	vmware-mod_src_unpack
+	cd "${S}"/vmnet-only
+	epatch "${FILESDIR}"/${PV}-kernel-2.6.13-rtnl.patch
+}

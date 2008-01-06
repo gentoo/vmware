@@ -1,6 +1,14 @@
 # ChangeLog for vmware overlay
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
+
+  06 Jan 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-modules/files/1.0.0.17-kernel-2.6.13-rtnl.patch,
+  +app-emulation/vmware-modules/files/1.0.0.17-update115-nasty-hack.patch,
+  +app-emulation/vmware-modules/files/patches/vmnet/021_all_wireless_fix.pat
+  ch:
+  Add in 3 module patches, and put in a temporary hack to build 1.0.0.17 from
+  vmware-any-any.
 
   28 Dec 2007; Mike Auty <ikelos@gentoo.org>
   +app-emulation/open-vm-tools/files/open-vm-tools-hardened.patch:

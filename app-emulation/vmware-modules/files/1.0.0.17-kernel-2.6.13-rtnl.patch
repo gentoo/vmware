@@ -1,0 +1,32 @@
+--- vmnet-only/bridge.c	2007-12-04 07:21:33.000000000 +0100
++++ vmnet-only/bridge.c.new	2007-12-04 07:24:07.000000000 +0100
+@@ -132,7 +132,9 @@
+     * correctly i.e. they would not be able to send data packets.
+     */
+    if (!bridge->enabledPromisc && !bridge->wirelessAdapter) {
++      rtnl_lock();
+       dev_set_promiscuity(dev, 1);
++      rtnl_unlock();
+       bridge->enabledPromisc = TRUE;
+       bridge->warnPromisc = FALSE;
+       LOG(0, (KERN_NOTICE "bridge-%s: enabled promiscuous mode\n",
+@@ -165,7 +167,9 @@
+    struct net_device *dev = bridge->dev;
+ 
+    if (bridge->enabledPromisc && !bridge->wirelessAdapter) {
++      rtnl_lock();
+       dev_set_promiscuity(dev, -1);
++      rtnl_unlock();
+       bridge->enabledPromisc = FALSE;
+       LOG(0, (KERN_NOTICE "bridge-%s: disabled promiscuous mode\n",
+ 	      bridge->name));
+@@ -207,7 +211,9 @@
+ 	            "Your Ethernet driver is not compatible with VMware's bridged networking.\n",
+                     bridge->name));
+          }
++	 rtnl_lock();
+          dev_set_promiscuity(dev, 0);
++	 rtnl_unlock();
+       }
+    }
+ }
