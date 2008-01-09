@@ -91,18 +91,18 @@ src_install() {
 	if use pam; then
 		LIB="$(get_libdir)"
 		PAMFILE="${D}/etc/pam.d/vmware-guestd"
-		dodir "${ROOT}${LIB}"
-		dodir "${ROOT}etc/pam.d"
+		dodir "${LIB}"
+		dodir /etc/pam.d
 		echo '#%PAM-1.0' > "${PAMFILE}"
 		if [[ -e "${ROOT}${LIB}/security/pam_unix2.so" ]];
 		then
 			PAM_VER=2
 		fi
 
-		echo -e "auth\tsufficient\t${ROOT}${LIB}/security/pam_unix${PAM_VER}.so\tshadow\tnullok" >> "${PAMFILE}"
-		echo -e "auth\trequired\t${ROOT}${LIB}/security/pam_unix_auth.so\tshadow\tnullok" >> "${PAMFILE}"
-		echo -e "account\tsufficient\t${ROOT}${LIB}/security/pam_unix${PAM_VER}.so" >> "${PAMFILE}"
-		echo -e "account\trequired\t${ROOT}${LIB}/security/pam_unix_acct.so" >> "${PAMFILE}"
+		echo -e "auth\tsufficient\t${LIB}/security/pam_unix${PAM_VER}.so\tshadow\tnullok" >> "${PAMFILE}"
+		echo -e "auth\trequired\t${LIB}/security/pam_unix_auth.so\tshadow\tnullok" >> "${PAMFILE}"
+		echo -e "account\tsufficient\t${LIB}/security/pam_unix${PAM_VER}.so" >> "${PAMFILE}"
+		echo -e "account\trequired\t${LIB}/security/pam_unix_acct.so" >> "${PAMFILE}"
 
 	fi
 
