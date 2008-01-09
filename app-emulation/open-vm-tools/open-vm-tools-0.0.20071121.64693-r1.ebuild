@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693.ebuild,v 1.2 2007/12/22 23:05:54 mr_bones_ Exp $
 
@@ -126,15 +126,15 @@ src_install() {
 	dolib libguestlib/.libs/libguestlib.{so.0.0.0,a}
 
 	# Deal with the hgfsmounter
-	into "${ROOT}"
+	into /
 	newsbin hgfsmounter/hgfsmounter mount.vmhgfs
-	fperms u+s "${ROOT}sbin/mount.vmhgfs"
-	### FROM THIS POINT ON, into IS SET TO ${ROOT} not /usr !!!
+	fperms u+s /sbin/mount.vmhgfs
+	### FROM THIS POINT ON, into IS SET TO ${ROOT}/ not ${ROOT}/usr !!!
 
 	# Install the /etc/ files
-	exeinto "${ROOT}etc/vmware-tools"
+	exeinto /etc/vmware-tools
 	doexe scripts/linux/*
-	insinto "${ROOT}etc/vmware-tools"
+	insinto /etc/vmware-tools
 	doins "${FILESDIR}/tools.conf"
 	# Only install this, when X is being used. Else it's useless waste of
 	# ressources when checking continuously for processes that will never appear
