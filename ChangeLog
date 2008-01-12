@@ -2,6 +2,14 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  12 Jan 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-modules/files/1.0.0.17-update115-nasty-hack.patch,
+  +app-emulation/vmware-modules/files/patches/vmmon/030_all_fix-linux-header
+  s.patch, eclass/vmware-mod.eclass:
+  Apply the linux header patch to all -r1 ebuilds.
+  Remove original 1.0.0.17 ebuild.
+  Ensure patches are only applied to -r1 ebuilds.
+
   09 Jan 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693-r1.ebuild:
   Fix up further ${ROOT} issues pointed out by Jakub.  5;)

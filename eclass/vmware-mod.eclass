@@ -76,9 +76,11 @@ vmware-mod_src_unpack() {
 		cd "${S}"/${mod}-only
 		# Ensure it's not used
 		# rm getversion.pl
-		EPATCH_SUFFIX="patch"
-		epatch "${FILESDIR}"/patches
-		[[ -d "${FILESDIR}"/patches/${mod} ]] && epatch "${FILESDIR}"/patches/${mod}
+		if [[ "${VMWARE_MOD_DIR}" = "${ANY_ANY}" ]] ; then
+			EPATCH_SUFFIX="patch"
+			epatch "${FILESDIR}"/patches
+			[[ -d "${FILESDIR}"/patches/${mod} ]] && epatch "${FILESDIR}"/patches/${mod}
+		fi
 		convert_to_m "${S}"/${mod}-only/Makefile
 	done
 }
@@ -112,3 +114,6 @@ vmware-mod_src_install() {
 # 'VME_V55'		= .13
 # 'VME_S1B1'	= .14
 # 'VME_S1??'	= .15
+# 'VME_V6'      = .16
+# 'VME_V6'      = .17  (6.0.2)
+# 'VME_S2B1'    = .18
