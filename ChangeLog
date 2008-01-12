@@ -3,6 +3,10 @@
 # $ Id: $
 
   12 Jan 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693-r1.ebuild:
+  Fix up pam file installation, bug 205087.
+
+  12 Jan 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-modules/files/1.0.0.17-update115-nasty-hack.patch,
   +app-emulation/vmware-modules/files/patches/vmmon/030_all_fix-linux-header
   s.patch, eclass/vmware-mod.eclass:

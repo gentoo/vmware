@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693.ebuild,v 1.2 2007/12/22 23:05:54 mr_bones_ Exp $
 
-inherit eutils linux-mod autotools versionator
+inherit pam eutils linux-mod autotools versionator
 
 MY_DATE="$(get_version_component_range 3)"
 MY_BUILD="$(get_version_component_range 4)"
@@ -18,7 +18,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="pam X xinerama"
+IUSE="X xinerama"
 DEPEND="
 		virtual/linux-sources
 		sys-apps/ethtool
@@ -88,23 +88,7 @@ src_install() {
 
 	linux-mod_src_install
 
-	if use pam; then
-		LIB="$(get_libdir)"
-		PAMFILE="${D}/etc/pam.d/vmware-guestd"
-		dodir "${LIB}"
-		dodir /etc/pam.d
-		echo '#%PAM-1.0' > "${PAMFILE}"
-		if [[ -e "${ROOT}${LIB}/security/pam_unix2.so" ]];
-		then
-			PAM_VER=2
-		fi
-
-		echo -e "auth\tsufficient\t${LIB}/security/pam_unix${PAM_VER}.so\tshadow\tnullok" >> "${PAMFILE}"
-		echo -e "auth\trequired\t${LIB}/security/pam_unix_auth.so\tshadow\tnullok" >> "${PAMFILE}"
-		echo -e "account\tsufficient\t${LIB}/security/pam_unix${PAM_VER}.so" >> "${PAMFILE}"
-		echo -e "account\trequired\t${LIB}/security/pam_unix_acct.so" >> "${PAMFILE}"
-
-	fi
+	pamd_mimic_system vmware-guestd auth account
 
 	# Install the various tools
 	cd "${S}"
