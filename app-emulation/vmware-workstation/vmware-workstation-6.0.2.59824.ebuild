@@ -6,8 +6,6 @@ inherit vmware eutils versionator
 
 MY_PN="VMware-workstation-$(replace_version_separator 3 - $PV)"
 
-ANY_ANY=""
-
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
 SRC_URI="
@@ -56,6 +54,7 @@ RDEPEND="sys-libs/glibc
 
 S=${WORKDIR}/vmware-distrib
 
+ANY_ANY=""
 RUN_UPDATE="no"
 
 dir=/opt/vmware/workstation

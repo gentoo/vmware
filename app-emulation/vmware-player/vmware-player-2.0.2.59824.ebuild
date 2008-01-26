@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-2.0.2.59824.ebuild,v 1.1 2007/11/25 12:59:44 ikelos Exp $
 
-inherit versionator eutils vmware
+inherit vmware eutils versionator
 
-S=${WORKDIR}/vmware-player-distrib
 MY_PN="VMware-player-$(get_version_component_range 1-3)-$(get_version_component_range 4)"
+
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/player/"
 SRC_URI="x86? ( mirror://vmware/software/vmplayer/${MY_PN}.i386.tar.gz )
@@ -16,12 +16,10 @@ SRC_URI="x86? ( mirror://vmware/software/vmplayer/${MY_PN}.i386.tar.gz )
 	mirror://gentoo/vmware-libcrypto.so.0.9.7l.tar.bz2"
 
 LICENSE="vmware"
-IUSE=""
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
+IUSE=""
 RESTRICT="strip"
-
-S=${WORKDIR}/vmware-player-distrib
 
 DEPEND="${RDEPEND} virtual/os-headers
 	!app-emulation/vmware-workstation"
@@ -29,20 +27,32 @@ DEPEND="${RDEPEND} virtual/os-headers
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
 	amd64? (
-		app-emulation/emul-linux-x86-gtklibs )
+		x11-libs/libXrandr
+		x11-libs/libXcursor
+		x11-libs/libXinerama
+		x11-libs/libXi
+		x11-libs/libview
+		dev-cpp/libsexymm
+		dev-cpp/cairomm
+		dev-cpp/libgnomecanvasmm
+		virtual/xft )
 	x86? (
 		x11-libs/libXrandr
 		x11-libs/libXcursor
 		x11-libs/libXinerama
 		x11-libs/libXi
+		x11-libs/libview
+		dev-cpp/libsexymm
 		virtual/xft )
-	>=dev-lang/perl-5
 	!app-emulation/vmware-workstation
 	!app-emulation/vmware-server
 	~app-emulation/vmware-modules-1.0.0.17
 	!<app-emulation/vmware-modules-1.0.0.17
 	!>=app-emulation/vmware-modules-1.0.0.18
+	>=dev-lang/perl-5
 	sys-apps/pciutils"
+
+S=${WORKDIR}/vmware-player-distrib
 
 ANY_ANY=""
 RUN_UPDATE="no"
@@ -82,6 +92,12 @@ pkg_setup() {
 	elif use amd64; then
 		MY_P="${MY_PN}.x86_64"
 	fi
+
+	if ! built_with_use ">=dev-cpp/gtkmm-2.4" accessibility ; then
+		eerror "Rebuild dev-cpp/gtkmm with USE=\"accessibility\""
+		die "VMware workstation only works with gtkmm built with USE=\"accessibility\"."
+	fi
+
 	vmware_pkg_setup
 }
 

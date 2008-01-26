@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  26 Jan 2008; Mike Auty <ikelos@gentoo.org> eclass/vmware-mod.eclass:
+  Fix gtkmm with USE=accessibility requirements in vmware-player.
+
   12 Jan 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20071121.64693-r1.ebuild:
   Fix up pam file installation, bug 205087.
