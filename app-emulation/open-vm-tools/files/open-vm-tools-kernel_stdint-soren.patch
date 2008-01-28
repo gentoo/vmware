@@ -1,0 +1,185 @@
+diff -u open-vm-tools-2007.11.21-64693/debian/changelog open-vm-tools-2007.11.21-64693/debian/changelog
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmblock/include/driver-config.h
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmblock/include/driver-config.h
+@@ -59,6 +59,11 @@
+ #endif
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 24)
++/* Prevent uintptr_t from being declared in vm_basic_types.h. */
++#define _STDINT_H 1
++#endif
++
+ #ifndef __KERNEL__
+ #define __KERNEL__
+ #endif
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/cpNameLite.c
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/cpNameLite.c
+@@ -25,8 +25,8 @@
+  *
+  */
+ 
+-#include "vm_assert.h"
+ #include "cpNameLite.h"
++#include "vm_assert.h"
+ 
+ /*
+  *----------------------------------------------------------------------
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/cpName.c
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/cpName.c
+@@ -28,9 +28,9 @@
+ #include <string.h>
+ #endif
+ 
+-#include "vm_assert.h"
+ #include "cpName.h"
+ #include "cpNameInt.h"
++#include "vm_assert.h"
+ 
+ /*
+  *----------------------------------------------------------------------
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/cpNameLinux.c
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/cpNameLinux.c
+@@ -28,9 +28,9 @@
+ #include <memory.h>
+ #endif
+ 
+-#include "vm_assert.h"
+ #include "cpName.h"
+ #include "cpNameInt.h"
++#include "vm_assert.h"
+ 
+ 
+ /*
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/driver-config.h
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/driver-config.h
+@@ -59,6 +59,11 @@
+ #endif
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 24)
++/* Prevent uintptr_t from being declared in vm_basic_types.h. */
++#define _STDINT_H 1
++#endif
++
+ #ifndef __KERNEL__
+ #define __KERNEL__
+ #endif
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/staticEscape.c
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/staticEscape.c
+@@ -36,8 +36,8 @@
+ #   endif
+ #endif
+ 
+-#include "vm_assert.h"
+ #include "staticEscape.h"
++#include "vm_assert.h"
+ 
+ 
+ /*
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/fsutil.c
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/fsutil.c
+@@ -46,8 +46,8 @@
+ #include "fsutil.h"
+ #include "hgfsProto.h"
+ #include "staticEscape.h"
+-#include "vm_assert.h"
+ #include "vm_basic_types.h"
++#include "vm_assert.h"
+ 
+ static struct inode *HgfsInodeLookup(struct super_block *sb,
+                                      ino_t ino);
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/hgfsBd.c
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/hgfsBd.c
+@@ -33,10 +33,10 @@
+ #   include "debug.h"
+ #endif
+ 
+-#include "vm_assert.h"
+ #include "rpcout.h"
+ #include "hgfs.h"     // for common HGFS definitions
+ #include "hgfsBd.h"
++#include "vm_assert.h"
+ 
+ 
+ /*
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmhgfs/kernelStubs.h
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmhgfs/kernelStubs.h
+@@ -28,10 +28,10 @@
+ #define __KERNELSTUBS_H__
+ 
+ #ifdef linux
+-#include "vm_basic_types.h"
+ #include "driver-config.h"
+ #include <linux/kernel.h>
+ #include <linux/string.h>
++#include "vm_basic_types.h"
+ #elif defined(_WIN32)
+ #include "vm_basic_types.h"
+ #include <ntddk.h>   /* kernel memory APIs */
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmmemctl/driver-config.h
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmmemctl/driver-config.h
+@@ -59,6 +59,11 @@
+ #endif
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 24)
++/* Prevent uintptr_t from being declared in vm_basic_types.h. */
++#define _STDINT_H 1
++#endif
++
+ #ifndef __KERNEL__
+ #define __KERNEL__
+ #endif
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmxnet/driver-config.h
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmxnet/driver-config.h
+@@ -59,6 +59,11 @@
+ #endif
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 24)
++/* Prevent uintptr_t from being declared in vm_basic_types.h. */
++#define _STDINT_H 1
++#endif
++
+ #ifndef __KERNEL__
+ #define __KERNEL__
+ #endif
+only in patch2:
+unchanged:
+--- open-vm-tools-2007.11.21-64693.orig/modules/linux/vmsync/driver-config.h
++++ open-vm-tools-2007.11.21-64693/modules/linux/vmsync/driver-config.h
+@@ -59,6 +59,11 @@
+ #endif
+ #endif
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 24)
++/* Prevent uintptr_t from being declared in vm_basic_types.h. */
++#define _STDINT_H 1
++#endif
++
+ #ifndef __KERNEL__
+ #define __KERNEL__
+ #endif

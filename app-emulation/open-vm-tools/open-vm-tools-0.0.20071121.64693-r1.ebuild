@@ -49,7 +49,7 @@ pkg_setup() {
 
 	linux-mod_pkg_setup
 	MODULE_NAMES=""
-	BUILD_TARGETS="auto-build KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
+	BUILD_TARGETS="auto-build HEADER_DIR=${KERNEL_DIR}/include BUILD_DIR=${KV_OUT_DIR}"
 
 	for mod in ${VMWARE_MODULE_LIST};
 	do
@@ -62,6 +62,9 @@ pkg_setup() {
 		MODULE_NAMES="${MODULE_NAMES} ${mod}(${MODTARGET}:${S}/${VMWARE_MOD_DIR}/${mod})"
 	done
 
+	ewarn "If you're compiling for a hardened target, please use the hardened"
+	ewarn "toolchain (see bug #200376, comment 18)."
+
 	enewgroup vmware
 
 }
@@ -69,8 +72,7 @@ pkg_setup() {
 src_unpack() {
 	unpack "${A}"
 	cd "${S}"
-	epatch "${FILESDIR}/${PN}-hardened.patch"
-	eautoreconf
+	epatch "${FILESDIR}/${PN}-kernel_stdint-soren.patch"
 }
 
 src_compile() {
