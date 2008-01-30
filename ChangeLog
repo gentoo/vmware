@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  30 Jan 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/open-vm-tools/open-vm-tools-0.0.20080123.74039.ebuild:
+  Bump open-vm-tools.
+
   28 Jan 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/open-vm-tools/files/open-vm-tools-hardened.patch,
   +app-emulation/open-vm-tools/files/open-vm-tools-kernel_stdint-soren.patch
