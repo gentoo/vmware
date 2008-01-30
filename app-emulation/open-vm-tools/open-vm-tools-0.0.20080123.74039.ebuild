@@ -69,12 +69,6 @@ pkg_setup() {
 
 }
 
-src_unpack() {
-	unpack "${A}"
-	cd "${S}"
-	epatch "${FILESDIR}/${PN}-kernel_stdint-soren.patch"
-}
-
 src_compile() {
 	econf \
 	$(use_with X x) \
