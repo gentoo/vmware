@@ -69,6 +69,14 @@ pkg_setup() {
 
 }
 
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
+	epatch "${FILESDIR}/${PN}-as-needed.patch"
+
+	eautoreconf
+}
+
 src_compile() {
 	econf \
 	$(use_with X x) \
