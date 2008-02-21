@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  21 Feb 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/open-vm-tools/open-vm-tools-0.0.20080213.77928.ebuild:
+  Bump open-vm-tools, but keep it masked because I haven't been able to test it.
+
   05 Feb 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/open-vm-tools/files/open-vm-tools-as-needed.patch:
   Fix bug #208741.
