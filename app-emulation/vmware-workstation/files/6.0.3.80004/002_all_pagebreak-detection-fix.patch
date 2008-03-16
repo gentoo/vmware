@@ -1,0 +1,15 @@
+diff -ur vmware-distrib.orig/bin/vmware-config.pl vmware-distrib/bin/vmware-config.pl
+--- vmware-distrib.orig/bin/vmware-config.pl	2006-03-24 23:13:05.000000000 +0100
++++ vmware-distrib/bin/vmware-config.pl	2006-03-24 23:26:40.000000000 +0100
+@@ -2015,9 +2015,9 @@
+       . shell_string($pattern));
+     chomp($header_page_offset);
+     # Ignore PAGE_OFFSET if we cannot parse it.
+-    if ($header_page_offset =~ /^$pattern \(?0x([0-9a-fA-F]{8,})/) {
++    if ($header_page_offset =~ /^$pattern \(?(\([^)]*\))?\)?0x([0-9a-fA-F]{8,}).*$/) {
+       # We found a valid page offset
+-      $header_page_offset = $1;
++      $header_page_offset = $2;
+       if (defined($gSystem{'page_offset'}) and
+           not (lc($header_page_offset) eq lc($gSystem{'page_offset'}))) {
+         if ($source eq 'user') {

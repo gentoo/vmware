@@ -1,0 +1,21 @@
+diff -uNr vmware-server-distrib.orig/bin/vmware-config.pl vmware-server-distrib/bin/vmware-config.pl
+--- vmware-server-distrib.orig/bin/vmware-config.pl	2006-02-18 18:12:26.000000000 +0000
++++ vmware-server-distrib/bin/vmware-config.pl	2006-02-18 18:14:17.000000000 +0000
+@@ -10158,13 +10158,13 @@
+     configure_gtk2();
+ #   createMimePackageFile();
+ #   configureDesktopFiles();
+-    configure_mon();
++#   configure_mon();
+     if (isDesktopProduct()) {
+-      build_vmblock();
++#     build_vmblock();
+     }
+-    configure_pp();
++#   configure_pp();
+     configure_net();
+-    build_vmnet();
++#   build_vmnet();
+   }
+ 
+    configure_eclipse_plugin();
