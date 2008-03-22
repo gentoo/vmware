@@ -2,6 +2,21 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  22 Mar 2008; Mike Auty <ikelos@gentoo.org|>
+  +app-emulation/vmware-player/files/1.0.6.80404/000_all_initd-location.patc
+  h,
+  +app-emulation/vmware-player/files/1.0.6.80404/001_all_fix-permissions.pat
+  ch,
+  +app-emulation/vmware-player/files/1.0.6.80404/002_all_pagebreak-detection
+  -fix.patch,
+  +app-emulation/vmware-player/files/1.0.6.80404/004_all_do-not-build-module
+  s.patch,
+  +app-emulation/vmware-player/files/1.0.6.80404/009_all_init.d-modules-warn
+  ing.patch,
+  +app-emulation/vmware-player/files/1.0.6.80404/007_all_use-modprobe-over-i
+  nsmod.patch:
+  Bump vmware-player-1.0.6.
+
   16 Mar 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-player/files/2.0.3.80004/000_all_initd-location.patc
   h,
