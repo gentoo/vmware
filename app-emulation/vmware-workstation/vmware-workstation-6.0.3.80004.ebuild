@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.2.59824.ebuild,v 1.1 2007/11/25 12:50:31 ikelos Exp $
 
-inherit vmware eutils versionator
+inherit vmware eutils versionator fdo-mime gnome2-utils
 
 MY_PN="VMware-workstation-$(replace_version_separator 3 - $PV)"
 
@@ -124,11 +124,36 @@ pkg_nofetch() {
 src_install() {
 	vmware_src_install
 
-	ICONDIR=/opt/vmware/workstation/lib/share/icons/hicolor/scalable/apps/
-	make_desktop_entry vmware "VMWare Workstation" ${ICONDIR}/${PN}.svg System
-	make_desktop_entry vmplayer "VMWare Player" ${ICONDIR}/vmware-player.svg System
+	# move the icons into a location where DEs will find it:
+	ICONDIR=/opt/vmware/workstation/lib/share/icons/hicolor
+	rm ${D}${ICONDIR}/index.theme
+	mkdir -p ${D}/usr/share/icons
+	mv ${D}${ICONDIR} ${D}/usr/share/icons
+	ln -s /usr/share/icons/hicolor ${D}${ICONSDIR}
+
+	# install .desktop files:
+	insinto /usr/share/applications
+	doins ${FILESDIR}/vmware-workstation.desktop
+	doins ${FILESDIR}/vmware-player.desktop
 
 	# Nasty hack to ensure the EULA is included
 	insinto /opt/vmware/workstation/lib/share
 	newins doc/EULA EULA.txt
+}
+
+pkg_preinst() {
+	vmware_pkg_preinst
+	gnome2_icon_savelist
+}
+
+pkg_postinst() {
+	vmware_pkg_postinst
+	fdo-mime_desktop_database_update
+	gnome2_icon_cache_update
+}
+
+pkg_postrm() {
+	vmware_pkg_postrm
+	fdo-mime_desktop_database_update
+	gnome2_icon_cache_update
 }

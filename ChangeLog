@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  29 Mar 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-workstation/files/vmware-player.desktop,
+  +app-emulation/vmware-workstation/files/vmware-workstation.desktop:
+  Add in patch from bug 123655 and update the server ebuilds.
+
   22 Mar 2008; Mike Auty <ikelos@gentoo.org|>
   +app-emulation/vmware-player/files/1.0.6.80404/000_all_initd-location.patc
   h,
