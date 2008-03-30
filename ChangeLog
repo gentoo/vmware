@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  30 Mar 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/Manifest:
+  Fix open-vm-tools manifest bug 215393.
+
   29 Mar 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-workstation/files/vmware-player.desktop,
   +app-emulation/vmware-workstation/files/vmware-workstation.desktop:
