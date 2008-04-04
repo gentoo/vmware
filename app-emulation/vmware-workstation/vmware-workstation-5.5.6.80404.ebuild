@@ -85,6 +85,8 @@ src_install() {
 	vmware_src_install
 
 	doicon lib/share/pixmaps/vmware-player.png
+	# Fix an ugly GCC error on start
+	rm -f ${Ddir}lib/lib/libgcc_s.so.1/libgcc_s.so.1
 	make_desktop_entry vmware "VMWare Workstation" ${PN}.png System
 	make_desktop_entry vmplayer "VMWare Player" vmware-player.png System
 }

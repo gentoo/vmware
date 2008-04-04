@@ -4,6 +4,10 @@
 
   04 Apr 2008; Chris Gianelloni <wolf31o2@gentoo.org>
   app-emulation/vmware-workstation/vmware-workstation-5.5.6.80404.ebuild:
+  We remove libgcc_s.so.1, since it causes us all kinds of fun little problems.
+
+  04 Apr 2008; Chris Gianelloni <wolf31o2@gentoo.org>
+  app-emulation/vmware-workstation/vmware-workstation-5.5.6.80404.ebuild:
   Updated 5.5.6 Workstation ebuild.
 
   30 Mar 2008; Mike Auty <ikelos@gentoo.org>
