@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-5.5.5.56455.ebuild,v 1.3 2007/10/11 07:14:54 kingtaco Exp $
 
@@ -80,11 +80,6 @@ QA_EXECSTACK_amd64="${dir:1}/bin/vmnet-bridge
 	${dir:1}/lib/bin/vmplayer
 	${dir:1}/lib/bin-debug/vmware-vmx
 	${dir:1}/lib/lib/libpixops.so.2.0.1/libpixops.so.2.0.1"
-
-pkg_nofetch() {
-	einfo "Please download ${MY_P}.tar.gz"
-	einfo "from ${HOMEPAGE} and place them in ${DISTDIR}"
-}
 
 src_install() {
 	vmware_src_install
