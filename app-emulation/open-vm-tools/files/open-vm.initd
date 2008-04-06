@@ -11,7 +11,7 @@ PIDFILE="/var/run/vmware-guestd.pid"
 MOUNTPOINT="/proc/fs/vmblock/mountPoint"
 
 depend() {
-	before checkfs net X
+	before checkfs fsck net X
 }
 
 start() {
