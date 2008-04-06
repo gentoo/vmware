@@ -17,7 +17,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="-*" # Testing at the moment ~x86 ~amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE="X xinerama"
 DEPEND="
 		virtual/linux-sources
@@ -35,11 +35,12 @@ DEPEND="
 		"
 
 RDEPEND="${DEPEND/virtual\/linux\-sources/}
-		X? (
+		 virtual/pam
+		 X? (
 			x11-base/xorg-server
 			x11-drivers/xf86-video-vmware
 			x11-drivers/xf86-input-vmmouse
-		)
+		 )
 "
 
 VMWARE_MOD_DIR="modules/linux"
@@ -72,7 +73,7 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	epatch "${FILESDIR}/${PN}-as-needed.patch"
+	# epatch "${FILESDIR}/${PN}-as-needed.patch"
 
 	eautoreconf
 }

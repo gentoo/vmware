@@ -3,6 +3,11 @@
 # $ Id: $
 
   06 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/open-vm-tools/open-vm-tools-0.0.20080213.77928.ebuild,
+  +app-emulation/open-vm-tools/open-vm-tools-0.0.20080319.82724.ebuild:
+  Version bump open-vm-tools.
+
+  06 Apr 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-workstation/files/6.5.0.84113/000_all_initd-location
   .patch,
   +app-emulation/vmware-workstation/files/6.5.0.84113/001_all_fix-permission
