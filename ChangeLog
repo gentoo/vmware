@@ -3,6 +3,24 @@
 # $ Id: $
 
   06 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-workstation/files/6.5.0.84113/000_all_initd-location
+  .patch,
+  +app-emulation/vmware-workstation/files/6.5.0.84113/001_all_fix-permission
+  s.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.84113/002_all_pagebreak-dete
+  ction-fix.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.84113/004_all_do-not-build-m
+  odules.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.84113/009_all_init.d-modules
+  -warning.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.84113/011_all_legit-modules-
+  only.patch,
+  +app-emulation/vmware-modules/files/1.0.0.19-vsock-kernel-makefile.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.84113/007_all_use-modprobe-o
+  ver-insmod.patch, eclass/vmware.eclass:
+  Push in testing version of vmware-workstation-6.5.
+
+  06 Apr 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/files/open-vm.initd:
   Sync open-vm-tools with tree.
 

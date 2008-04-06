@@ -270,7 +270,7 @@ vmware_src_install() {
 	fi
 
 	# Do we have vmware-ping/vmware-vmx?  If so, make them setuid.
-	for p in /bin/vmware-ping /lib/bin/vmware-vmx /lib/bin-debug/vmware-vmx /sbin/vmware-authd;
+	for p in /bin/vmware-ping /lib/bin/vmware-vmx /lib/bin-debug/vmware-vmx /lib/bin/vmware-vmx-debug /sbin/vmware-authd;
 	do
 		if [ -x "${D}${VMWARE_INSTALL_DIR}${p}" ]
 		then
