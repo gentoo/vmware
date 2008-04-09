@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.2.59824.ebuild,v 1.1 2007/11/25 12:50:31 ikelos Exp $
 
@@ -50,7 +50,10 @@ RDEPEND="sys-libs/glibc
 	!<app-emulation/vmware-modules-1.0.0.19
 	!>=app-emulation/vmware-modules-1.0.0.20
 	>=dev-lang/perl-5
-	sys-apps/pciutils"
+	sys-apps/pciutils
+	sys-fs/fuse"
+
+# Fuse is needed for vmware-mount (#217024)
 
 S=${WORKDIR}/vmware-distrib
 

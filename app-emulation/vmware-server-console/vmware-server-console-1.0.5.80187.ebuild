@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server-console/vmware-server-console-1.0.4.56528.ebuild,v 1.2 2007/11/25 13:04:43 ikelos Exp $
 
@@ -69,6 +69,8 @@ src_install() {
 	echo 'libdir = "'${VMWARE_INSTALL_DIR}'/lib"' > etc/config
 	vmware_src_install
 
+	# Fix an ugly GCC error on start
+	rm -f ${D}${VMWARE_INSTALL_DIR}/lib/lib/libgcc_s.so.1/libgcc_s.so.1
 	make_desktop_entry ${PN} "VMWare Remote Console" ${PN}.png System
 
 	dodir /usr/bin
