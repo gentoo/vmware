@@ -1,0 +1,80 @@
+diff --git a/vmblock-only/Makefile b/vmblock-only/Makefile
+index 0a9ffd6..446c2e7 100644
+--- a/vmblock-only/Makefile
++++ b/vmblock-only/Makefile
+@@ -29,9 +29,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmblock
+ PRODUCT := @PRODUCT@
+diff --git a/vmci-only/Makefile b/vmci-only/Makefile
+index fdf376d..77bdf3b 100644
+--- a/vmci-only/Makefile
++++ b/vmci-only/Makefile
+@@ -15,9 +15,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmci
+ PRODUCT := @PRODUCT@
+diff --git a/vmmon-only/Makefile b/vmmon-only/Makefile
+index a82cf97..2c80504 100644
+--- a/vmmon-only/Makefile
++++ b/vmmon-only/Makefile
+@@ -15,9 +15,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmmon
+ PRODUCT := @PRODUCT@
+diff --git a/vmnet-only/Makefile b/vmnet-only/Makefile
+index 4cabc30..568271a 100644
+--- a/vmnet-only/Makefile
++++ b/vmnet-only/Makefile
+@@ -29,9 +29,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmnet
+ PRODUCT := @PRODUCT@
+diff --git a/vsock-only/Makefile b/vsock-only/Makefile
+index 1692d42..2da886a 100644
+--- a/vsock-only/Makefile
++++ b/vsock-only/Makefile
+@@ -15,9 +15,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vsock
+ PRODUCT := ws
