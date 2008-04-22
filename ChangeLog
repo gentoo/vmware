@@ -2,6 +2,12 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  22 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/open-vm-tools/open-vm-tools-0.0.20080123.74039.ebuild,
+  -app-emulation/open-vm-tools/open-vm-tools-0.0.20080319.82724.ebuild,
+  +app-emulation/open-vm-tools/open-vm-tools-0.0.20080414.87182.ebuild:
+  Version bump open-vm-tools.
+
   19 Apr 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-modules/files/1.0.0.19-makefile-kernel-dir.patch:
   Fix kernel location for modules 1.0.0.19.
