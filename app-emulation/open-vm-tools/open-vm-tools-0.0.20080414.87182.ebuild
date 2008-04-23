@@ -15,7 +15,7 @@ DESCRIPTION="Opensourced tools for VMware guests"
 HOMEPAGE="http://open-vm-tools.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="X xinerama"
@@ -32,6 +32,8 @@ DEPEND="
 		!app-emulation/vmware-workstation-tools
 		!app-emulation/vmware-server-tools
 		!app-emulation/vmware-esx-tools
+		sys-process/procps
+		dev-libs/libdnet
 		"
 
 RDEPEND="${DEPEND/virtual\/linux\-sources/}
