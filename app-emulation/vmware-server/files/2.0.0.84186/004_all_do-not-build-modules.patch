@@ -1,0 +1,26 @@
+diff --git a/bin/vmware-config.pl b/bin/vmware-config.pl
+index 363f9cb..7ffc212 100755
+--- a/bin/vmware-config.pl
++++ b/bin/vmware-config.pl
+@@ -10404,16 +10404,16 @@ sub main {
+   }
+ 
+   if (vmware_product() ne 'server') {
+-    configure_mon();
+-    configure_vmci();
+-    configure_vsock();
+-    configure_pp();
++    #configure_mon();
++    #configure_vmci();
++    #configure_vsock();
++    #configure_pp();
+ 
+     if (vmware_product() eq 'wgs') {
+ 	configure_net();
+     }
+ 
+-    build_vmnet();
++    #build_vmnet();
+   }
+ 
+   if (isDesktopProduct()) {
