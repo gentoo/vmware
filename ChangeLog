@@ -3,6 +3,22 @@
 # $ Id: $
 
   26 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-workstation-tools/files/5.5.1/000_all_initd-scripts.
+  patch,
+  -app-emulation/vmware-workstation-tools/files/5.5.2/000_all_initd-scripts.
+  patch,
+  -app-emulation/vmware-workstation-tools/files/5.5.3/000_all_initd-scripts.
+  patch,
+  -app-emulation/vmware-workstation-tools/files/6.0.0.45731/000_all_vmware-t
+  ools.patch, -app-emulation/vmware-workstation-tools/files/90vmware-tools,
+  -app-emulation/vmware-workstation-tools/files/patches/000_all_makefile-inc
+  lude-directory.patch,
+  -app-emulation/vmware-workstation-tools/files/vmware-workstation-tools,
+  -app-emulation/vmware-workstation-tools/files/vmware-workstation-tools.rc,
+  -app-emulation/vmware-workstation-tools/files/xorg.conf:
+  Deprecating vmware-workstation-tools in favour of open-vm-tools.
+
+  26 Apr 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-player/files/2.0.2.59824:
   Sync vmware-server-console with tree.
 
