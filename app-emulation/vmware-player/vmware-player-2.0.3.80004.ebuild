@@ -1,6 +1,6 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-2.0.2.59824.ebuild,v 1.1 2007/11/25 12:59:44 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-2.0.3.80004.ebuild,v 1.1 2008/03/22 10:45:35 ikelos Exp $
 
 inherit vmware eutils versionator
 
@@ -22,24 +22,15 @@ DEPEND="${RDEPEND} virtual/os-headers
 # vmware-player should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
-	amd64? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libview
-		dev-cpp/libsexymm
-		dev-cpp/cairomm
-		dev-cpp/libgnomecanvasmm
-		virtual/xft )
-	x86? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libview
-		dev-cpp/libsexymm
-		virtual/xft )
+	x11-libs/libXrandr
+	x11-libs/libXcursor
+	x11-libs/libXinerama
+	x11-libs/libXi
+	x11-libs/libview
+	dev-cpp/libsexymm
+	dev-cpp/cairomm
+	dev-cpp/libgnomecanvasmm
+	virtual/xft 
 	!app-emulation/vmware-workstation
 	!app-emulation/vmware-server
 	~app-emulation/vmware-modules-1.0.0.17

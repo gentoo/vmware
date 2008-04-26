@@ -3,6 +3,14 @@
 # $ Id: $
 
   26 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-modules/files/1.0.0.17-kernel-2.6.13-rtnl.patch:
+  Sync vmware-player with the tree.
+
+  26 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-modules/files/1.0.0.17-kernel-2.6.13-rtnl.patch:
+  Sync vmware-modules with the tree.
+
+  26 Apr 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/files/open-vm.initd,
   -app-emulation/open-vm-tools/files/open-vm-tools-as-needed.patch:
   Sync open-vm-tools with tree. Merge dependencies between x86 and amd64
