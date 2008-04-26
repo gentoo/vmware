@@ -1,6 +1,6 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.2.59824.ebuild,v 1.1 2007/11/25 12:50:31 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.3.80004.ebuild,v 1.2 2008/04/26 16:29:15 ikelos Exp $
 
 inherit vmware eutils versionator fdo-mime gnome2-utils
 
@@ -117,15 +117,15 @@ src_install() {
 
 	# move the icons into a location where DEs will find it:
 	ICONDIR=/opt/vmware/workstation/lib/share/icons/hicolor
-	rm ${D}${ICONDIR}/index.theme
-	mkdir -p ${D}/usr/share/icons
-	mv ${D}${ICONDIR} ${D}/usr/share/icons
-	ln -s /usr/share/icons/hicolor ${D}${ICONSDIR}
+	rm "${D}${ICONDIR}/index.theme"
+	mkdir -p "${D}/usr/share/icons"
+	mv "${D}${ICONDIR}" "${D}/usr/share/icons"
+	ln -s /usr/share/icons/hicolor "${D}${ICONSDIR}"
 
 	# install .desktop files:
 	insinto /usr/share/applications
-	doins ${FILESDIR}/vmware-workstation.desktop
-	doins ${FILESDIR}/vmware-player.desktop
+	doins "${FILESDIR}/vmware-workstation.desktop"
+	doins "${FILESDIR}/vmware-player.desktop"
 
 	# Nasty hack to ensure the EULA is included
 	insinto /opt/vmware/workstation/lib/share
