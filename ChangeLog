@@ -3,6 +3,11 @@
 # $ Id: $
 
   26 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild,
+  app-emulation/vmware-server/vmware-server-1.0.5.80187.ebuild:
+  Sync vmware-server with tree.
+
+  26 Apr 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-modules/files/1.0.0.17-kernel-2.6.13-rtnl.patch:
   Sync vmware-player with the tree.
 
