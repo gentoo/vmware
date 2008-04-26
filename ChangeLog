@@ -3,6 +3,10 @@
 # $ Id: $
 
   26 Apr 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-player/files/2.0.2.59824:
+  Sync vmware-server-console with tree.
+
+  26 Apr 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild,
   app-emulation/vmware-server/vmware-server-1.0.5.80187.ebuild:
   Sync vmware-server with tree.
