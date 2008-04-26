@@ -1,7 +1,7 @@
 #!/sbin/runscript
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/files/open-vm.initd,v 1.2 2008/02/01 12:33:36 flameeyes Exp $
 
 DND_TMPDIR="/tmp/VMwareDnD"
 USER_GROUP="root:vmware"

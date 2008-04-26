@@ -26,24 +26,15 @@ RESTRICT="strip fetch"
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
-	amd64? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libview
-		dev-cpp/libsexymm
-		dev-cpp/cairomm
-		dev-cpp/libgnomecanvasmm
-		virtual/xft )
-	x86? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libview
-		dev-cpp/libsexymm
-		virtual/xft )
+	x11-libs/libXrandr
+	x11-libs/libXcursor
+	x11-libs/libXinerama
+	x11-libs/libXi
+	x11-libs/libview
+	dev-cpp/libsexymm
+	dev-cpp/cairomm
+	dev-cpp/libgnomecanvasmm
+	virtual/xft
 	!app-emulation/vmware-player
 	!app-emulation/vmware-server
 	~app-emulation/vmware-modules-1.0.0.17
