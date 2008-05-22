@@ -1,0 +1,28 @@
+diff --git a/bin/vmware-config.pl b/bin/vmware-config.pl
+index 1fcd2f3..e004bfc 100755
+--- a/bin/vmware-config.pl
++++ b/bin/vmware-config.pl
+@@ -9257,7 +9257,10 @@ sub write_vmware_config {
+     error('Unable to write configuration file "' . $name . '".' . "\n\n");
+   }
+   db_add_file($name, $cFlagTimestamp | $cFlagConfig);
+-  safe_chmod(0644, $name);
++  safe_chmod(0664, $name);
++  my $gid = (getgrnam('vmware'))[2];
++  my $uid = (stat($name))[4];
++  safe_chown($uid,$gid,$name);
+ 
+   # Append the promotional configuration if it exists
+   $promoconfig = $libdir . '/configurator/PROMOCONFIG';
+@@ -9311,7 +9314,10 @@ sub write_tools_config {
+     error('Unable to write configuration file "' . $name . '".' . "\n\n");
+   }
+   db_add_file($name, $cFlagTimestamp);
+-  safe_chmod(0644, $name);
++  safe_chmod(0664, $name);
++  my $gid = (getgrnam('vmware'))[2];
++  my $uid = (stat($name))[4];
++  safe_chown($uid,$gid,$name);
+ }
+ 
+ # Display the PROMOCODE information
