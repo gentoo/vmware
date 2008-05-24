@@ -66,7 +66,8 @@ pkg_setup() {
 	done
 
 	ewarn "If you're compiling for a hardened target, please use the hardened"
-	ewarn "toolchain (see bug #200376, comment 18)."
+	ewarn "nopie compiler in the hardened profile (select it using gcc-config)."
+	ewarn "For more details please see bug #200376, comment 18."
 
 	enewgroup vmware
 
