@@ -3,6 +3,10 @@
 # $ Id: $
 
   27 May 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-player/files/vmware-player.rc:
+  Sync up vmware-player.rc with the tree.
+
+  27 May 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-modules/vmware-modules-1.0.0.19.ebuild:
   Fix up the vmware-modules-1.0.0.19 SRC_URI.
 
