@@ -1,29 +1,20 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-1.0.5.56455.ebuild,v 1.3 2007/11/06 23:07:08 wolf31o2 Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-2.0.3.80004.ebuild,v 1.2 2008/04/26 15:19:44 ikelos Exp $
 
-inherit eutils vmware
+inherit vmware eutils versionator
 
-S=${WORKDIR}/vmware-player-distrib
-MY_P="VMware-player-1.0.5-56455"
+MY_PN="VMware-player-$(get_version_component_range 1-3)-$(get_version_component_range 4)"
+
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/player/"
-SRC_URI="http://download3.vmware.com/software/vmplayer/${MY_P}.tar.gz
-	http://platan.vc.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://platan.vc.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz
-	http://ftp.cvut.cz/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
-	http://knihovny.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
-	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libssl.so.0.9.7l.tar.bz2
-	mirror://gentoo/vmware-libssl.so.0.9.7l.tar.bz2
-	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libcrypto.so.0.9.7l.tar.bz2
-	mirror://gentoo/vmware-libcrypto.so.0.9.7l.tar.bz2"
+SRC_URI="x86? ( mirror://vmware/software/vmplayer/${MY_PN}.i386.tar.gz )
+	amd64? ( mirror://vmware/software/vmplayer/${MY_PN}.x86_64.tar.gz )"
 
 LICENSE="vmware"
-IUSE=""
 SLOT="0"
-KEYWORDS="-* amd64 x86"
+KEYWORDS="-* ~amd64 ~x86"
+IUSE=""
 RESTRICT="strip"
 
 DEPEND="${RDEPEND} virtual/os-headers
@@ -31,22 +22,26 @@ DEPEND="${RDEPEND} virtual/os-headers
 # vmware-player should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
-	amd64? (
-		app-emulation/emul-linux-x86-gtklibs )
-	x86? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		virtual/xft )
-	>=dev-lang/perl-5
+	x11-libs/libXrandr
+	x11-libs/libXcursor
+	x11-libs/libXinerama
+	x11-libs/libXi
+	x11-libs/libview
+	dev-cpp/libsexymm
+	dev-cpp/cairomm
+	dev-cpp/libgnomecanvasmm
+	virtual/xft
 	!app-emulation/vmware-workstation
 	!app-emulation/vmware-server
-	~app-emulation/vmware-modules-1.0.0.15
-	!<app-emulation/vmware-modules-1.0.0.15
-	!>=app-emulation/vmware-modules-1.0.0.16
+	~app-emulation/vmware-modules-1.0.0.20
+	!<app-emulation/vmware-modules-1.0.0.20
+	!>=app-emulation/vmware-modules-1.0.0.21
+	>=dev-lang/perl-5
 	sys-apps/pciutils"
 
+S=${WORKDIR}/vmware-player-distrib
+
+ANY_ANY=""
 RUN_UPDATE="no"
 
 dir=/opt/vmware/player
@@ -78,8 +73,28 @@ QA_EXECSTACK_amd64="${dir:1}/bin/vmnet-bridge
 	${dir:1}/lib/bin-debug/vmware-vmx
 	${dir:1}/lib/lib/libpixops.so.2.0.1/libpixops.so.2.0.1"
 
+pkg_setup() {
+	if use x86; then
+		MY_P="${MY_PN}.i386"
+	elif use amd64; then
+		MY_P="${MY_PN}.x86_64"
+	fi
+
+	if ! built_with_use ">=dev-cpp/gtkmm-2.4" accessibility ; then
+		eerror "Rebuild dev-cpp/gtkmm with USE=\"accessibility\""
+		die "VMware workstation only works with gtkmm built with USE=\"accessibility\"."
+	fi
+
+	vmware_pkg_setup
+}
+
 src_install() {
 	vmware_src_install
 
-	make_desktop_entry vmplayer "VMware Player" ${PN}.png System
+	doicon lib/share/pixmaps/vmware-player.png
+	make_desktop_entry vmplayer "VMWare Player" vmware-player.png System
+
+	# Nasty hack to ensure the EULA is included
+	insinto /opt/vmware/player/lib/share
+	newins doc/EULA EULA.txt
 }

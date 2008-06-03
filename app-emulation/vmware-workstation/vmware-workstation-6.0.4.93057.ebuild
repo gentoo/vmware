@@ -1,10 +1,10 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.2.59824.ebuild,v 1.1 2007/11/25 12:50:31 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.3.80004.ebuild,v 1.2 2008/04/26 16:29:15 ikelos Exp $
 
 inherit vmware eutils versionator fdo-mime gnome2-utils
 
-MY_PN="VMware-workstation-e.x.p-$(get_version_component_range 4 $PV)"
+MY_PN="VMware-workstation-$(replace_version_separator 3 - $PV)"
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
@@ -26,34 +26,22 @@ RESTRICT="strip fetch"
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
-	amd64? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libview
-		dev-cpp/libsexymm
-		dev-cpp/cairomm
-		dev-cpp/libgnomecanvasmm
-		virtual/xft )
-	x86? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libview
-		dev-cpp/libsexymm
-		virtual/xft )
+	x11-libs/libXrandr
+	x11-libs/libXcursor
+	x11-libs/libXinerama
+	x11-libs/libXi
+	x11-libs/libview
+	dev-cpp/libsexymm
+	dev-cpp/cairomm
+	dev-cpp/libgnomecanvasmm
+	virtual/xft
 	!app-emulation/vmware-player
 	!app-emulation/vmware-server
-	~app-emulation/vmware-modules-1.0.0.19
-	!<app-emulation/vmware-modules-1.0.0.19
-	!>=app-emulation/vmware-modules-1.0.0.20
+	~app-emulation/vmware-modules-1.0.0.20
+	!<app-emulation/vmware-modules-1.0.0.20
+	!>=app-emulation/vmware-modules-1.0.0.21
 	>=dev-lang/perl-5
-	sys-apps/pciutils
-	sys-fs/fuse"
-
-# Fuse is needed for vmware-mount (#217024)
+	sys-apps/pciutils"
 
 S=${WORKDIR}/vmware-distrib
 
@@ -129,15 +117,15 @@ src_install() {
 
 	# move the icons into a location where DEs will find it:
 	ICONDIR=/opt/vmware/workstation/lib/share/icons/hicolor
-	rm ${D}${ICONDIR}/index.theme
-	mkdir -p ${D}/usr/share/icons
-	mv ${D}${ICONDIR} ${D}/usr/share/icons
-	ln -s /usr/share/icons/hicolor ${D}${ICONSDIR}
+	rm "${D}${ICONDIR}/index.theme"
+	mkdir -p "${D}/usr/share/icons"
+	mv "${D}${ICONDIR}" "${D}/usr/share/icons"
+	ln -s /usr/share/icons/hicolor "${D}${ICONSDIR}"
 
 	# install .desktop files:
 	insinto /usr/share/applications
-	doins ${FILESDIR}/vmware-workstation.desktop
-	doins ${FILESDIR}/vmware-player.desktop
+	doins "${FILESDIR}/vmware-workstation.desktop"
+	doins "${FILESDIR}/vmware-player.desktop"
 
 	# Nasty hack to ensure the EULA is included
 	insinto /opt/vmware/workstation/lib/share

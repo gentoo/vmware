@@ -2,6 +2,66 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  03 Jun 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-player/files/1.0.5.56455/000_all_initd-location.patc
+  h,
+  -app-emulation/vmware-player/files/1.0.5.56455/001_all_fix-permissions.pat
+  ch,
+  -app-emulation/vmware-player/files/1.0.5.56455/002_all_pagebreak-detection
+  -fix.patch,
+  -app-emulation/vmware-player/files/1.0.5.56455/004_all_do-not-build-module
+  s.patch,
+  -app-emulation/vmware-player/files/1.0.5.56455/007_all_use-modprobe-over-i
+  nsmod.patch,
+  -app-emulation/vmware-player/files/1.0.5.56455/009_all_init.d-modules-warn
+  ing.patch,
+  -app-emulation/vmware-player/files/2.0.3.80004/000_all_initd-location.patc
+  h,
+  -app-emulation/vmware-player/files/2.0.3.80004/011_all_legit-modules-only.
+  patch,
+  -app-emulation/vmware-player/files/2.0.3.80004/001_all_fix-permissions.pat
+  ch,
+  +app-emulation/vmware-player/files/2.0.4.93057/004_all_do-not-build-module
+  s.patch,
+  +app-emulation/vmware-player/files/2.0.4.93057/007_all_use-modprobe-over-i
+  nsmod.patch,
+  -app-emulation/vmware-player/files/2.0.3.80004/002_all_pagebreak-detection
+  -fix.patch,
+  +app-emulation/vmware-player/files/2.0.4.93057/009_all_init.d-modules-warn
+  ing.patch,
+  -app-emulation/vmware-player/files/2.0.3.80004/004_all_do-not-build-module
+  s.patch,
+  -app-emulation/vmware-player/files/2.0.3.80004/007_all_use-modprobe-over-i
+  nsmod.patch,
+  -app-emulation/vmware-player/files/2.0.3.80004/009_all_init.d-modules-warn
+  ing.patch,
+  +app-emulation/vmware-player/files/2.0.4.93057/000_all_initd-location.patc
+  h,
+  +app-emulation/vmware-player/files/2.0.4.93057/001_all_fix-permissions.pat
+  ch,
+  +app-emulation/vmware-player/files/2.0.4.93057/002_all_pagebreak-detection
+  -fix.patch,
+  +app-emulation/vmware-player/files/2.0.4.93057/011_all_legit-modules-only.
+  patch, -app-emulation/vmware-workstation/files/5.5.5.56455,
+  -app-emulation/vmware-workstation/files/6.0.2.59824,
+  -app-emulation/vmware-workstation/files/6.0.3.80004,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/000_all_initd-location
+  .patch,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/001_all_fix-permission
+  s.patch,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/002_all_pagebreak-dete
+  ction-fix.patch,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/004_all_do-not-build-m
+  odules.patch,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/007_all_use-modprobe-o
+  ver-insmod.patch,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/009_all_init.d-modules
+  -warning.patch,
+  +app-emulation/vmware-workstation/files/6.0.4.93057/011_all_legit-modules-
+  only.patch, -app-emulation/vmware-workstation/files/6.5.0.84113:
+  Bump vmware-player and workstation, and bump modules because vmware felt
+  it was necessary, again... (sigh)
+
   27 May 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-player/files/vmware-player.rc:
   Sync up vmware-player.rc with the tree.

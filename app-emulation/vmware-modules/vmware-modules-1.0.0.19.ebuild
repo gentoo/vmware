@@ -15,6 +15,6 @@ VMWARE_MOD_DIR="vmware-distrib/lib/modules/source/"
 src_unpack() {
 	vmware-mod_src_unpack
 	cd ${S}
-	epatch ${FILESDIR}/${PV}-vsock-kernel-makefile.patch
+	# epatch ${FILESDIR}/${PV}-vsock-kernel-makefile.patch
 	epatch ${FILESDIR}/${PV}-makefile-kernel-dir.patch
 }
