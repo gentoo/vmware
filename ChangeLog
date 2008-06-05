@@ -2,6 +2,23 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  05 Jun 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-server/files/2.0.0.63231/000_all_initd-location.patc
+  h,
+  -app-emulation/vmware-server/files/2.0.0.63231/001_all_fix-permissions.pat
+  ch,
+  -app-emulation/vmware-server/files/2.0.0.63231/002_all_pagebreak-detection
+  -fix.patch,
+  -app-emulation/vmware-server/files/2.0.0.63231/004_all_do-not-build-module
+  s.patch,
+  -app-emulation/vmware-server/files/2.0.0.63231/007_all_use-modprobe-over-i
+  nsmod.patch,
+  -app-emulation/vmware-server/files/2.0.0.63231/011_all_legit-modules-only.
+  patch,
+  -app-emulation/vmware-server/files/2.0.0.63231/009_all_init.d-modules-warn
+  ing.patch:
+  Fixing gtkmm dependency for vmware-server, and removing old version.
+
   03 Jun 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-player/files/1.0.5.56455/000_all_initd-location.patc
   h,

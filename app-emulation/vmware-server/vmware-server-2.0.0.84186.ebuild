@@ -39,7 +39,7 @@ DEPEND=">=sys-libs/glibc-2.3.5
 RDEPEND=">=sys-libs/glibc-2.3.5
 	amd64? (
 		>=app-emulation/emul-linux-x86-baselibs-2.5.5-r3
-		app-emulation/emul-linux-x86-gtklibs )
+		)
 	!amd64? (
 		virtual/xft
 		x11-libs/libX11
@@ -70,11 +70,6 @@ pkg_setup() {
 		MY_P="${MY_PN}.i386"
 	elif use amd64; then
 		MY_P="${MY_PN}.x86_64"
-	fi
-
-	if ! built_with_use ">=dev-cpp/gtkmm-2.4" accessibility ; then
-		eerror "Rebuild dev-cpp/gtkmm with USE=\"accessibility\""
-		die "VMware workstation only works with gtkmm built with USE=\"accessibility\"."
 	fi
 
 	vmware_pkg_setup
