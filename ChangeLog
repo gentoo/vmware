@@ -3,6 +3,10 @@
 # $ Id: $
 
   05 Jun 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server/vmware-server-2.0.0.84186.ebuild:
+  Fix up amd64 dependencies for vmware-server.
+
+  05 Jun 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-server/files/2.0.0.63231/000_all_initd-location.patc
   h,
   -app-emulation/vmware-server/files/2.0.0.63231/001_all_fix-permissions.pat
