@@ -1,6 +1,6 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild,v 1.6 2008/02/26 19:44:28 rich0 Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.5.80187.ebuild,v 1.3 2008/04/04 06:41:39 opfer Exp $
 
 # Unlike many other binary packages the user doesn't need to agree to a licence
 # to download VMWare. The agreeing to a licence is part of the configure step
@@ -15,11 +15,7 @@ DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
 	http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2
-	mirror://gentoo/${PN}-perl-fixed-rpath-libs.tar.bz2
-	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libssl.so.0.9.7l.tar.bz2
-	mirror://gentoo/vmware-libssl.so.0.9.7l.tar.bz2
-	http://dev.gentoo.org/~wolf31o2/sources/dump/vmware-libcrypto.so.0.9.7l.tar.bz2
-	mirror://gentoo/vmware-libcrypto.so.0.9.7l.tar.bz2"
+	mirror://gentoo/${PN}-perl-fixed-rpath-libs.tar.bz2"
 
 LICENSE="vmware"
 IUSE=""
@@ -67,8 +63,8 @@ PATCHES="general"
 src_unpack() {
 	EPATCH_SUFFIX="patch"
 	vmware_src_unpack
-	cd "${WORKDIR}"
-	unpack ${PN}-perl-fixed-rpath-libs.tar.bz2
+	#cd "${WORKDIR}"
+	#unpack ${PN}-perl-fixed-rpath-libs.tar.bz2
 
 	# patch the vmware /etc/pam.d file to ensure that only
 	# vmware group members can log in

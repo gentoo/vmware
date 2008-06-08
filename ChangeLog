@@ -2,6 +2,35 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  08 Jun 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-workstation/files/5.5.6.80404, ++,
+  +app-emulation/vmware-player/files/1.0.7.91707/000_all_initd-location.patc
+  h,
+  +app-emulation/vmware-player/files/1.0.7.91707/001_all_fix-permissions.pat
+  ch,
+  +app-emulation/vmware-player/files/1.0.7.91707/002_all_pagebreak-detection
+  -fix.patch,
+  +app-emulation/vmware-player/files/1.0.7.91707/004_all_do-not-build-module
+  s.patch,
+  +app-emulation/vmware-player/files/1.0.7.91707/007_all_use-modprobe-over-i
+  nsmod.patch,
+  +app-emulation/vmware-player/files/1.0.7.91707/009_all_init.d-modules-warn
+  ing.patch,
+  +app-emulation/vmware-workstation/files/5.5.7.91707/000_all_initd-location
+  .patch,
+  +app-emulation/vmware-workstation/files/5.5.7.91707/001_all_fix-permission
+  s.patch,
+  +app-emulation/vmware-workstation/files/5.5.7.91707/002_all_pagebreak-dete
+  ction-fix.patch, ++,
+  +app-emulation/vmware-workstation/files/5.5.7.91707/004_all_do-not-build-m
+  odules.patch,
+  +app-emulation/vmware-workstation/files/5.5.7.91707/007_all_use-modprobe-o
+  ver-insmod.patch,
+  +app-emulation/vmware-workstation/files/5.5.7.91707/009_all_init.d-modules
+  -warning.patch:
+  Security version bump vmware-player-1 vmware-server-1 and
+  vmware-workstation-5.
+
   05 Jun 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server/vmware-server-2.0.0.84186.ebuild:
   Fix up amd64 dependencies for vmware-server.
