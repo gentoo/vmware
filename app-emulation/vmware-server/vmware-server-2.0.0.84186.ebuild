@@ -26,7 +26,7 @@ SRC_URI="
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS=""
 RESTRICT="strip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
@@ -74,6 +74,7 @@ pkg_setup() {
 src_install() {
 	vmware_src_install
 
+	newinitd ${FILESDIR}/vmware-server-2.rc vmware
 	insinto /etc/vmware/hostd
 	doins ${FILESDIR}/authorization.xml
 }
