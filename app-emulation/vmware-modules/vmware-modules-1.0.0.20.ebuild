@@ -14,6 +14,8 @@ VMWARE_MOD_DIR="vmware-player-distrib/lib/modules/source/"
 
 src_unpack() {
 	vmware-mod_src_unpack
-	cd ${S}/vmblock-only
-	epatch ${FILESDIR}/patches/vmblock/010_all_kernel-2.6.25.patch
+	cd "${S}/vmblock-only"
+	epatch "${FILESDIR}/patches/vmblock/010_all_kernel-2.6.25.patch"
+	cd "${S}"
+	epatch "${FILESDIR}/${PV}-makefile-kernel-dir.patch"
 }
