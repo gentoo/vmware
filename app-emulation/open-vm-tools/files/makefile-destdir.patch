@@ -1,0 +1,82 @@
+diff --git a/guestd/Makefile.am b/guestd/Makefile.am
+index 68e55bb..c027edb 100644
+--- a/guestd/Makefile.am
++++ b/guestd/Makefile.am
+@@ -96,8 +96,8 @@ endif PAMD
+ endif LINUX
+ 
+ install-exec-hook:
+-	$(INSTALL) -d /etc/vmware-tools
+-	echo 'disable-tools-version = "true"' > /etc/vmware-tools/tools.conf
++	$(INSTALL) -d $(DESTDIR)/etc/vmware-tools
++	echo 'disable-tools-version = "true"' > $(DESTDIR)/etc/vmware-tools/tools.conf
+ 
+ uninstall-hook:
+-	$(RM) -rf /etc/vmware-tools
++	$(RM) -rf $(DESTDIR)/etc/vmware-tools
+diff --git a/hgfsmounter/Makefile.am b/hgfsmounter/Makefile.am
+index 83dc90a..0202d5d 100644
+--- a/hgfsmounter/Makefile.am
++++ b/hgfsmounter/Makefile.am
+@@ -30,13 +30,13 @@ mount_vmhgfs_SOURCES += stub-user-util.c
+ 
+ if FREEBSD
+ install-exec-hook:
+-	$(MV) $(sbindir)/mount.vmhgfs $(sbindir)/mount_vmhgfs
+-	chown root $(sbindir)/mount_vmhgfs
+-	chmod u+s $(sbindir)/mount_vmhgfs
++	$(MV) $(DESTDIR)$(sbindir)/mount.vmhgfs $(DESTDIR)$(sbindir)/mount_vmhgfs
++	chown root $(DESTDIR)$(sbindir)/mount_vmhgfs
++	chmod u+s $(DESTDIR)$(sbindir)/mount_vmhgfs
+ uninstall-hook:
+-	$(RM) -f $(sbindir)/mount_vmhgfs
++	$(RM) -f $(DESTDIR)$(sbindir)/mount_vmhgfs
+ else
+ install-exec-hook:
+-	chown root $(sbindir)/mount.vmhgfs
+-	chmod u+s $(sbindir)/mount.vmhgfs
++	chown root $(DESTDIR)$(sbindir)/mount.vmhgfs
++	chmod u+s $(DESTDIR)$(sbindir)/mount.vmhgfs
+ endif !FREEBSD
+diff --git a/toolbox/Makefile.am b/toolbox/Makefile.am
+index 18508ec..544e9c7 100644
+--- a/toolbox/Makefile.am
++++ b/toolbox/Makefile.am
+@@ -62,14 +62,14 @@ vmware_toolbox_SOURCES += toolboxScripts.c
+ vmware_toolbox_SOURCES += toolboxShrink.c
+ 
+ install-exec-hook:
+-	$(INSTALL) -d $(datadir)/applications/
++	$(INSTALL) -d $(DESTDIR)$(datadir)/applications/
+ 	$(INSTALL) -m 644 ../scripts/common/vmware-toolbox.desktop \
+-		$(datadir)/applications/
++		$(DESTDIR)$(datadir)/applications/
+ 	$(SED) -i s/Exec=.*/Exec=vmware-toolbox/ \
+-		$(datadir)/applications/vmware-toolbox.desktop
+-	$(INSTALL) -d /usr/share/pixmaps/vmware
++		$(DESTDIR)$(datadir)/applications/vmware-toolbox.desktop
++	$(INSTALL) -d $(DESTDIR)/usr/share/pixmaps/vmware
+ 	$(INSTALL) -m 644 bigIcon.xpm \
+-		/usr/share/pixmaps/vmware/vmware-toolbox.xpm
++		$(DESTDIR)/usr/share/pixmaps/vmware/vmware-toolbox.xpm
+ uninstall-hook:
+-	-$(RM) -f $(datadir)/share/applications/vmware-toolbox.desktop
+-	-$(RM) -rf /usr/share/pixmaps/vmware
++	-$(RM) -f $(DESTDIR)$(datadir)/share/applications/vmware-toolbox.desktop
++	-$(RM) -rf $(DESTDIR)/usr/share/pixmaps/vmware
+diff --git a/vmware-user/Makefile.am b/vmware-user/Makefile.am
+index 0f64cc9..4a7133e 100644
+--- a/vmware-user/Makefile.am
++++ b/vmware-user/Makefile.am
+@@ -89,8 +89,8 @@ vmware_user_SOURCES += pointer.c
+ vmware_user_SOURCES += vmware-user.c
+ 
+ install-exec-hook:
+-	$(INSTALL) -d $(datadir)/applications/
++	$(INSTALL) -d $(DESTDIR)$(datadir)/applications/
+ 	$(INSTALL) -m 644 ../scripts/common/vmware-user.desktop \
+-		$(datadir)/applications/
++		$(DESTDIR)$(datadir)/applications/
+ uninstall-hook:
+-	-$(RM) -f $(datadir)/applications/vmware-user.desktop
++	-$(RM) -f $(DESTDIR)$(datadir)/applications/vmware-user.desktop

@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  12 Jul 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/open-vm-tools/files/makefile-destdir.patch:
+  Version bump open-vm-tools, and use internal install mechanism.
+
   18 Jun 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-modules/files/1.0.0.20-makefile-kernel-dir.patch:
   Fix up vmware-modules for kernel directory issues (bug 227941).
