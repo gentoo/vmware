@@ -3,6 +3,11 @@
 # $ Id: $
 
   19 Aug 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-modules/vmware-modules-1.0.0.20.ebuild:
+  Clean up UNUSED_SYMBOLS check. Also forgot to thank Jeff Mitchell for his
+  patches in the last update. Thanks Jeff!
+
+  19 Aug 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-workstation/files/6.5.0.99530/000_all_initd-location
   .patch,
   +app-emulation/vmware-workstation/files/6.5.0.99530/001_all_fix-permission
@@ -24,7 +29,7 @@
   +app-emulation/vmware-modules/files/1.0.0.20-vmmon-2.6.26.patch:
   Add in vmware-server 2 new beta, vmware-workstation 6 new beta, and module
   fixes for 1.0.0.20 courtesy of Cyrius who did a great job with the
-  patches. Thanks Cyrius\!
+  patches. Thanks Cyrius!
 
   12 Jul 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/open-vm-tools/files/makefile-destdir.patch:
