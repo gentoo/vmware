@@ -3,6 +3,10 @@
 # $ Id: $
 
   19 Aug 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-server/vmware-server-2.0.0.101586.ebuild:
+  Remove the broken vmware-server ebuild.
+
+  19 Aug 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-modules/vmware-modules-1.0.0.20.ebuild:
   Clean up UNUSED_SYMBOLS check. Also forgot to thank Jeff Mitchell for his
   patches in the last update. Thanks Jeff!
