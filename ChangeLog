@@ -2,6 +2,30 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  19 Aug 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-workstation/files/6.5.0.99530/000_all_initd-location
+  .patch,
+  +app-emulation/vmware-workstation/files/6.5.0.99530/001_all_fix-permission
+  s.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.99530/002_all_pagebreak-dete
+  ction-fix.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.99530/004_all_do-not-build-m
+  odules.patch,
+  +app-emulation/vmware-modules/files/1.0.0.20-vmblock-2.6.26-1.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.99530/007_all_use-modprobe-o
+  ver-insmod.patch,
+  +app-emulation/vmware-modules/files/1.0.0.20-vmblock-2.6.26-2.patch,
+  +app-emulation/vmware-modules/files/1.0.0.21-makefile-kernel-dir.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.99530/009_all_init.d-modules
+  -warning.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.99530/011_all_legit-modules-
+  only.patch,
+  +app-emulation/vmware-modules/files/1.0.0.20-vmnet-2.6.26.patch,
+  +app-emulation/vmware-modules/files/1.0.0.20-vmmon-2.6.26.patch:
+  Add in vmware-server 2 new beta, vmware-workstation 6 new beta, and module
+  fixes for 1.0.0.20 courtesy of Cyrius who did a great job with the
+  patches. Thanks Cyrius\!
+
   12 Jul 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/open-vm-tools/files/makefile-destdir.patch:
   Version bump open-vm-tools, and use internal install mechanism.

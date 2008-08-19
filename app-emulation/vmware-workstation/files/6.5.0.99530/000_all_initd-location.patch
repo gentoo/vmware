@@ -1,0 +1,33 @@
+diff --git a/bin/vmware-config.pl b/bin/vmware-config.pl
+index 88cdb5d..1fcd2f3 100755
+--- a/bin/vmware-config.pl
++++ b/bin/vmware-config.pl
+@@ -11038,7 +11038,7 @@ sub main {
+          error('Please shut down any running VMs and run this script again.' .
+                "\n\n");
+       } else {
+-         if (system(shell_string(db_get_answer('INITSCRIPTSDIR') . '/vmware')
++         if (system(shell_string('/etc/init.d' . '/vmware')
+                     . ' stop')) {
+             error('Unable to stop services for ' . vmware_product_name() .  "\n\n");
+          }
+@@ -11090,8 +11090,8 @@ sub main {
+ 
+   if (isDesktopProduct()) {
+     build_vmblock();
+-    createMimePackageFile();
+-    configureDesktopFiles();
++    # createMimePackageFile();
++    # configureDesktopFiles();
+     if (vmware_binary() ne "vmplayer") {
+       configure_eclipse_plugin();
+     } 
+@@ -11190,7 +11190,7 @@ sub main {
+   db_save();
+   # Then start VMware's services
+   if (!$gOption{'skip-stop-start'}) {
+-    system(shell_string(db_get_answer('INITSCRIPTSDIR') . '/vmware') . ' start');
++    system(shell_string('/etc/init.d' . '/vmware') . ' start');
+     print "\n";
+   }
+ 

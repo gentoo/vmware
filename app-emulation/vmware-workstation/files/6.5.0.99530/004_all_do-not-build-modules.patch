@@ -1,0 +1,24 @@
+diff --git a/bin/vmware-config.pl b/bin/vmware-config.pl
+index b5315c9..9d8db1e 100755
+--- a/bin/vmware-config.pl
++++ b/bin/vmware-config.pl
+@@ -10413,15 +10413,15 @@ sub main {
+     configure_vsock();
+     configure_pp();
+ 
+-    if (vmware_product() eq 'wgs') {
++    #if (vmware_product() eq 'wgs') {
+ 	configure_net();
+-    }
++    #}
+ 
+-    build_vmnet();
++    # build_vmnet();
+   }
+ 
+   if (isDesktopProduct()) {
+-    build_vmblock();
++    # build_vmblock();
+     # createMimePackageFile();
+     # configureDesktopFiles();
+     configure_eclipse_plugin();

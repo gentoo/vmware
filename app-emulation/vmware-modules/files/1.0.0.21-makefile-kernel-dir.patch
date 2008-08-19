@@ -1,0 +1,48 @@
+diff --git a/vmblock-only/Makefile b/vmblock-only/Makefile
+index e7d18b5..02e2cf3 100644
+--- a/vmblock-only/Makefile
++++ b/vmblock-only/Makefile
+@@ -14,9 +14,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR) 
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmblock
+ 
+diff --git a/vmmon-only/Makefile b/vmmon-only/Makefile
+index 1707ffc..165da0a 100644
+--- a/vmmon-only/Makefile
++++ b/vmmon-only/Makefile
+@@ -14,9 +14,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmmon
+ 
+diff --git a/vmnet-only/Makefile b/vmnet-only/Makefile
+index cd24c8c..a085f96 100644
+--- a/vmnet-only/Makefile
++++ b/vmnet-only/Makefile
+@@ -14,9 +14,9 @@ SRCROOT = .
+ VM_UNAME = $(shell uname -r)
+ 
+ # Header directory for the running kernel
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmnet
+ 

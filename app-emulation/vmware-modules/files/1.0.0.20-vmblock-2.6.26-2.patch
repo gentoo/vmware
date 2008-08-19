@@ -1,0 +1,52 @@
+--- vmblock-only/linux/filesystem.c	2008-08-08 15:27:46.000000000 +0200
++++ vmblock-only/linux/filesystem.c	2008-08-08 18:34:57.000000000 +0200
+@@ -64,7 +64,11 @@ static char const *fsRoot;
+ static size_t fsRootLen;
+ static struct file_system_type fsType = {
+    .owner = THIS_MODULE,
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 26)
+    .name = VMBLOCK_FS_NAME,
++#else
++   .name = VMBLOCK_FS_NAME_I,
++#endif
+ #if KERNEL_25_FS
+    .get_sb = FsOpGetSb,
+    .kill_sb = kill_anon_super,
+@@ -506,8 +510,11 @@ FsOpReadSuper(struct super_block *sb, //
+    rootInode->i_op = &RootInodeOps;
+    rootInode->i_fop = &RootFileOps;
+    rootInode->i_mode = S_IFDIR | S_IRUGO | S_IXUGO;
+-
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 26)
+    LOG(4, "%s file system mounted\n", VMBLOCK_FS_NAME);
++#else
++   LOG(4, "%s file system mounted\n", VMBLOCK_FS_NAME_I);
++#endif
+    return 0;
+ }
+ 
+--- vmblock-only/include/vmblock.h	2008-08-08 15:27:46.000000000 +0200
++++ vmblock-only/include/vmblock.h	2008-08-08 18:37:45.000000000 +0200
+@@ -22,7 +22,8 @@
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 26)
+ # define VMBLOCK_FS_NAME                "vmblock"
+ #else
+-# define VMBLOCK_FS_NAME                "fs/vmblock"
++# define VMBLOCK_FS_NAME_I              "vmblock"
++# define VMBLOCK_FS_NAME                "fs/" VMBLOCK_FS_NAME_I
+ #endif
+ /* Commands for the control half of vmblock driver */
+ #if defined(linux)
+@@ -53,7 +54,11 @@
+ # ifdef VMX86_DEVEL
+ #  define VMBLOCK_LIST_FILEBLOCKS       _IO('v', 3)
+ # endif
+-# define VMBLOCK_MOUNT_POINT            "/var/run/" VMBLOCK_FS_NAME
++# if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 26)
++#   define VMBLOCK_MOUNT_POINT            "/var/run/" VMBLOCK_FS_NAME
++# else
++#   define VMBLOCK_MOUNT_POINT            "/var/run/" VMBLOCK_FS_NAME_I
++#endif
+ # define VMBLOCK_DEVICE                 VMBLOCK_MOUNT_POINT
+ # define VMBLOCK_DEVICE_MODE            O_RDONLY
+ # define VMBLOCK_CONTROL(fd, op, path)  ioctl(fd, op, path)
