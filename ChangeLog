@@ -4,6 +4,10 @@
 
   20 Aug 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild:
+  Finally get the open-vm-tools unity dependencies right.
+
+  20 Aug 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild:
   Fix up the unity USE flag in open-vm-tools.
 
   20 Aug 2008; Mike Auty <ikelos@gentoo.org>
