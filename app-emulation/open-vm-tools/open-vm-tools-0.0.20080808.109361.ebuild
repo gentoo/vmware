@@ -26,6 +26,9 @@ DEPEND="
 			x11-libs/libX11
 			x11-libs/gtk+
 			)
+		unity? (
+			x11-libs/libXss
+		)	
 		xinerama? (
 			x11-libs/libXinerama
 			)
@@ -43,6 +46,9 @@ RDEPEND="${DEPEND/virtual\/linux\-sources/}
 			x11-base/xorg-server
 			x11-drivers/xf86-video-vmware
 			x11-drivers/xf86-input-vmmouse
+		 )
+		 unity? (
+			x11-libs/libXss
 		 )
 "
 
