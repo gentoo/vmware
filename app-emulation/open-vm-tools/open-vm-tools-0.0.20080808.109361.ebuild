@@ -27,7 +27,7 @@ DEPEND="
 			x11-libs/gtk+
 			)
 		unity? (
-			x11-libs/libXss
+			x11-libs/libXScrnSaver
 		)	
 		xinerama? (
 			x11-libs/libXinerama
@@ -48,7 +48,7 @@ RDEPEND="${DEPEND/virtual\/linux\-sources/}
 			x11-drivers/xf86-input-vmmouse
 		 )
 		 unity? (
-			x11-libs/libXss
+			x11-libs/libXScrnSaver
 		 )
 "
 
