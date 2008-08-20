@@ -1,0 +1,5 @@
+#!/bin/sh
+# launches the open-vm-tool user daemon
+
+/etc/init.d/vmware-tools --quiet status && \
+    vmware-user &
