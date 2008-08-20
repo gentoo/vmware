@@ -84,6 +84,7 @@ src_compile() {
 	--without-kernel-modules \
 	$(use_with icu) \
 	$(use_with X x) \
+	$(use_enable unity) \
 	$(use_enable xinerama multimon) \
 	|| die "Error: econf failed!"
 
