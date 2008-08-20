@@ -18,7 +18,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="X xinerama icu"
+IUSE="X xinerama icu unity"
 DEPEND="
 		virtual/linux-sources
 		sys-apps/ethtool
