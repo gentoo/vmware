@@ -132,7 +132,7 @@ src_install() {
 	rm ${D}${ICONDIR}/index.theme
 	mkdir -p ${D}/usr/share/icons
 	mv ${D}${ICONDIR} ${D}/usr/share/icons
-	ln -s /usr/share/icons/hicolor ${D}${ICONSDIR}
+	ln -s /usr/share/icons/hicolor ${D}${ICONDIR}
 
 	# install .desktop files:
 	insinto /usr/share/applications
