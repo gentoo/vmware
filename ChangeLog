@@ -2,6 +2,20 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  14 Sep 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-player/files/1.0.8.108000/007_all_use-modprobe-over-i
+  nsmod.patch,
+  app-emulation/vmware-player/files/2.0.5.109488/007_all_use-modprobe-over-i
+  nsmod.patch,
+  app-emulation/vmware-workstation/files/5.5.8.108000/007_all_use-modprobe-o
+  ver-insmod.patch,
+  app-emulation/vmware-workstation/files/6.0.5.109488/007_all_use-modprobe-o
+  ver-insmod.patch,
+  app-emulation/vmware-workstation/files/6.5.0.99530/007_all_use-modprobe-ov
+  er-insmod.patch:
+  Bump various vmware products and remove modprobe forcing (since it's now
+  optional in kernels >2.6.25).
+
   21 Aug 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-workstation/vmware-workstation-6.0.4.93057.ebuild,
   app-emulation/vmware-workstation/vmware-workstation-6.5.0.91182.ebuild,

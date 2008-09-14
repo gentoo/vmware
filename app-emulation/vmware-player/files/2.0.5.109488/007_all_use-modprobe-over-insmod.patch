@@ -6,7 +6,7 @@ diff -uNr vmware-server-distrib/installer/services.sh vmware-server-distrib.new/
  
  vmware_load_module() {
 -   /sbin/insmod -s -f "/lib/modules/`uname -r`/misc/$1.o" || exit 1
-+   /sbin/modprobe -s -f "$1" || exit 1
++   /sbin/modprobe -s "$1" || exit 1
     exit 0
  }
  

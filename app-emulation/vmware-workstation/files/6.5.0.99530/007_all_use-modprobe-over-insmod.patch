@@ -7,7 +7,7 @@ index 095f1b5..f883c2f 100755
  
  vmware_load_module() {
 -   /sbin/insmod -s -f "/lib/modules/`uname -r`/misc/$1.o" || exit 1
-+   /sbin/modprobe -s -f "$1" || exit 1
++   /sbin/modprobe -s "$1" || exit 1
     return 0
  }
  
