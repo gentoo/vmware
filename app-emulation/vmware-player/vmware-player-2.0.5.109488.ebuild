@@ -33,9 +33,9 @@ RDEPEND="sys-libs/glibc
 	virtual/xft
 	!app-emulation/vmware-workstation
 	!app-emulation/vmware-server
-	~app-emulation/vmware-modules-1.0.0.20
-	!<app-emulation/vmware-modules-1.0.0.20
-	!>=app-emulation/vmware-modules-1.0.0.21
+	~app-emulation/vmware-modules-1.0.0.22
+	!<app-emulation/vmware-modules-1.0.0.22
+	!>=app-emulation/vmware-modules-1.0.0.23
 	>=dev-lang/perl-5
 	sys-apps/pciutils"
 
