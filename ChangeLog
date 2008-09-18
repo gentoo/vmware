@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  18 Sep 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild:
+  Fix up open-vm-tools to install the xinitrc script executably.
+
   14 Sep 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-player/files/1.0.8.108000/007_all_use-modprobe-over-i
   nsmod.patch,
