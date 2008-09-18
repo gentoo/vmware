@@ -3,6 +3,10 @@
 # $ Id: $
 
   18 Sep 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-modules/Manifest:
+  Remove vmware-modules for expired vmware-workstation beta.
+
+  18 Sep 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-workstation/Manifest:
   Remove expired vmware-workstation beta.
 
