@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  15 Oct 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-workstation/files/vmware-workstation-6.5.0.118166-in
+  staller.patch, +app-emulation/vmware-workstation/files/unbundler.sh:
+  Add in 6.5.0 patches and auxiliary files for testing.
+
   18 Sep 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-modules/Manifest:
   Remove vmware-modules for expired vmware-workstation beta.
