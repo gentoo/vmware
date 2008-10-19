@@ -3,6 +3,11 @@
 # $ Id: $
 
   19 Oct 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
+  app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
+  Ensure python requires sqlite.
+
+  19 Oct 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-player/files/2.5.0.118166/vmware-player.py.patch,
   +app-emulation/vmware-workstation/files/6.5.0.118166/vmware-player.py.patc
   h, +app-emulation/vmware-player/files/vmware-player-2.5.rc,

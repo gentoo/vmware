@@ -25,6 +25,7 @@ RESTRICT="strip fetch"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
+DEPEND=">=dev-lang/python-2.5"
 RDEPEND="sys-libs/glibc
 	x11-libs/libXrandr
 	x11-libs/libXcursor
@@ -40,7 +41,6 @@ RDEPEND="sys-libs/glibc
 	~app-emulation/vmware-modules-1.0.0.23
 	!<app-emulation/vmware-modules-1.0.0.23
 	!>=app-emulation/vmware-modules-1.0.0.24
-	>=dev-lang/perl-5
 	sys-apps/pciutils"
 
 S=${WORKDIR}/vmware-distrib
@@ -56,6 +56,11 @@ pkg_setup() {
 	if ! built_with_use ">=dev-cpp/gtkmm-2.4" accessibility ; then
 		eerror "Rebuild dev-cpp/gtkmm with USE=\"accessibility\""
 		die "VMware workstation only works with gtkmm built with USE=\"accessibility\"."
+	fi
+
+	if ! built_with_use '>=dev-lang/python-2.5' sqlite; then
+		eerror "You need build dev-lang/python with \"sqlite\" USE flag!"
+		die "Please rebuild dev-lang/python with sqlite USE flag!"
 	fi
 }
 
