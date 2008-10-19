@@ -3,6 +3,10 @@
 # $ Id: $
 
   19 Oct 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-modules/Manifest:
+  Fix up manifest for amd64 vmware-modules-1.0.0.23.
+
+  19 Oct 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
   app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
   Ensure python requires sqlite.
