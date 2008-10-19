@@ -1,4 +1,4 @@
-#!/bin/bash -x 
+#!/bin/bash
 
 ORIGFILE="$1"
 
@@ -72,8 +72,7 @@ fi
 set_offsets ${ORIGFILE}
 set_lengths ${ORIGFILE}
 
-echo "Launcher ${LAUNCHER_SIZE}"
-echo "Skip bytes ${SKIP_BYTES}"
+echo "Unbundling" ${ORIGFILE}
 
 PREPAYLOAD="prepayload"
 PAYLOAD="payload"
@@ -81,12 +80,12 @@ PAYLOAD="payload"
 # Unpack the pre-payload file
 mkdir ${PREPAYLOAD}
 cd ${PREPAYLOAD}
-dd if="${ORIGFILE}" ibs=$LAUNCHER_SIZE obs=1024 skip=1 | tar -xzf -
+dd if="${ORIGFILE}" ibs=$LAUNCHER_SIZE obs=1024 skip=1 | tar -xzf - 2> /dev/null
 cd ..
 
 # Unpack the main file
 mkdir ${PAYLOAD}
 cd ${PAYLOAD}
-dd if="${ORIGFILE}" ibs=$SKIP_BYTES obs=1024 skip=1 | tar -xzf -
+dd if="${ORIGFILE}" ibs=$SKIP_BYTES obs=1024 skip=1 | tar -xzf - 2> /dev/null
 cd ..
 

@@ -2,6 +2,30 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  19 Oct 2008; Mike Auty <ikelos@gentoo.org>
+  +app-emulation/vmware-player/files/2.5.0.118166/vmware-player.py.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.118166/vmware-player.py.patc
+  h, +app-emulation/vmware-player/files/vmware-player-2.5.rc,
+  app-emulation/vmware-workstation/files/vmware-workstation-6.5.0.118166-ins
+  taller.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.118166/vmware-player-extras.
+  py.patch,
+  +app-emulation/vmware-workstation/files/vmware-workstation-6.5.rc,
+  +app-emulation/vmware-player/files/2.5.0.118166/vmware-player-extras.py.pa
+  tch,
+  +app-emulation/vmware-workstation/files/6.5.0.118166/vmware-vix.py.patch,
+  +app-emulation/vmware-workstation/files/6.5.0.118166/vmware-workstation.py
+  .patch,
+  +app-emulation/vmware-player/files/vmware-player-2.5.0.118166-installer.pa
+  tch, +app-emulation/vmware-player/files/helpers/module_patcher.sh,
+  +app-emulation/vmware-player/files/helpers/unbundler.sh,
+  +app-emulation/vmware-player/files/helpers/vmware-config.sh,
+  +app-emulation/vmware-workstation/files/helpers/module_patcher.sh,
+  +app-emulation/vmware-workstation/files/helpers/unbundler.sh,
+  +app-emulation/vmware-workstation/files/helpers/vmware-config.sh,
+  -app-emulation/vmware-workstation/files/unbundler.sh:
+  Initial attempt at bundle installers.
+
   15 Oct 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-workstation/files/vmware-workstation-6.5.0.118166-in
   staller.patch, +app-emulation/vmware-workstation/files/unbundler.sh:

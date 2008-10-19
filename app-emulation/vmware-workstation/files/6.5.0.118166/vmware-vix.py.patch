@@ -1,0 +1,14 @@
+diff --git a/vmware-vix.py b/vmware-vix.py
+index ac64dc5..8fdc2b2 100644
+--- a/vmware-vix.py
++++ b/vmware-vix.py
+@@ -4,7 +4,8 @@ Copyright 2007 VMware, Inc.  All rights reserved. -- VMware Confidential
+ VIX component installer.
+ """
+ DEST = LIBDIR/'vmware-vix'
+-conf = DEST/'setup/vmware-config'
++import os
++conf = path(os.environ['WORKDIR'])/'vmware-config.sh'
+ 
+ class VIX(Installer):
+    def InitializeInstall(self, old, new, upgrade):

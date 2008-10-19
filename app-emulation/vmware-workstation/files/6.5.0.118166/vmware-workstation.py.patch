@@ -1,0 +1,14 @@
+diff --git a/vmware-workstation.py b/vmware-workstation.py
+index 55476d9..313ecdb 100644
+--- a/vmware-workstation.py
++++ b/vmware-workstation.py
+@@ -4,7 +4,8 @@ Copyright 2008 VMware, Inc.  All rights reserved. -- VMware Confidential
+ VMware Workstation component installer.
+ """
+ DEST = LIBDIR/'vmware'
+-conf = DEST/'setup/vmware-config'
++import os
++conf = path(os.environ['WORKDIR'])/'vmware-config.sh'
+ 
+ class Workstation(Installer):
+    def PreTransactionInstall(self, old, new, upgrade):
