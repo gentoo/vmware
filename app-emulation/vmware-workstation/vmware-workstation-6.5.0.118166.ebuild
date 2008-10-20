@@ -25,7 +25,8 @@ RESTRICT="strip fetch binchecks"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
-DEPEND=">=dev-lang/python-2.5"
+DEPEND=">=dev-lang/python-2.5
+		dev-python/lxml"
 RDEPEND="sys-libs/glibc
 	x11-libs/libXrandr
 	x11-libs/libXcursor

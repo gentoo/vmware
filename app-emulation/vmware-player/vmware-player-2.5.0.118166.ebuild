@@ -25,7 +25,8 @@ RESTRICT="strip binchecks"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
-DEPEND=">=dev-lang/python-2.5"
+DEPEND=">=dev-lang/python-2.5
+		dev-python/lxml"
 RDEPEND="sys-libs/glibc
 	x11-libs/libXrandr
 	x11-libs/libXcursor
@@ -107,6 +108,15 @@ src_install() {
 
 	# Redirect all the ${D} paths to / paths"
 	sed -i -e "s:${D}::" ${WORKDIR}/vmware-confdir/bootstrap
+	
+	# Fix up icons/mime/desktop handlers
+	dodir /usr/share/
+	mv ${D}${VM_INSTALL_DIR}/share/applications ${D}/usr/share/
+	rm -f ${D}${VM_INSTALL_DIR}/share/icons/hicolor/{icon-theme.cache,index.theme}
+	mv ${D}${VM_INSTALL_DIR}/share/icons ${D}/usr/share/
+	dodir /usr/share/mime
+	mv ${D}${VM_INSTALL_DIR}/share/mime/{packages,application} ${D}/usr/share/mime
+	sed -i -e "s:${D}::" ${D}/usr/share/applications/*.desktop
 
 	# Copy across the temporary /etc/vmware directory
 	dodir /etc/vmware/init.d
