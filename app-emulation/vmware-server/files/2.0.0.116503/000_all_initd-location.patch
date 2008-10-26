@@ -18,9 +18,9 @@ diff -uNr vmware-server-distrib.orig/bin/vmware-config.pl vmware-server-distrib/
 -    configureDesktopFiles();
 +    # createMimePackageFile();
 +    # configureDesktopFiles();
-     configure_eclipse_plugin();
-   }
- 
+     if (vmware_binary() ne "vmplayer") {
+       configure_eclipse_plugin();
+     }
 @@ -10283,7 +10283,7 @@
    db_save();
    # Then start VMware's services

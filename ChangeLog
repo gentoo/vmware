@@ -2,6 +2,24 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  26 Oct 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-server/files/2.0.0.84186,
+  +app-emulation/vmware-server/files/2.0.0.116503/000_all_initd-location.pat
+  ch,
+  +app-emulation/vmware-server/files/2.0.0.116503/001_all_fix-permissions.pa
+  tch,
+  +app-emulation/vmware-server/files/2.0.0.116503/002_all_pagebreak-detectio
+  n-fix.patch,
+  +app-emulation/vmware-server/files/2.0.0.116503/004_all_do-not-build-modul
+  es.patch,
+  +app-emulation/vmware-server/files/2.0.0.116503/007_all_use-modprobe-over-
+  insmod.patch,
+  +app-emulation/vmware-server/files/2.0.0.116503/009_all_init.d-modules-war
+  ning.patch,
+  +app-emulation/vmware-server/files/2.0.0.116503/011_all_legit-modules-only
+  .patch:
+  Version bump vmware-server to 2.0.0.116503.
+
   20 Oct 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
   app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:

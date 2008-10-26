@@ -8,6 +8,6 @@ index bb9d04f..458a14b 100755
        my @modules = non_vmware_modules_installed();
 -      if (scalar(@modules) > 0) {
 +      if (scalar(@modules) < 0) {
- 	 error("The following VMware kernel modules have been found on your " .
- 	       "system that were not installed by the VMware Installer.  " .
- 	       "Please remove them then run this installer again.\n\n" .
+          my $osVersion = direct_command(shell_string($gHelper{'uname'}) . ' -r');
+          chomp($osVersion);
+          error("The following VMware kernel modules have been found on your " .

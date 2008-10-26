@@ -9,7 +9,7 @@
 inherit eutils versionator vmware
 
 MY_PV=$(replace_version_separator 3 '-' )
-MY_PV="e.x.p-$(get_version_component_range 4)"
+# MY_PV="e.x.p-$(get_version_component_range 4)"
 MY_PN="VMware-server-${MY_PV}"
 
 DESCRIPTION="VMware Server for Linux"
@@ -49,9 +49,9 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!<sys-apps/dbus-0.62
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
-	~app-emulation/vmware-modules-1.0.0.19
-	!<app-emulation/vmware-modules-1.0.0.19
-	!>=app-emulation/vmware-modules-1.0.0.20
+	~app-emulation/vmware-modules-1.0.0.23
+	!<app-emulation/vmware-modules-1.0.0.23
+	!>=app-emulation/vmware-modules-1.0.0.24
 	sys-apps/pciutils
 	virtual/pam
 	sys-apps/xinetd"
