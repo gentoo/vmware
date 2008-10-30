@@ -14,3 +14,8 @@ SRC_URI="x86? ( http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${P}.x86.tar.
 		 amd64? ( http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${P}.amd64.tar.bz2 )"
 VMWARE_MOD_DIR="${P}"
 
+src_unpack() {
+	vmware-mod_src_unpack
+	cd "${S}"
+	epatch "${FILESDIR}/${PV}-makefile-kernel-dir.patch"
+}
