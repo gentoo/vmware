@@ -1,5 +1,5 @@
 diff --git a/vmware-workstation.py b/vmware-workstation.py
-index 55476d9..313ecdb 100644
+index 55476d9..8dd4c0a 100644
 --- a/vmware-workstation.py
 +++ b/vmware-workstation.py
 @@ -4,7 +4,8 @@ Copyright 2008 VMware, Inc.  All rights reserved. -- VMware Confidential
@@ -12,3 +12,12 @@ index 55476d9..313ecdb 100644
  
  class Workstation(Installer):
     def PreTransactionInstall(self, old, new, upgrade):
+@@ -40,7 +41,7 @@ class Workstation(Installer):
+       self.AddPermission(DEST/'bin/*', BINARY)
+ 
+       eclipse = config.Get('vmware-workstation.eclipse')
+-      eclipse and self.AddTarget(Link, DEST/'eclipse-ivd/com.vmware.bfg_1.0.0',
++      False and self.AddTarget(Link, DEST/'eclipse-ivd/com.vmware.bfg_1.0.0',
+                                  Destination(eclipse)/'plugins/com.vmware.bfg_1.0.0')
+ 
+    def _vmwareMountRunnable(self, vmwareMount):

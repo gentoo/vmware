@@ -63,6 +63,10 @@ pkg_setup() {
 		eerror "You need build dev-lang/python with \"sqlite\" USE flag!"
 		die "Please rebuild dev-lang/python with sqlite USE flag!"
 	fi
+
+	if [ "$(python -c "import curses; curses.setupterm(); print curses.tigetstr('hpa')")" == "" ]; then
+		die "Please emerge this package using a different terminal"
+	fi
 }
 
 pkg_nofetch() {
@@ -115,7 +119,7 @@ src_install() {
 	rm -f ${D}${VM_INSTALL_DIR}/share/icons/hicolor/{icon-theme.cache,index.theme}
 	mv ${D}${VM_INSTALL_DIR}/share/icons ${D}/usr/share/
 	dodir /usr/share/mime
-	mv ${D}${VM_INSTALL_DIR}/share/mime/{packages,application} ${D}/usr/share/mime
+	mv ${D}${VM_INSTALL_DIR}/share/mime/packages ${D}/usr/share/mime
 	sed -i -e "s:${D}::" ${D}/usr/share/applications/*.desktop
 
 	# Copy across the temporary /etc/vmware directory
@@ -124,6 +128,19 @@ src_install() {
 	mv "${D}"/etc/init.d/* "${D}/etc/vmware/init.d"
 	newinitd ${FILESDIR}/${PN}-6.5.rc vmware
 	touch ${D}/etc/vmware/networking
+
+	# Setup the path environment
+	insinto /etc/env.d
+	doins ${FILESDIR}/90${PN}
+
+	# Fix some paths to allow included gtk to work
+	for i in 	"/etc/pango/pangorc" 			\
+				"/etc/pango/pango.modules"		\
+				"/etc/gtk-2.0/gtk.immodules"	\
+				"/etc/gtk-2.0/gdk-pixbuf.loaders" ; do	
+		sed -i -e "s:${D}::" ${D}${VM_INSTALL_DIR}/lib/vmware/libconf${i} ;
+		sed -i -e "s:${D}::" ${D}${VM_INSTALL_DIR}/lib/vmware/installer/lib/libconf${i} ;
+	done
 
 	# No idea why this happens, but it seems to happen all the time
 	ewarn "The following installation segment takes a *very* long time."
