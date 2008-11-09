@@ -3,6 +3,14 @@
 # $ Id: $
 
   09 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server/vmware-server-1.0.8.126538.ebuild,
+  app-emulation/vmware-server-console/vmware-server-console-1.0.8.126538.ebu
+  ild, app-emulation/vmware-server/vmware-server-2.0.0.122956.ebuild,
+  app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
+  app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
+  Add in -* keyword for clarity.
+
+  09 Nov 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild,
   +app-emulation/open-vm-tools/open-vm-tools-0.0.20081010.123053.ebuild,
   app-emulation/vmware-server/vmware-server-1.0.8.126538.ebuild,

@@ -26,7 +26,7 @@ SRC_URI="
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="-* ~x86 ~amd64"
 RESTRICT="strip"
 
 DEPEND=">=sys-libs/glibc-2.3.5

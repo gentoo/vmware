@@ -21,7 +21,7 @@ SRC_URI="mirror://vmware/software/vmserver/${FN}.zip"
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="-* ~amd64 ~x86"
 RESTRICT="strip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
