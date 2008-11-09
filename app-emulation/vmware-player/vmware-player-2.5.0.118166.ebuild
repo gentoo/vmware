@@ -19,7 +19,7 @@ SRC_URI="
 
 LICENSE="vmware"
 SLOT="0"
-KEYWORDS="-x86 -amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 RESTRICT="strip binchecks"
 
@@ -111,35 +111,35 @@ src_install() {
 	rm -fr "${D}${VM_INSTALL_DIR}/lib/vmware/modules/binary"
 
 	# Redirect all the ${D} paths to / paths"
-	sed -i -e "s:${D}::" ${WORKDIR}/vmware-confdir/bootstrap
-	
+	sed -i -e "s:${D}::" "${WORKDIR}"/vmware-confdir/bootstrap
+
 	# Fix up icons/mime/desktop handlers
 	dodir /usr/share/
-	mv ${D}${VM_INSTALL_DIR}/share/applications ${D}/usr/share/
-	rm -f ${D}${VM_INSTALL_DIR}/share/icons/hicolor/{icon-theme.cache,index.theme}
-	mv ${D}${VM_INSTALL_DIR}/share/icons ${D}/usr/share/
+	mv "${D}${VM_INSTALL_DIR}"/share/applications "${D}"/usr/share/
+	rm -f "${D}${VM_INSTALL_DIR}"/share/icons/hicolor/{icon-theme.cache,index.theme}
+	mv "${D}${VM_INSTALL_DIR}"/share/icons "${D}"/usr/share/
 	dodir /usr/share/mime
-	mv ${D}${VM_INSTALL_DIR}/share/mime/packages ${D}/usr/share/mime
-	sed -i -e "s:${D}::" ${D}/usr/share/applications/*.desktop
+	mv "${D}${VM_INSTALL_DIR}"/share/mime/packages "${D}"/usr/share/mime
+	sed -i -e "s:${D}::" "${D}"/usr/share/applications/*.desktop
 
 	# Copy across the temporary /etc/vmware directory
 	dodir /etc/vmware/init.d
 	cp -r "${WORKDIR}"/vmware-confdir/* "${D}/etc/vmware"
 	mv "${D}"/etc/init.d/* "${D}/etc/vmware/init.d"
-	newinitd ${FILESDIR}/${PN}-2.5.rc vmware
-	touch ${D}/etc/vmware/networking
+	newinitd "${FILESDIR}/${PN}"-2.5.rc vmware
+	touch "${D}"/etc/vmware/networking
 
 	# Setup the path environment
 	insinto /etc/env.d
-	doins ${FILESDIR}/90${PN}
+	doins "${FILESDIR}/90${PN}"
 
 	# Fix some paths to allow included gtk to work
 	for i in 	"/etc/pango/pangorc" 			\
 				"/etc/pango/pango.modules"		\
 				"/etc/gtk-2.0/gtk.immodules"	\
-				"/etc/gtk-2.0/gdk-pixbuf.loaders" ; do	
-		sed -i -e "s:${D}::" ${D}${VM_INSTALL_DIR}/lib/vmware/libconf${i} ;
-		sed -i -e "s:${D}::" ${D}${VM_INSTALL_DIR}/lib/vmware/installer/lib/libconf${i} ;
+				"/etc/gtk-2.0/gdk-pixbuf.loaders" ; do
+		sed -i -e "s:${D}::" "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf${i} ;
+		sed -i -e "s:${D}::" "${D}${VM_INSTALL_DIR}"/lib/vmware/installer/lib/libconf${i} ;
 	done
 
 	# No idea why this happens, but it seems to happen all the time

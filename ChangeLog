@@ -3,6 +3,16 @@
 # $ Id: $
 
   09 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild,
+  +app-emulation/open-vm-tools/open-vm-tools-0.0.20081010.123053.ebuild,
+  app-emulation/vmware-server/vmware-server-1.0.8.126538.ebuild,
+  app-emulation/vmware-server-console/vmware-server-console-1.0.8.126538.ebu
+  ild, app-emulation/vmware-player/vmware-player-1.0.9.126128.ebuild,
+  app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
+  app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
+  Fix up minor issues and bump open-vm-tools to the latest version.
+
+  09 Nov 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-workstation/files/6.5.0.118166/vmware-workstation.py.
   patch:
   Fix up some bugs (path, env.d-path, eclipse, mime & term) in

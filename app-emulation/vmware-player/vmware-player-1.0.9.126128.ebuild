@@ -8,7 +8,7 @@ S=${WORKDIR}/vmware-player-distrib
 MY_P="VMware-player-$(get_version_component_range 1-3)-$(get_version_component_range 4)"
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/player/"
-SRC_URI="http://download3.vmware.com/software/vmplayer/${MY_P}.tar.gz
+SRC_URI="mirror://vmware/software/vmplayer/${MY_P}.tar.gz
 	http://platan.vc.cvut.cz/ftp/pub/vmware/${ANY_ANY}.tar.gz
 	http://platan.vc.cvut.cz/ftp/pub/vmware/obsolete/${ANY_ANY}.tar.gz
 	http://ftp.cvut.cz/vmware/${ANY_ANY}.tar.gz

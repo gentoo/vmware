@@ -16,12 +16,12 @@ S="${WORKDIR}/${PN}-distrib"
 
 DESCRIPTION="VMware Remote Console for Linux"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${FN}.zip"
+SRC_URI="mirror://vmware/software/vmserver/${FN}.zip"
 
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* amd64 x86"
+KEYWORDS="~amd64 ~x86"
 RESTRICT="strip"
 
 DEPEND=">=sys-libs/glibc-2.3.5
