@@ -10,10 +10,10 @@ DESCRIPTION="Emulate a complete PC on your PC without the usual performance over
 HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
 SRC_URI="
 	x86? (
-		mirror://vmware/software/wkst/${MY_PN}.i386.bundle
+		mirror://vmware/software/vmplayer/${MY_PN}.i386.bundle
 		http://download.softpedia.ro/linux/${MY_PN}.i386.bundle )
 	amd64? (
-		mirror://vmware/software/wkst/${MY_PN}.x86_64.bundle
+		mirror://vmware/software/vmplayer/${MY_PN}.x86_64.bundle
 		http://download.softpedia.ro/linux/${MY_PN}.x86_64.bundle )
 	"
 

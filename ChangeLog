@@ -2,6 +2,85 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  09 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-modules/files/1.0.0.19-makefile-kernel-dir.patch,
+  -app-emulation/vmware-player/files/1.0.8.108000,
+  -app-emulation/vmware-workstation/files/5.5.8.108000,
+  +app-emulation/vmware-player/files/1.0.9.126128/004_all_do-not-build-modul
+  es.patch, -app-emulation/vmware-server/files/2.0.0.116503,
+  +app-emulation/vmware-server/files/2.0.0.122956/000_all_initd-location.pat
+  ch,
+  +app-emulation/vmware-player/files/1.0.9.126128/007_all_use-modprobe-over-
+  insmod.patch,
+  +app-emulation/vmware-workstation/files/5.5.9.126128/000_all_initd-locatio
+  n.patch,
+  +app-emulation/vmware-workstation/files/5.5.9.126128/001_all_fix-permissio
+  ns.patch,
+  +app-emulation/vmware-player/files/1.0.9.126128/009_all_init.d-modules-war
+  ning.patch,
+  -app-emulation/vmware-player/files/2.0.5.109488/000_all_initd-location.pat
+  ch,
+  +app-emulation/vmware-server/files/2.0.0.122956/001_all_fix-permissions.pa
+  tch,
+  +app-emulation/vmware-workstation/files/5.5.9.126128/002_all_pagebreak-det
+  ection-fix.patch,
+  -app-emulation/vmware-player/files/2.0.5.109488/001_all_fix-permissions.pa
+  tch,
+  +app-emulation/vmware-server/files/2.0.0.122956/002_all_pagebreak-detectio
+  n-fix.patch,
+  -app-emulation/vmware-player/files/2.0.5.109488/002_all_pagebreak-detectio
+  n-fix.patch,
+  +app-emulation/vmware-workstation/files/5.5.9.126128/004_all_do-not-build-
+  modules.patch,
+  +app-emulation/vmware-workstation/files/5.5.9.126128/007_all_use-modprobe-
+  over-insmod.patch,
+  -app-emulation/vmware-modules/files/1.0.0.17-update115-nasty-hack.patch,
+  -app-emulation/vmware-player/files/2.0.5.109488/004_all_do-not-build-modul
+  es.patch,
+  +app-emulation/vmware-server/files/2.0.0.122956/004_all_do-not-build-modul
+  es.patch,
+  -app-emulation/vmware-modules/files/1.0.0.20-vmblock-2.6.26-1.patch,
+  +app-emulation/vmware-player/files/1.0.9.126128/000_all_initd-location.pat
+  ch,
+  -app-emulation/vmware-player/files/2.0.5.109488/011_all_legit-modules-only
+  .patch,
+  +app-emulation/vmware-server/files/2.0.0.122956/007_all_use-modprobe-over-
+  insmod.patch,
+  +app-emulation/vmware-workstation/files/5.5.9.126128/009_all_init.d-module
+  s-warning.patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/000_all_initd-locatio
+  n.patch,
+  -app-emulation/vmware-modules/files/1.0.0.20-vmblock-2.6.26-2.patch,
+  -app-emulation/vmware-modules/files/1.0.0.20-makefile-kernel-dir.patch,
+  -app-emulation/vmware-modules/files/1.0.0.21-makefile-kernel-dir.patch,
+  +app-emulation/vmware-player/files/1.0.9.126128/001_all_fix-permissions.pa
+  tch,
+  -app-emulation/vmware-player/files/2.0.5.109488/007_all_use-modprobe-over-
+  insmod.patch,
+  +app-emulation/vmware-server/files/2.0.0.122956/009_all_init.d-modules-war
+  ning.patch,
+  +app-emulation/vmware-server/files/2.0.0.122956/011_all_legit-modules-only
+  .patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/001_all_fix-permissio
+  ns.patch, -app-emulation/vmware-modules/files/1.0.0.20-vmnet-2.6.26.patch,
+  +app-emulation/vmware-player/files/1.0.9.126128/002_all_pagebreak-detectio
+  n-fix.patch,
+  -app-emulation/vmware-player/files/2.0.5.109488/009_all_init.d-modules-war
+  ning.patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/002_all_pagebreak-det
+  ection-fix.patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/004_all_do-not-build-
+  modules.patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/011_all_legit-modules
+  -only.patch,
+  -app-emulation/vmware-modules/files/1.0.0.20-vmmon-2.6.26.patch,
+  -app-emulation/vmware-modules/files/1.0.0.19-vsock-kernel-makefile.patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/007_all_use-modprobe-
+  over-insmod.patch,
+  -app-emulation/vmware-workstation/files/6.0.5.109488/009_all_init.d-module
+  s-warning.patch:
+  Massive version bump and cleanup for bug 245941.
+
   30 Oct 2008; Mike Auty <ikelos@gentoo.org>
   +app-emulation/vmware-modules/files/1.0.0.23-makefile-kernel-dir.patch:
   Fix up kernel paths for vmware-modules-1.0.0.23.
