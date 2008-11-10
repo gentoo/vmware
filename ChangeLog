@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  10 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
+  app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
+  Fix up proper deaths on rollbacks.
+
   09 Nov 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server/vmware-server-1.0.8.126538.ebuild,
   app-emulation/vmware-server-console/vmware-server-console-1.0.8.126538.ebu

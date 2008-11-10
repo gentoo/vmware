@@ -1,6 +1,6 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.0.3.80004.ebuild,v 1.2 2008/04/26 16:29:15 ikelos Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild,v 1.2 2008/11/09 21:41:32 ikelos Exp $
 
 inherit eutils versionator fdo-mime gnome2-utils
 
@@ -64,7 +64,7 @@ pkg_setup() {
 		die "Please rebuild dev-lang/python with sqlite USE flag!"
 	fi
 
-	if [ "$(python -c "import curses; curses.setupterm(); print curses.tigetstr('hpa')")" == "" ]; then
+	if [ "$(python -c "import curses; curses.setupterm(); print curses.tigetstr('hpa')")" == "None" ]; then
 		die "Please emerge this package using a different terminal"
 	fi
 }
@@ -109,6 +109,13 @@ src_install() {
 		--console --required
 
 	rm -fr "${D}${VM_INSTALL_DIR}/lib/vmware/modules/binary"
+
+	if [ ! -e "${WORKDIR}"/vmware-confdir/bootstrap ]; then
+		eerror "VMware installation seems to have rolled back."
+		eerror "Please include the contents of ${WORKDIR}/vmware-installer.log"
+		eerror "in any bug reports you file."
+		die "VMware installation rolled back."
+	fi
 
 	# Redirect all the ${D} paths to / paths"
 	sed -i -e "s:${D}::" "${WORKDIR}"/vmware-confdir/bootstrap
