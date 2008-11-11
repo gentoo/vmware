@@ -22,6 +22,7 @@ SLOT="0"
 KEYWORDS="-* ~x86 ~amd64"
 IUSE=""
 RESTRICT="strip fetch binchecks"
+PROPERTIES="interactive"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.

@@ -5,8 +5,9 @@
 KEYWORDS="~amd64 ~x86"
 VMWARE_VER="VME_V604" # THIS VALUE IS JUST A PLACE HOLDER
 
-inherit eutils vmware-mod 
+inherit eutils vmware-mod
 
+IUSE=""
 VMWARE_MODULE_LIST="vmmon vmnet vmblock"
 SRC_URI="x86? ( mirror://vmware/software/vmplayer/VMware-player-2.0.5-109488.i386.tar.gz )
 		 amd64? ( mirror://vmware/software/vmplayer/VMware-player-2.0.5-109488.x86_64.tar.gz )"
@@ -23,7 +24,6 @@ kernel_check() {
 	fi
 	eend $?
 }
-
 
 src_unpack() {
 	kernel_check

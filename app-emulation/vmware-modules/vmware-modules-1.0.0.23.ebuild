@@ -5,9 +5,10 @@
 KEYWORDS="~amd64 ~x86"
 VMWARE_VER="VME_V65" # THIS VALUE IS JUST A PLACE HOLDER
 
-inherit eutils vmware-mod 
+inherit eutils vmware-mod
 
 LICENSE="GPL-2"
+IUSE=""
 
 VMWARE_MODULE_LIST="vmmon vmnet vmblock vmci vsock"
 SRC_URI="x86? ( http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${P}.x86.tar.bz2 )

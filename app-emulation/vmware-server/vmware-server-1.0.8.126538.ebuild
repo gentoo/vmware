@@ -13,7 +13,7 @@ MY_P="VMware-server-${MY_PV}"
 
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
-SRC_URI="http://download3.vmware.com/software/vmserver/${MY_P}.tar.gz
+SRC_URI="mirror://vmware/software/vmserver/${MY_P}.tar.gz
 	http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2
 	mirror://gentoo/${PN}-perl-fixed-rpath-libs.tar.bz2"
 
