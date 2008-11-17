@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  17 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
+  app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
+  Sync up ncurses and screen error messages with main tree.
+
   11 Nov 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-modules/vmware-modules-1.0.0.22.ebuild,
   app-emulation/vmware-modules/vmware-modules-1.0.0.23.ebuild,
