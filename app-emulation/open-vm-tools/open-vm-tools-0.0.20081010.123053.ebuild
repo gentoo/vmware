@@ -74,8 +74,8 @@ pkg_setup() {
 		MODULE_NAMES="${MODULE_NAMES} ${mod}(${MODTARGET}:${S}/${VMWARE_MOD_DIR}/${mod})"
 	done
 
-	ewarn "If you're compiling for a hardened target, please use the hardened"
-	ewarn "toolchain (see bug #200376, comment 18)."
+	ewarn "If you're compiling with a hardened toolchain, please use the hardened"
+	ewarn "gcc profile (see bug #200376, comment 18)."
 
 	enewgroup vmware
 

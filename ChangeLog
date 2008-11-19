@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  19 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild,
+  app-emulation/open-vm-tools/open-vm-tools-0.0.20081010.123053.ebuild:
+  Change hardened warning on open-vm-tools.
+
   17 Nov 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-player/vmware-player-2.5.0.118166.ebuild,
   app-emulation/vmware-workstation/vmware-workstation-6.5.0.118166.ebuild:
