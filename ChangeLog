@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  20 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  +x11-libs/libview/libview-0.6.2.ebuild:
+  Bump latest version of libview.
+
   19 Nov 2008; Mike Auty <ikelos@gentoo.org>
   app-emulation/open-vm-tools/open-vm-tools-0.0.20080808.109361.ebuild,
   app-emulation/open-vm-tools/open-vm-tools-0.0.20081010.123053.ebuild:
