@@ -24,3 +24,9 @@ src_unpack() {
 	# Fix the pkgconfig file
 	epatch "${FILESDIR}"/${PN}-0.5.6-pcfix.patch
 }
+
+src_compile() {
+	CPPFLAGS="${CPPFLAGS} -U GTK_DISABLE_DEPRECATED"
+	econf || die "Configure failed."
+	emake || die "Compilation failed."
+}

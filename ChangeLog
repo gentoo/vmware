@@ -3,6 +3,10 @@
 # $ Id: $
 
   20 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  x11-libs/libview/libview-0.6.2.ebuild:
+  Include fix in libview for 239325.
+
+  20 Nov 2008; Mike Auty <ikelos@gentoo.org>
   +x11-libs/libview/libview-0.6.2.ebuild:
   Bump latest version of libview.
 
