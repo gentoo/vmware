@@ -4,8 +4,8 @@ CONFIG_FILE="${D}/etc/vmware/config"
 
 remove_key() {
   local key=${1}
-  grep -v "${key} =" ${CONFIG_FILE}
-  grep -v "${key} =" ${CONFIG_FILE} > ${CONFIG_FILE}.tmp
+  grep -v "^${key} =" ${CONFIG_FILE}
+  grep -v "^${key} =" ${CONFIG_FILE} > ${CONFIG_FILE}.tmp
   mv ${CONFIG_FILE}.tmp ${CONFIG_FILE}
 }
 
@@ -14,6 +14,8 @@ add_key() {
   local value=${2}
   echo "${1} = \"${2}\"" >> ${CONFIG_FILE}
 }
+
+echo "Called $0 $1 $2 $3" >> ${T}/config-helper.log
 
 mkdir -p $(dirname ${CONFIG_FILE})
 touch ${CONFIG_FILE}

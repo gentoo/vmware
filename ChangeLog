@@ -2,6 +2,21 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  27 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-workstation/files/vmware-workstation-6.5.0.118166-in
+  staller.patch,
+  +app-emulation/vmware-workstation/files/6.5.1.126130/vmware-player.py.patc
+  h, -app-emulation/vmware-workstation/files/6.5.0.118166,
+  +app-emulation/vmware-workstation/files/6.5.1.126130/vmware-player-extras.
+  py.patch,
+  +app-emulation/vmware-workstation/files/6.5.1.126130/vmware-vix.py.patch,
+  +app-emulation/vmware-workstation/files/vmware-workstation-6.5.1.126130-in
+  staller.patch,
+  +app-emulation/vmware-workstation/files/6.5.1.126130/vmware-workstation.py
+  .patch, app-emulation/vmware-workstation/files/helpers/vmware-config.sh:
+  Version bump vmware-workstation and fix an issue with the vmware-config
+  helper.
+
   20 Nov 2008; Mike Auty <ikelos@gentoo.org>
   x11-libs/libview/libview-0.6.2.ebuild:
   Include fix in libview for 239325.
