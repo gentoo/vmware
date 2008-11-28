@@ -4,8 +4,8 @@ CONFIG_FILE="${D}/etc/vmware/config"
 
 remove_key() {
   local key=${1}
-  grep -v "${key} =" ${CONFIG_FILE}
-  grep -v "${key} =" ${CONFIG_FILE} > ${CONFIG_FILE}.tmp
+  grep -v "^${key} =" ${CONFIG_FILE}
+  grep -v "^${key} =" ${CONFIG_FILE} > ${CONFIG_FILE}.tmp
   mv ${CONFIG_FILE}.tmp ${CONFIG_FILE}
 }
 

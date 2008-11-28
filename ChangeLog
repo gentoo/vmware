@@ -2,6 +2,15 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  28 Nov 2008; Mike Auty <ikelos@gentoo.org>
+  -app-emulation/vmware-player/files/vmware-player-2.5.0.118166-installer.pa
+  tch, ++, ++, ++,
+  -app-emulation/vmware-player/files/2.5.0.118166/vmware-player.py.patch,
+  -app-emulation/vmware-player/files/2.5.0.118166/vmware-player-extras.py.pa
+  tch, app-emulation/vmware-player/files/helpers/vmware-config.sh:
+  Version bump vmware-player to 2.5.1.126130 and fix the vmware-config.sh
+  issue.
+
   27 Nov 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-workstation/files/vmware-workstation-6.5.0.118166-in
   staller.patch,
