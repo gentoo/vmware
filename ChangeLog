@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  20 Dec 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server/files/vmware-server-2.rc:
+  Add hald requirement to vmware-server-2 initscript.
+
   28 Nov 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-player/files/vmware-player-2.5.0.118166-installer.pa
   tch, ++, ++, ++,
