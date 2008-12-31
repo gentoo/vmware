@@ -3,6 +3,10 @@
 # $ Id: $
 
   31 Dec 2008; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-workstation/files/helpers/vmware-config.sh:
+  Remove debugging statement from vmware-config.sh
+
+  31 Dec 2008; Mike Auty <ikelos@gentoo.org>
   -app-emulation/open-vm-tools/open-vm-tools-0.0.20080414.87182.ebuild,
   -app-emulation/open-vm-tools/open-vm-tools-0.0.20080515.93241.ebuild,
   -app-emulation/open-vm-tools/open-vm-tools-0.0.20080701.102166.ebuild,

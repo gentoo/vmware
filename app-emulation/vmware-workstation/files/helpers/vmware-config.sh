@@ -15,8 +15,6 @@ add_key() {
   echo "${1} = \"${2}\"" >> ${CONFIG_FILE}
 }
 
-echo "Called $0 $1 $2 $3" >> ${T}/config-helper.log
-
 mkdir -p $(dirname ${CONFIG_FILE})
 touch ${CONFIG_FILE}
 
