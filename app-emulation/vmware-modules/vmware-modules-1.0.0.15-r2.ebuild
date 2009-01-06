@@ -8,7 +8,7 @@ VMWARE_VER="VME_S1B1"
 inherit vmware-mod
 
 pkg_setup() {
-	if kernel_is -lt 2 6 25; then
+	if kernel_is lt 2 6 25; then
 		CONFIG_CHECK=""
 	else
 		CONFIG_CHECK="UNUSED_SYMBOLS"
