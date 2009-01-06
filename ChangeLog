@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  06 Jan 2009; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-modules/vmware-modules-1.0.0.15-r2.ebuild:
+  Ensure we check for UNUSED_SYMBOLS in vmware-modules-1.0.0.15-r2.
+
   04 Jan 2009; Mike Auty <ikelos@gentoo.org>
   -app-emulation/vmware-modules/files/1.0.0.22-makefile-kernel-dir.patch,
   +app-emulation/vmware-modules/files/patches/vmnet/030_all_kernel-2.6.27.pa
