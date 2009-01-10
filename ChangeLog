@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $ Id: $
 
+  10 Jan 2009; Mike Auty <ikelos@gentoo.org> -eclass/vmware.eclass,
+  -eclass/vmware-mod.eclass:
+  Sync with tree and remove eclasses.
+
   06 Jan 2009; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-modules/vmware-modules-1.0.0.15-r2.ebuild:
   Fix up typo with kernel_is in vmware-modules-1.0.0.15.

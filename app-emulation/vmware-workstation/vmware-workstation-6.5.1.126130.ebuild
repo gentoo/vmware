@@ -43,6 +43,7 @@ RDEPEND="sys-libs/glibc
 	~app-emulation/vmware-modules-1.0.0.23
 	!<app-emulation/vmware-modules-1.0.0.23
 	!>=app-emulation/vmware-modules-1.0.0.24
+	sys-fs/fuse
 	sys-apps/pciutils"
 
 S=${WORKDIR}/vmware-distrib
