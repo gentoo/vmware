@@ -3,6 +3,13 @@
 # $ Id: $
 
   11 Jan 2009; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-player/Manifest,
+  app-emulation/vmware-server/Manifest,
+  app-emulation/vmware-workstation/Manifest:
+  Fix the manifests because echangelog decides to udpate all the copyright
+  texts without recalculating them. Grrrr.
+
+  11 Jan 2009; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server/vmware-server-1.0.8.126538.ebuild,
   app-emulation/vmware-player/vmware-player-1.0.9.126128.ebuild,
   app-emulation/vmware-server/vmware-server-2.0.0.122956.ebuild,
