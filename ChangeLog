@@ -3,6 +3,12 @@
 # $ Id: $
 
   11 Jan 2009; Mike Auty <ikelos@gentoo.org>
+  app-emulation/vmware-server/files/2.0.0.122956/007_all_use-modprobe-over-i
+  nsmod.patch:
+  Remove -f from modprobe in vmware-server-2 so that it works on newer
+  kernels.
+
+  11 Jan 2009; Mike Auty <ikelos@gentoo.org>
   app-emulation/vmware-server/vmware-server-2.0.0.122956.ebuild:
   Fix up typo in vmware-server-2.0.0 with libXft.
 
