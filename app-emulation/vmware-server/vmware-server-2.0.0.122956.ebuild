@@ -37,7 +37,7 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # vmware-server should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
-	x11-libs/libxft
+	x11-libs/libXft
 	x11-libs/libX11
 	x11-libs/libXtst
 	x11-libs/libXext
