@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.4.56528.ebuild,v 1.3 2007/11/25 13:08:59 ikelos Exp $
 
@@ -37,7 +37,7 @@ DEPEND=">=sys-libs/glibc-2.3.5
 # vmware-server should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND=">=sys-libs/glibc-2.3.5
-	virtual/xft
+	x11-libs/libxft
 	x11-libs/libX11
 	x11-libs/libXtst
 	x11-libs/libXext

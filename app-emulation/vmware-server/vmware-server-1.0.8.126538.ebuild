@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.5.80187.ebuild,v 1.3 2008/04/04 06:41:39 opfer Exp $
 
@@ -35,8 +35,8 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 		>=app-emulation/emul-linux-x86-baselibs-2.5.5-r3
 		app-emulation/emul-linux-x86-gtklibs )
 	!amd64? (
-		virtual/xft
 		x11-libs/libX11
+		x11-libs/libXft
 		x11-libs/libXtst
 		x11-libs/libXext
 		x11-libs/libXt
