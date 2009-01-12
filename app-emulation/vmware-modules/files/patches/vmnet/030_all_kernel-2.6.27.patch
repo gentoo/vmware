@@ -1,7 +1,8 @@
-diff -pur vmnet-only.orig/bridge.c vmnet-only/bridge.c
---- vmnet-only.orig/bridge.c	2008-05-10 06:25:56.000000000 +0200
-+++ vmnet-only/bridge.c	2008-10-16 18:36:57.000000000 +0200
-@@ -274,7 +274,7 @@ VNetBridgeDevCompatible(VNetBridge *brid
+diff --git a/bridge.c b/bridge.c
+index cdf9e0b..700c1a2 100644
+--- a/bridge.c
++++ b/bridge.c
+@@ -275,7 +275,7 @@ VNetBridgeDevCompatible(VNetBridge *bridge,      // IN: Bridge
                          struct net_device *net)  // IN: Network device
  {
  #ifdef VMW_NETDEV_HAS_NET
@@ -10,21 +11,26 @@ diff -pur vmnet-only.orig/bridge.c vmnet-only/bridge.c
        return 0;
     }
  #endif
-diff -pur vmnet-only.orig/compat_semaphore.h vmnet-only/compat_semaphore.h
---- vmnet-only.orig/compat_semaphore.h	2008-05-10 06:25:56.000000000 +0200
-+++ vmnet-only/compat_semaphore.h	2008-10-16 18:37:21.000000000 +0200
-@@ -2,7 +2,7 @@
+diff --git a/compat_semaphore.h b/compat_semaphore.h
+index a3a88c2..c3038d7 100644
+--- a/compat_semaphore.h
++++ b/compat_semaphore.h
+@@ -6,7 +6,11 @@
  #   define __COMPAT_SEMAPHORE_H__
  
  
--#include <asm/semaphore.h>
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 27)
 +#include <linux/semaphore.h>
++#else
+ #include <asm/semaphore.h>
++#endif
  
  
  /*
-diff -pur vmnet-only.orig/procfs.c vmnet-only/procfs.c
---- vmnet-only.orig/procfs.c	2008-05-10 06:25:56.000000000 +0200
-+++ vmnet-only/procfs.c	2008-10-16 18:36:57.000000000 +0200
+diff --git a/procfs.c b/procfs.c
+index 07e894d..73d31e8 100644
+--- a/procfs.c
++++ b/procfs.c
 @@ -63,7 +63,7 @@ VNetProc_Init(void)
  {
     int retval;
@@ -43,9 +49,10 @@ diff -pur vmnet-only.orig/procfs.c vmnet-only/procfs.c
     base = NULL;
  }
  
-diff -pur vmnet-only.orig/vmnetInt.h vmnet-only/vmnetInt.h
---- vmnet-only.orig/vmnetInt.h	2008-05-10 06:25:56.000000000 +0200
-+++ vmnet-only/vmnetInt.h	2008-10-16 18:36:57.000000000 +0200
+diff --git a/vmnetInt.h b/vmnetInt.h
+index 483c457..551be73 100644
+--- a/vmnetInt.h
++++ b/vmnetInt.h
 @@ -63,7 +63,7 @@
  #   define dev_lock_list()    read_lock(&dev_base_lock)
  #   define dev_unlock_list()  read_unlock(&dev_base_lock)
@@ -55,7 +62,7 @@ diff -pur vmnet-only.orig/vmnetInt.h vmnet-only/vmnetInt.h
  #   else
  #      define DEV_GET(x)      __dev_get_by_name((x)->name)
  #   endif
-@@ -89,7 +89,7 @@
+@@ -87,7 +87,7 @@
  
  #ifdef VMW_NETDEV_HAS_NET
  extern struct proto vmnet_proto;

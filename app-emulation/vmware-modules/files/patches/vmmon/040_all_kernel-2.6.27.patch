@@ -22,15 +22,18 @@ index b9f4f61..7e9c3de 100644
     return FALSE;
  }
 diff --git a/include/compat_semaphore.h b/include/compat_semaphore.h
-index 6514067..b2e399d 100644
+index 6514067..d0da703 100644
 --- a/include/compat_semaphore.h
 +++ b/include/compat_semaphore.h
-@@ -2,7 +2,7 @@
+@@ -2,7 +2,11 @@
  #   define __COMPAT_SEMAPHORE_H__
  
  
--#include <asm/semaphore.h>
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 27)
 +#include <linux/semaphore.h>
++#else
+ #include <asm/semaphore.h>
++#endif
  
  
  /*
