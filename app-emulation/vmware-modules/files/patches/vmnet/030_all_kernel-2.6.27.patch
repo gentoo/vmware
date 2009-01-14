@@ -1,13 +1,16 @@
 diff --git a/bridge.c b/bridge.c
-index cdf9e0b..700c1a2 100644
+index cdf9e0b..f46031b 100644
 --- a/bridge.c
 +++ b/bridge.c
-@@ -275,7 +275,7 @@ VNetBridgeDevCompatible(VNetBridge *bridge,      // IN: Bridge
+@@ -275,7 +275,11 @@ VNetBridgeDevCompatible(VNetBridge *bridge,      // IN: Bridge
                          struct net_device *net)  // IN: Network device
  {
  #ifdef VMW_NETDEV_HAS_NET
--   if (net->nd_net != bridge->internalDev->nd_net) {
++#if LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 25)
 +   if (dev_net(net) != dev_net(bridge->internalDev)) {
++#else
+    if (net->nd_net != bridge->internalDev->nd_net) {
++#endif
        return 0;
     }
  #endif
