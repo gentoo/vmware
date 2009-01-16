@@ -19,7 +19,7 @@ SRC_URI="mirror://vmware/software/vmplayer/${MY_P}.tar.gz
 LICENSE="vmware"
 IUSE=""
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="-* amd64 x86"
 RESTRICT="strip"
 
 DEPEND="${RDEPEND} virtual/os-headers
