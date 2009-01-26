@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jan 2009; Mike Auty <ikelos@gentoo.org> files/vmware-server-2.rc,
+  vmware-server-2.0.0.122956.ebuild:
+  Remove xinetd requirements and add in a dependency on hal.
+
   15 Jan 2009; Mike Auty <ikelos@gentoo.org>
   vmware-server-1.0.8.126538.ebuild:
   Stabilize vmware-server to match the main tree.

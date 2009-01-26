@@ -54,7 +54,7 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!>=app-emulation/vmware-modules-1.0.0.24
 	sys-apps/pciutils
 	virtual/pam
-	sys-apps/xinetd"
+	sys-apps/hal"
 
 S=${WORKDIR}/vmware-server-distrib
 
@@ -74,9 +74,9 @@ pkg_setup() {
 src_install() {
 	vmware_src_install
 
-	newinitd ${FILESDIR}/vmware-server-2.rc vmware
+	newinitd "${FILESDIR}/vmware-server-2.rc" vmware
 	insinto /etc/vmware/hostd
-	doins ${FILESDIR}/authorization.xml
+	doins "${FILESDIR}/authorization.xml"
 }
 
 pkg_config() {
