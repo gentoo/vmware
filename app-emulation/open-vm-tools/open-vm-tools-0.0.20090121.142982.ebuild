@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/open-vm-tools-0.0.20081223.137496.ebuild,v 1.1 2008/12/31 00:39:39 ikelos Exp $
 
@@ -76,15 +76,13 @@ pkg_setup() {
 		MODULE_NAMES="${MODULE_NAMES} ${mod}(${MODTARGET}:${S}/${VMWARE_MOD_DIR}/${mod})"
 	done
 
-	ewarn "If you're compiling with a hardened toolchain, please use the"
-	ewarn "hardenednopie gcc profile (see bug #200376, comment 18)."
-
 	enewgroup vmware
 }
 
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
+	epatch "${FILESDIR}/2.6.28.1-api-break.patch"
 	epatch "${FILESDIR}/default-scripts.patch"
 }
 
