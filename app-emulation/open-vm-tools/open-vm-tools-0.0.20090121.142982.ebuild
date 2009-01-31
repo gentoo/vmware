@@ -113,8 +113,8 @@ src_install() {
 
 	if use X;
 	then
-		exeinto /etc/X11/xinit/xinitrc.d
-		doexe "${FILESDIR}/10-vmware-tools"
+		insinto /etc/xdg/autostart
+		doins "${FILESDIR}/open-vm-tools.desktop"
 
 		elog "To be able to use the drag'n'drop feature of VMware for file"
 		elog "exchange, you need to do this:"
