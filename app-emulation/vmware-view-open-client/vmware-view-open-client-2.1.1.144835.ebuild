@@ -10,7 +10,7 @@ S="${WORKDIR}/${MY_P}"
 
 DESCRIPTION="Open Source VMware View Client"
 HOMEPAGE="http://code.google.com/p/vmware-view-open-client/"
-SRC_URI="http://vmware-view-open-client.googlecode.com/files/${MY_P}.tar.gz"
+SRC_URI="http://${PN}.googlecode.com/files/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
