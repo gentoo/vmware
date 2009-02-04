@@ -1,0 +1,11 @@
+# ChangeLog for app-emulation/vmware-view-open-client
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*vmware-view-open-client-2.1.1.144835 (04 Feb 2009)
+
+  04 Feb 2009; Mike Auty <ikelos@gentoo.org>
+  +files/2.1.1.144835-curl_easy_getinfo.patch,
+  +vmware-view-open-client-2.1.1.144835.ebuild:
+  Initial commit, ebuild courtesy of Jeremy Wood from bug 257637.
+

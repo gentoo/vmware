@@ -1,0 +1,11 @@
+--- vmware-view-open-client-source-2.1.1-144835/lib/bora/basicHttp/http.c	2009-02-04 11:14:42.465445198 -0500
++++ vmware-view-client-2.1.1.144835/lib/bora/basicHttp/http.c   2009-01-29 23:01:04.000000000 -0500
+@@ -1388,7 +1388,7 @@
+ 
+    ASSERT(NULL != request->curl);
+    if (curl_easy_getinfo(request->curl, CURLINFO_REDIRECT_COUNT,
+-                         &redirectCount, NULL) == CURLE_OK) {
++                         &redirectCount) == CURLE_OK) {
+       if (redirectCount > request->redirectCount) {
+          /*
+           * We've been redirected since the last read. Reset
