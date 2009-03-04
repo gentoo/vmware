@@ -20,13 +20,19 @@ RESTRICT="fetch strip"
 # precompiled binary package thats linked to glibc.
 RDEPEND="sys-libs/glibc
 	amd64? (
-		app-emulation/emul-linux-x86-gtklibs )
+		client? (
+			app-emulation/emul-linux-x86-gtklibs 
+			)
+		)
 	x86? (
-		x11-libs/libXrandr
-		x11-libs/libXcursor
-		x11-libs/libXinerama
-		x11-libs/libXi
-		x11-libs/libXft )
+		client? (
+			x11-libs/libXrandr
+			x11-libs/libXcursor
+			x11-libs/libXinerama
+			x11-libs/libXi
+			x11-libs/libXft 
+			)
+		)
 	>=dev-lang/perl-5
 	sys-apps/pciutils"
 
