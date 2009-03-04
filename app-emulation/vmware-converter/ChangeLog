@@ -4,5 +4,9 @@
 
   04 Mar 2009; Mike Auty <ikelos@gentoo.org>
   vmware-converter-4.0.0.146302.ebuild:
+  Fix up lack of datadir during startup.
+
+  04 Mar 2009; Mike Auty <ikelos@gentoo.org>
+  vmware-converter-4.0.0.146302.ebuild:
   Change dependencies, so no need for X unless we're installing the client.
 

@@ -94,6 +94,8 @@ src_install() {
 
 	dosym /opt/vmware/converter/lib/configurator/pam.d/${PN} /etc/pam.d/${PN}
 
+	keepdir /var/lib/vmware-vcenter-converter-standalone
+
 	# Finally, we run the "questions"
 	vmware_run_questions || die "running questions"
 	
