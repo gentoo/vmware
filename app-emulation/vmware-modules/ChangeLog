@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Mar 2009; Mike Auty <ikelos@gentoo.org>
+  +files/1.0.0.23-kernel-2.6.29.patch, vmware-modules-1.0.0.23.ebuild:
+  Fix compilation for 2.6.29 kernel, many thanks to Michele Schiavo for the
+  patch.
+
   14 Jan 2009; Mike Auty <ikelos@gentoo.org>
   files/patches/vmnet/030_all_kernel-2.6.27.patch,
   vmware-modules-1.0.0.15-r2.ebuild, vmware-modules-1.0.0.23.ebuild:

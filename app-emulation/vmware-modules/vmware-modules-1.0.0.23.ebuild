@@ -18,5 +18,6 @@ VMWARE_MOD_DIR="${P}"
 src_unpack() {
 	vmware-mod_src_unpack
 	cd "${S}"
+	epatch "${FILESDIR}/${PV}-kernel-2.6.29.patch"
 	epatch "${FILESDIR}/${PV}-makefile-kernel-dir.patch"
 }
