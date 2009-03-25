@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Mar 2009; Mike Auty <ikelos@gentoo.org>
+  vmware-workstation-6.5.1.126130.ebuild:
+  gtkmm's accessibility is now always enabled (see bug #247249)
+
   15 Jan 2009; Mike Auty <ikelos@gentoo.org>
   vmware-workstation-5.5.9.126128.ebuild,
   vmware-workstation-6.5.1.126130.ebuild:

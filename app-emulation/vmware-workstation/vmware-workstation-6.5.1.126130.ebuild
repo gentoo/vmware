@@ -56,11 +56,6 @@ pkg_setup() {
 		MY_P="${MY_PN}.x86_64"
 	fi
 
-	if ! built_with_use ">=dev-cpp/gtkmm-2.4" accessibility ; then
-		eerror "Rebuild dev-cpp/gtkmm with USE=\"accessibility\""
-		die "VMware workstation only works with gtkmm built with USE=\"accessibility\"."
-	fi
-
 	if ! built_with_use -a '>=dev-lang/python-2.5' sqlite ncurses; then
 		eerror "You need to build dev-lang/python with \"sqlite ncurses\" USE flags!"
 		die "Please rebuild dev-lang/python with sqlite and ncurses USE flags!"
