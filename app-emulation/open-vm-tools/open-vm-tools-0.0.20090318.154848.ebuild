@@ -18,7 +18,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="X xinerama icu unity"
+IUSE="X xinerama icu unity gtkmm"
 DEPEND="
 		virtual/linux-sources
 		sys-apps/ethtool
@@ -33,6 +33,9 @@ DEPEND="
 		xinerama? (
 			x11-libs/libXinerama
 			)
+		gtkmm? (
+			dev-cpp/gtkmm
+		)
 		!app-emulation/vmware-workstation-tools
 		!app-emulation/vmware-server-tools
 		!app-emulation/vmware-esx-tools
@@ -82,7 +85,6 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	epatch "${FILESDIR}/2.6.28.1-api-break.patch"
 	epatch "${FILESDIR}/default-scripts.patch"
 }
 
@@ -91,6 +93,7 @@ src_compile() {
 	--without-kernel-modules \
 	$(use_with icu) \
 	$(use_with X x) \
+	$(use_with gtkmm) \
 	$(use_enable unity) \
 	$(use_enable xinerama multimon) \
 	|| die "Error: econf failed!"
