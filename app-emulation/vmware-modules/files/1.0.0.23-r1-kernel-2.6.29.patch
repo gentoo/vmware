@@ -43,21 +43,6 @@ diff -Naur orig/vmmon-only/include/compat_wait.h new/vmmon-only/include/compat_w
  
  #define compat_poll_initwait(wait, table) ( \
     (wait) = (table), \
-diff -Naur orig/vmmon-only/include/x86apic.h new/vmmon-only/include/x86apic.h
---- orig/vmmon-only/include/x86apic.h	2008-10-28 22:47:17.000000000 -0700
-+++ new/vmmon-only/include/x86apic.h	2009-01-20 04:49:44.000000000 -0700
-@@ -94,7 +94,11 @@
- #define APIC_LVT_DELVMODE(_lvt) (_lvt & 0x700)
- #define APIC_LVT_RESET_VALUE  0x00010000
- 
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 28)
- #define APIC_BASE_MSR         0x1b
-+#else
-+#define APIC_BASE_MSR	      0x800
-+#endif
- 
- #define APIC_MSR_BASEMASK     QWORD(0x0000000f,0xfffff000)
- #define APIC_MSR_ENABLED      0x00000800
 diff -Naur orig/vmmon-only/linux/driver.c new/vmmon-only/linux/driver.c
 --- orig/vmmon-only/linux/driver.c	2008-10-28 22:47:18.000000000 -0700
 +++ new/vmmon-only/linux/driver.c	2009-01-20 04:49:44.000000000 -0700
