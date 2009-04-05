@@ -29,32 +29,37 @@ SLOT="0"
 KEYWORDS="-* ~x86 ~amd64"
 RESTRICT="strip"
 
-DEPEND=">=sys-libs/glibc-2.3.5
+CDEPEND=">=sys-libs/glibc-2.3.5
 	>=dev-lang/perl-5
-	sys-apps/pciutils
+	sys-apps/pciutils"
+DEPEND="${CDEPEND}
 	sys-apps/findutils
 	virtual/os-headers"
 # vmware-server should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
-RDEPEND=">=sys-libs/glibc-2.3.5
-	x11-libs/libXft
-	x11-libs/libX11
-	x11-libs/libXtst
-	x11-libs/libXext
-	x11-libs/libXt
+RDEPEND="${CDEPEND}
+	dev-libs/libxml2
+	dev-libs/glib
 	x11-libs/libICE
 	x11-libs/libSM
-	x11-libs/libXrender
-	>=dev-lang/perl-5
+	x11-libs/libXft
+	x11-libs/libX11
+	x11-libs/libXau
+	x11-libs/libXdmcp
+	x11-libs/libXext
+	x11-libs/libXt
+	x11-libs/libXtst
+	sys-fs/fuse
+	sys-apps/hal
+	sys-libs/zlib
+	virtual/pam
 	!<sys-apps/dbus-0.62
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
 	~app-emulation/vmware-modules-1.0.0.23
 	!<app-emulation/vmware-modules-1.0.0.23
 	!>=app-emulation/vmware-modules-1.0.0.24
-	sys-apps/pciutils
-	virtual/pam
-	sys-apps/hal"
+	"
 
 S=${WORKDIR}/vmware-server-distrib
 
