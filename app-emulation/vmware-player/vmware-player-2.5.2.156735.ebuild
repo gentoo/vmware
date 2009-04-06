@@ -19,7 +19,7 @@ SRC_URI="
 
 LICENSE="vmware"
 SLOT="0"
-KEYWORDS="-* x86 amd64"
+KEYWORDS="-* ~x86 ~amd64"
 IUSE=""
 RESTRICT="strip binchecks"
 
