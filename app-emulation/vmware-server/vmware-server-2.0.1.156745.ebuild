@@ -49,6 +49,7 @@ RDEPEND="${CDEPEND}
 	x11-libs/libXext
 	x11-libs/libXt
 	x11-libs/libXtst
+	x11-misc/xdg-utils
 	sys-fs/fuse
 	sys-apps/hal
 	sys-libs/zlib
