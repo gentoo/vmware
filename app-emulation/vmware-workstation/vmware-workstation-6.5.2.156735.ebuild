@@ -34,6 +34,7 @@ RDEPEND="sys-libs/glibc
 	x11-libs/libXinerama
 	x11-libs/libXi
 	x11-libs/libXft
+	x11-libs/libgksu
 	>=x11-libs/libview-0.6.2
 	dev-cpp/libsexymm
 	dev-cpp/cairomm
