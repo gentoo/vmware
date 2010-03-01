@@ -10,7 +10,7 @@ depend() {
 
 start() {
 	ebegin Starting VMware services
-	modprobe -a vmblock vmmon vmnet || eend $?
+	modprobe -a vmmon vmci vsock vmblock vmnet || eend $?
 	/opt/vmware/player/bin/vmware-networks --start
 	eend $?
 }
@@ -18,6 +18,6 @@ start() {
 stop() {
 	ebegin Stopping VMware services
 	/opt/vmware/player/bin/vmware-networks --stop || eend $?
-	modprobe -r vmblock vmmon vmnet
+	modprobe -r vsock vmci vmmon vmblock vmnet
 	eend $?
 }
