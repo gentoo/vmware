@@ -1,6 +1,19 @@
 # ChangeLog for app-emulation/vmware-workstation
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*vmware-workstation-7.0.1.227600 (01 Mar 2010)
+
+  01 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org> -files/5.5.9.126128,
+  -vmware-workstation-5.5.9.126128.ebuild,
+  +files/7.0.1.227600/vmware-player.py.patch,
+  +vmware-workstation-7.0.1.227600.ebuild,
+  +files/7.0.1.227600/vmware-player-app.py.patch,
+  +files/vmware-workstation-7.0.1.227600-installer.patch,
+  +files/7.0.1.227600/vmware-player-extras.py.patch,
+  +files/vmware-workstation-7.0.rc, +files/7.0.1.227600/vmware-vix.py.patch,
+  +files/7.0.1.227600/vmware-workstation.py.patch:
+  ebuild and patches subbmitted by Michael Zanetta. Bug 291241.
 
   25 Mar 2009; Mike Auty <ikelos@gentoo.org>
   vmware-workstation-6.5.1.126130.ebuild:
