@@ -1,6 +1,15 @@
 # ChangeLog for app-emulation/vmware-player
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*vmware-player-3.0.1.227600 (01 Mar 2010)
+
+  01 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>
+  -vmware-player-1.0.9.126128.ebuild, +files/config-3.0,
+  +vmware-player-3.0.1.227600.ebuild, +files/vmware-3.0.rc,
+  -files/1.0.9.126128, +files/list-bundle-components.xsl,
+  +files/list-component-files.xsl:
+  VMware Player 3.0.1.227600 ebuild submitted by Matt Whitlock . Bug 290831.
 
   25 Mar 2009; Mike Auty <ikelos@gentoo.org>
   vmware-player-2.5.1.126130.ebuild:
