@@ -2,6 +2,16 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vmware-player-3.0.1.227600-r1 (03 Mar 2010)
+
+  03 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>
+  vmware-player-3.0.1.227600.ebuild, +vmware-player-3.0.1.227600-r1.ebuild,
+  files/vmware-3.0.rc:
+  Only lib goes to /opt/vmware. Bin installs into /usr/bin. Thus no env.d/90
+  No more player subfolder, just /opt/vmware. 
+  config file is moved inside of ebuild.
+  Added fetch restrictions.
+
 *vmware-player-3.0.1.227600 (01 Mar 2010)
 
   01 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>

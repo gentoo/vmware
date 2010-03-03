@@ -19,7 +19,7 @@ LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
-RESTRICT="strip fetch binchecks"
+RESTRICT="binchecks fetch strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
@@ -42,7 +42,7 @@ RDEPEND="
 	"
 
 S=${WORKDIR}
-VM_INSTALL_DIR="/opt/vmware/player"
+VM_INSTALL_DIR="/opt/vmware"
 
 pkg_nofetch() {
 	if use x86; then
@@ -64,66 +64,73 @@ src_prepare() {
 
 src_install() {
 	local major_minor=$(get_version_component_range 1-2 "${PV}")
+	local major_minor_revision=$(get_version_component_range 1-3 "${PV}")
 	local build=$(get_version_component_range 4 "${PV}")
 
 	cd "${S}"/vmware-player-app
 
 	# install the binaries
-	into "${VM_INSTALL_DIR}"
+	into /usr
 	dobin bin/*
 	dosbin sbin/*
-
-	# install the libraries
-	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/*
 
 	# install the ancillaries
 	insinto /usr
 	doins -r share
 
+	# install the libraries
+	insinto "${VM_INSTALL_DIR}"
+	doins -r lib/*
+
 	# create symlinks for the various tools
 	local tool ; for tool in vmplayer{,-daemon} \
 			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
-		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
+		dosym appLoader "${VM_INSTALL_DIR}"/bin/"${tool}"
 	done
-	dosym ../lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
+	dosym "${VM_INSTALL_DIR}"/bin/vmplayer /usr/bin/vmplayer
 
 	# fix up permissions
-	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh}}
-	chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
-	chmod 04711 "${D}${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
-
-	# create the environment
-	dodir /etc/env.d
-	{	echo "PATH='${VM_INSTALL_DIR}/bin'"
-		echo "ROOTPATH='${VM_INSTALL_DIR}/bin'"
-	} > "${D}"/etc/env.d/90"${PN}"
+	chmod 0755 "${D}${VM_INSTALL_DIR}"/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh}}
+	chmod 04711 "${D}"/usr/sbin/vmware-authd
+	chmod 04711 "${D}${VM_INSTALL_DIR}"/bin/vmware-vmx*
 
 	# create the configuration
-	insinto /etc/vmware
-	{	echo "BINDIR='${VM_INSTALL_DIR}/bin'"
-		echo "LIBDIR='${VM_INSTALL_DIR}/lib'"
-	} > "${D}"/etc/vmware/bootstrap
-	newins "${FILESDIR}/config-${major_minor}" config
+	dodir /etc/vmware
+
+	cat > "${D}"/etc/vmware/bootstrap <<-EOF
+		BINDIR='/usr/bin'
+		LIBDIR='/opt'
+	EOF
+
+	cat > "${D}"/etc/vmware/config <<-EOF 
+		bindir = "/usr/bin"
+		libdir = "${VM_INSTALL_DIR}"
+		initscriptdir = "/etc/init.d"
+		authd.fullpath = "/usr/sbin/vmware-authd"
+		gksu.rootMethod = "su"
+		VMCI_CONFED = "yes"
+		VMBLOCK_CONFED = "yes"
+		VSOCK_CONFED = "yes"
+		NETWORKING = "yes"
+		player.product.version = "${major_minor_revision}"
+		product.buildNumber = "${build}"
+	EOF
 
 	# install the init.d script
 	newinitd "${FILESDIR}/vmware-${major_minor}.rc" vmware
 
 	# fill in variable placeholders
-	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-			-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
-	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
+	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/libconf:g" \
+			-i "${D}${VM_INSTALL_DIR}"/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
+	sed -e "s:@@BINARY@@:/usr/bin/vmplayer:g" \
 			-i "${D}/usr/share/applications/${PN}.desktop"
-	sed -e "s:@@BUILD_NUMBER@@:${build}:g" \
-			-e "s:@@VM_INSTALL_DIR@@:${VM_INSTALL_DIR}:g" \
-			-i "${D}/etc/vmware/config"
 
 	# install documentation
 	dodoc doc/*
 }
 
 pkg_config() {
-	"${VM_INSTALL_DIR}"/bin/vmware-networks --postinstall ${PN},old,new
+	/usr/bin/vmware-networks --postinstall ${PN},old,new
 }
 
 pkg_preinst() {
