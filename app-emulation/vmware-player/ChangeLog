@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vmware-player-3.0.1.227600-r3 (05 Mar 2010)
+
+  05 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>
+  -vmware-player-3.0.1.227600-r2.ebuild,
+  +vmware-player-3.0.1.227600-r3.ebuild, files/vmware-3.0.rc:
+  vmware-usbarbitrator is added to rc script
+
 *vmware-player-3.0.1.227600-r2 (04 Mar 2010)
 
   04 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>
