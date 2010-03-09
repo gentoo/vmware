@@ -6,20 +6,24 @@ EAPI="2"
 
 inherit eutils versionator fdo-mime gnome2-utils
 
-MY_PN="VMware-Workstation-$(replace_version_separator 3 - $PV)"
+MY_PN="VMware-Workstation"
+MY_PV=$(replace_version_separator 3 - $PV)
+MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
-HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
+HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
-	x86? ( mirror://vmware/software/wkst/${MY_PN}.i386.bundle )
-	amd64? ( mirror://vmware/software/wkst/${MY_PN}.x86_64.bundle )
+	x86? ( with-tools? ( ${MY_PN}-Full-${MY_PV}.i386.bundle ) )
+	x86? ( !with-tools? ( ${MY_PN}-${MY_PV}.i386.bundle ) )
+	amd64? ( with-tools? ( ${MY_PN}-Full-${MY_PV}.x86_64.bundle ) )
+	amd64? ( !with-tools? ( ${MY_PN}-${MY_PV}.x86_64.bundle ) )
 	"
 
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE=""
-RESTRICT="binchecks fetch strip"
+IUSE="+with-tools"
+RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
@@ -44,19 +48,34 @@ RDEPEND="
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
 
+
 pkg_nofetch() {
+	local bundle
+
+	if use with-tools; then
+		MY_P=${MY_PN}-Full-${MY_PV}
+	fi
 	if use x86; then
-		MY_P="${MY_PN}.i386"
+		bundle="${MY_P}.i386.bundle"
 	elif use amd64; then
-		MY_P="${MY_PN}.x86_64"
+		bundle="${MY_P}.x86_64.bundle"
 	fi
 
-	einfo "Please download the ${MY_P}.bundle from ${HOMEPAGE}"
+	einfo "Please download the ${bundle} from ${HOMEPAGE}"
+	einfo "and place it in ${DISTDIR}"
 }
 
 src_unpack() {
 	bundle_extract_component "${DISTDIR}/${A}" vmware-player-app
 	bundle_extract_component "${DISTDIR}/${A}" vmware-workstation
+	if use with-tools; then
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-freebsd
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-linux
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-netware
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-solaris
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-windows
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-winPre2k
+	fi
 }
 
 src_prepare() {
@@ -104,6 +123,16 @@ src_install() {
 	# install documentation
 	doman man/man1/vmware.1.gz
 
+	# install the tools isos
+	insinto "${VM_INSTALL_DIR}"/lib/vmware/isoimages
+
+	if use with-tools; then
+		# install the vmware-tools isos
+		local tool ; for tool in vmware-tools-{freebsd,linux,netware,solaris,windows,winPre2k} ; do
+			cd "${S}"/${tool}
+			doins *.iso *.iso.sig
+		done
+	fi
 
 	# create symlinks for the various tools
 	local tool ; for tool in vmware vmplayer{,-daemon} \

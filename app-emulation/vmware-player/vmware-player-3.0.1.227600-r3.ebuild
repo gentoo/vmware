@@ -6,13 +6,15 @@ EAPI="2"
 
 inherit eutils versionator fdo-mime gnome2-utils
 
-MY_PN="VMware-Player-$(replace_version_separator 3 - $PV)"
+MY_PN="VMware-Player"
+MY_PV="$(replace_version_separator 3 - $PV)"
+MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
-HOMEPAGE="http://www.vmware.com/products/desktop/ws_features.html"
+HOMEPAGE="http://www.vmware.com/products/player/"
 SRC_URI="
-	x86? ( mirror://vmware/software/vmplayer/${MY_PN}.i386.bundle )
-	amd64? ( mirror://vmware/software/vmplayer/${MY_PN}.x86_64.bundle )
+	x86? ( ${MY_P}.i386.bundle )
+	amd64? ( ${MY_P}.x86_64.bundle )
 	"
 
 LICENSE="vmware"
@@ -45,13 +47,16 @@ S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
 
 pkg_nofetch() {
+	local bundle
+
 	if use x86; then
-		MY_P="${MY_PN}.i386"
+		bundle="${MY_PN}.i386.bundle"
 	elif use amd64; then
-		MY_P="${MY_PN}.x86_64"
+		bundle="${MY_PN}.x86_64.bundle"
 	fi
 
-	einfo "Please download the ${MY_P}.bundle from ${HOMEPAGE}"
+	einfo "Please download the ${bundle} from ${HOMEPAGE}"
+	einfo "and place it in ${DISTDIR}"
 }
 
 src_unpack() {
