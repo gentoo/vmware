@@ -22,7 +22,7 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="+with-tools"
+IUSE="doc vix +with-tools"
 RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -67,7 +67,11 @@ pkg_nofetch() {
 
 src_unpack() {
 	bundle_extract_component "${DISTDIR}/${A}" vmware-player-app
+	bundle_extract_component "${DISTDIR}/${A}" vmware-player-setup
 	bundle_extract_component "${DISTDIR}/${A}" vmware-workstation
+	if use vix; then
+		bundle_extract_component "${DISTDIR}/${A}" vmware-vix
+	fi
 	if use with-tools; then
 		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-freebsd
 		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-linux
@@ -103,9 +107,16 @@ src_install() {
 	doins -r share
 
 	# install documentation
-	dodoc doc/*
-
+	if use doc; then
+		dodoc doc/*
+	fi
 	
+	# install vmware-config
+	cd "${S}"/vmware-player-setup
+	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
+	doins vmware-config
+
+	# install vmware-workstation
 	cd "${S}"/vmware-workstation
 	
 	# install the binaries
@@ -123,11 +134,35 @@ src_install() {
 	# install documentation
 	doman man/man1/vmware.1.gz
 
-	# install the tools isos
-	insinto "${VM_INSTALL_DIR}"/lib/vmware/isoimages
+	if use doc; then
+		dodoc -r doc/*
+	fi
+	
+	
+	# install vmware-vix
+	if use vix; then
+		cd "${S}"/vmware-vix
+		# install the binary
+		into "${VM_INSTALL_DIR}"
+		dobin bin/*
 
+		# install the libraries
+		insinto "${VM_INSTALL_DIR}"/lib/vmware-vix
+		doins -r lib/*
+
+		# install headers
+		insinto /usr/include/vmware-vix
+		doins include/*
+
+		if use doc; then
+			dohtml -r doc/*
+		fi
+	fi
+
+	# install the tools isos
 	if use with-tools; then
-		# install the vmware-tools isos
+		insinto "${VM_INSTALL_DIR}"/lib/vmware/isoimages
+
 		local tool ; for tool in vmware-tools-{freebsd,linux,netware,solaris,windows,winPre2k} ; do
 			cd "${S}"/${tool}
 			doins *.iso *.iso.sig
@@ -143,16 +178,19 @@ src_install() {
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware "${VM_INSTALL_DIR}"/bin/vmware
 
 	# fix up permissions
-	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh}}
+	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh},setup/*}
 	chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
 	chmod 04711 "${D}${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+	if use vix; then
+		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-vix/setup/*
+	fi
 
 	# create the environment
 	local envd="${T}/90vmware"
 	cat > "${envd}" <<-EOF
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
-		MANPATH='${VM_INSTALL_DIR}/lib/vmware/man'
+		#MANPATH='${VM_INSTALL_DIR}/lib/vmware/man'
 	EOF
 	doenvd "${envd}"
 
@@ -179,6 +217,12 @@ src_install() {
 		product.name = "VMware Workstation"
 		workstation.product.version = "${major_minor_revision}"
 	EOF
+
+	if use vix; then
+		cat >> "${D}"/etc/vmware/config <<-EOF
+			vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
+		EOF
+	fi
 
 	# install the init.d script
 	local initscript="${T}/vmware.rc"
