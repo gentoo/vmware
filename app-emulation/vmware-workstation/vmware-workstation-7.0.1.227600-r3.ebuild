@@ -33,6 +33,7 @@ RDEPEND="
 	dev-cpp/cairomm
 	dev-cpp/libgnomecanvasmm
 	dev-cpp/libsexymm
+	net-misc/curl[ares]
 	sys-libs/glibc
 	sys-apps/pciutils
 	>=x11-libs/libview-0.6.2
@@ -149,6 +150,8 @@ src_install() {
 		# install the libraries
 		insinto "${VM_INSTALL_DIR}"/lib/vmware-vix
 		doins -r lib/*
+		
+		dosym vmware-vix/libvixAllProducts.so "${VM_INSTALL_DIR}"/lib/libbvixAllProducts.so
 
 		# install headers
 		insinto /usr/include/vmware-vix
@@ -190,7 +193,6 @@ src_install() {
 	cat > "${envd}" <<-EOF
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
-		#MANPATH='${VM_INSTALL_DIR}/lib/vmware/man'
 	EOF
 	doenvd "${envd}"
 
@@ -220,6 +222,7 @@ src_install() {
 
 	if use vix; then
 		cat >> "${D}"/etc/vmware/config <<-EOF
+			vmware.fullpath = "${VM_INSTALL_DIR}/bin/vmware"
 			vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
 		EOF
 	fi
@@ -240,6 +243,9 @@ src_install() {
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
 		-i "${D}/usr/share/applications/vmware-netcfg.desktop"
 
+	# delete erroneous stuff
+	rm -f "${D}${VM_INSTALL_DIR}"/bin/vmware-modconfig \
+		|| die "failed to remove erroneous stuff"
 }
 
 pkg_config() {
