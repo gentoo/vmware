@@ -49,7 +49,6 @@ RDEPEND="
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
 
-
 pkg_nofetch() {
 	local bundle
 
@@ -111,7 +110,7 @@ src_install() {
 	if use doc; then
 		dodoc doc/*
 	fi
-	
+
 	# install vmware-config
 	cd "${S}"/vmware-player-setup
 	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
@@ -119,7 +118,7 @@ src_install() {
 
 	# install vmware-workstation
 	cd "${S}"/vmware-workstation
-	
+
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
 	dobin bin/*
@@ -138,8 +137,7 @@ src_install() {
 	if use doc; then
 		dodoc -r doc/*
 	fi
-	
-	
+
 	# install vmware-vix
 	if use vix; then
 		cd "${S}"/vmware-vix
@@ -150,7 +148,7 @@ src_install() {
 		# install the libraries
 		insinto "${VM_INSTALL_DIR}"/lib/vmware-vix
 		doins -r lib/*
-		
+
 		dosym vmware-vix/libvixAllProducts.so "${VM_INSTALL_DIR}"/lib/libbvixAllProducts.so
 
 		# install headers
@@ -204,7 +202,7 @@ src_install() {
 		LIBDIR='${VM_INSTALL_DIR}/lib'
 	EOF
 
-	cat > "${D}"/etc/vmware/config <<-EOF 
+	cat > "${D}"/etc/vmware/config <<-EOF
 		bindir = "${VM_INSTALL_DIR}/bin"
 		libdir = "${VM_INSTALL_DIR}/lib/vmware"
 		initscriptdir = "/etc/init.d"
