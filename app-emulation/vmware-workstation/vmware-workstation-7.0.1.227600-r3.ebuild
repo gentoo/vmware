@@ -222,6 +222,7 @@ src_install() {
 		cat >> "${D}"/etc/vmware/config <<-EOF
 			vmware.fullpath = "${VM_INSTALL_DIR}/bin/vmware"
 			vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
+			vix.config.version = "1"
 		EOF
 	fi
 
