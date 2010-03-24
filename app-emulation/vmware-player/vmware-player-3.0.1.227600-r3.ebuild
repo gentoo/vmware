@@ -20,7 +20,7 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE=""
+IUSE="doc"
 RESTRICT="binchecks fetch strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -31,8 +31,12 @@ RDEPEND="
 	dev-cpp/cairomm
 	dev-cpp/libgnomecanvasmm
 	dev-cpp/libsexymm
-	sys-libs/glibc
+	dev-libs/xmlrpc-c
+	net-misc/curl[ares]
+	sys-apps/hal
 	sys-apps/pciutils
+	sys-fs/fuse
+	sys-libs/glibc
 	>=x11-libs/libview-0.6.2
 	x11-libs/libXcursor
 	x11-libs/libXft
@@ -76,23 +80,28 @@ src_install() {
 
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
-	dobin bin/*
-	dosbin sbin/*
+	dobin bin/* || die "failed to install bin"
+	dosbin sbin/* || die "failed to install sbin"
 
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/*
+	doins -r lib/* || die "failed to install lib"
 
 	# install the ancillaries
 	insinto /usr
-	doins -r share
+	doins -r share || die "failed to install share"
+
+	# install documentation
+	if use doc; then
+		dodoc doc/* || die "failed to install docs"
+	fi
 
 	# create symlinks for the various tools
 	local tool ; for tool in vmplayer{,-daemon} \
 			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
-		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
+		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}" || die
 	done
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer || die
 
 	# fix up permissions
 	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh}}
@@ -105,17 +114,17 @@ src_install() {
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 	EOF
-	doenvd "${envd}"
+	doenvd "${envd}" || die
 
 	# create the configuration
-	dodir /etc/vmware
+	dodir /etc/vmware || die
 
 	cat > "${D}"/etc/vmware/bootstrap <<-EOF
 		BINDIR='${VM_INSTALL_DIR}/bin'
 		LIBDIR='${VM_INSTALL_DIR}/lib'
 	EOF
 
-	cat > "${D}"/etc/vmware/config <<-EOF 
+	cat > "${D}"/etc/vmware/config <<-EOF
 		bindir = "${VM_INSTALL_DIR}/bin"
 		libdir = "${VM_INSTALL_DIR}/lib/vmware"
 		initscriptdir = "/etc/init.d"
@@ -133,17 +142,14 @@ src_install() {
 	local initscript="${T}/vmware.rc"
 
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript}
-	newinitd "${initscript}" vmware
+		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript} || die
+	newinitd "${initscript}" vmware || die
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
+		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
-		-i "${D}/usr/share/applications/${PN}.desktop"
-
-	# install documentation
-	dodoc doc/*
+		-i "${D}/usr/share/applications/${PN}.desktop" || die
 }
 
 pkg_config() {
@@ -158,7 +164,7 @@ pkg_postinst() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 
-	ewarn "env.d was updated. Please run:"
+	ewarn "/etc/env.d was updated. Please run:"
 	ewarn "env-update && source /etc/profile"
 	ewarn ""
 	ewarn "Before you can use vmware-player, you must configure a default network setup."

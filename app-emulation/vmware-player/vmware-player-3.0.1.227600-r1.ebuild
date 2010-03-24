@@ -102,7 +102,7 @@ src_install() {
 		LIBDIR='/opt'
 	EOF
 
-	cat > "${D}"/etc/vmware/config <<-EOF 
+	cat > "${D}"/etc/vmware/config <<-EOF
 		bindir = "/usr/bin"
 		libdir = "${VM_INSTALL_DIR}"
 		initscriptdir = "/etc/init.d"

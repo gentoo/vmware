@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>
+  vmware-player-3.0.1.227600-r3.ebuild:
+  added use flag doc, fixed dependencies, added bunch of "or die"
+
   09 Mar 2010; Vadim Kuznetsov <vadimk@gentoo.org>
   vmware-player-3.0.1.227600-r3.ebuild:
   minor changes.
