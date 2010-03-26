@@ -33,9 +33,12 @@ RDEPEND="
 	dev-cpp/cairomm
 	dev-cpp/libgnomecanvasmm
 	dev-cpp/libsexymm
+	dev-libs/xmlrpc-c
 	net-misc/curl[ares]
-	sys-libs/glibc
+	sys-apps/hal
 	sys-apps/pciutils
+	sys-fs/fuse
+	sys-libs/glibc
 	>=x11-libs/libview-0.6.2
 	x11-libs/libXcursor
 	x11-libs/libXft
@@ -243,7 +246,68 @@ src_install() {
 		-i "${D}/usr/share/applications/vmware-netcfg.desktop"
 
 	# delete erroneous stuff
-	rm -f "${D}${VM_INSTALL_DIR}"/bin/vmware-modconfig \
+	rm -rf "${D}${VM_INSTALL_DIR}"/bin/vmware-modconfig \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libaio.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libarchive.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libart_lgpl_2.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libatk-1.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libatkmm-1.6.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libcairomm-1.0.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libcairo.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.0.9.8 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libcurl.so.4 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libfontconfig.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libfreetype.so.6 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libfuse.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgailutil.so.17 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgcc_s.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgdkmm-2.4.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgdk_pixbuf-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgdk-x11-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgio-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgiomm-2.4.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgksu2.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libglade-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libglib-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libglibmm-2.4.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libglibmm_generate_extra_defs-2.4.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgmodule-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgnomecanvas-2.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgnomecanvasmm-2.6.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgobject-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgthread-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgtkmm-2.4.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgtk-x11-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libgtop-2.0.so.7 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpango-1.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpangocairo-1.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpangoft2-1.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpangomm-1.4.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpangox-1.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpangoxft-1.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libpng12.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/librsvg-2.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libsexymm.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libsexy.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libsigc-2.0.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libspi.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.0.9.8 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libstartup-notification-1.so.0 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libstdc++.so.6 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXau.so.6 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXcomposite.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXcursor.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXdamage.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXdmcp.so.6 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXfixes.so.3 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXft.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXinerama.so.1 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libxml2.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libxmlrpc_client.so.3 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libxmlrpc.so.3 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libxmlrpc_util.so.3 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXrandr.so.2 \
+		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXrender.so.1 \
 		|| die "failed to remove erroneous stuff"
 }
 
@@ -259,7 +323,7 @@ pkg_postinst() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 
-	ewarn "env.d was updated. Please run:"
+	ewarn "/etc/env.d was updated. Please run:"
 	ewarn "env-update && source /etc/profile"
 	ewarn ""
 	ewarn "Before you can use vmware-player, you must configure a default network setup."
