@@ -6,45 +6,84 @@ EAPI="2"
 
 inherit eutils versionator fdo-mime gnome2-utils
 
-MY_PN="VMware-Player"
-MY_PV="$(replace_version_separator 3 - $PV)"
+MY_PN="VMware-Workstation"
+MY_PV=$(replace_version_separator 3 - $PV)
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
-HOMEPAGE="http://www.vmware.com/products/player/"
+HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
-	x86? ( ${MY_P}.i386.bundle )
-	amd64? ( ${MY_P}.x86_64.bundle )
+	x86? ( with-tools? ( ${MY_PN}-Full-${MY_PV}.i386.bundle ) )
+	x86? ( !with-tools? ( ${MY_PN}-${MY_PV}.i386.bundle ) )
+	amd64? ( with-tools? ( ${MY_PN}-Full-${MY_PV}.x86_64.bundle ) )
+	amd64? ( !with-tools? ( ${MY_PN}-${MY_PV}.x86_64.bundle ) )
 	"
 
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="doc"
-RESTRICT="binchecks fetch strip"
+IUSE="doc vix +with-tools"
+RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 DEPEND="dev-libs/libxslt"
 RDEPEND="
 	~app-emulation/vmware-modules-1.0.0.26
+	app-arch/libarchive
 	dev-cpp/cairomm
+	dev-cpp/glibmm
+	dev-cpp/gtkmm
 	dev-cpp/libgnomecanvasmm
 	dev-cpp/libsexymm
+	dev-libs/atk
+	dev-libs/glib
+	dev-libs/libaio
+	dev-libs/libsigc++
+	dev-libs/libxml2
+	dev-libs/openssl
 	dev-libs/xmlrpc-c
+	gnome-base/libglade
+	gnome-base/libgnomecanvas
+	gnome-base/libgtop
+	gnome-base/librsvg
+	media-libs/fontconfig
+	media-libs/freetype
+	media-libs/libart_lgpl
+	media-libs/libpng
+	media-libs/tiff
 	net-misc/curl[ares]
 	sys-apps/hal
 	sys-apps/pciutils
 	sys-fs/fuse
 	sys-libs/glibc
-	>=x11-libs/libview-0.6.2
+	sys-libs/zlib
+	x11-libs/cairo
+	x11-libs/gtk+
+	x11-libs/libgksu
+	x11-libs/libICE
+	x11-libs/libsexy
+	x11-libs/libSM
+	x11-libs/libview
+	x11-libs/libX11
+	x11-libs/libXau
+	x11-libs/libxcb
+	x11-libs/libXcomposite
 	x11-libs/libXcursor
+	x11-libs/libXdamage
+	x11-libs/libXdmcp
+	x11-libs/libXext
+	x11-libs/libXfixes
 	x11-libs/libXft
 	x11-libs/libXi
 	x11-libs/libXinerama
 	x11-libs/libXrandr
+	x11-libs/libXrender
+	x11-libs/libXtst
+	x11-libs/pango
+	x11-libs/startup-notification
 	!app-emulation/vmware-server
-	!app-emulation/vmware-workstation
+	!app-emulation/vmware-player
 	"
 
 S=${WORKDIR}
@@ -53,10 +92,13 @@ VM_INSTALL_DIR="/opt/vmware"
 pkg_nofetch() {
 	local bundle
 
+	if use with-tools; then
+		MY_P=${MY_PN}-Full-${MY_PV}
+	fi
 	if use x86; then
-		bundle="${MY_PN}.i386.bundle"
+		bundle="${MY_P}.i386.bundle"
 	elif use amd64; then
-		bundle="${MY_PN}.x86_64.bundle"
+		bundle="${MY_P}.x86_64.bundle"
 	fi
 
 	einfo "Please download the ${bundle} from ${HOMEPAGE}"
@@ -65,6 +107,19 @@ pkg_nofetch() {
 
 src_unpack() {
 	bundle_extract_component "${DISTDIR}/${A}" vmware-player-app
+	bundle_extract_component "${DISTDIR}/${A}" vmware-player-setup
+	bundle_extract_component "${DISTDIR}/${A}" vmware-workstation
+	if use vix; then
+		bundle_extract_component "${DISTDIR}/${A}" vmware-vix
+	fi
+	if use with-tools; then
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-freebsd
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-linux
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-netware
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-solaris
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-windows
+		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-winPre2k
+	fi
 }
 
 src_prepare() {
@@ -80,33 +135,96 @@ src_install() {
 
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
-	dobin bin/* || die "failed to install bin"
-	dosbin sbin/* || die "failed to install sbin"
+	dobin bin/*
+	dosbin sbin/*
 
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/* || die "failed to install lib"
+	doins -r lib/*
 
 	# install the ancillaries
 	insinto /usr
-	doins -r share || die "failed to install share"
+	doins -r share
 
 	# install documentation
 	if use doc; then
-		dodoc doc/* || die "failed to install docs"
+		dodoc doc/*
+	fi
+
+	# install vmware-config
+	cd "${S}"/vmware-player-setup
+	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
+	doins vmware-config
+
+	# install vmware-workstation
+	cd "${S}"/vmware-workstation
+
+	# install the binaries
+	into "${VM_INSTALL_DIR}"
+	dobin bin/*
+
+	# install the libraries
+	insinto "${VM_INSTALL_DIR}"/lib/vmware
+	doins -r lib/*
+
+	# install the ancillaries
+	insinto /usr
+	doins -r share
+
+	# install documentation
+	doman man/man1/vmware.1.gz
+
+	if use doc; then
+		dodoc -r doc/*
+	fi
+
+	# install vmware-vix
+	if use vix; then
+		cd "${S}"/vmware-vix
+		# install the binary
+		into "${VM_INSTALL_DIR}"
+		dobin bin/*
+
+		# install the libraries
+		insinto "${VM_INSTALL_DIR}"/lib/vmware-vix
+		doins -r lib/*
+
+		dosym vmware-vix/libvixAllProducts.so "${VM_INSTALL_DIR}"/lib/libbvixAllProducts.so
+
+		# install headers
+		insinto /usr/include/vmware-vix
+		doins include/*
+
+		if use doc; then
+			dohtml -r doc/*
+		fi
+	fi
+
+	# install the tools isos
+	if use with-tools; then
+		insinto "${VM_INSTALL_DIR}"/lib/vmware/isoimages
+
+		local tool ; for tool in vmware-tools-{freebsd,linux,netware,solaris,windows,winPre2k} ; do
+			cd "${S}"/${tool}
+			doins *.iso *.iso.sig
+		done
 	fi
 
 	# create symlinks for the various tools
-	local tool ; for tool in vmplayer{,-daemon} \
-			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
-		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}" || die
+	local tool ; for tool in vmware vmplayer{,-daemon} \
+			vmware-{acetool,gksu,fuseUI,modconfig{,-console},netcfg,tray,unity-helper} ; do
+		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer || die
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware "${VM_INSTALL_DIR}"/bin/vmware
 
 	# fix up permissions
-	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh}}
+	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/{libgksu2.so.0/gksu-run-helper,wrapper-gtk24.sh},setup/*}
 	chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
 	chmod 04711 "${D}${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+	if use vix; then
+		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-vix/setup/*
+	fi
 
 	# create the environment
 	local envd="${T}/90vmware"
@@ -114,10 +232,10 @@ src_install() {
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 	EOF
-	doenvd "${envd}" || die
+	doenvd "${envd}"
 
 	# create the configuration
-	dodir /etc/vmware || die
+	dodir /etc/vmware
 
 	cat > "${D}"/etc/vmware/bootstrap <<-EOF
 		BINDIR='${VM_INSTALL_DIR}/bin'
@@ -134,24 +252,37 @@ src_install() {
 		VMBLOCK_CONFED = "yes"
 		VSOCK_CONFED = "yes"
 		NETWORKING = "yes"
-		player.product.version = "${major_minor_revision}"
+		player.product.version = "3.0.1"
 		product.buildNumber = "${build}"
+		product.name = "VMware Workstation"
+		workstation.product.version = "${major_minor_revision}"
 	EOF
+
+	if use vix; then
+		cat >> "${D}"/etc/vmware/config <<-EOF
+			vmware.fullpath = "${VM_INSTALL_DIR}/bin/vmware"
+			vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
+			vix.config.version = "1"
+		EOF
+	fi
 
 	# install the init.d script
 	local initscript="${T}/vmware.rc"
-
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript} || die
-	newinitd "${initscript}" vmware || die
+		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript}
+	newinitd "${initscript}" vmware
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
+		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
+	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware:g" \
+		-i "${D}/usr/share/applications/${PN}.desktop"
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
-		-i "${D}/usr/share/applications/${PN}.desktop" || die
+		-i "${D}/usr/share/applications/vmware-player.desktop"
+	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
+		-i "${D}/usr/share/applications/vmware-netcfg.desktop"
 
-	# delete erroneous stuff
+	# delete superfluous stuff
 	rm -rf "${D}${VM_INSTALL_DIR}"/bin/vmware-modconfig \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libaio.so.1 \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libarchive.so.2 \
@@ -215,7 +346,6 @@ src_install() {
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXrandr.so.2 \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXrender.so.1 \
 		|| die "failed to remove erroneous stuff"
-
 }
 
 pkg_config() {
