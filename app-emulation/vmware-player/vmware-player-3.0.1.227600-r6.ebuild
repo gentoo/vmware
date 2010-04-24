@@ -1,10 +1,10 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-2.5.3.185404.ebuild,v 1.4 2009/09/25 10:37:05 maekke Exp $
+# $Header$
 
 EAPI="2"
 
-inherit eutils versionator fdo-mime gnome2-utils
+inherit eutils versionator fdo-mime gnome2-utils vmware-bundle
 
 MY_PN="VMware-Player"
 MY_PV="$(replace_version_separator 3 - $PV)"
@@ -20,14 +20,14 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="doc"
+IUSE="doc vmware-tools"
 RESTRICT="binchecks fetch strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
-DEPEND="dev-libs/libxslt"
 RDEPEND="
 	~app-emulation/vmware-modules-1.0.0.26
+	vmware-tools? ( ~app-emulation/vmware-tools-8.1.4.227600 )
 	app-arch/libarchive
 	dev-cpp/cairomm
 	dev-cpp/glibmm
@@ -92,17 +92,18 @@ pkg_nofetch() {
 	local bundle
 
 	if use x86; then
-		bundle="${MY_PN}.i386.bundle"
+		bundle="${MY_P}.i386.bundle"
 	elif use amd64; then
-		bundle="${MY_PN}.x86_64.bundle"
+		bundle="${MY_P}.x86_64.bundle"
 	fi
 
-	einfo "Please download the ${bundle} from ${HOMEPAGE}"
+	einfo "Please download ${bundle}"
+	einfo "from ${HOMEPAGE}"
 	einfo "and place it in ${DISTDIR}"
 }
 
 src_unpack() {
-	bundle_extract_component "${DISTDIR}/${A}" vmware-player-app
+	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-app
 }
 
 src_prepare() {
@@ -189,7 +190,7 @@ src_install() {
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
 		-i "${D}/usr/share/applications/${PN}.desktop" || die
 
-	# delete superfluous stuff
+	# remove superfluous libraries
 	rm -rf "${D}${VM_INSTALL_DIR}"/bin/vmware-modconfig \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libarchive.so.2 \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libart_lgpl_2.so.2 \
@@ -251,8 +252,7 @@ src_install() {
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libxmlrpc_util.so.3 \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXrandr.so.2 \
 		"${D}${VM_INSTALL_DIR}"/lib/vmware/lib/libXrender.so.1 \
-		|| die "failed to remove erroneous stuff"
-
+		|| die "failed to remove superfluous libraries"
 }
 
 pkg_config() {
@@ -282,35 +282,4 @@ pkg_prerm() {
 pkg_postrm() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
-}
-
-bundle_extract_component() {
-	local -i bundle_size=$(stat -L -c'%s' "${1}")
-	local -i bundle_manifestOffset=$(od -An -j$((bundle_size-36)) -N4 -tu4 "${1}")
-	local -i bundle_manifestSize=$(od -An -j$((bundle_size-40)) -N4 -tu4 "${1}")
-	local -i bundle_dataOffset=$(od -An -j$((bundle_size-44)) -N4 -tu4 "${1}")
-	local -i bundle_dataSize=$(od -An -j$((bundle_size-52)) -N8 -tu8 "${1}")
-	tail -c+$((bundle_manifestOffset+1)) "${1}" 2> /dev/null | head -c$((bundle_manifestSize)) |
-		xsltproc "${FILESDIR}"/list-bundle-components.xsl - |
-		while read -r component_offset component_size component_name ; do
-			if [[ ${component_name} == ${2} ]] ; then
-				ebegin "Extracting '${component_name}' component from '$(basename "${1}")'"
-				declare -i component_manifestOffset=$(od -An -j$((bundle_dataOffset+component_offset+9)) -N4 -tu4 "${1}")
-				declare -i component_manifestSize=$(od -An -j$((bundle_dataOffset+component_offset+13)) -N4 -tu4 "${1}")
-				declare -i component_dataOffset=$(od -An -j$((bundle_dataOffset+component_offset+17)) -N4 -tu4 "${1}")
-				declare -i component_dataSize=$(od -An -j$((bundle_dataOffset+component_offset+21)) -N8 -tu8 "${1}")
-				tail -c+$((bundle_dataOffset+component_offset+component_manifestOffset+1)) "${1}" 2> /dev/null |
-					head -c$((component_manifestSize)) | xsltproc "${FILESDIR}"/list-component-files.xsl - |
-					while read -r file_offset file_compressedSize file_uncompressedSize file_path ; do
-						if [[ ${file_path} ]] ; then
-							echo -n '.'
-							file_path="${component_name}/${file_path}"
-							mkdir -p "$(dirname "${file_path}")"
-							tail -c+$((bundle_dataOffset+component_offset+component_dataOffset+file_offset+1)) "${1}" 2> /dev/null |
-								head -c$((file_compressedSize)) | gzip -cd > "${file_path}"
-						fi
-					done
-				echo ; eend
-			fi
-		done
 }
