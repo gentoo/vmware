@@ -50,7 +50,7 @@ RDEPEND="
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libart_lgpl
-	media-libs/libpng:1.2
+	=media-libs/libpng-1.2*
 	media-libs/tiff
 	net-misc/curl[ares]
 	sys-apps/hal
