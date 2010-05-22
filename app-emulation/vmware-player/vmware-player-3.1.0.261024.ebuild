@@ -28,6 +28,7 @@ RESTRICT="binchecks fetch strip"
 RDEPEND="dev-cpp/cairomm
 	dev-cpp/glibmm
 	dev-cpp/gtkmm
+	dev-cpp/libgnomecanvasmm
 	dev-cpp/libsexymm
 	dev-cpp/pangomm
 	dev-libs/atk
@@ -35,6 +36,7 @@ RDEPEND="dev-cpp/cairomm
 	dev-libs/libsigc++
 	dev-libs/libxml2
 	dev-libs/openssl
+	dev-libs/xmlrpc-c
 	gnome-base/libgnomecanvas
 	gnome-base/libgtop
 	gnome-base/librsvg
@@ -42,7 +44,7 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libart_lgpl
-	media-libs/libpng
+	media-libs/libpng:1.2
 	net-misc/curl[ares]
 	sys-devel/gcc
 	sys-fs/fuse

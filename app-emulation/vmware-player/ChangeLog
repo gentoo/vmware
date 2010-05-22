@@ -3,6 +3,10 @@
 # $Header: $
 
   22 May 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  vmware-player-3.1.0.261024.ebuild:
+  readded needed dependencies
+
+  22 May 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   -vmware-player-3.0.1.227600.ebuild, vmware-player-3.0.1.227600-r6.ebuild,
   +vmware-player-3.1.0.261024.ebuild:
   new version of VMware Player
