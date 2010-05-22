@@ -5,7 +5,7 @@
 inherit versionator vmware-bundle
 
 MY_PV="$(replace_version_separator 3 - $PV)"
-BASE_URI="http://softwareupdate.vmware.com/cds/vmw-desktop/player/3.0.1/227600/linux/"
+BASE_URI="http://softwareupdate.vmware.com/cds/vmw-desktop/player/3.1.0/261024/linux/packages/"
 
 DESCRIPTION="VMware Tools for guest operating systems"
 HOMEPAGE="http://www.vmware.com/products/player/"
