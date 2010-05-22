@@ -1,6 +1,12 @@
 # ChangeLog for app-emulation/vmware-modules
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 May 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +files/1.0.0.26-makefile-include.patch,
+  +files/1.0.0.26-makefile-kernel-dir.patch,
+  +vmware-modules-1.0.0.27.ebuild, +files/apic.patch:
+  new version of VMware kernel modules
 
   24 Mar 2009; Mike Auty <ikelos@gentoo.org>
   +files/1.0.0.23-kernel-2.6.29.patch, vmware-modules-1.0.0.23.ebuild:
