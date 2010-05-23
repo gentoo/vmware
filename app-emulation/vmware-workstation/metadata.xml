@@ -14,6 +14,7 @@
 		that automate virtual machine operations, and run programs or manipulate
 		files within guest operating systems.
 		</flag>
+		<flag name="vmware-tools">Install VMware Tools images</flag>
 		<flag name='with-tools'> Install VMware Tools for guest operating system
 		</flag>
 	</use>

@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 May 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  vmware-modules-1.0.0.27.ebuild:
+  also allow vmware-workstation as provider of module sources
+
   22 May 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   +files/1.0.0.26-makefile-include.patch,
   +files/1.0.0.26-makefile-kernel-dir.patch,
