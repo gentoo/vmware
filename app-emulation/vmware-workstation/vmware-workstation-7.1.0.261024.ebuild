@@ -45,7 +45,7 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libart_lgpl
-	media-libs/libpng:1.2
+	=media-libs/libpng-1.2*
 	net-misc/curl[ares]
 	sys-devel/gcc
 	sys-fs/fuse
