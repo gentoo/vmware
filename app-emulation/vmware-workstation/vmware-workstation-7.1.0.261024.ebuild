@@ -134,8 +134,8 @@ src_install() {
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/*
 
-	# these two libraries do not like to load from /usr/lib*
-	local each ; for each in libcrypto.so.0.9.8 libssl.so.0.9.8 ; do
+	# these libraries do not like to load from /usr/lib*
+	local each ; for each in libcrypto.so.0.9.8 libssl.so.0.9.8 libglib-2.0.so.0 ; do
 		if [[ ! -f "${VM_INSTALL_DIR}/lib/vmware/lib/${each}" ]] ; then
 			dosym "/usr/$(get_libdir)/${each}" \
 				"${VM_INSTALL_DIR}/lib/vmware/lib/${each}/${each}"
