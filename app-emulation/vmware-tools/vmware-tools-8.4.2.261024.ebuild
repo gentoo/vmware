@@ -15,6 +15,8 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 RESTRICT="mirror"
 
+DEPEND="!<app-emulation/vmware-workstation-7.1"
+
 IUSE_VMWARE_GUEST="freebsd linux netware solaris windows winPre2k"
 
 VM_INSTALL_DIR="/opt/vmware"
@@ -43,5 +45,9 @@ src_unpack() {
 
 src_install() {
 	insinto "${VM_INSTALL_DIR}"/lib/vmware/isoimages
-	doins *.iso{,.sig}
+	local guest ; for guest in ${IUSE_VMWARE_GUEST} ; do
+		if use "vmware_guest_${guest}" ; then
+			doins "${guest}".iso{,.sig}
+		fi
+	done
 }
