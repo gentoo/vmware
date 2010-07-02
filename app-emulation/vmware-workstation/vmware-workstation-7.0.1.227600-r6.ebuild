@@ -4,32 +4,29 @@
 
 EAPI="2"
 
-inherit eutils versionator fdo-mime gnome2-utils
+inherit eutils versionator fdo-mime gnome2-utils vmware-bundle
 
 MY_PN="VMware-Workstation"
-MY_PV=$(replace_version_separator 3 - $PV)
+MY_PV="$(replace_version_separator 3 - $PV)"
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
-	x86? ( with-tools? ( ${MY_PN}-Full-${MY_PV}.i386.bundle ) )
-	x86? ( !with-tools? ( ${MY_PN}-${MY_PV}.i386.bundle ) )
-	amd64? ( with-tools? ( ${MY_PN}-Full-${MY_PV}.x86_64.bundle ) )
-	amd64? ( !with-tools? ( ${MY_PN}-${MY_PV}.x86_64.bundle ) )
+	x86? ( ${MY_P}.i386.bundle )
+	amd64? ( ${MY_P}.x86_64.bundle )
 	"
 
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="doc vix +with-tools"
+IUSE="doc vix vmware-tools"
 RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 DEPEND="dev-libs/libxslt"
 RDEPEND="
-	~app-emulation/vmware-modules-1.0.0.26
 	app-arch/libarchive
 	dev-cpp/cairomm
 	dev-cpp/glibmm
@@ -52,7 +49,7 @@ RDEPEND="
 	media-libs/libart_lgpl
 	=media-libs/libpng-1.2*
 	media-libs/tiff
-	net-misc/curl[ares]
+	net-misc/curl
 	sys-apps/hal
 	sys-apps/pciutils
 	sys-fs/fuse
@@ -86,15 +83,15 @@ RDEPEND="
 	!app-emulation/vmware-player
 	"
 
+PDEPEND="~app-emulation/vmware-modules-235
+		vmware-tools? ( app-emulation/vmware-tools )"
+
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
 
 pkg_nofetch() {
 	local bundle
 
-	if use with-tools; then
-		MY_P=${MY_PN}-Full-${MY_PV}
-	fi
 	if use x86; then
 		bundle="${MY_P}.i386.bundle"
 	elif use amd64; then
@@ -106,19 +103,11 @@ pkg_nofetch() {
 }
 
 src_unpack() {
-	bundle_extract_component "${DISTDIR}/${A}" vmware-player-app
-	bundle_extract_component "${DISTDIR}/${A}" vmware-player-setup
-	bundle_extract_component "${DISTDIR}/${A}" vmware-workstation
+	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-app
+	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-setup
+	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-workstation
 	if use vix; then
-		bundle_extract_component "${DISTDIR}/${A}" vmware-vix
-	fi
-	if use with-tools; then
-		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-freebsd
-		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-linux
-		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-netware
-		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-solaris
-		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-windows
-		bundle_extract_component "${DISTDIR}/${A}" vmware-tools-winPre2k
+		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix
 	fi
 }
 
@@ -375,35 +364,4 @@ pkg_prerm() {
 pkg_postrm() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
-}
-
-bundle_extract_component() {
-	local -i bundle_size=$(stat -L -c'%s' "${1}")
-	local -i bundle_manifestOffset=$(od -An -j$((bundle_size-36)) -N4 -tu4 "${1}")
-	local -i bundle_manifestSize=$(od -An -j$((bundle_size-40)) -N4 -tu4 "${1}")
-	local -i bundle_dataOffset=$(od -An -j$((bundle_size-44)) -N4 -tu4 "${1}")
-	local -i bundle_dataSize=$(od -An -j$((bundle_size-52)) -N8 -tu8 "${1}")
-	tail -c+$((bundle_manifestOffset+1)) "${1}" 2> /dev/null | head -c$((bundle_manifestSize)) |
-		xsltproc "${FILESDIR}"/list-bundle-components.xsl - |
-		while read -r component_offset component_size component_name ; do
-			if [[ ${component_name} == ${2} ]] ; then
-				ebegin "Extracting '${component_name}' component from '$(basename "${1}")'"
-				declare -i component_manifestOffset=$(od -An -j$((bundle_dataOffset+component_offset+9)) -N4 -tu4 "${1}")
-				declare -i component_manifestSize=$(od -An -j$((bundle_dataOffset+component_offset+13)) -N4 -tu4 "${1}")
-				declare -i component_dataOffset=$(od -An -j$((bundle_dataOffset+component_offset+17)) -N4 -tu4 "${1}")
-				declare -i component_dataSize=$(od -An -j$((bundle_dataOffset+component_offset+21)) -N8 -tu8 "${1}")
-				tail -c+$((bundle_dataOffset+component_offset+component_manifestOffset+1)) "${1}" 2> /dev/null |
-					head -c$((component_manifestSize)) | xsltproc "${FILESDIR}"/list-component-files.xsl - |
-					while read -r file_offset file_compressedSize file_uncompressedSize file_path ; do
-						if [[ ${file_path} ]] ; then
-							echo -n '.'
-							file_path="${component_name}/${file_path}"
-							mkdir -p "$(dirname "${file_path}")"
-							tail -c+$((bundle_dataOffset+component_offset+component_dataOffset+file_offset+1)) "${1}" 2> /dev/null |
-								head -c$((file_compressedSize)) | gzip -cd > "${file_path}"
-						fi
-					done
-				echo ; eend
-			fi
-		done
 }

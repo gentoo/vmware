@@ -45,7 +45,7 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/freetype
 	media-libs/libart_lgpl
 	=media-libs/libpng-1.2*
-	net-misc/curl[ares]
+	net-misc/curl
 	sys-devel/gcc
 	sys-fs/fuse
 	sys-libs/glibc
@@ -76,7 +76,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/startup-notification
 	!app-emulation/vmware-server
 	!app-emulation/vmware-workstation"
-PDEPEND=">=app-emulation/vmware-modules-1.0.0.27
+PDEPEND=">=app-emulation/vmware-modules-238
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}/vmware-player-app

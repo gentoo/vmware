@@ -26,7 +26,7 @@ RESTRICT="binchecks fetch strip"
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
-	~app-emulation/vmware-modules-1.0.0.26
+	~app-emulation/vmware-modules-235
 	vmware-tools? ( app-emulation/vmware-tools )
 	app-arch/libarchive
 	dev-cpp/cairomm
@@ -50,7 +50,7 @@ RDEPEND="
 	media-libs/libart_lgpl
 	=media-libs/libpng-1.2*
 	media-libs/tiff
-	net-misc/curl[ares]
+	net-misc/curl
 	sys-apps/hal
 	sys-apps/pciutils
 	sys-devel/gcc

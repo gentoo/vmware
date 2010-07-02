@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 RESTRICT="mirror"
 
-DEPEND="!<app-emulation/vmware-workstation-7.1"
+DEPEND="!<app-emulation/vmware-workstation-7"
 
 IUSE_VMWARE_GUEST="freebsd linux netware solaris windows winPre2k"
 
