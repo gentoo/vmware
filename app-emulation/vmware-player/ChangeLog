@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Jul 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  vmware-player-3.0.1.227600-r6.ebuild, vmware-player-3.1.0.261024.ebuild:
+  depend on OpenSSL 0.9.8* specifically
+
   22 May 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   vmware-player-3.1.0.261024.ebuild:
   readded needed dependencies

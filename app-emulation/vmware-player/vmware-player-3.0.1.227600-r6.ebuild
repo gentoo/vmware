@@ -39,7 +39,7 @@ RDEPEND="
 	dev-libs/glib
 	dev-libs/libsigc++
 	dev-libs/libxml2
-	dev-libs/openssl
+	=dev-libs/openssl-0.9.8*
 	dev-libs/xmlrpc-c
 	gnome-base/libglade
 	gnome-base/libgnomecanvas

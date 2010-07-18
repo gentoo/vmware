@@ -35,7 +35,7 @@ RDEPEND="dev-cpp/cairomm
 	dev-libs/glib
 	dev-libs/libsigc++
 	dev-libs/libxml2
-	dev-libs/openssl
+	=dev-libs/openssl-0.9.8*
 	dev-libs/xmlrpc-c
 	gnome-base/libgnomecanvas
 	gnome-base/libgtop

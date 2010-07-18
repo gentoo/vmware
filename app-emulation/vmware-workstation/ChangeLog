@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Jul 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  vmware-workstation-7.0.1.227600-r6.ebuild,
+  vmware-workstation-7.1.0.261024.ebuild:
+  depend on OpenSSL 0.9.8* specifically
+
   02 Jun 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   vmware-workstation-7.1.0.261024.ebuild:
   added libglib-2.0.so.0 symlink (see bug 291241, comment #65)
