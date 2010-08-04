@@ -53,6 +53,8 @@ src_prepare() {
 	epatch "${FILESDIR}/1.0.0.26-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/1.0.0.26-makefile-include.patch"
 	epatch "${FILESDIR}/apic.patch"
+	kernel_is 2 6 35 && epatch "${FILESDIR}/iommu_map.patch"
+	kernel_is 2 6 35 && epatch "${FILESDIR}/sk_sleep.patch"
 }
 
 src_install() {
