@@ -1,8 +1,0 @@
-# ChangeLog for app-emulation/vmware-server-console
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  15 Jan 2009; Mike Auty <ikelos@gentoo.org>
-  vmware-server-console-1.0.8.126538.ebuild:
-  Stabilize vmware-server-console to match the main tree.
-
