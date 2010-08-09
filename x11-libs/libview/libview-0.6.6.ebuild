@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/x11-libs/libview/libview-0.6.2.ebuild,v 1.3 2009/01/12 21:41:05 maekke Exp $
 
-inherit eutils gnome2
+EAPI=3
+
+inherit autotools eutils gnome2
 
 DESCRIPTION="VMware's Incredibly Exciting Widgets"
 HOMEPAGE="http://view.sourceforge.net"
@@ -22,7 +24,10 @@ G2CONF="--enable-deprecated"
 
 src_unpack() {
 	gnome2_src_unpack
+}
 
+src_prepare() {
 	# Fix the pkgconfig file
 	epatch "${FILESDIR}"/${PN}-0.5.6-pcfix.patch
+	eautoreconf -i
 }
