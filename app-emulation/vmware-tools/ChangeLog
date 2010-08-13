@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Aug 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +vmware-tools-8.4.3.282343.ebuild:
+  version bump to VMware Tools 8.4.3.282343
+
   02 Jun 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   vmware-tools-8.4.2.261024.ebuild:
   added block on older versions of vmware-workstation

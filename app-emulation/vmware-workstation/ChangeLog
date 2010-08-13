@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Aug 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +vmware-workstation-7.1.1.282343.ebuild:
+  version bump to VMware Workstation 7.1.1.282343
+
   18 Jul 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   vmware-workstation-7.0.1.227600-r6.ebuild,
   vmware-workstation-7.1.0.261024.ebuild:

@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Aug 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +vmware-modules-238.1.ebuild:
+  version bump
+
   04 Aug 2010; Vadim Kuznetsov <vadimk@gentoo.org>
   vmware-modules-235.ebuild, vmware-modules-238.ebuild,
   +files/iommu_map.patch, +files/sk_sleep.patch:
