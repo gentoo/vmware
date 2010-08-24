@@ -57,7 +57,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libICE
 	x11-libs/libsexy
 	x11-libs/libSM
-	x11-libs/libview
+	>=x11-libs/libview-0.6.6
 	x11-libs/libX11
 	x11-libs/libXau
 	x11-libs/libxcb
