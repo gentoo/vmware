@@ -113,9 +113,13 @@ src_prepare() {
 	# remove superfluous libraries
 	ebegin 'Removing superfluous libraries'
 	cd vmware-player-app/lib/lib || die
-	ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | xargs -d'\n' -r rm -rf
+	# exclude OpenSSL from unbundling until the AES-NI patch gets into the tree
+	# see http://forums.gentoo.org/viewtopic-t-835867.html
+	ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | fgrep -vx 'libcrypto.so.0.9.8
+libssl.so.0.9.8' | xargs -d'\n' -r rm -rf
 	cd ../../../vmware-workstation/lib/lib || die
-	ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | xargs -d'\n' -r rm -rf
+	ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | fgrep -vx 'libcrypto.so.0.9.8
+libssl.so.0.9.8' | xargs -d'\n' -r rm -rf
 	eend
 }
 
@@ -134,13 +138,15 @@ src_install() {
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/*
 
-	# these libraries do not like to load from /usr/lib*
-	local each ; for each in libcrypto.so.0.9.8 libssl.so.0.9.8 libglib-2.0.so.0 ; do
-		if [[ ! -f "${VM_INSTALL_DIR}/lib/vmware/lib/${each}" ]] ; then
-			dosym "/usr/$(get_libdir)/${each}" \
-				"${VM_INSTALL_DIR}/lib/vmware/lib/${each}/${each}"
-		fi
-	done
+	# commented out until Portage gets OpenSSL 0.9.8 with AES-NI support
+	# see http://forums.gentoo.org/viewtopic-t-835867.html
+	## these two libraries do not like to load from /usr/lib*
+	#local each ; for each in libcrypto.so.0.9.8 libssl.so.0.9.8 ; do
+	#	if [[ ! -f "${VM_INSTALL_DIR}/lib/vmware/lib/${each}" ]] ; then
+	#		dosym "/usr/$(get_libdir)/${each}" \
+	#			"${VM_INSTALL_DIR}/lib/vmware/lib/${each}/${each}"
+	#	fi
+	#done
 
 	# install the ancillaries
 	insinto /usr

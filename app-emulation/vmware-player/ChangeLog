@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Sep 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  -vmware-player-3.1.0.261024.ebuild, -vmware-player-3.1.1.282343.ebuild,
+  +vmware-player-3.1.1.282343-r1.ebuild:
+  exclude OpenSSL from unbundling until patched with AES-NI
+
   24 Aug 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   vmware-player-3.1.0.261024.ebuild, vmware-player-3.1.1.282343.ebuild:
   require >=x11-libs/libview-0.6.6
