@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
+# $Header: $
 
 EAPI="2"
 
@@ -33,6 +33,7 @@ RDEPEND="dev-cpp/cairomm
 	dev-cpp/pangomm
 	dev-libs/atk
 	dev-libs/glib
+	dev-libs/libaio
 	dev-libs/libsigc++
 	dev-libs/libxml2
 	=dev-libs/openssl-0.9.8*

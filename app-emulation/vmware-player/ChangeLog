@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Sep 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  vmware-player-3.1.1.282343-r1.ebuild:
+  add RDEPEND on dev-libs/libaio
+
   10 Sep 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   -vmware-player-3.1.0.261024.ebuild, -vmware-player-3.1.1.282343.ebuild,
   +vmware-player-3.1.1.282343-r1.ebuild:
