@@ -18,8 +18,8 @@ IUSE=""
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( ~app-emulation/vmware-player-3.1.1.282343
-		 ~app-emulation/vmware-workstation-7.1.1.282343 )"
+	|| ( ~app-emulation/vmware-player-3.1.2.301548
+		 ~app-emulation/vmware-workstation-7.1.2.301548 )"
 
 S=${WORKDIR}
 

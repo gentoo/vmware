@@ -77,7 +77,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/startup-notification
 	!app-emulation/vmware-server
 	!app-emulation/vmware-workstation"
-PDEPEND=">=app-emulation/vmware-modules-238.1
+PDEPEND=">=app-emulation/vmware-modules-238.2
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}/vmware-player-app
