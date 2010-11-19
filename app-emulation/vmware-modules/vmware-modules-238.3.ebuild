@@ -52,9 +52,9 @@ src_unpack() {
 src_prepare() {
 	epatch "${FILESDIR}/1.0.0.26-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/1.0.0.26-makefile-include.patch"
-	epatch "${FILESDIR}/apic.patch"
-	kernel_is ge 2 6 35 && epatch "${FILESDIR}/iommu_map.patch"
-	kernel_is ge 2 6 35 && epatch "${FILESDIR}/sk_sleep.patch"
+	#epatch "${FILESDIR}/apic.patch"
+	#kernel_is ge 2 6 35 && epatch "${FILESDIR}/iommu_map.patch"
+	#kernel_is ge 2 6 35 && epatch "${FILESDIR}/sk_sleep.patch"
 	kernel_is 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
 }
 
