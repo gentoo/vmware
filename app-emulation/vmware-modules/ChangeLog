@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Nov 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +vmware-modules-238.3.ebuild:
+  version bump
+
   24 Sep 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   -vmware-modules-238.ebuild, -vmware-modules-238.1.ebuild,
   +vmware-modules-238.2.ebuild:
