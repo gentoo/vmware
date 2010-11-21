@@ -1,12 +1,8 @@
-diff -ru8 original//vmmon-only/linux/driver.c patched//vmmon-only/linux/driver.c
---- original//vmmon-only/linux/driver.c	2010-09-21 04:48:16.000000000 -0400
-+++ patched//vmmon-only/linux/driver.c	2010-09-25 21:20:08.000000000 -0400
-@@ -165,16 +165,17 @@
-  *
-  *----------------------------------------------------------------------
-  */
- static int LinuxDriver_Open(struct inode *inode, struct file *filp);
- 
+diff --git a/vmmon-only/linux/driver.c b/vmmon-only/linux/driver.c
+index 1a0e753..089aba3 100644
+--- a/vmmon-only/linux/driver.c
++++ b/vmmon-only/linux/driver.c
+@@ -170,6 +170,7 @@ static int LinuxDriver_Open(struct inode *inode, struct file *filp);
  static int LinuxDriver_Ioctl(struct inode *inode, struct file *filp,
                             u_int iocmd, unsigned long ioarg);
  #if defined(HAVE_UNLOCKED_IOCTL) || defined(HAVE_COMPAT_IOCTL)
@@ -14,9 +10,24 @@ diff -ru8 original//vmmon-only/linux/driver.c patched//vmmon-only/linux/driver.c
  static long LinuxDriver_UnlockedIoctl(struct file *filp,
                             u_int iocmd, unsigned long ioarg);
  #endif
+diff --git a/vmmon-only/linux/hostif.c b/vmmon-only/linux/hostif.c
+index 5847323..9042b97 100644
+--- a/vmmon-only/linux/hostif.c
++++ b/vmmon-only/linux/hostif.c
+@@ -3702,7 +3702,7 @@ HostIFDoIoctl(struct file *filp,
+    if (filp->f_op->unlocked_ioctl) {
+       return filp->f_op->unlocked_ioctl(filp, iocmd, ioarg);
+    }
+-#endif
++#else
+    if (filp->f_op->ioctl) {
+       long err;
  
- static int LinuxDriver_Close(struct inode *inode, struct file *filp);
- static unsigned int LinuxDriverPoll(struct file *file, poll_table *wait);
- #if defined(VMW_NOPAGE_2624)
- static int LinuxDriverFault(struct vm_area_struct *vma, struct vm_fault *fault);
-
+@@ -3712,6 +3712,7 @@ HostIFDoIoctl(struct file *filp,
+ 
+       return err;
+    }
++#endif
+ 
+    return -ENOIOCTLCMD;
+ }
