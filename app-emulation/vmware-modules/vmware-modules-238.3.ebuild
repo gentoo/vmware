@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-modules/vmware-modules-1.0.0.26.ebuild,v 1.2 2010/05/03 16:53:39 vadimk Exp $
 
@@ -52,10 +52,8 @@ src_unpack() {
 src_prepare() {
 	epatch "${FILESDIR}/1.0.0.26-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/1.0.0.26-makefile-include.patch"
-	#epatch "${FILESDIR}/apic.patch"
-	#kernel_is ge 2 6 35 && epatch "${FILESDIR}/iommu_map.patch"
-	#kernel_is ge 2 6 35 && epatch "${FILESDIR}/sk_sleep.patch"
 	kernel_is 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
+	kernel_is 2 6 37 && epatch "${FILESDIR}/sema.patch"
 }
 
 src_install() {
