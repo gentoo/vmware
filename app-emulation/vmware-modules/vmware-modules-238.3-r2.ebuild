@@ -52,11 +52,9 @@ src_unpack() {
 src_prepare() {
 	epatch "${FILESDIR}/1.0.0.26-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/1.0.0.26-makefile-include.patch"
+	epatch "${FILESDIR}/jobserver.patch"
 	kernel_is 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
 	kernel_is 2 6 37 && epatch "${FILESDIR}/sema.patch"
-
-	sed -i -e 's/make/$(MAKE)/g' {vmmon,vsock,vmblock,vmnet,vmci}-only/Makefile \
-		|| die "Sed failed."
 }
 
 src_install() {
