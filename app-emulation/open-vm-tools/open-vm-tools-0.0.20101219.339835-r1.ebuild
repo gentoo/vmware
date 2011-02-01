@@ -109,6 +109,8 @@ src_install() {
 
 	if use X;
 	then
+		dobin "${S}"/scripts/common/vmware-xdg-detect-de
+
 		insinto /etc/xdg/autostart
 		doins "${FILESDIR}/open-vm-tools.desktop" || die "failed to install .desktop"
 
