@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-server/vmware-server-1.0.10.203137.ebuild,v 1.1 2009/12/18 16:14:42 vadimk Exp $
 
@@ -10,11 +10,11 @@ inherit eutils versionator vmware
 
 MY_PV=$(replace_version_separator 3 '-' )
 MY_P="VMware-server-${MY_PV}"
+MY_SV=$(get_version_component_range 3 "${PV}")
 
 DESCRIPTION="VMware Server for Linux"
 HOMEPAGE="http://www.vmware.com/"
 SRC_URI="mirror://vmware/software/vmserver/${MY_P}.tar.gz
-	http://dev.gentoo.org/~ikelos/devoverlay-distfiles/${PN}-perl-fixed-rpath-libs.tar.bz2
 	mirror://gentoo/${PN}-perl-fixed-rpath-libs.tar.bz2"
 
 LICENSE="vmware"
@@ -47,12 +47,11 @@ RDEPEND=">=sys-libs/glibc-2.3.5
 	!<sys-apps/dbus-0.62
 	!app-emulation/vmware-player
 	!app-emulation/vmware-workstation
-	~app-emulation/vmware-modules-1.0.0.15
-	!<app-emulation/vmware-modules-1.0.0.15
-	!>=app-emulation/vmware-modules-1.0.0.16
 	sys-apps/pciutils
 	virtual/pam
 	sys-apps/xinetd"
+
+PDEPEND="=app-emulation/vmware-modules-138.${MY_SV}*"
 
 S=${WORKDIR}/vmware-server-distrib
 
