@@ -62,6 +62,6 @@ src_configure() {
 pkg_postinst() {
 	linux-mod_pkg_postinst
 	elog "vmxnet3 for Linux is now upstream (as of Linux 2.6.32)"
-	elog "pvscsi for Linux is now upstream (as of Linux 2.6.33)"
-	elog "vmmemctl for Linux is now upstream (as of Linux 2.6.34)"
+	elog "pvscsi for Linux is now upstream (vmw_pvscsi) (as of Linux 2.6.33)"
+	elog "vmmemctl for Linux is now upstream (vmw_balloon) (as of Linux 2.6.34)"
 }
