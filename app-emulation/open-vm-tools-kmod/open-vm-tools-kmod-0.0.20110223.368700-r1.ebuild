@@ -59,6 +59,17 @@ src_configure() {
 	:				# do nothing at all
 }
 
+src_install() {
+	linux-mod_src_install
+
+	local udevrules="${T}/60-vmware.rules"
+	cat > "${udevrules}" <<-EOF
+		KERNEL=="vsock", GROUP="vmware", MODE=660
+	EOF
+	insinto /etc/udev/rules.d/
+	doins "${udevrules}"
+}
+
 pkg_postinst() {
 	linux-mod_pkg_postinst
 	elog "vmxnet3 for Linux is now upstream (as of Linux 2.6.32)"
