@@ -54,7 +54,7 @@ src_prepare() {
 	epatch "${FILESDIR}/1.0.0.26-makefile-include.patch"
 	epatch "${FILESDIR}/jobserver.patch"
 	kernel_is 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
-	kernel_is 2 6 37 && epatch "${FILESDIR}/sema.patch"
+	kernel_is ge 2 6 37 && epatch "${FILESDIR}/sema.patch"
 }
 
 src_install() {
