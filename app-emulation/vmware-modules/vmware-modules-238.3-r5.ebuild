@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils flag-o-matic linux-mod
+inherit eutils flag-o-matic linux-info linux-mod
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="http://www.vmware.com/"
@@ -24,6 +24,11 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}
 
 pkg_setup() {
+	if kernel_is ge 2 6 37; then
+		CONFIG_CHECK="BKL"
+		linux-info_pkg_setup
+	fi
+
 	linux-mod_pkg_setup
 
 	VMWARE_VER="VME_V65" # THIS VALUE IS JUST A PLACE HOLDER
