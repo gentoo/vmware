@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -77,7 +77,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/startup-notification
 	!app-emulation/vmware-server
 	!app-emulation/vmware-workstation"
-PDEPEND=">=app-emulation/vmware-modules-238.3
+PDEPEND="~app-emulation/vmware-modules-238.3
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}/vmware-player-app

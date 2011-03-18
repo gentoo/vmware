@@ -1,6 +1,10 @@
 # ChangeLog for app-emulation/vmware-player
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  vmware-player-3.1.3.324285.ebuild:
+  require specific version of vmware-modules 
 
   19 Nov 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   +vmware-player-3.1.3.324285.ebuild:
