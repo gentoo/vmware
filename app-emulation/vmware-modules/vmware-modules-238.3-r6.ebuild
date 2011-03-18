@@ -24,14 +24,16 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}
 
 pkg_setup() {
+	CONFIG_CHECK="~HIGH_RES_TIMERS"
 	if kernel_is ge 2 6 37; then
-		CONFIG_CHECK="BKL"
-		linux-info_pkg_setup
+		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
+
+	linux-info_pkg_setup
 
 	linux-mod_pkg_setup
 
-	VMWARE_VER="VME_V65" # THIS VALUE IS JUST A PLACE HOLDER
+	VMWARE_VER="VME_V71" # THIS VALUE IS JUST A PLACE HOLDER
 	VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 
 	VMWARE_MODULE_LIST="vmblock vmci vmmon vmnet vsock"
@@ -58,7 +60,7 @@ src_prepare() {
 	epatch "${FILESDIR}/1.0.0.26-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/1.0.0.26-makefile-include.patch"
 	epatch "${FILESDIR}/jobserver.patch"
-	kernel_is 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
+	#kernel_is ge 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
 	kernel_is ge 2 6 37 && epatch "${FILESDIR}/sema.patch"
 }
 
