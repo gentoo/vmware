@@ -2,6 +2,19 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  -files/patches/000_all_makefile-include-directory.patch,
+  -files/patches/vmnet/025_all_kernel-2.6.25.patch,
+  -files/patches/vmblock/010_all_kernel-2.6.25.patch,
+  -files/patches/vmmon/030_all_fix-linux-headers.patch,
+  -files/patches/vmmon/035_all_kernel-2.6.25.patch, -vmware-modules-235.ebuild,
+  -files/patches/020_all_epoll-def-warnings.patch,
+  -files/patches/vmnet/021_all_wireless_fix.patch,
+  -vmware-modules-1.0.0.15-r2.ebuild,
+  -files/patches/vmmon/040_all_kernel-2.6.27.patch,
+  -files/patches/vmnet/030_all_kernel-2.6.27.patch:
+  removed old unsecure version
+
 *vmware-modules-238.3-r5 (18 Mar 2011)
 
   18 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
