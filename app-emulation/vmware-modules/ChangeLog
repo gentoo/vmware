@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vmware-modules-238.3-r7 (19 Mar 2011)
+
+  19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  +files/238-makefile-include.patch, +files/238-makefile-kernel-dir.patch,
+  +files/238-sema.patch, -vmware-modules-238.3-r6.ebuild,
+  +vmware-modules-238.3-r7.ebuild, -files/sema.patch:
+  renamed patches and fixed dependencies
+
   19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
   -files/patches/000_all_makefile-include-directory.patch,
   -files/patches/vmnet/025_all_kernel-2.6.25.patch,
