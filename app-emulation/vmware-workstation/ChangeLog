@@ -3,6 +3,14 @@
 # $Header: $
 
   19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  -files/vmware-workstation-6.5.rc, -files/vmware-workstation-7.0.rc,
+  -files/helpers/module_patcher.sh, -files/helpers/unbundler.sh,
+  -files/helpers/vmware-config.sh, -files/vmware-player.desktop,
+  -files/vmware-workstation.desktop, -files/vmware-workstation.rc,
+  -files/vmware-workstation.xml:
+  removed unused files
+
+  19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
   -files/7.0.1.227600/vmware-player.py.patch,
   -files/7.0.1.227600/vmware-player-app.py.patch,
   -files/7.0.1.227600/vmware-player-extras.py.patch,
