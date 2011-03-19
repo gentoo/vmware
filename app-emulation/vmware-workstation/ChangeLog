@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vmware-workstation-7.1.3.324285-r1 (19 Mar 2011)
+
+  19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org> files/vmware-7.0.rc,
+  -vmware-workstation-7.1.3.324285.ebuild,
+  +vmware-workstation-7.1.3.324285-r1.ebuild:
+  it uses hal
+
   19 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
   -files/vmware-workstation-6.5.rc, -files/vmware-workstation-7.0.rc,
   -files/helpers/module_patcher.sh, -files/helpers/unbundler.sh,
