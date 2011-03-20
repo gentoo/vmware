@@ -1,6 +1,11 @@
 # ChangeLog for app-emulation/vmware-tools
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  20 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  -vmware-tools-8.4.2.261024.ebuild, -vmware-tools-8.4.4.301548.ebuild,
+  vmware-tools-8.4.5.324285.ebuild:
+  deleted old versions. QA fixes.
 
   19 Nov 2010; Matt Whitlock (whitslack) <matt@whitlock.name>
   +vmware-tools-8.4.5.324285.ebuild:

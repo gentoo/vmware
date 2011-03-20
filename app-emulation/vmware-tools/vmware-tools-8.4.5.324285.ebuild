@@ -1,6 +1,6 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
+# $Header: $
 
 inherit versionator vmware-bundle
 
@@ -14,8 +14,10 @@ LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 RESTRICT="mirror"
+IUSE=""
 
 DEPEND="!<app-emulation/vmware-workstation-7"
+RDEPEND=""
 
 IUSE_VMWARE_GUEST="freebsd linux netware solaris windows winPre2k"
 
