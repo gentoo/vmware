@@ -62,6 +62,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-include.patch"
 	epatch "${FILESDIR}/jobserver.patch"
+	kernel_is 2 6 36 && epatch "${FILESDIR}/unlocked_ioctl.patch"
 	kernel_is ge 2 6 37 && epatch "${FILESDIR}/${PV_MAJOR}-sema.patch"
 }
 
