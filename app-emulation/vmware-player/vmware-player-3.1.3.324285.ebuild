@@ -47,7 +47,6 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/libart_lgpl
 	=media-libs/libpng-1.2*
 	net-misc/curl
-	sys-apps/hal
 	sys-devel/gcc
 	sys-fs/fuse
 	sys-libs/glibc
