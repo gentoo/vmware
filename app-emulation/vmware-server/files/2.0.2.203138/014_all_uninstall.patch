@@ -1,0 +1,19 @@
+diff --git a/bin/vmware-config.pl b/bin/vmware-config.pl
+index def4df8..9f6d6b7 100755
+--- a/bin/vmware-config.pl
++++ b/bin/vmware-config.pl
+@@ -2280,10 +2280,10 @@ sub db_get_files_to_restore {
+ sub uninstall_file {
+   my $file = shift;
+ 
+-  if (not db_file_in($file)) {
+-    # Not installed by this program
+-    return;
+-  }
++  #if (not db_file_in($file)) {
++  #  # Not installed by this program
++  #  return;
++  #}
+ 
+   if (file_name_exist($file)) {
+     if (file_changed_db_ts($file) || db_userfile_in($file)) {

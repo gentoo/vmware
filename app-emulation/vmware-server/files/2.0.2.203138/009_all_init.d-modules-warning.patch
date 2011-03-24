@@ -1,0 +1,19 @@
+diff -uNr vmware-server-distrib.orig/installer/services.sh vmware-server-distrib/installer/services.sh
+--- vmware-server-distrib.orig/installer/services.sh	2007-12-02 12:08:09.000000000 +0000
++++ vmware-server-distrib/installer/services.sh	2007-12-02 12:12:08.000000000 +0000
+@@ -823,8 +823,13 @@
+ check_configured() {
+    if [ -e "$vmware_etc_dir"/not_configured ]; then
+       echo "`vmware_product_name`"' is installed, but it has not been (correctly) configured'
+-      echo 'for the running kernel. To (re-)configure it, invoke the'
+-      echo 'following command: '"$vmdb_answer_BINDIR"'/vmware-config.pl.'
++      echo 'for the running kernel.'
++      echo 
++      echo 'Please ensure that the modules have been compiled for this kernel:'
++      echo '  emerge --oneshot vmware-modules'
++      echo 
++      echo 'Also ensure '"`vmware_product_name`"' has been configured:'
++      echo '  '"$vmdb_answer_BINDIR"'/vmware-config.pl.'
+       echo
+ 
+       exit 1
