@@ -64,9 +64,9 @@ src_install() {
 	linux-mod_src_install
 	local udevrules="${T}/60-vmware.rules"
 	cat > "${udevrules}" <<-EOF
-		KERNEL=="vmci",  GROUP="$VMWARE_GROUP", MODE=660
-		KERNEL=="vmmon", GROUP="$VMWARE_GROUP", MODE=660
-		KERNEL=="vsock", GROUP="$VMWARE_GROUP", MODE=660
+		KERNEL=="vmci",  GROUP="${VMWARE_GROUP}", MODE=660
+		KERNEL=="vmmon", GROUP="${VMWARE_GROUP}", MODE=660
+		KERNEL=="vsock", GROUP="${VMWARE_GROUP}", MODE=660
 	EOF
 	insinto /etc/udev/rules.d/
 	doins "${udevrules}"
