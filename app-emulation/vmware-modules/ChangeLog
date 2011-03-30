@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Mar 2011; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +vmware-modules-238.4.ebuild:
+  bumped to 238.4
+
   20 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org> +files/238-jobserver.patch,
   +files/238-unlocked_ioctl.patch, -files/1.0.0.26-makefile-include.patch,
   vmware-modules-238.3-r8.ebuild, -files/1.0.0.26-makefile-kernel-dir.patch,
