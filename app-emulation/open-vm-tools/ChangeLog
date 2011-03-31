@@ -1,0 +1,11 @@
+# ChangeLog for app-emulation/open-vm-tools
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*open-vm-tools-0.0.20110328.387002 (31 Mar 2011)
+
+  31 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  -open-vm-tools-0.0.20110223.368700.ebuild,
+  +open-vm-tools-0.0.20110328.387002.ebuild:
+  version bump
+
