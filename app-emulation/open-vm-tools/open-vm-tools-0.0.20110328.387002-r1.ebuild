@@ -98,6 +98,8 @@ src_compile() {
 src_install() {
 	emake DESTDIR="${D}" install || die "failed to install"
 
+	fperms 4755 "/usr/bin/vmware-user-suid-wrapper" || die
+
 	rm "${D}"/etc/pam.d/vmtoolsd
 	pamd_mimic_system vmtoolsd auth account
 
