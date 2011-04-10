@@ -103,11 +103,23 @@ src_install() {
 	# create the configuration
 	dodir /etc/vmware
 
-	cat >> "${D}"/etc/vmware/config <<-EOF
+	local vmconfig="${T}/config"
+	if [[ -e ${ROOT}/etc/vmware/config ]]
+	then
+		cp -a "${ROOT}"/etc/vmware/config "${vmconfig}"
+		sed -i -e "/vmware.fullpath/d" "${vmconfig}"
+		sed -i -e "/vix.libdir/d" "${vmconfig}"
+		sed -i -e "/vix.config.version/d" "${vmconfig}"
+	fi
+
+	cat >> "${vmconfig}" <<-EOF
 		vmware.fullpath = "${VM_INSTALL_DIR}/bin/vmware"
 		vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
 		vix.config.version = "1"
 	EOF
+
+	insinto /etc/vmware/
+	doins "${vmconfig}"
 }
 
 pkg_config() {
@@ -125,4 +137,3 @@ pkg_postinst() {
 pkg_prerm() {
 	sed -i -e "/vix.libdir/d" "${ROOT}"/etc/vmware/config
 }
-
