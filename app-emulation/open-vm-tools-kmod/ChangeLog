@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*open-vm-tools-kmod-0.0.20110527.420096 (09 Jun 2011)
+
+  09 Jun 2011; Vadim Kuznetsov <vadimk@gentoo.org>
+  -open-vm-tools-kmod-0.0.20110328.387002.ebuild,
+  +open-vm-tools-kmod-0.0.20110527.420096.ebuild:
+  Version bump
+
 *open-vm-tools-kmod-0.0.20110328.387002 (31 Mar 2011)
 
   31 Mar 2011; Vadim Kuznetsov <vadimk@gentoo.org>

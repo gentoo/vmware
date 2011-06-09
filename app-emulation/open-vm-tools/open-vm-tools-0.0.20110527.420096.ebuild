@@ -21,17 +21,17 @@ KEYWORDS="~amd64 ~x86"
 IUSE="X doc fuse icu +pic unity xinerama"
 
 RDEPEND="app-emulation/open-vm-tools-kmod
-	>=dev-libs/glib-2
+	dev-libs/glib:2
 	dev-libs/libdnet
 	sys-apps/ethtool
 	sys-process/procps
 	virtual/pam
 	X? (
-		dev-cpp/gtkmm
+		dev-cpp/gtkmm:2.4
 		x11-base/xorg-server
 		x11-drivers/xf86-input-vmmouse
 		x11-drivers/xf86-video-vmware
-		x11-libs/gtk+
+		x11-libs/gtk+:2
 		x11-libs/libnotify
 		x11-libs/libX11
 		x11-libs/libXtst
@@ -98,8 +98,6 @@ src_compile() {
 src_install() {
 	emake DESTDIR="${D}" install || die "failed to install"
 
-	fperms 4755 "/usr/bin/vmware-user-suid-wrapper" || die
-
 	rm "${D}"/etc/pam.d/vmtoolsd
 	pamd_mimic_system vmtoolsd auth account
 
@@ -111,15 +109,15 @@ src_install() {
 
 	if use X;
 	then
+		fperms 4755 "/usr/bin/vmware-user-suid-wrapper" || die
+
 		dobin "${S}"/scripts/common/vmware-xdg-detect-de
 
 		insinto /etc/xdg/autostart
 		doins "${FILESDIR}/open-vm-tools.desktop" || die "failed to install .desktop"
 
 		elog "To be able to use the drag'n'drop feature of VMware for file"
-		elog "exchange, you need to do this:"
-		elog "	Add 'vmware-tools' to your default runlevel."
-		elog "	Add the users which should have access to this function"
-		elog "	to the group 'vmware'."
+		elog "exchange, please add the users to the 'vmware' group."
 	fi
+	elog "Add 'vmware-tools' service to the default runlevel."
 }
