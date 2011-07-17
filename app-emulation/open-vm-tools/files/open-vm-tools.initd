@@ -41,7 +41,7 @@ start() {
 	fi
 	
 	ebegin "Starting vmtoolsd"
-	start-stop-daemon --chuid "${USER_GROUP}" --start --quiet --background --make-pidfile --pidfile "${PIDFILE}" --exec ${GUESTD_BIN}
+	start-stop-daemon --user "${USER_GROUP}" --start --quiet --background --make-pidfile --pidfile "${PIDFILE}" --exec ${GUESTD_BIN}
 	eend $?
 }
 
