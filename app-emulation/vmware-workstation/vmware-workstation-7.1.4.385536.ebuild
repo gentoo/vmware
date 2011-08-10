@@ -148,15 +148,6 @@ src_install() {
 	#	fi
 	#done
 
-	# install the ancillaries
-	insinto /usr
-	doins -r share
-
-	# install documentation
-	if use doc; then
-		dodoc doc/*
-	fi
-
 	# install vmware-config
 	cd "${S}"/vmware-player-setup
 	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
