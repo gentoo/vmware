@@ -172,7 +172,7 @@ src_install() {
 	doman man/man1/vmware.1.gz
 
 	if use doc; then
-		dodoc -r doc/*
+		dodoc doc/*
 	fi
 
 	# install vmware-vix
