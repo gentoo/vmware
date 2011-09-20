@@ -21,7 +21,8 @@ IUSE=""
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-workstation-8.0.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-4.0.${PV_MINOR}*
+	=app-emulation/vmware-workstation-8.0.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
