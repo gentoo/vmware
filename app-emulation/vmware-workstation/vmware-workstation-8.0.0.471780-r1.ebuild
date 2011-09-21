@@ -1,10 +1,10 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-7.1.4.385536.ebuild,v 1.1 2011/04/15 12:34:21 vadimk Exp $
+# $Header: vadimk Exp $
 
-EAPI="2"
+EAPI="4"
 
-inherit eutils versionator fdo-mime gnome2-utils vmware-bundle
+inherit eutils versionator fdo-mime gnome2-utils pam vmware-bundle
 
 MY_PN="VMware-Workstation"
 MY_PV="$(replace_version_separator 3 - $PV)"
@@ -84,6 +84,8 @@ PDEPEND="~app-emulation/vmware-modules-264.0
 
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
+VM_DATA_STORE_DIR="/var/lib/vmware/Shared VMs"
+VM_HOSTD_USER="root"
 
 pkg_nofetch() {
 	local bundle
@@ -100,40 +102,38 @@ pkg_nofetch() {
 }
 
 src_unpack() {
-	#bash "${DISTDIR}/${A}" --extract "${WORKDIR}"
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-app
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-setup
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-workstation
+	local component; for component in \
+		vmware-vmx \
+		vmware-player-app \
+		vmware-player-setup \
+		vmware-workstation \
+		vmware-network-editor \
+		vmware-network-editor-ui \
+		vmware-usbarbitrator
+	do
+		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" "${component}" "${S}"
+	done
 
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-installer
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-network-editor
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-network-editor-ui
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-ovftool
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-app
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-player-setup
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-tools-freebsd
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-tools-linux
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-tools-netware
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-tools-solaris
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-tools-winPre2k
-	#vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-tools-windows
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-usbarbitrator
-	if use vix; then
-		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix-core
-		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix-lib-Workstation800andvSphere500
+	if use server; then
+		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-workstation-server #"${S}"
 	fi
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vmx
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-workstation
-	vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-workstation-server
+
+	if use vix; then
+		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix-core vmware-vix
+		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix-lib-Workstation800andvSphere500 vmware-vix
+	fi
 }
 
 src_prepare() {
-	rm -rf "${S}"/vmware-vmx/bin/vmware-modconfig
-	rm -rf "${S}"/vmware-vmx/lib/modules/binary
+	rm -f  bin/vmware-modconfig
+	rm -rf lib/modules/binary
+	if use server; then
+		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
+	fi
 
 	# remove superfluous libraries
 	ebegin 'Removing superfluous libraries'
-	cd vmware-vmx/lib/lib || die
+	cd lib/lib || die
 	# exclude OpenSSL from unbundling until the AES-NI patch gets into the tree
 	# see http://forums.gentoo.org/viewtopic-t-835867.html
 	#ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | fgrep -vx 'libcrypto.so.0.9.8 libssl.so.0.9.8' | xargs -d'\n' -r rm -rf
@@ -144,23 +144,6 @@ src_install() {
 	local major_minor=$(get_version_component_range 1-2 "${PV}")
 	local major_minor_revision=$(get_version_component_range 1-3 "${PV}")
 	local build=$(get_version_component_range 4 "${PV}")
-
-	# install vmware player components
-	cd "${S}"/vmware-vmx
-
-	# install the binaries
-	into "${VM_INSTALL_DIR}"
-	dobin bin/*
-	if use server; then
-		dosbin sbin/*
-	fi
-
-	# install the libraries
-	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/*
-
-	# install vmware player
-	cd "${S}"/vmware-player-app
 
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
@@ -178,42 +161,12 @@ src_install() {
 		exeinto $(cups-config --serverbin)/filter
 		doexe extras/thnucups
 
-		insinto "${VM_INSTALL_DIR}"/etc/cups
+		insinto /etc/cups
 		doins -r etc/cups/*
-
-		insinto "${VM_INSTALL_DIR}"/etc/xdg
-		doins -r etc/xdg/*
 	fi
 
-	# commented out until Portage gets OpenSSL 0.9.8 with AES-NI support
-	# see http://forums.gentoo.org/viewtopic-t-835867.html
-	## these two libraries do not like to load from /usr/lib*
-	#local each ; for each in libcrypto.so.0.9.8 libssl.so.0.9.8 ; do
-	#	if [[ ! -f "${VM_INSTALL_DIR}/lib/vmware/lib/${each}" ]] ; then
-	#		dosym "/usr/$(get_libdir)/${each}" \
-	#			"${VM_INSTALL_DIR}/lib/vmware/lib/${each}/${each}"
-	#	fi
-	#done
-
-	# install vmware-config
-	cd "${S}"/vmware-player-setup
-	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
-	doins vmware-config
-
-	# install vmware-workstation
-	cd "${S}"/vmware-workstation
-
-	# install the binaries
-	into "${VM_INSTALL_DIR}"
-	dobin bin/*
-
-	# install the libraries
-	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/*
-
-	# install the ancillaries
-	insinto /usr
-	doins -r share
+	insinto /etc/xdg
+	doins -r etc/xdg/*
 
 	# install documentation
 	doman man/man1/vmware.1.gz
@@ -222,22 +175,57 @@ src_install() {
 		dodoc doc/*
 	fi
 
-	# install network editor
-	cd "${S}"/vmware-network-editor
+	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
+	doins vmware-config
 
-	# install the libraries
-	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/*
+	# install vmware workstation server
+	if use server; then
+		dosbin sbin/*
 
-	cd "${S}"/vmware-network-editor-ui
+		cd "${S}"/vmware-workstation-server
 
-	# install the binaries
-	into "${VM_INSTALL_DIR}"
-	dobin bin/*
+		# install binaries
+		into "${VM_INSTALL_DIR}"/lib/vmware
+		dobin bin/*
 
-	# install the ancillaries
-	insinto /usr
-	doins -r share
+		# install the libraries
+		insinto "${VM_INSTALL_DIR}"/lib/vmware/lib
+		doins -r lib/*
+
+		into "${VM_INSTALL_DIR}"
+		for tool in  vmware-{hostd,vim-cmd,adminTool} ; do
+			cat > "${T}/${tool}" <<-EOF
+				#!/usr/bin/env bash
+				set -e
+
+				. /etc/vmware/bootstrap
+
+				exec "${VM_INSTALL_DIR}/lib/vmware/lib/wrapper-gtk24.sh" \\
+					"${VM_INSTALL_DIR}/lib/vmware/lib" \\
+					"${VM_INSTALL_DIR}/lib/vmware/bin/${tool}" \\
+					"${VM_INSTALL_DIR}/lib/vmware/libconf" "\$@"
+			EOF
+			dobin "${T}/${tool}"
+		done
+
+		insinto "${VM_INSTALL_DIR}"/lib/vmware
+		doins -r hostd
+
+		# create the configuration
+		insinto /etc/vmware/hostd
+		doins -r config/etc/vmware/hostd/*
+		doins -r etc/vmware/hostd/*
+
+		insinto /etc/vmware/ssl
+		doins etc/vmware/ssl/*
+
+		# pam
+		pamd_mimic_system vmware-authd auth account
+
+		# create directory for shared virtual machines.
+		keepdir "${VM_DATA_STORE_DIR}"
+		keepdir /var/log/vmware
+	fi
 
 	# install vmware-vix
 	if use vix; then
@@ -263,8 +251,8 @@ src_install() {
 	fi
 
 	# create symlinks for the various tools
-	local tool ; for tool in vmware vmplayer{,-daemon} \
-			vmware-{acetool,gksu,fuseUI,modconfig{,-console},netcfg,thnuclnt,tray,unity-helper} ; do
+	local tool ; for tool in thnuclnt vmware vmplayer{,-daemon} \
+			vmware-{acetool,enter-serial,gksu,fuseUI,modconfig{,-console},netcfg,tray,unity-helper} ; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
@@ -272,8 +260,12 @@ src_install() {
 
 	# fix up permissions
 	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,setup/*}
-	chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
+	chmod 04711 "${D}${VM_INSTALL_DIR}"/bin/vmware-mount
+	if use server; then
+		chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
+	fi
 	chmod 04711 "${D}${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+
 	if use vix; then
 		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-vix/setup/*
 	fi
@@ -321,7 +313,7 @@ src_install() {
 
 	if use server; then
 		cat >> "${D}"/etc/vmware/config <<-EOF
-			authd.fullpath = "${VM_INSTALL_DIR}/sbin/vmware-authd"
+			#authd.fullpath = "${VM_INSTALL_DIR}/sbin/vmware-authd"
 			authd.client.port = "902"
 			authd.proxy.nfc = "vmware-hostd:ha-nfc"
 			authd.soapserver = "TRUE"
@@ -334,6 +326,16 @@ src_install() {
 		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript}
 	newinitd "${initscript}" vmware
 
+	if use server; then
+		# install the init.d script
+		local initscript="${T}/vmware-workstation-server.rc"
+		sed -e "s:@@ETCDIR@@:/etc/vmware:g" \
+			-e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
+			-e "s:@@LIBDIR@@:${VM_INSTALL_DIR}/lib/vmware:g" \
+			"${FILESDIR}/vmware-server-8.0.rc" > ${initscript}
+		newinitd "${initscript}" vmware-workstation-server
+	fi
+
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
 		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
@@ -343,6 +345,79 @@ src_install() {
 		-i "${D}/usr/share/applications/vmware-player.desktop"
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
 		-i "${D}/usr/share/applications/vmware-netcfg.desktop"
+
+	if use server; then
+	# Configuration for vmware-workstation-server
+		local hostdUser="${VM_HOSTD_USER:-root}"
+		sed -e "/ACEDataUser/s:root:${hostdUser}:g" \
+			-i "${D}/etc/vmware/hostd/authorization.xml" || die
+
+		# Shared VMs Path: [standard].
+		sed -e "s:##{DS_NAME}##:standard:g" \
+			-e "s:##{DS_PATH}##:${VM_DATA_STORE_DIR}:g" \
+			-i "${D}/etc/vmware/hostd/datastores.xml" || die
+
+		sed -e "s:##{HTTP_PORT}##:-1:g" \
+			-e "s:##{HTTPS_PORT}##:443:g" \
+			-e "s:##{PIPE_PREFIX}##:/var/run/vmware/:g" \
+			-i "${D}/etc/vmware/hostd/proxy.xml" || die
+
+		# See vmware-workstation-server.py for more details.
+		sed -e "s:##{BUILD_CFGDIR}##:/etc/vmware/hostd/:g" \
+			-e "s:##{CFGALTDIR}##:/etc/vmware/hostd/:g" \
+			-e "s:##{CFGDIR}##:/etc/vmware/:g" \
+			-e "s:##{ENABLE_AUTH}##:true:g" \
+			-e "s:##{HOSTDMODE}##:ws:g" \
+			-e "s:##{HOSTD_CFGDIR}##:/etc/vmware/hostd/:g" \
+			-e "s:##{HOSTD_MOCKUP}##:false:g" \
+			-e "s:##{LIBDIR}##:${VM_INSTALL_DIR}/lib/vmware:g" \
+			-e "s:##{LIBDIR_INSTALLED}##:${VM_INSTALL_DIR}/lib/vmware/:g" \
+			-e "s:##{LOGDIR}##:/var/log/vmware/:g" \
+			-e "s:##{LOGLEVEL}##:verbose:g" \
+			-e "s:##{MOCKUP}##:mockup-host-config.xml:g" \
+			-e "s:##{PLUGINDIR}##:./:g" \
+			-e "s:##{SHLIB_PREFIX}##:lib:g" \
+			-e "s:##{SHLIB_SUFFIX}##:.so:g" \
+			-e "s:##{USE_BLKLISTSVC}##:false:g" \
+			-e "s:##{USE_CBRCSVC}##:false:g" \
+			-e "s:##{USE_CIMSVC}##:false:g" \
+			-e "s:##{USE_DIRECTORYSVC}##:false:g" \
+			-e "s:##{USE_DIRECTORYSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_DYNAMIC_PLUGIN_LOADING}##:false:g" \
+			-e "s:##{USE_DYNAMO}##:false:g" \
+			-e "s:##{USE_DYNSVC}##:false:g" \
+			-e "s:##{USE_GUESTSVC}##:false:g" \
+			-e "s:##{USE_HBRSVC}##:false:g" \
+			-e "s:##{USE_HBRSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_HOSTSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_HTTPNFCSVC}##:false:g" \
+			-e "s:##{USE_HTTPNFCSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_LICENSESVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_NFCSVC}##:true:g" \
+			-e "s:##{USE_NFCSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_OVFMGRSVC}##:true:g" \
+			-e "s:##{USE_PARTITIONSVC}##:false:g" \
+			-e "s:##{USE_SECURESOAP}##:false:g" \
+			-e "s:##{USE_SNMPSVC}##:false:g" \
+			-e "s:##{USE_SOLO_MOCKUP}##:false:g" \
+			-e "s:##{USE_STATSSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_VCSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_VDISKSVC}##:false:g" \
+			-e "s:##{USE_VDISKSVC_MOCKUP}##:false:g" \
+			-e "s:##{USE_VMSVC_MOCKUP}##:false:g" \
+			-e "s:##{VM_INVENTORY}##:vmInventory.xml:g" \
+			-e "s:##{VM_RESOURCES}##:vmResources.xml:g" \
+			-e "s:##{WEBSERVER_PORT_ENTRY}##::g" \
+			-e "s:##{WORKINGDIR}##:./:g" \
+			-i "${D}/etc/vmware/hostd/config.xml" || die
+
+		sed -e "s:##{ENV_LOCATION}##:/etc/vmware/hostd/env/:g" \
+			-i "${D}/etc/vmware/hostd/environments.xml" || die
+
+		# @@VICLIENT_URL@@=XXX
+		sed -e "s:@@AUTHD_PORT@@:902:g" \
+			-i "${D}${VM_INSTALL_DIR}/lib/vmware/hostd/docroot/client/clients.xml" || die
+	fi
 }
 
 pkg_config() {
@@ -360,7 +435,7 @@ pkg_postinst() {
 	ewarn "/etc/env.d was updated. Please run:"
 	ewarn "env-update && source /etc/profile"
 	ewarn ""
-	ewarn "Before you can use vmware-player, you must configure a default network setup."
+	ewarn "Before you can use vmware workstation, you must configure a default network setup."
 	ewarn "You can do this by running 'emerge --config ${PN}'."
 }
 
