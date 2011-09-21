@@ -33,6 +33,8 @@ RDEPEND="dev-cpp/cairomm
 	dev-cpp/pangomm
 	dev-libs/atk
 	dev-libs/glib:2
+	dev-libs/icu
+	dev-libs/expat
 	dev-libs/libaio
 	dev-libs/libsigc++
 	dev-libs/libxml2
@@ -46,6 +48,7 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/freetype
 	media-libs/libart_lgpl
 	=media-libs/libpng-1.2*
+	media-libs/libpng
 	net-misc/curl
 	cups? ( net-print/cups )
 	sys-devel/gcc
@@ -257,9 +260,10 @@ src_install() {
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware "${VM_INSTALL_DIR}"/bin/vmware
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
 	# fix up permissions
-	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,setup/*}
+	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper,setup/*}
 	chmod 04711 "${D}${VM_INSTALL_DIR}"/bin/vmware-mount
 	if use server; then
 		chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
