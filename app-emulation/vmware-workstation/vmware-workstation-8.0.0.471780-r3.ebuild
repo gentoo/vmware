@@ -20,7 +20,7 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="cups doc server vix +vmware-tools"
+IUSE="cups doc ovftool server vix vmware-tools"
 RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -125,6 +125,10 @@ src_unpack() {
 		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix-core vmware-vix
 		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-vix-lib-Workstation800andvSphere500 vmware-vix
 	fi
+	if use ovftool; then
+		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" vmware-ovftool
+	fi
+
 }
 
 src_prepare() {
@@ -253,6 +257,17 @@ src_install() {
 		fi
 	fi
 
+	# install ovftool
+	if use ovftool; then
+		cd "${S}"
+
+		insinto "${VM_INSTALL_DIR}"/lib/vmware-ovftool
+		doins -r vmware-ovftool/*
+
+		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
+		dosym "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
+	fi
+
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmware vmplayer{,-daemon} \
 			vmware-{acetool,enter-serial,gksu,fuseUI,modconfig{,-console},netcfg,tray,unity-helper} ; do
@@ -317,7 +332,6 @@ src_install() {
 
 	if use server; then
 		cat >> "${D}"/etc/vmware/config <<-EOF
-			#authd.fullpath = "${VM_INSTALL_DIR}/sbin/vmware-authd"
 			authd.client.port = "902"
 			authd.proxy.nfc = "vmware-hostd:ha-nfc"
 			authd.soapserver = "TRUE"
