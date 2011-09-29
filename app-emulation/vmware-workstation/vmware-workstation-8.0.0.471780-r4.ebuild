@@ -56,6 +56,7 @@ RDEPEND="dev-cpp/cairomm
 	sys-libs/glibc
 	sys-libs/zlib
 	x11-libs/cairo
+	x11-libs/gksu
 	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
@@ -276,6 +277,10 @@ src_install() {
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware "${VM_INSTALL_DIR}"/bin/vmware
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
+
+	# fixing gksu problem
+	rm "${D}${VM_INSTALL_DIR}"/bin/vmware-gksu
+	dosym /usr/bin/gksu "${VM_INSTALL_DIR}"/bin/vmware-gksu
 
 	# fix up permissions
 	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper,setup/*}
