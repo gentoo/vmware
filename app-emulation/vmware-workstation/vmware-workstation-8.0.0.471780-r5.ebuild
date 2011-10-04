@@ -353,6 +353,7 @@ src_install() {
 		# install the init.d script
 		local initscript="${T}/vmware-workstation-server.rc"
 		sed -e "s:@@ETCDIR@@:/etc/vmware:g" \
+			-e "s:@@PREFIX@@:${VM_INSTALL_DIR}:g" \
 			-e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
 			-e "s:@@LIBDIR@@:${VM_INSTALL_DIR}/lib/vmware:g" \
 			"${FILESDIR}/vmware-server-8.0.rc" > ${initscript}
