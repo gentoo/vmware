@@ -138,6 +138,10 @@ src_install() {
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/*
 
+	# install the ancillaries
+	insinto /usr
+	doins -r share
+
 	# commented out until Portage gets OpenSSL 0.9.8 with AES-NI support
 	# see http://forums.gentoo.org/viewtopic-t-835867.html
 	## these two libraries do not like to load from /usr/lib*
@@ -172,7 +176,8 @@ src_install() {
 	doman man/man1/vmware.1.gz
 
 	if use doc; then
-		dodoc doc/*
+		dodoc doc/open_source_licenses.txt
+		dodoc doc/vmware-vmci/samples/*
 	fi
 
 	# install vmware-vix
