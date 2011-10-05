@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Oct 2011; Matt Whitlock (whitslack) <matt@whitlock.name>
+  +vmware-player-3.1.5.491717.ebuild:
+  added VMware Player 3.1.5.491717
+
   20 Sep 2011; Matt Whitlock (whitslack) <matt@whitlock.name>
   +vmware-player-4.0.0.471780.ebuild:
   version bump to VMware Player 4.0.0.471780
