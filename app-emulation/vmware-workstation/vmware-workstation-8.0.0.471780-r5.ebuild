@@ -20,7 +20,7 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="cups doc ovftool server vix vmware-tools"
+IUSE="cups doc gnome kde ovftool server vix vmware-tools"
 RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -56,7 +56,8 @@ RDEPEND="dev-cpp/cairomm
 	sys-libs/glibc
 	sys-libs/zlib
 	x11-libs/cairo
-	x11-libs/gksu
+	gnome? ( x11-libs/gksu )
+	kde? ( kde-base/kdesu )
 	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
@@ -139,13 +140,17 @@ src_prepare() {
 		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
 	fi
 
-	# remove superfluous libraries
-	ebegin 'Removing superfluous libraries'
-	cd lib/lib || die
+	#ebegin 'Removing superfluous libraries'
+	#cd lib/lib || die
 	# exclude OpenSSL from unbundling until the AES-NI patch gets into the tree
 	# see http://forums.gentoo.org/viewtopic-t-835867.html
-	#ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | fgrep -vx 'libcrypto.so.0.9.8 libssl.so.0.9.8' | xargs -d'\n' -r rm -rf
-	eend
+	#ldconfig -p | \
+	#	sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | \
+	#	fgrep -vx 'libcrypto.so.0.9.8'| \
+	#	fgrep -vx 'libssl.so.0.9.8i' | \
+	#	fgrep -vx 'libglib-2.0.so.0' | \
+	#	xargs -d'\n' -r rm -rf
+	#eend
 }
 
 src_install() {
@@ -279,8 +284,14 @@ src_install() {
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
 	# fixing gksu problem
-	rm "${D}${VM_INSTALL_DIR}"/bin/vmware-gksu
-	dosym /usr/bin/gksu "${VM_INSTALL_DIR}"/bin/vmware-gksu
+	if use gnome; then
+		rm "${D}${VM_INSTALL_DIR}"/bin/vmware-gksu
+		dosym /usr/bin/gksu "${VM_INSTALL_DIR}"/bin/vmware-gksu
+	fi
+	if use kde; then
+		rm "${D}${VM_INSTALL_DIR}"/bin/vmware-gksu
+		dosym /usr/bin/kdesu "${VM_INSTALL_DIR}"/bin/vmware-gksu
+	fi
 
 	# fix up permissions
 	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper,setup/*}
