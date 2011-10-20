@@ -2,6 +2,7 @@
 # multiple vulnerabilities. Bug 374599
 # Bug 354383
 app-emulation/vmware-server
+app-emulation/vmware-server-console
 =app-emulation/vmware-modules-138.10.7
 =app-emulation/vmware-modules-208.2
 
