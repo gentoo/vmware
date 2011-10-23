@@ -26,7 +26,7 @@ RESTRICT="binchecks fetch mirror strip"
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
-	dev-libs/glib
+	dev-libs/glib:2
 	dev-libs/libxml2
 	=dev-libs/openssl-0.9.8*
 	net-misc/curl
