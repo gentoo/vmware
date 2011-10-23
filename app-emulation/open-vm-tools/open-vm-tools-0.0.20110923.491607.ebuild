@@ -18,7 +18,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X doc fuse icu +pic unity xinerama"
+IUSE="X doc fuse icu +pic xinerama"
 
 RDEPEND="app-emulation/open-vm-tools-kmod
 	dev-libs/glib:2
@@ -38,11 +38,6 @@ RDEPEND="app-emulation/open-vm-tools-kmod
 	)
 	fuse? ( sys-fs/fuse )
 	icu? ( dev-libs/icu )
-	unity? (
-		dev-libs/uriparser
-		media-libs/libpng
-		x11-libs/libXScrnSaver
-	)
 	xinerama? ( x11-libs/libXinerama )
 	"
 
@@ -56,8 +51,8 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 pkg_setup() {
-	use unity && ! use X && die 'The Unity USE flag requires "X" USE flag as well'
-	use unity && ! use xinerama && die 'The Unity USE flag requires xinerame USE="xinerama" as well'
+	#use unity && ! use X && die 'The Unity USE flag requires "X" USE flag as well'
+	#use unity && ! use xinerama && die 'The Unity USE flag requires xinerame USE="xinerama" as well'
 
 	enewgroup vmware
 }
@@ -84,7 +79,6 @@ src_configure() {
 		$(use_with X gtkmm) \
 		$(use_with icu) \
 		$(use_with pic) \
-		$(use_enable unity) \
 		$(use_enable xinerama multimon)
 
 	# Bugs 260878, 326761
