@@ -57,7 +57,6 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libICE
 	x11-libs/libsexy
 	x11-libs/libSM
-	>=x11-libs/libview-0.6.6
 	x11-libs/libX11
 	x11-libs/libXau
 	x11-libs/libxcb
@@ -115,6 +114,19 @@ src_prepare() {
 	rm -rf lib/modules/binary
 }
 
+clean_bundled_libs() {
+	ebegin 'Removing superfluous libraries'
+	# exclude OpenSSL from unbundling until the AES-NI patch gets into the tree
+	# see http://forums.gentoo.org/viewtopic-t-835867.html
+	# must use shipped libgcr.so.0 or else "undefined symbol: gcr_certificate_widget_new"
+	ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> \(/.*\)$:\1 \2:g;t;d' | fgrep -v 'libcrypto.so.0.9.8
+libssl.so.0.9.8
+libgcr.so.0' | while read -r libname libpath ; do
+		dosym "${libpath}" "${VM_INSTALL_DIR}/lib/vmware/lib/${libname}/${libname}"
+	done
+	eend
+}
+
 src_install() {
 	local major_minor_revision=$(get_version_component_range 1-3 "${PV}")
 	local build=$(get_version_component_range 4 "${PV}")
@@ -126,16 +138,6 @@ src_install() {
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/* || die "failed to install lib"
-
-	# commented out until Portage gets OpenSSL 0.9.8 with AES-NI support
-	# see http://forums.gentoo.org/viewtopic-t-835867.html
-	## these two libraries do not like to load from /usr/lib*
-	#local each ; for each in libcrypto.so.0.9.8 libssl.so.0.9.8 ; do
-	#	if [[ ! -f "${VM_INSTALL_DIR}/lib/vmware/lib/${each}" ]] ; then
-	#		dosym "/usr/$(get_libdir)/${each}" \
-	#			"${VM_INSTALL_DIR}/lib/vmware/lib/${each}/${each}"
-	#	fi
-	#done
 
 	# install the ancillaries
 	insinto /usr
@@ -210,19 +212,6 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	# remove superfluous libraries
-	ebegin 'Removing superfluous libraries'
-	cd "${VM_INSTALL_DIR}"/lib/vmware/lib || die
-	# exclude OpenSSL from unbundling until the AES-NI patch gets into the tree
-	# see http://forums.gentoo.org/viewtopic-t-835867.html
-	# must use shipped libgcr.so.0 or else "undefined symbol: gcr_certificate_widget_new"
-	ldconfig -p | sed 's:^\s\+\([^(]*[^( ]\).*=> \(/.*\)$:\1 \2:g;t;d' | fgrep -v 'libcrypto.so.0.9.8
-libssl.so.0.9.8
-libgcr.so.0' | while read -r libname libpath ; do
-		ln -sfn "${libpath}" "${libname}/${libname}" 2> /dev/null
-	done
-	eend
-
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 

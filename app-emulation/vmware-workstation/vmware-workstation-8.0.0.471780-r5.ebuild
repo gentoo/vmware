@@ -63,7 +63,6 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libICE
 	x11-libs/libsexy
 	x11-libs/libSM
-	>=x11-libs/libview-0.6.6
 	x11-libs/libX11
 	x11-libs/libXau
 	x11-libs/libxcb
@@ -140,17 +139,22 @@ src_prepare() {
 		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
 	fi
 
-	#ebegin 'Removing superfluous libraries'
-	#cd lib/lib || die
-	# exclude OpenSSL from unbundling until the AES-NI patch gets into the tree
-	# see http://forums.gentoo.org/viewtopic-t-835867.html
-	#ldconfig -p | \
-	#	sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | \
-	#	fgrep -vx 'libcrypto.so.0.9.8'| \
-	#	fgrep -vx 'libssl.so.0.9.8i' | \
-	#	fgrep -vx 'libglib-2.0.so.0' | \
-	#	xargs -d'\n' -r rm -rf
-	#eend
+	find "${S}" -name '*.a' -delete
+
+#	clean_bundled_libs
+}
+
+clean_bundled_libs() {
+	ebegin 'Removing superfluous libraries'
+	cd lib/lib || die
+	ldconfig -p | \
+		sed 's:^\s\+\([^(]*[^( ]\).*=> /.*$:\1:g;t;d' | \
+		fgrep -vx 'libcrypto.so.0.9.8
+libssl.so.0.9.8i
+libgcr.so.0
+libglib-2.0.so.0' |
+		xargs -d'\n' -r rm -rf
+	eend
 }
 
 src_install() {
