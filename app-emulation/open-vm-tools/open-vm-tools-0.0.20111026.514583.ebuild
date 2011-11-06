@@ -58,7 +58,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/default-scripts.patch"
+	#epatch "${FILESDIR}/default-scripts.patch"
 	#epatch "${FILESDIR}/checkvm-pie-safety.patch"
 	#sed -i -e 's/proc-3.2.7/proc/g' configure || die "sed configure failed"
 	# Do not filter out Werror
@@ -100,6 +100,9 @@ src_install() {
 
 	newinitd "${FILESDIR}/open-vm-tools.initd" vmware-tools || die "failed to newinitd"
 	newconfd "${FILESDIR}/open-vm.confd" vmware-tools || die "failed to newconfd"
+
+	exeinto /etc/vmware-tools/scripts/vmware/
+	doexe "${FILESDIR}"/network
 
 	if use X;
 	then
