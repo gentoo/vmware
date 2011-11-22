@@ -98,6 +98,7 @@ pkg_nofetch() {
 
 src_unpack() {
 	local component ; for component in \
+			vmware-player \
 			vmware-player-app \
 			vmware-vmx \
 			vmware-usbarbitrator \
