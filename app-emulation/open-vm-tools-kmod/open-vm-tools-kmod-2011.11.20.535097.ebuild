@@ -2,14 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="4"
 
 inherit linux-mod versionator
 
-MY_DATE="$(get_version_component_range 3)"
-MY_BUILD="$(get_version_component_range 4)"
 MY_PN="${PN/-kmod}"
-MY_PV="${MY_DATE:0:4}.${MY_DATE:4:2}.${MY_DATE:6:2}-${MY_BUILD}"
+MY_PV="$(replace_version_separator 3 '-')"
 MY_P="${MY_PN}-${MY_PV}"
 
 DESCRIPTION="Opensourced tools for VMware guests"

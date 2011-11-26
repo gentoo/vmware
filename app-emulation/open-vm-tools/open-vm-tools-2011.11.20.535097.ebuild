@@ -2,13 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="4"
 
 inherit eutils pam versionator
 
-MY_DATE="$(get_version_component_range 3)"
-MY_BUILD="$(get_version_component_range 4)"
-MY_PV="${MY_DATE:0:4}.${MY_DATE:4:2}.${MY_DATE:6:2}-${MY_BUILD}"
+MY_PV="$(replace_version_separator 3 '-')"
 MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="Opensourced tools for VMware guests"
@@ -51,16 +49,10 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 pkg_setup() {
-	#use unity && ! use X && die 'The Unity USE flag requires "X" USE flag as well'
-	#use unity && ! use xinerama && die 'The Unity USE flag requires xinerame USE="xinerama" as well'
-
 	enewgroup vmware
 }
 
 src_prepare() {
-	#epatch "${FILESDIR}/default-scripts.patch"
-	#epatch "${FILESDIR}/checkvm-pie-safety.patch"
-	#sed -i -e 's/proc-3.2.7/proc/g' configure || die "sed configure failed"
 	# Do not filter out Werror
 	# Upstream Bug  http://sourceforge.net/tracker/?func=detail&aid=2959749&group_id=204462&atid=989708
 	# sed -i -e 's/CFLAGS=.*Werror/#&/g' configure || die "sed comment out Werror failed"
@@ -85,12 +77,8 @@ src_configure() {
 	find ./ -name Makefile | xargs sed -i -e 's/-Werror//g'  || die "sed out Werror failed"
 }
 
-src_compile() {
-	emake || die "failed to compile"
-}
-
 src_install() {
-	emake DESTDIR="${D}" install || die "failed to install"
+	default
 
 	rm "${D}"/etc/pam.d/vmtoolsd
 	pamd_mimic_system vmtoolsd auth account
@@ -99,19 +87,19 @@ src_install() {
 	rm "${D}"/usr/$(get_libdir)/open-vm-tools/plugins/common/*.la
 
 	newinitd "${FILESDIR}/open-vm-tools.initd" vmware-tools || die "failed to newinitd"
-	newconfd "${FILESDIR}/open-vm.confd" vmware-tools || die "failed to newconfd"
+	newconfd "${FILESDIR}/open-vm-tools.confd" vmware-tools || die "failed to newconfd"
 
 	exeinto /etc/vmware-tools/scripts/vmware/
 	doexe "${FILESDIR}"/network
 
 	if use X;
 	then
-		fperms 4755 "/usr/bin/vmware-user-suid-wrapper" || die
+		fperms 4755 "/usr/bin/vmware-user-suid-wrapper"
 
 		dobin "${S}"/scripts/common/vmware-xdg-detect-de
 
 		insinto /etc/xdg/autostart
-		doins "${FILESDIR}/open-vm-tools.desktop" || die "failed to install .desktop"
+		doins "${FILESDIR}/open-vm-tools.desktop"
 
 		elog "To be able to use the drag'n'drop feature of VMware for file"
 		elog "exchange, please add the users to the 'vmware' group."
