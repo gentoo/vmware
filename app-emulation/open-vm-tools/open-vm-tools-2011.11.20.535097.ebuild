@@ -86,8 +86,8 @@ src_install() {
 	rm "${D}"/usr/$(get_libdir)/*.la
 	rm "${D}"/usr/$(get_libdir)/open-vm-tools/plugins/common/*.la
 
-	newinitd "${FILESDIR}/open-vm-tools.initd" vmware-tools || die "failed to newinitd"
-	newconfd "${FILESDIR}/open-vm-tools.confd" vmware-tools || die "failed to newconfd"
+	newinitd "${FILESDIR}/open-vm-tools.initd" vmware-tools
+	newconfd "${FILESDIR}/open-vm-tools.confd" vmware-tools
 
 	exeinto /etc/vmware-tools/scripts/vmware/
 	doexe "${FILESDIR}"/network
