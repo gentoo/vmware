@@ -103,8 +103,8 @@ src_unpack() {
 			vmware-player-app \
 			vmware-vmx \
 			vmware-usbarbitrator \
-			vmware-network-editor
-			#vmware-player-setup
+			vmware-network-editor \
+			vmware-player-setup
 			#vmware-ovftool
 	do
 		vmware-bundle_extract-bundle-component "${DISTDIR}/${A}" "${component}" "${S}"
@@ -158,15 +158,19 @@ src_install() {
 		dodoc doc/*
 	fi
 
+	exeinto "${VM_INSTALL_DIR}"/lib/vmware/setup
+	doexe vmware-config
+
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmplayer{,-daemon} \
 			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
 	# fix up permissions
-	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh}
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper}
 	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
 
 	# create the environment
