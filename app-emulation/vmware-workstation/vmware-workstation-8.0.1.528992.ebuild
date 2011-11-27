@@ -289,24 +289,22 @@ src_install() {
 
 	# fixing gksu problem
 	if use gnome; then
-		rm "${D}${VM_INSTALL_DIR}"/bin/vmware-gksu
 		dosym /usr/bin/gksu "${VM_INSTALL_DIR}"/bin/vmware-gksu
 	fi
 	if use kde; then
-		rm "${D}${VM_INSTALL_DIR}"/bin/vmware-gksu
 		dosym /usr/bin/kdesu "${VM_INSTALL_DIR}"/bin/vmware-gksu
 	fi
 
 	# fix up permissions
-	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper,setup/*}
-	chmod 04711 "${D}${VM_INSTALL_DIR}"/bin/vmware-mount
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper,setup/*}
+	fperms 4711 "${VM_INSTALL_DIR}"/bin/vmware-mount
 	if use server; then
-		chmod 04711 "${D}${VM_INSTALL_DIR}"/sbin/vmware-authd
+		fperms 4711 "${VM_INSTALL_DIR}"/sbin/vmware-authd
 	fi
-	chmod 04711 "${D}${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
 
 	if use vix; then
-		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-vix/setup/*
+		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-vix/setup/*
 	fi
 
 	# create the environment

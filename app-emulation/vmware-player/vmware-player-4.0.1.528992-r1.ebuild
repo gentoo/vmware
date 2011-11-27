@@ -1,8 +1,8 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-3.1.4.385536.ebuild,v 1.1 2011/04/15 12:33:18 vadimk Exp $
+# $Header: $
 
-EAPI="2"
+EAPI="4"
 
 inherit eutils versionator fdo-mime gnome2-utils vmware-bundle
 
@@ -20,7 +20,7 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="doc +vmware-tools"
+IUSE="cups doc +vmware-tools"
 RESTRICT="binchecks fetch strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -47,6 +47,7 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/libart_lgpl
 	=media-libs/libpng-1.2*
 	net-misc/curl
+	cups? ( net-print/cups )
 	sys-devel/gcc
 	sys-fs/fuse
 	sys-libs/glibc
@@ -138,27 +139,35 @@ src_install() {
 
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
-	doins -r lib/* || die "failed to install lib"
+	doins -r lib/*
 
 	# install the ancillaries
 	insinto /usr
-	doins -r share || die "failed to install share"
+	doins -r share
+
+	if use cups; then
+		exeinto $(cups-config --serverbin)/filter
+		doexe extras/thnucups
+
+		insinto /etc/cups
+		doins -r etc/cups/*
+	fi
 
 	# install documentation
 	if use doc; then
-		dodoc doc/* || die "failed to install docs"
+		dodoc doc/*
 	fi
 
 	# create symlinks for the various tools
-	local tool ; for tool in vmplayer{,-daemon} \
+	local tool ; for tool in thnuclnt vmplayer{,-daemon} \
 			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
-		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}" || die
+		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer || die
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
 
 	# fix up permissions
-	chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh}
-	chmod 04711 "${D}${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh}
+	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
 
 	# create the environment
 	local envd="${T}/90vmware"
