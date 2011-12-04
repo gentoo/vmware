@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: vadimk Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-8.0.1.528992-r1.ebuild,v 1.1 2011/12/04 13:30:14 vadimk Exp $
 
 EAPI="4"
 
@@ -81,7 +81,6 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/pango
 	x11-libs/startup-notification
 	x11-themes/hicolor-icon-theme
-	!app-emulation/vmware-server
 	!app-emulation/vmware-player"
 PDEPEND="~app-emulation/vmware-modules-264.1
 	vmware-tools? ( app-emulation/vmware-tools )"
@@ -210,7 +209,7 @@ src_install() {
 		doins -r lib/*
 
 		into "${VM_INSTALL_DIR}"
-		for tool in  vmware-{hostd,vim-cmd,adminTool} ; do
+		for tool in  vmware-{hostd,vim-cmd,wssc-adminTool} ; do
 			cat > "${T}/${tool}" <<-EOF
 				#!/usr/bin/env bash
 				set -e
