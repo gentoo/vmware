@@ -294,16 +294,19 @@ src_install() {
 		dosym /usr/bin/kdesu "${VM_INSTALL_DIR}"/bin/vmware-gksu
 	fi
 
-	# fix up permissions
-	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper,setup/*}
+	# fix permissions
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-hostd,vmware-remotemks}
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/{wrapper-gtk24.sh,libgksu2.so.0/gksu-run-helper}
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/setup/vmware-config
 	fperms 4711 "${VM_INSTALL_DIR}"/bin/vmware-mount
 	if use server; then
+		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-{vim-cmd,wssc-adminTool}
 		fperms 4711 "${VM_INSTALL_DIR}"/sbin/vmware-authd
 	fi
-	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
 
 	if use vix; then
-		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-vix/setup/*
+		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-vix/setup/vmware-config
 	fi
 
 	# create the environment
