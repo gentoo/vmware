@@ -169,9 +169,10 @@ src_install() {
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
-	# fix up permissions
-	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/{bin/*,lib/wrapper-gtk24.sh,lib/libgksu2.so.0/gksu-run-helper}
-	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx*
+	# fix permissions
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-remotemks}
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/{wrapper-gtk24.sh,libgksu2.so.0/gksu-run-helper}
+	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
 
 	# create the environment
 	local envd="${T}/90vmware"
