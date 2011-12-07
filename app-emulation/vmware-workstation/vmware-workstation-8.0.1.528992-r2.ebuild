@@ -295,16 +295,15 @@ src_install() {
 	fi
 
 	# fix permissions
-	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-hostd,vmware-remotemks}
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-remotemks}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/{wrapper-gtk24.sh,libgksu2.so.0/gksu-run-helper}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/setup/vmware-config
 	fperms 4711 "${VM_INSTALL_DIR}"/bin/vmware-mount
+	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
 	if use server; then
-		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-{vim-cmd,wssc-adminTool}
+		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-{hostd,vim-cmd,wssc-adminTool}
 		fperms 4711 "${VM_INSTALL_DIR}"/sbin/vmware-authd
 	fi
-	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
-
 	if use vix; then
 		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-vix/setup/vmware-config
 	fi
