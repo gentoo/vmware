@@ -63,6 +63,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-include.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-jobserver.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-3.2.0.patch"
 }
 
 src_install() {
