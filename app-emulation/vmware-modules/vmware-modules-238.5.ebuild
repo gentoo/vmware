@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-modules/vmware-modules-238.5.ebuild,v 1.1 2011/10/08 18:04:57 vadimk Exp $
 
 EAPI="2"
 
@@ -64,6 +64,8 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-jobserver.patch"
 	kernel_is ge 2 6 37 && epatch "${FILESDIR}/${PV_MAJOR}-sema.patch"
 	kernel_is ge 2 6 39 && epatch "${FILESDIR}/${PV_MAJOR}-2.6.39.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-3.2.0.patch"
 }
 
 src_install() {
