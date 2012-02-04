@@ -1,0 +1,12 @@
+diff --git a/modules/linux/vmhgfs/tcp.c b/modules/linux/vmhgfs/tcp.c
+index c7070a6..31a40df 100644
+--- a/modules/linux/vmhgfs/tcp.c
++++ b/modules/linux/vmhgfs/tcp.c
+@@ -32,6 +32,7 @@
+ #include <linux/in.h>
+ #include <linux/net.h>
+ #include <linux/inet.h>
++#include <linux/moduleparam.h>
+ #include <linux/errno.h>
+ #include <linux/kthread.h>
+ 

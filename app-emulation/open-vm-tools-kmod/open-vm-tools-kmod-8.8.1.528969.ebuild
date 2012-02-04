@@ -51,6 +51,9 @@ pkg_setup() {
 src_prepare() {
 	sed -i.bak -e '/\smake\s/s/make/$(MAKE)/g' modules/linux/{vmblock,vmci,vmhgfs,vmsync,vmxnet,vsock}/Makefile\
 		|| die "Sed failed."
+	kernel_is ge 3 2 0 && epatch "${FILESDIR}/moduleparam.patch"
+	kernel_is ge 3 2 0 && epatch "${FILESDIR}/setnlink.patch"
+	kernel_is ge 3 2 0 && epatch "${FILESDIR}/fragsize.patch"
 }
 
 src_configure() {
