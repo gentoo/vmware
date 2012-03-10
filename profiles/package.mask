@@ -17,9 +17,3 @@ app-emulation/vmware-server
 app-emulation/vmware-server-console
 =app-emulation/vmware-modules-138.10.7
 =app-emulation/vmware-modules-208.2
-
-# Mike Auty <ikelos@gentoo.org> (4 Mar 2009)
-# Masked.  Don't use it.  Really.
-# Not even for testing, this will probably never go stable.
-# Almost certainly broken.
-app-emulation/vmware-converter
