@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-4.0.2.591240.ebuild,v 1.1 2012/03/10 14:19:47 vadimk Exp $
 
 EAPI="4"
 
@@ -75,7 +75,6 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libXtst
 	x11-libs/pango
 	x11-libs/startup-notification
-	!app-emulation/vmware-server
 	!app-emulation/vmware-workstation"
 PDEPEND="~app-emulation/vmware-modules-264.2
 	vmware-tools? ( app-emulation/vmware-tools )"
