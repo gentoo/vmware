@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -51,9 +51,6 @@ pkg_setup() {
 src_prepare() {
 	sed -i.bak -e '/\smake\s/s/make/$(MAKE)/g' modules/linux/{vmblock,vmci,vmhgfs,vmsync,vmxnet,vsock}/Makefile\
 		|| die "Sed failed."
-	kernel_is ge 3 2 0 && epatch "${FILESDIR}/moduleparam.patch"
-	kernel_is ge 3 2 0 && epatch "${FILESDIR}/setnlink.patch"
-	kernel_is ge 3 2 0 && epatch "${FILESDIR}/fragsize.patch"
 }
 
 src_configure() {

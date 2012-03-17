@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="4"
 
-inherit eutils pam versionator
+inherit eutils pam versionator flag-o-matic toolchain-funcs
 
 MY_PV="$(replace_version_separator 3 '-')"
 MY_P="${PN}-${MY_PV}"
@@ -60,6 +60,12 @@ src_prepare() {
 }
 
 src_configure() {
+	# http://bugs.gentoo.org/402279
+	if has_version '>=sys-process/procps-3.3.2'; then
+		export CUSTOM_PROCPS_NAME=procps
+		export CUSTOM_PROCPS_LIBS="$($(tc-getPKG_CONFIG) --libs libprocps)"
+	fi
+
 	econf \
 		--with-procps \
 		--with-dnet \
