@@ -17,7 +17,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="hardened"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
@@ -64,6 +64,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-jobserver.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
 	epatch "${FILESDIR}/${PV}-3.2.0.patch"
+	use hardened && epatch "${FILESDIR}/hardened.patch"
 }
 
 src_install() {
