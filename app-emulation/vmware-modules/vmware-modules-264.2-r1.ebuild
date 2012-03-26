@@ -65,6 +65,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
 	epatch "${FILESDIR}/${PV}-3.2.0.patch"
 	use hardened && epatch "${FILESDIR}/hardened.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
 }
 
 src_install() {
