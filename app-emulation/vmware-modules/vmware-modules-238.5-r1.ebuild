@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-modules/vmware-modules-238.5.ebuild,v 1.1 2011/10/08 18:04:57 vadimk Exp $
 
@@ -76,6 +76,6 @@ src_install() {
 		KERNEL=="vmmon", GROUP="vmware", MODE=660
 		KERNEL=="vsock", GROUP="vmware", MODE=660
 	EOF
-	insinto /etc/udev/rules.d/
+	insinto /lib/udev/rules.d/
 	doins "${udevrules}"
 }

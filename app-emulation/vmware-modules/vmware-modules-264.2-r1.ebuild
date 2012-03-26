@@ -75,6 +75,6 @@ src_install() {
 		KERNEL=="vmmon", GROUP="vmware", MODE=660
 		KERNEL=="vsock", GROUP="vmware", MODE=660
 	EOF
-	insinto /etc/udev/rules.d/
+	insinto /lib/udev/rules.d/
 	doins "${udevrules}"
 }
