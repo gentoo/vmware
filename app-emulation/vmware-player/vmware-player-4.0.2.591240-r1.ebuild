@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit eutils versionator fdo-mime gnome2-utils vmware-bundle
+inherit eutils versionator fdo-mime gnome2-utils pax-utils vmware-bundle
 
 MY_PN="VMware-Player"
 MY_PV="$(replace_version_separator 3 - $PV)"
@@ -171,7 +171,9 @@ src_install() {
 	# fix permissions
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-remotemks}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/{wrapper-gtk24.sh,libgksu2.so.0/gksu-run-helper}
-	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
+	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}"
+
+	pax-mark -m "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}"
 
 	# create the environment
 	local envd="${T}/90vmware"
