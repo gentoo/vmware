@@ -1,20 +1,3 @@
-diff --git a/vmmon-only/linux/iommu.c b/vmmon-only/linux/iommu.c
-index c692c2d..501d602 100644
---- a/vmmon-only/linux/iommu.c
-+++ b/vmmon-only/linux/iommu.c
-@@ -42,6 +42,12 @@
- #define PCI_BDF_SLOTFUNC(bdf) PCI_DEVFN(PCI_SLOT(bdf), PCI_FUNC(bdf))
- #define PCI_BDF_BUS(bdf)      (((bdf) >> 8) & 0xff)
- 
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 2, 0)
-+#include <linux/pci.h>
-+#define iommu_found() iommu_present(&pci_bus_type)
-+#define iommu_domain_alloc() iommu_domain_alloc(&pci_bus_type)
-+#endif
-+
- typedef struct PassthruDevice {
-    uint32 bdf;
-    struct pci_dev *pdev;
 diff --git a/vmnet-only/filter.c b/vmnet-only/filter.c
 index 491add5..74f7a3b 100644
 --- a/vmnet-only/filter.c

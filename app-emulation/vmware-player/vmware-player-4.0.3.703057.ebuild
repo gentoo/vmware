@@ -9,6 +9,7 @@ inherit eutils versionator fdo-mime gnome2-utils pax-utils vmware-bundle
 MY_PN="VMware-Player"
 MY_PV="$(replace_version_separator 3 - $PV)"
 MY_P="${MY_PN}-${MY_PV}"
+PV_MINOR=$(get_version_component_range 3)
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/player/"
@@ -76,7 +77,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/pango
 	x11-libs/startup-notification
 	!app-emulation/vmware-workstation"
-PDEPEND="~app-emulation/vmware-modules-264.2
+PDEPEND="~app-emulation/vmware-modules-264.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}

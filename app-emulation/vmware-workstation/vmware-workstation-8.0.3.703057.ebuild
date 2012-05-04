@@ -9,6 +9,7 @@ inherit eutils versionator fdo-mime gnome2-utils pam vmware-bundle
 MY_PN="VMware-Workstation"
 MY_PV="$(replace_version_separator 3 - $PV)"
 MY_P="${MY_PN}-Full-${MY_PV}"
+PV_MINOR=$(get_version_component_range 3)
 
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
@@ -82,7 +83,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/startup-notification
 	x11-themes/hicolor-icon-theme
 	!app-emulation/vmware-player"
-PDEPEND="~app-emulation/vmware-modules-264.2
+PDEPEND="~app-emulation/vmware-modules-264.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
