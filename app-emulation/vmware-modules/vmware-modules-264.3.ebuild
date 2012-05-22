@@ -66,6 +66,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-3.2.0.patch"
 	use pax_kernel && epatch "${FILESDIR}/hardened.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-d-make-root.patch"
 }
 
 src_install() {
