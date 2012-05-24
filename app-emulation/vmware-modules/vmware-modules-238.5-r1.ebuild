@@ -66,6 +66,7 @@ src_prepare() {
 	kernel_is ge 2 6 39 && epatch "${FILESDIR}/${PV_MAJOR}-2.6.39.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-3.2.0.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-d-make-root.patch"
 }
 
 src_install() {
