@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit eutils pam versionator flag-o-matic toolchain-funcs
+inherit eutils multilib pam user versionator flag-o-matic toolchain-funcs
 
 MY_PV="$(replace_version_separator 3 '-')"
 MY_P="${PN}-${MY_PV}"
@@ -41,7 +41,7 @@ RDEPEND="app-emulation/open-vm-tools-kmod
 
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	virtual/linux-sources
 	sys-apps/findutils
 	"
