@@ -76,6 +76,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libXtst
 	x11-libs/pango
 	x11-libs/startup-notification
+	x11-themes/hicolor-icon-theme
 	!app-emulation/vmware-server
 	!app-emulation/vmware-player"
 PDEPEND="~app-emulation/vmware-modules-238.${PV_MINOR}
