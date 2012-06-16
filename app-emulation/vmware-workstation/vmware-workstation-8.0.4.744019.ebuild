@@ -21,7 +21,7 @@ SRC_URI="
 LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="cups doc gnome kde ovftool server vix vmware-tools"
+IUSE="cups doc ovftool server vix vmware-tools"
 RESTRICT="binchecks fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -57,8 +57,6 @@ RDEPEND="dev-cpp/cairomm
 	sys-libs/glibc
 	sys-libs/zlib
 	x11-libs/cairo
-	gnome? ( x11-libs/gksu )
-	kde? ( kde-base/kdesu )
 	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
@@ -205,6 +203,8 @@ src_install() {
 		into "${VM_INSTALL_DIR}"/lib/vmware
 		dobin bin/*
 
+		dobin "${FILESDIR}"/configure-hostd.sh
+
 		# install the libraries
 		insinto "${VM_INSTALL_DIR}"/lib/vmware/lib
 		doins -r lib/*
@@ -287,14 +287,6 @@ src_install() {
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware "${VM_INSTALL_DIR}"/bin/vmware
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
-	# fixing gksu problem
-	if use gnome; then
-		dosym /usr/bin/gksu "${VM_INSTALL_DIR}"/bin/vmware-gksu
-	fi
-	if use kde; then
-		dosym /usr/bin/kdesu "${VM_INSTALL_DIR}"/bin/vmware-gksu
-	fi
-
 	# fix permissions
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-remotemks}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/{wrapper-gtk24.sh,libgksu2.so.0/gksu-run-helper}
@@ -304,6 +296,7 @@ src_install() {
 	if use server; then
 		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-{hostd,vim-cmd,wssc-adminTool}
 		fperms 4711 "${VM_INSTALL_DIR}"/sbin/vmware-authd
+		fperms 1777 "${VM_DATA_STORE_DIR}"
 	fi
 	if use vix; then
 		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-vix/setup/vmware-config
