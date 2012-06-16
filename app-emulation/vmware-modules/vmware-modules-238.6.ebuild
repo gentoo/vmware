@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-modules/vmware-modules-238.5.ebuild,v 1.1 2011/10/08 18:04:57 vadimk Exp $
 
-EAPI="2"
+EAPI="4"
 
-inherit eutils flag-o-matic linux-info linux-mod versionator
+inherit eutils flag-o-matic linux-info linux-mod user versionator
 
 PV_MAJOR=$(get_major_version)
 PV_MINOR=$(get_version_component_range 2)
