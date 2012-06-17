@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-tools/vmware-tools-8.4.9.744570.ebuild,v 1.1 2012/06/17 13:10:27 vadimk Exp $
 
 inherit versionator vmware-bundle
 

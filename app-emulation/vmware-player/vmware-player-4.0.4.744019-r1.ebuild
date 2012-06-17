@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-4.0.2.591240.ebuild,v 1.1 2012/03/10 14:19:47 vadimk Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-4.0.4.744019-r1.ebuild,v 1.1 2012/06/17 13:09:54 vadimk Exp $
 
 EAPI="4"
 

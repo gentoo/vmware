@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-vix/vmware-vix-1.11.4.744019.ebuild,v 1.1 2012/06/17 13:11:52 vadimk Exp $
 
 EAPI="4"
 

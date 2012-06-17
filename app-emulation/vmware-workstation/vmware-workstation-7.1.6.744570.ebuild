@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-7.1.4.385536.ebuild,v 1.1 2011/04/15 12:34:21 vadimk Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-7.1.6.744570.ebuild,v 1.1 2012/06/17 13:11:13 vadimk Exp $
 
 EAPI="2"
 
