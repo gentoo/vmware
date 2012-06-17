@@ -92,8 +92,7 @@ VM_HOSTD_USER="root"
 
 src_unpack() {
 	default
-	bundle=${A%.tar}
-
+	local bundle=${A%.tar}
 	local component; for component in \
 		vmware-vmx \
 		vmware-player-app \
