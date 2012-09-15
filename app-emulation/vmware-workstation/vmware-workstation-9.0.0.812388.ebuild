@@ -100,7 +100,8 @@ src_unpack() {
 		vmware-workstation \
 		vmware-network-editor \
 		vmware-network-editor-ui \
-		vmware-usbarbitrator
+		vmware-usbarbitrator \
+		vmware-vprobe
 	do
 		vmware-bundle_extract-bundle-component "${bundle}" "${component}" "${S}"
 	done
