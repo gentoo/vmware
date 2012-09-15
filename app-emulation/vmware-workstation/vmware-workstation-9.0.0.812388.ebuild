@@ -369,10 +369,13 @@ src_install() {
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
 		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware:g" \
+		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/${PN}.desktop"
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
+		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/vmware-player.desktop"
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
+		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/vmware-netcfg.desktop"
 
 	if use server; then
