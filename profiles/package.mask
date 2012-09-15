@@ -6,10 +6,3 @@
 <app-emulation/vmware-player-3.1.5
 <app-emulation/vmware-workstation-7.1.5
 
-
-# Vadim Kuznetsov <vadimk@gentoo.org> (27 Aug 2012)
-# Does not run yet
-=app-emulation/vmware-workstation-9.0.0.812388
-=app-emulation/vmware-player-5.0.0.812388
-=app-emulation/vmware-tools-9.2.0.812388
-=app-emulation/vmware-modules-271.0
