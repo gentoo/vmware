@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/open-vm-tools-8.8.1.528969.ebuild,v 1.1 2011/12/03 18:34:42 vadimk Exp $
+# $Header: $
 
 EAPI="4"
 
-inherit eutils multilib pam user versionator
+inherit eutils multilib pam user versionator flag-o-matic toolchain-funcs
 
 MY_PV="$(replace_version_separator 3 '-')"
 MY_P="${PN}-${MY_PV}"
@@ -16,7 +16,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X doc fuse icu +pic unity xinerama"
+IUSE="X doc fuse icu +pic xinerama"
 
 RDEPEND="app-emulation/open-vm-tools-kmod
 	dev-libs/glib:2
@@ -36,11 +36,6 @@ RDEPEND="app-emulation/open-vm-tools-kmod
 	)
 	fuse? ( sys-fs/fuse )
 	icu? ( dev-libs/icu )
-	unity? (
-		dev-libs/uriparser
-		media-libs/libpng:1.2
-		x11-libs/libXScrnSaver
-	)
 	xinerama? ( x11-libs/libXinerama )
 	"
 
@@ -54,9 +49,6 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 pkg_setup() {
-	use unity && ! use X && die 'The Unity USE flag requires "X" USE flag as well'
-	use unity && ! use xinerama && die 'The Unity USE flag requires xinerame USE="xinerama" as well'
-
 	enewgroup vmware
 }
 
@@ -68,6 +60,12 @@ src_prepare() {
 }
 
 src_configure() {
+	# http://bugs.gentoo.org/402279
+	if has_version '>=sys-process/procps-3.3.2'; then
+		export CUSTOM_PROCPS_NAME=procps
+		export CUSTOM_PROCPS_LIBS="$($(tc-getPKG_CONFIG) --libs libprocps)"
+	fi
+
 	econf \
 		--with-procps \
 		--with-dnet \
@@ -79,7 +77,6 @@ src_configure() {
 		$(use_with X gtkmm) \
 		$(use_with icu) \
 		$(use_with pic) \
-		$(use_enable unity) \
 		$(use_enable xinerama multimon)
 
 	# Bugs 260878, 326761
