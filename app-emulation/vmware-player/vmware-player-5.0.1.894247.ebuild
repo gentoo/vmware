@@ -32,7 +32,6 @@ RDEPEND="dev-cpp/cairomm
 	dev-cpp/glibmm:2
 	dev-cpp/gtkmm:2.4
 	dev-cpp/libgnomecanvasmm:2.6
-	dev-cpp/libsexymm
 	dev-cpp/pangomm:1.4
 	dev-libs/atk
 	dev-libs/glib:2
@@ -59,7 +58,6 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
-	x11-libs/libsexy
 	x11-libs/libSM
 	x11-libs/libX11
 	x11-libs/libXau
