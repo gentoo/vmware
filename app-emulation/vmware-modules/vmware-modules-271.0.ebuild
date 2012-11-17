@@ -59,7 +59,7 @@ src_unpack() {
 }
 
 src_prepare() {
-	#epatch "${FILESDIR}/${PV_MAJOR}-makefile-kernel-dir.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-include.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-vmmon.patch"
