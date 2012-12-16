@@ -64,6 +64,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
 	use pax_kernel && epatch "${FILESDIR}/hardened.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
+	kernel_is 3 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-putname.patch"
 }
 
 src_install() {
