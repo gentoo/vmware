@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit eutils flag-o-matic linux-info linux-mod user versionator
+inherit eutils flag-o-matic linux-info linux-mod user versionator udev
 
 PV_MAJOR=$(get_major_version)
 PV_MINOR=$(get_version_component_range 2)
@@ -75,6 +75,5 @@ src_install() {
 		KERNEL=="vmmon", GROUP="vmware", MODE=660
 		KERNEL=="vsock", GROUP="vmware", MODE=660
 	EOF
-	insinto /lib/udev/rules.d/
-	doins "${udevrules}"
+	udev_dorules "${udevrules}"
 }

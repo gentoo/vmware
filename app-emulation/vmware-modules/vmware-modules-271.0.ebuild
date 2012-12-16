@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-modules/vmware-modules-264.4.ebuild,v 1.1 2012/06/17 13:09:10 vadimk Exp $
+# $Header: $
 
 EAPI="4"
 
-inherit eutils flag-o-matic linux-info linux-mod user versionator
+inherit eutils flag-o-matic linux-info linux-mod user versionator udev
 
 PV_MAJOR=$(get_major_version)
 PV_MINOR=$(get_version_component_range 2)
@@ -75,6 +75,5 @@ src_install() {
 		KERNEL=="vmmon", GROUP="vmware", MODE=660
 		KERNEL=="vsock", GROUP="vmware", MODE=660
 	EOF
-	insinto /lib/udev/rules.d/
-	doins "${udevrules}"
+	udev_dorules "${udevrules}"
 }
