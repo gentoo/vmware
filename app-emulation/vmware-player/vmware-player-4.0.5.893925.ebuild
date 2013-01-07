@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-4.0.4.744019-r1.ebuild,v 1.1 2012/06/17 13:09:54 vadimk Exp $
+# $Header: $
 
 EAPI="4"
 
@@ -24,7 +24,7 @@ LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="cups doc +vmware-tools"
-RESTRICT="binchecks strip"
+RESTRICT="strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
@@ -79,7 +79,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/pango
 	x11-libs/startup-notification
 	!app-emulation/vmware-workstation"
-PDEPEND="~app-emulation/vmware-modules-271.${PV_MINOR}
+PDEPEND="~app-emulation/vmware-modules-264.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
@@ -211,7 +211,6 @@ src_install() {
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
 		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
-		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/${PN}.desktop" || die
 }
 

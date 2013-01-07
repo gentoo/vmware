@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,8 +21,8 @@ IUSE="pax_kernel"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-player-5.0.${PV_MINOR}*
-	=app-emulation/vmware-workstation-9.0.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-4.0.${PV_MINOR}*
+	=app-emulation/vmware-workstation-8.0.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
@@ -61,10 +61,11 @@ src_unpack() {
 src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-include.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-jobserver.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
-	epatch "${FILESDIR}/${PV_MAJOR}-vmmon.patch"
 	use pax_kernel && epatch "${FILESDIR}/hardened.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
+	kernel_is ge 3 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-putname.patch"
 }
 
 src_install() {
