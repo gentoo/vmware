@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-4.0.4.744019-r1.ebuild,v 1.1 2012/06/17 13:09:54 vadimk Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-5.0.1.894247.ebuild,v 1.3 2013/01/07 21:03:01 vadimk Exp $
 
 EAPI="4"
 
@@ -24,7 +24,7 @@ LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="cups doc +vmware-tools"
-RESTRICT="binchecks strip"
+RESTRICT="strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
@@ -127,7 +127,7 @@ src_install() {
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/*
 
-	# Bug 432918 
+	# Bug 432918
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8 \
 		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.0.9.8
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.0.9.8/libssl.so.0.9.8 \
