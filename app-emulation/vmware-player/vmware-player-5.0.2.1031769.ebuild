@@ -103,6 +103,8 @@ src_unpack() {
 src_prepare() {
 	rm -f bin/vmware-modconfig
 	rm -rf lib/modules/binary
+	# Bug 459566
+	mv lib/libvmware-netcfg.so lib/lib/
 }
 
 clean_bundled_libs() {

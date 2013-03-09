@@ -120,6 +120,9 @@ src_unpack() {
 src_prepare() {
 	rm -f  bin/vmware-modconfig
 	rm -rf lib/modules/binary
+	# Bug 459566
+	mv lib/libvmware-netcfg.so lib/lib/
+
 	if use server; then
 		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
 	fi
