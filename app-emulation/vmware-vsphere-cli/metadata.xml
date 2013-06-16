@@ -2,9 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<herd>vmware</herd>
-	<maintainer>
-		<email>vadimk@gentoo.org</email>
-	</maintainer>
 	<longdescription>
 		The vSphere Command-Line Interface (vSphere CLI) command set allows you
 		to run common system administration commands against ESX/ESXi systems
