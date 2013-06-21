@@ -67,6 +67,9 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-3.2.0.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-d-make-root.patch"
+
+	# Allow user patches so they can support RC kernels and whatever else
+	epatch_user
 }
 
 src_install() {
