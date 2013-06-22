@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-emulation/open-vm-tools/open-vm-tools-2012.12.26.958366.ebuild,v 1.1 2013/01/20 12:09:54 vadimk Exp $
 
-EAPI="4"
+EAPI=5
 
 inherit eutils multilib pam user versionator flag-o-matic toolchain-funcs
 
@@ -35,7 +35,7 @@ RDEPEND="app-emulation/open-vm-tools-kmod
 		x11-libs/libXtst
 	)
 	fuse? ( sys-fs/fuse )
-	icu? ( dev-libs/icu )
+	icu? ( dev-libs/icu:= )
 	xinerama? ( x11-libs/libXinerama )
 	"
 
