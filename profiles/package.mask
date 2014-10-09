@@ -1,8 +1,1 @@
 
-# Vadim Kuznetsov <vadimk@gentoo.org> (05 Nov 2011)
-# Masked due to end of support (upstream) and
-# security issue: bug 385727
-<app-emulation/vmware-modules-238.5
-<app-emulation/vmware-player-3.1.5
-<app-emulation/vmware-workstation-7.1.5
-
