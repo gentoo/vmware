@@ -80,7 +80,7 @@ src_prepare() {
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-00-readdir.patch"
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-01-filldir.patch"
 
-
+	kernel_is ge 3 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.13-00-vmnet.patch"
 
 
 
