@@ -79,10 +79,9 @@ src_prepare() {
 	
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-00-readdir.patch"
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-01-filldir.patch"
-
-	kernel_is ge 3 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.13-00-vmnet.patch"
-
-
+	kernel_is ge 3 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.13-00-vmnet.patch"	
+	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-readlink.patch"
+	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-01-vsock.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
