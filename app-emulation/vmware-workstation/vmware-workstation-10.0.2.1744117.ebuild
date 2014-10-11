@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-9.0.2.1031769.ebuild,v 1.2 2013/06/22 22:44:06 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-workstation/vmware-workstation-10.0.2.1744117.ebuild,v 1.1 2014/04/19 10:13:35 dilfridge Exp $
 
 EAPI="4"
 
-inherit eutils versionator fdo-mime gnome2-utils pam vmware-bundle
+inherit eutils versionator fdo-mime systemd gnome2-utils pam vmware-bundle
 
 MY_PN="VMware-Workstation"
 MY_PV=$(get_version_component_range 1-3)
@@ -12,12 +12,15 @@ PV_MINOR=$(get_version_component_range 3)
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
+SYSTEMD_UNITS_TAG="gentoo-01"
+
 DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
 BASE_URI="https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/core/"
 SRC_URI="
 	x86? ( ${BASE_URI}${MY_P}.i386.bundle.tar )
 	amd64? ( ${BASE_URI}${MY_P}.x86_64.bundle.tar )
+	https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz
 	"
 LICENSE="vmware GPL-2"
 SLOT="0"
@@ -37,6 +40,7 @@ RDEPEND="dev-cpp/cairomm
 	dev-libs/icu
 	dev-libs/expat
 	dev-libs/libaio
+	dev-libs/libgcrypt:0
 	dev-libs/libsigc++
 	dev-libs/libxml2
 	=dev-libs/openssl-0.9.8*
@@ -77,10 +81,11 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libXrender
 	x11-libs/libXtst
 	x11-libs/pango
+	x11-libs/pangox-compat
 	x11-libs/startup-notification
 	x11-themes/hicolor-icon-theme
 	!app-emulation/vmware-player"
-PDEPEND="~app-emulation/vmware-modules-271.${PV_MINOR}
+PDEPEND="~app-emulation/vmware-modules-279.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
@@ -90,7 +95,9 @@ VM_HOSTD_USER="root"
 
 src_unpack() {
 	default
-	local bundle=${A%.tar}
+	local bundle
+	use amd64 && bundle=${MY_P}.x86_64.bundle
+	use x86 && bundle=${MY_P}.i386.bundle
 	local component; for component in \
 		vmware-vmx \
 		vmware-player-app \
@@ -110,7 +117,7 @@ src_unpack() {
 
 	if use vix; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-core vmware-vix
-		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-lib-Workstation900andvSphere510 vmware-vix
+		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-lib-Workstation1000andvSphere550 vmware-vix
 	fi
 	if use ovftool; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-ovftool
@@ -277,8 +284,8 @@ src_install() {
 	fi
 
 	# create symlinks for the various tools
-	local tool ; for tool in thnuclnt vmware vmplayer{,-daemon} \
-			vmware-{acetool,enter-serial,gksu,fuseUI,modconfig{,-console},netcfg,tray,unity-helper} ; do
+	local tool ; for tool in thnuclnt vmware vmplayer{,-daemon} licenseTool vmamqpd \
+			vmware-{acetool,enter-serial,gksu,fuseUI,modconfig{,-console},netcfg,tray,unity-helper,zenity} ; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
@@ -451,6 +458,9 @@ src_install() {
 		sed -e "s:@@AUTHD_PORT@@:902:g" \
 			-i "${D}${VM_INSTALL_DIR}/lib/vmware/hostd/docroot/client/clients.xml" || die
 	fi
+
+	# install systemd unit files
+	systemd_dounit "${WORKDIR}/systemd-vmware-${SYSTEMD_UNITS_TAG}/"*.{service,target}
 }
 
 pkg_config() {
