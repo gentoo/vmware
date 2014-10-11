@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-vix/vmware-vix-1.11.4.744019.ebuild,v 1.1 2012/06/17 13:11:52 vadimk Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-vix/vmware-vix-1.11.4.744019.ebuild,v 1.2 2012/10/29 14:51:08 flameeyes Exp $
 
 EAPI="4"
 
@@ -21,7 +21,7 @@ LICENSE="vmware"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="doc"
-RESTRICT="binchecks fetch mirror strip"
+RESTRICT="fetch mirror strip"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
