@@ -6,7 +6,7 @@
 # to download VMWare. The agreeing to a licence is part of the configure step
 # which the user must run manually.
 
-EAPI="2"
+EAPI=5
 
 inherit eutils perl-module versionator
 
@@ -44,9 +44,9 @@ DEPEND="
 	dev-perl/XML-SAX
 	dev-perl/libwww-perl
 	dev-perl/libxml-perl
-	perl-core/Compress-Raw-Zlib
-	perl-core/IO-Compress
-	perl-core/version
+	virtual/perl-Compress-Raw-Zlib
+	virtual/perl-IO-Compress
+	virtual/perl-version
 	sys-fs/e2fsprogs
 	sys-libs/zlib"
 #	!app-emulation/vmware-server
@@ -83,7 +83,7 @@ src_prepare() {
 
 	epatch "${FILESDIR}"/makefile.patch
 
-	perl-module_src_prepare || die
+	perl-module_src_prepare
 }
 
 src_install() {
@@ -97,12 +97,12 @@ src_install() {
 		fi
 	done
 
-	perl-module_src_install || die
+	perl-module_src_install
 
 	# init script
 	if [[ -e "${FILESDIR}/${PN}.rc" ]]
 	then
-		newinitd "${FILESDIR}"/${PN}.rc ${product} || die "newinitd"
+		newinitd "${FILESDIR}"/${PN}.rc ${product}
 	fi
 
 	# create the environment
@@ -117,13 +117,13 @@ src_install() {
 	if [[ -e "${FILESDIR}/${PN}.xml" ]]
 	then
 		insinto /usr/share/mime/packages
-		doins "${FILESDIR}"/${PN}.xml || die "mimetypes"
+		doins "${FILESDIR}"/${PN}.xml
 	fi
 
 	if [[ -e doc/EULA ]]
 	then
 		insinto "${VMWARE_INSTALL_DIR}"/doc
-		doins doc/EULA || die "copying EULA"
+		doins doc/EULA
 	fi
 
 	doman man/*
