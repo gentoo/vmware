@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-5.0.2.1031769.ebuild,v 1.2 2013/06/22 22:37:55 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-emulation/vmware-player/vmware-player-6.0.2.1744117.ebuild,v 1.1 2014/04/19 15:01:08 dilfridge Exp $
 
-EAPI="4"
+EAPI=5
 
 inherit eutils versionator fdo-mime gnome2-utils pax-utils vmware-bundle
 
@@ -77,7 +77,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/pango
 	x11-libs/startup-notification
 	!app-emulation/vmware-workstation"
-PDEPEND="~app-emulation/vmware-modules-271.${PV_MINOR}
+PDEPEND="~app-emulation/vmware-modules-279.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
