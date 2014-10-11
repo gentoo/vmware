@@ -65,21 +65,21 @@ src_prepare() {
 	use pax_kernel && epatch "${FILESDIR}/${PV_MAJOR}-hardened.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
 	kernel_is ge 3 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-putname.patch"
-	
+
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-00-userns.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-01-create_proc_entry.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-02-getname.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-03-deprecated.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-04-unused-typedef.patch"	
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-04-unused-typedef.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-05-dentry.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-06-inode.patch"
-	
+
 	# fixes a memcpy/memcmp bug in the hub code
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-07-hub.patch"
-	
+
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-00-readdir.patch"
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-01-filldir.patch"
-	kernel_is ge 3 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.13-00-vmnet.patch"	
+	kernel_is ge 3 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.13-00-vmnet.patch"
 	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-readlink.patch"
 	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-01-vsock.patch"
 	kernel_is ge 3 17 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.17-00-netdev.patch"
