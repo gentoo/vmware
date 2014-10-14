@@ -10,7 +10,7 @@ diff -rupN vmnet-only/netif.c vmnet-only.new/netif.c
     NULL_TERMINATE_STRING(deviceName);
  
 -   dev = alloc_netdev(sizeof *netIf, deviceName, VNetNetIfSetup);
-+   dev = alloc_netdev(sizeof *netIf, deviceName, NET_NAME_UNKNOWN, VNetNetIfSetup);
++   dev = alloc_netdev(sizeof *netIf, deviceName, NET_NAME_USER, VNetNetIfSetup);
     if (!dev) {
        retval = -ENOMEM;
        goto out;
