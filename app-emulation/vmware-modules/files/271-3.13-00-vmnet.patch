@@ -1,3 +1,6 @@
+The new API to get the hooknum
+origionally from http://forums.gentoo.org/viewtopic-t-979802-start-25.html
+
 --- work/vmnet-only/filter.c   2013-08-27 20:29:04.000000000 +0100
 +++ patched/vmnet-only/filter.c   2014-01-26 01:09:05.184893854 +0000
 @@ -27,6 +27,7 @@

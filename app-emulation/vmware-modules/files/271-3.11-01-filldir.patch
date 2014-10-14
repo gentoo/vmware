@@ -1,3 +1,6 @@
+simply remove the code for Filldir since it is no longer used with the new 
+iterate_dir API
+
 diff -rupN vmblock-only/linux/file.c vmblock-only.new/linux/file.c
 --- vmblock-only/linux/file.c	2014-10-07 23:22:46.832469618 -0400
 +++ vmblock-only.new/linux/file.c	2014-10-07 23:24:35.276472720 -0400

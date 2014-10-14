@@ -1,3 +1,7 @@
+undefines DEPRECATED which is unfortunately also defined (as a string)
+in <linux/printk.h>. Realistically, this macro isn't even used, so this
+doesn't matter much. But it hushes some very loud warnings.
+
 diff -rupN vmblock-only/shared/vm_assert.h vmblock-only.new/shared/vm_assert.h
 --- vmblock-only/shared/vm_assert.h	2014-10-09 21:50:54.221159088 -0400
 +++ vmblock-only.new/shared/vm_assert.h	2014-10-09 21:53:04.612166156 -0400

@@ -1,3 +1,8 @@
+fixes a bug where sizeof was being used on a pointer when they clearly
+meant to use the size of the array referred to. Fortunately, the amount is
+always smaller than the actual size of the buffer, so likely not a security issue
+(and was fixed in vmware-workstaiton 10
+
 diff -rupN vmnet-only/hub.c vmnet-only.new/hub.c
 --- vmnet-only/hub.c	2013-11-06 00:40:52.000000000 -0500
 +++ vmnet-only.new/hub.c	2014-10-07 18:45:34.403918680 -0400

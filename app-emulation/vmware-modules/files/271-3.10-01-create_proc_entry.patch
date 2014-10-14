@@ -1,3 +1,7 @@
+uses the new proc_create function to create /proc entries
+instead of create_proc_entry which was deprecated: 
+https://lkml.org/lkml/2013/4/11/215
+
 --- a/vmblock-only/linux/control.c	2013-05-21 19:21:19.165750556 +0200
 +++ b/vmblock-only/linux/control.c	2013-05-21 19:22:18.363747723 +0200
 @@ -208,9 +208,10 @@

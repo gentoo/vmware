@@ -1,3 +1,6 @@
+replaces usage of vfs_readdir with iterate_dir. origionally found here:
+https://bugs.gentoo.org/show_bug.cgi?id=508204
+
 diff -Naur vmblock-only/linux/file.c vmblock-only/linux/file.c
 --- vmblock-only/linux/file.c	2013-11-05 23:33:26.000000000 -0500
 +++ vmblock-only/linux/file.c	2014-04-26 10:58:03.062635343 -0400

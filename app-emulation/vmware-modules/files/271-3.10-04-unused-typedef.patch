@@ -1,3 +1,6 @@
+hushes warnings about unused typedefs which are part of the "static assert"
+technique that the code uses. We simply add an "__attribute__((unused)) to each of them
+
 --- vmblock-only/shared/vm_assert.h	2014-10-07 22:43:39.519402467 -0400
 +++ vmblock-only/shared/vm_assert.h	2014-10-07 22:48:01.346409957 -0400
 @@ -317,7 +317,7 @@ EXTERN void WarningThrottled(uint32 *cou
