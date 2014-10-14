@@ -1,4 +1,5 @@
 replacing usage of vfs_readlink with new readlink_copy API
+see: http://permalink.gmane.org/gmane.linux.kernel.commits.head/445090
 
 diff -rupN vmblock-only/linux/inode.c vmblock-only/linux/inode.c
 --- vmblock-only/linux/inode.c	2014-10-05 23:20:14.545218357 -0400

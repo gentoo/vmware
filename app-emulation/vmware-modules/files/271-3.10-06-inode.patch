@@ -1,6 +1,7 @@
 starting with kernel 3.6, d_revalidate takes an unsigned int "flags"
 as the second argument, not a nameidata pointer! see fs/namei.c 
-for implementation
+for implementation. Also changing vfs_follow_link to nd_set_link.
+See: https://lkml.org/lkml/2013/9/9/236
 
 diff -Naur vmblock-only/linux/inode.c vmblock-only/linux/inode.c
 --- vmblock-only/linux/inode.c	2013-11-05 23:33:26.000000000 -0500

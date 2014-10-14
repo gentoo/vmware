@@ -1,3 +1,7 @@
+starting with kernel 3.6, d_revalidate takes an unsigned int "flags"
+as the second argument, not a nameidata pointer! see fs/namei.c 
+for implementation
+
 diff -Naur vmblock-only/linux/dentry.c vmblock-only/linux/dentry.c
 --- vmblock-only/linux/dentry.c	2013-11-05 23:33:26.000000000 -0500
 +++ vmblock-only/linux/dentry.c	2014-04-26 10:58:03.062635343 -0400
