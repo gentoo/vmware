@@ -158,6 +158,11 @@ src_install() {
 	local major_minor_revision=$(get_version_component_range 1-3 "${PV}")
 	local build=$(get_version_component_range 4 "${PV}")
 
+	# revdep-rebuild entry
+	insinto /etc/revdep-rebuild
+	echo "SEARCH_DIRS_MASK=\"${VM_INSTALL_DIR}\"" >> ${T}/10${PN}
+	doins "${T}"/10${PN} || die
+
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
 	dobin bin/*
