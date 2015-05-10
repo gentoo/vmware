@@ -51,7 +51,15 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/vmhgfs-linux-3.11.patch"
+	MYPV=${PV/.1770165}
+	epatch "${FILESDIR}/${MYPV}-0001-Remove-unused-DEPRECATED-macro.patch"
+	epatch "${FILESDIR}/${MYPV}-0002-Conditionally-define-g_info-macro.patch"
+	epatch "${FILESDIR}/${MYPV}-0003-Add-kuid_t-kgid_t-compatibility-layer.patch"
+	epatch "${FILESDIR}/${MYPV}-0004-Use-new-link-helpers.patch"
+	epatch "${FILESDIR}/${MYPV}-0005-Update-hgfs-file-operations-for-newer-kernels.patch"
+	epatch "${FILESDIR}/${MYPV}-0006-Fix-vmxnet-module-on-kernels-3.16.patch"
+	epatch "${FILESDIR}/${MYPV}-0007-Fix-vmhgfs-module-on-kernels-3.16.patch"
+	epatch "${FILESDIR}/${MYPV}-0008-Fix-segfault-in-vmhgfs.patch"
 	epatch_user
 }
 
