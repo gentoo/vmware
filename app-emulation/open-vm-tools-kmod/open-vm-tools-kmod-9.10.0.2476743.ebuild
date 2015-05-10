@@ -50,15 +50,10 @@ pkg_setup() {
 }
 
 src_prepare() {
-	MYPV=${PV/.1770165}
-	epatch "${FILESDIR}/${MYPV}-0001-Remove-unused-DEPRECATED-macro.patch"
-	epatch "${FILESDIR}/${MYPV}-0002-Conditionally-define-g_info-macro.patch"
-	epatch "${FILESDIR}/${MYPV}-0003-Add-kuid_t-kgid_t-compatibility-layer.patch"
-	epatch "${FILESDIR}/${MYPV}-0004-Use-new-link-helpers.patch"
-	epatch "${FILESDIR}/${MYPV}-0005-Update-hgfs-file-operations-for-newer-kernels.patch"
-	epatch "${FILESDIR}/${MYPV}-0006-Fix-vmxnet-module-on-kernels-3.16.patch"
-	epatch "${FILESDIR}/${MYPV}-0007-Fix-vmhgfs-module-on-kernels-3.16.patch"
-	epatch "${FILESDIR}/${MYPV}-0008-Fix-segfault-in-vmhgfs.patch"
+	MYPV=${PV/.2476743}
+	epatch "${FILESDIR}/${MYPV}-files/9.10.0-0001-Fix-vmxnet-module-on-kernels-3.16.patch"
+	epatch "${FILESDIR}/${MYPV}-files/9.10.0-0002-Fix-d_alias-to-d_u.d_alias-for-kernel-3.18.patch"
+	epatch "${FILESDIR}/${MYPV}-files/9.10.0-0003-Fix-f_dentry-msghdr-kernel-3.19.patch"
 	epatch_user
 }
 
