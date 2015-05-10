@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
-EAPI="4"
+EAPI=5
 
 inherit eutils versionator fdo-mime systemd gnome2-utils pam vmware-bundle
 
@@ -40,7 +40,7 @@ RDEPEND="dev-cpp/cairomm
 	dev-libs/icu
 	dev-libs/expat
 	dev-libs/libaio
-	dev-libs/libgcrypt:11
+	=dev-libs/libgcrypt-1.5*
 	dev-libs/libsigc++
 	dev-libs/libxml2
 	dev-libs/openssl:0.9.8
@@ -161,7 +161,7 @@ src_install() {
 	# revdep-rebuild entry
 	insinto /etc/revdep-rebuild
 	echo "SEARCH_DIRS_MASK=\"${VM_INSTALL_DIR}\"" >> ${T}/10${PN}
-	doins "${T}"/10${PN} || die
+	doins "${T}"/10${PN}
 
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
