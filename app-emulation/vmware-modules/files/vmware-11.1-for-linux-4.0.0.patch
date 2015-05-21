@@ -1,0 +1,499 @@
+diff -ur a/vmblock-only/linux/control.c c/vmblock-only/linux/control.c
+--- a/vmblock-only/linux/control.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmblock-only/linux/control.c	2015-02-24 03:58:06.038605919 +0300
+@@ -208,9 +208,11 @@
+    VMBlockSetProcEntryOwner(controlProcMountpoint);
+ 
+    /* Create /proc/fs/vmblock/dev */
+-   controlProcEntry = create_proc_entry(VMBLOCK_CONTROL_DEVNAME,
+-                                        VMBLOCK_CONTROL_MODE,
+-                                        controlProcDirEntry);
++   controlProcEntry = proc_create(VMBLOCK_CONTROL_DEVNAME, 
++				  VMBLOCK_CONTROL_MODE,
++                                  controlProcDirEntry, 
++				  &ControlFileOps);
++
+    if (!controlProcEntry) {
+       Warning("SetupProcDevice: could not create " VMBLOCK_DEVICE "\n");
+       remove_proc_entry(VMBLOCK_CONTROL_MOUNTPOINT, controlProcDirEntry);
+@@ -218,7 +220,10 @@
+       return -EINVAL;
+    }
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+    controlProcEntry->proc_fops = &ControlFileOps;
++#endif
++
+    return 0;
+ }
+ 
+@@ -272,17 +277,44 @@
+  *----------------------------------------------------------------------------
+  */
+ 
++/* copy-paste from lustre by pavlinux */
++static char *ll_getname(const char __user *filename)
++{
++       int ret = 0, len;
++       char *tmp = __getname();
++
++       if (!tmp)
++               return ERR_PTR(-ENOMEM);
++
++       len = strncpy_from_user(tmp, filename, PATH_MAX);
++       if (len == 0)
++               ret = -ENOENT;
++       else if (len > PATH_MAX)
++               ret = -ENAMETOOLONG;
++
++       if (ret) {
++               __putname(tmp);
++               tmp =  ERR_PTR(ret);
++       }
++       return tmp;
++}
++
+ static int
+ ExecuteBlockOp(const char __user *buf,                // IN: buffer with name
+                const os_blocker_id_t blocker,         // IN: blocker ID (file)
+                int (*blockOp)(const char *filename,   // IN: block operation
+                               const os_blocker_id_t blocker))
+ {
+-   char *name;
++   struct filename *fn = NULL;	
++   char *name = (char *)fn->name;
+    int i;
+    int retval;
+ 
+-   name = getname(buf);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
++   name = (char *)getname(buf);
++#else
++   name = (char *)ll_getname(buf);
++#endif
+    if (IS_ERR(name)) {
+       return PTR_ERR(name);
+    }
+@@ -293,7 +325,12 @@
+ 
+    retval = i < 0 ? -EINVAL : blockOp(name, blocker);
+ 
+-   putname(name);
++   if (fn->separate) { /* add by pavlinux */
++       __putname(fn->name);
++        kfree(fn);
++   } else {
++       __putname(fn);
++   }
+ 
+    return retval;
+ }
+diff -ur a/vmblock-only/linux/dentry.c c/vmblock-only/linux/dentry.c
+--- a/vmblock-only/linux/dentry.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmblock-only/linux/dentry.c	2015-02-24 03:58:06.038605919 +0300
+@@ -32,7 +32,11 @@
+ #include "block.h"
+ 
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+ static int DentryOpRevalidate(struct dentry *dentry, struct nameidata *nd);
++#else
++static int DentryOpRevalidate(struct dentry *dentry, unsigned int);
++#endif
+ 
+ struct dentry_operations LinkDentryOps = {
+    .d_revalidate = DentryOpRevalidate,
+@@ -58,9 +62,12 @@
+  *----------------------------------------------------------------------------
+  */
+ 
+-static int
+-DentryOpRevalidate(struct dentry *dentry,  // IN: dentry revalidating
+-                   struct nameidata *nd)   // IN: lookup flags & intent
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0)
++static int DentryOpRevalidate(struct dentry *dentry, struct nameidata *nd)
++#else
++static int DentryOpRevalidate(struct dentry *dentry, unsigned int flags)
++#endif
++
+ {
+    VMBlockInodeInfo *iinfo;
+    struct nameidata actualNd;
+@@ -101,7 +108,11 @@
+    if (actualDentry &&
+        actualDentry->d_op &&
+        actualDentry->d_op->d_revalidate) {
++#if LINUX_VERSION_CODE > KERNEL_VERSION(3, 14, 0)
++      return actualDentry->d_op->d_revalidate(actualDentry, flags);
++#else
+       return actualDentry->d_op->d_revalidate(actualDentry, nd);
++#endif
+    }
+ 
+    if (compat_path_lookup(iinfo->name, 0, &actualNd)) {
+diff -ur a/vmblock-only/linux/file.c c/vmblock-only/linux/file.c
+--- a/vmblock-only/linux/file.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmblock-only/linux/file.c	2015-02-24 03:58:06.038605919 +0300
+@@ -38,6 +38,7 @@
+ typedef ino_t inode_num_t;
+ #endif
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+ /* Specifically for our filldir_t callback */
+ typedef struct FilldirInfo {
+    filldir_t filldir;
+@@ -76,7 +77,7 @@
+    /* Specify DT_LNK regardless */
+    return info->filldir(info->dirent, name, namelen, offset, ino, DT_LNK);
+ }
+-
++#endif
+ 
+ /* File operations */
+ 
+@@ -132,7 +133,7 @@
+     * and that would try to acquire the inode's semaphore; if the two inodes
+     * are the same we'll deadlock.
+     */
+-   if (actualFile->f_dentry && inode == actualFile->f_dentry->d_inode) {
++   if (actualFile->f_path.dentry && inode == actualFile->f_path.dentry->d_inode) {
+       Warning("FileOpOpen: identical inode encountered, open cannot succeed.\n");
+       if (filp_close(actualFile, current->files) < 0) {
+          Warning("FileOpOpen: unable to close opened file.\n");
+@@ -164,6 +165,7 @@
+  *----------------------------------------------------------------------------
+  */
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+ static int
+ FileOpReaddir(struct file *file,  // IN
+               void *dirent,       // IN
+@@ -193,7 +195,7 @@
+ 
+    return ret;
+ }
+-
++#endif
+ 
+ /*
+  *----------------------------------------------------------------------------
+@@ -237,7 +239,11 @@
+ 
+ 
+ struct file_operations RootFileOps = {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+    .readdir = FileOpReaddir,
++#endif
++   .owner = THIS_MODULE,
++   .llseek = no_llseek,
+    .open    = FileOpOpen,
+    .release = FileOpRelease,
+ };
+diff -ur a/vmblock-only/linux/filesystem.c c/vmblock-only/linux/filesystem.c
+--- a/vmblock-only/linux/filesystem.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmblock-only/linux/filesystem.c	2015-02-24 03:58:06.039605762 +0300
+@@ -322,6 +322,7 @@
+ {
+    VMBlockInodeInfo *iinfo;
+    struct inode *inode;
++
+    struct nameidata actualNd;
+ 
+    ASSERT(sb);
+diff -ur a/vmblock-only/linux/inode.c c/vmblock-only/linux/inode.c
+--- a/vmblock-only/linux/inode.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmblock-only/linux/inode.c	2015-02-24 03:58:06.039605762 +0300
+@@ -35,9 +35,15 @@
+ 
+ 
+ /* Inode operations */
+-static struct dentry *InodeOpLookup(struct inode *dir,
+-                                    struct dentry *dentry, struct nameidata *nd);
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
++static struct dentry *InodeOpLookup(struct inode *dir, struct dentry *dentry, struct nameidata *nd);
+ static int InodeOpReadlink(struct dentry *dentry, char __user *buffer, int buflen);
++#else
++static struct dentry *InodeOpLookup(struct inode *, struct dentry *, unsigned int);
++static int InodeOpReadlink(struct dentry *, char __user *, int);
++#endif
++
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 13)
+ static void *InodeOpFollowlink(struct dentry *dentry, struct nameidata *nd);
+ #else
+@@ -49,12 +55,15 @@
+    .lookup = InodeOpLookup,
+ };
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+ static struct inode_operations LinkInodeOps = {
++#else
++struct inode_operations LinkInodeOps = {
++#endif
+    .readlink    = InodeOpReadlink,
+    .follow_link = InodeOpFollowlink,
+ };
+ 
+-
+ /*
+  *----------------------------------------------------------------------------
+  *
+@@ -75,7 +84,11 @@
+ static struct dentry *
+ InodeOpLookup(struct inode *dir,      // IN: parent directory's inode
+               struct dentry *dentry,  // IN: dentry to lookup
+-              struct nameidata *nd)   // IN: lookup intent and information
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
++	      struct nameidata *nd)   // IN: lookup intent and information
++#else
++              unsigned int flags)
++#endif
+ {
+    char *filename;
+    struct inode *inode;
+@@ -135,7 +148,12 @@
+    inode->i_size = INODE_TO_IINFO(inode)->nameLen;
+    inode->i_version = 1;
+    inode->i_atime = inode->i_mtime = inode->i_ctime = CURRENT_TIME;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+    inode->i_uid = inode->i_gid = 0;
++#else
++   inode->i_gid = make_kgid(current_user_ns(), 0);
++   inode->i_uid = make_kuid(current_user_ns(), 0);
++#endif
+    inode->i_op = &LinkInodeOps;
+ 
+    d_add(dentry, inode);
+@@ -177,7 +195,12 @@
+       return -EINVAL;
+    }
+ 
+-   return vfs_readlink(dentry, buffer, buflen, iinfo->name);
++#if LINUX_VERSION_CODE <= KERNEL_VERSION(3, 14, 99)
++	return vfs_readlink(dentry, buffer, buflen, iinfo->name);
++#else
++       return readlink_copy(buffer, buflen, iinfo->name);
++#endif
++
+ }
+ 
+ 
+@@ -221,7 +244,7 @@
+       goto out;
+    }
+ 
+-   ret = vfs_follow_link(nd, iinfo->name);
++   nd_set_link(nd, iinfo->name);
+ 
+ out:
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 13)
+@@ -230,3 +253,4 @@
+    return ret;
+ #endif
+ }
++
+diff -ur a/vmblock-only/shared/compat_namei.h c/vmblock-only/shared/compat_namei.h
+--- a/vmblock-only/shared/compat_namei.h	2015-02-07 03:11:55.000000000 +0300
++++ c/vmblock-only/shared/compat_namei.h	2015-02-24 03:51:25.235286047 +0300
+@@ -21,6 +21,20 @@
+ 
+ #include <linux/namei.h>
+ 
++/* Copy-n-paste from kernel's source/fs/namei.c */
++struct nameidata {
++         struct path     path;
++         struct qstr     last;
++         struct path     root;
++         struct inode    *inode; /* path.dentry.d_inode */
++         unsigned int    flags;
++         unsigned        seq, m_seq;
++         int             last_type;
++         unsigned        depth;
++         struct file     *base;
++         char *saved_names[MAX_NESTED_LINKS + 1];
++};
++
+ /*
+  * In 2.6.25-rc2, dentry and mount objects were removed from the nameidata
+  * struct. They were both replaced with a struct path.
+diff -ur a/vmci-only/linux/driver.c c/vmci-only/linux/driver.c
+--- a/vmci-only/linux/driver.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmci-only/linux/driver.c	2015-02-24 03:58:06.040605606 +0300
+@@ -713,7 +713,7 @@
+ 
+    case IOCTL_VMCI_INIT_CONTEXT: {
+       VMCIInitBlock initBlock;
+-      VMCIHostUser user;
++      uid_t user;
+
+       retval = copy_from_user(&initBlock, (void *)ioarg, sizeof initBlock);
+       if (retval != 0) {
+@@ -735,7 +735,11 @@
+          goto init_release;
+       }
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0)
+       user = current_uid();
++#else
++      user = from_kuid(&init_user_ns, current_uid());
++#endif
+       retval = VMCIContext_InitContext(initBlock.cid, initBlock.flags,
+                                        0 /* Unused */, vmciLinux->userVersion,
+                                        &user, &vmciLinux->context);
+diff -ur a/vmci-only/linux/vmciKernelIf.c c/vmci-only/linux/vmciKernelIf.c
+--- a/vmci-only/linux/vmciKernelIf.c	2015-02-07 03:11:55.000000000 +0300
++++ c/vmci-only/linux/vmciKernelIf.c	2015-02-24 03:58:06.041605450 +0300
+@@ -40,6 +40,7 @@
+ #include <linux/socket.h>       /* For memcpy_{to,from}iovec(). */
+ #include <linux/vmalloc.h>
+ #include <linux/wait.h>
++#include <linux/skbuff.h>
+ 
+ #include "compat_highmem.h"
+ #include "compat_interrupt.h"
+@@ -1196,21 +1197,21 @@
+       } else {
+          toCopy = size - bytesCopied;
+       }
+-
++      /* Code cloned from kernels drivers/misc/vmw_vmci/vmci_queue_pair.c */
+       if (isIovec) {
+-         struct iovec *iov = (struct iovec *)src;
+-         int err;
++         struct msghdr *msg = (struct msghdr *)src;
++         int err;
+ 
+-         /* The iovec will track bytesCopied internally. */
+-         err = memcpy_fromiovec((uint8 *)va + pageOffset, iov, toCopy);
+-         if (err != 0) {
+-            if (kernelIf->host) {
+-               kunmap(kernelIf->u.h.page[pageIndex]);
++         /* The iovec will track bytes_copied internally. */
++         err = memcpy_from_msg((u8 *)va + pageOffset, msg, toCopy);
++         if (err != 0) {
++            if (kernelIf->host)
++               kunmap(kernelIf->u.h.page[pageIndex]);
++               return VMCI_ERROR_INVALID_ARGS;
+             }
+-            return VMCI_ERROR_INVALID_ARGS;
+-         }
+-      } else {
+-         memcpy((uint8 *)va + pageOffset, (uint8 *)src + bytesCopied, toCopy);
++        } else {
++            memcpy((u8 *)va + pageOffset,
++                   (u8 *)src + bytesCopied, toCopy);
+       }
+ 
+       bytesCopied += toCopy;
+@@ -1273,11 +1274,11 @@
+       }
+ 
+       if (isIovec) {
+-         struct iovec *iov = (struct iovec *)dest;
++	  struct msghdr *msg = (struct msghdr *)dest;
+          int err;
+ 
+          /* The iovec will track bytesCopied internally. */
+-         err = memcpy_toiovec(iov, (uint8 *)va + pageOffset, toCopy);
++	  err = memcpy_to_msg(msg, (uint8 *)va + pageOffset, toCopy);
+          if (err != 0) {
+             if (kernelIf->host) {
+                kunmap(kernelIf->u.h.page[pageIndex]);
+diff -ur a/vmci-only/shared/vmci_kernel_if.h c/vmci-only/shared/vmci_kernel_if.h
+--- a/vmci-only/shared/vmci_kernel_if.h	2015-02-07 03:11:55.000000000 +0300
++++ c/vmci-only/shared/vmci_kernel_if.h	2015-02-24 03:58:06.041605450 +0300
+@@ -117,7 +117,7 @@
+   } VMCIEvent;
+   typedef IOLock *VMCIMutex;
+   typedef void *VMCIPpnList; /* Actually a pointer to the C++ Object IOMemoryDescriptor */
+-  typedef uid_t VMCIHostUser;
++  typedef kuid_t VMCIHostUser;
+   typedef VA64 *VMCIQPGuestMem;
+ #elif defined(_WIN32)
+   typedef KSPIN_LOCK VMCILock;
+diff -ur a/vmci-only/shared/vm_device_version.h c/vmci-only/shared/vm_device_version.h
+--- a/vmci-only/shared/vm_device_version.h	2015-02-07 03:11:55.000000000 +0300
++++ c/vmci-only/shared/vm_device_version.h	2015-02-24 03:58:06.041605450 +0300
+@@ -53,7 +53,9 @@
+  *    VMware HD Audio codec
+  *    VMware HD Audio controller
+  */
++#ifndef PCI_VENDOR_ID_VMWARE
+ #define PCI_VENDOR_ID_VMWARE                    0x15AD
++#endif
+ #define PCI_DEVICE_ID_VMWARE_SVGA2              0x0405
+ #define PCI_DEVICE_ID_VMWARE_SVGA               0x0710
+ #define PCI_DEVICE_ID_VMWARE_VGA                0x0711
+diff -ur a/vmmon-only/linux/driver.c c/vmmon-only/linux/driver.c
+--- a/vmmon-only/linux/driver.c	2015-02-07 03:54:16.000000000 +0300
++++ c/vmmon-only/linux/driver.c	2015-02-24 03:58:06.042605293 +0300
+@@ -1328,7 +1328,9 @@
+  *-----------------------------------------------------------------------------
+  */
+ 
+-__attribute__((always_inline)) static Bool
++#include <linux/compiler-gcc.h>
++
++__always_inline static Bool
+ LinuxDriverSyncReadTSCs(uint64 *delta) // OUT: TSC max - TSC min
+ {
+    TSCDelta tscDelta;
+diff -ur a/vmmon-only/linux/vmmonInt.h c/vmmon-only/linux/vmmonInt.h
+--- a/vmmon-only/linux/vmmonInt.h	2015-02-07 03:54:16.000000000 +0300
++++ c/vmmon-only/linux/vmmonInt.h	2015-02-24 03:58:06.042605293 +0300
+@@ -31,7 +31,7 @@
+ #ifdef VMW_HAVE_SMP_CALL_3ARG
+ #define compat_smp_call_function(fn, info, wait) smp_call_function(fn, info, wait)
+ #else
+-#define compat_smp_call_function(fn, info, wait) smp_call_function(fn, info, 1, wait)
++#define compat_smp_call_function(fn, info, wait) smp_call_function(fn, info, wait)
+ #endif
+ 
+ /*
+diff -ur a/vmnet-only/driver.c c/vmnet-only/driver.c
+--- a/vmnet-only/driver.c	2015-02-07 03:54:17.000000000 +0300
++++ c/vmnet-only/driver.c	2015-02-24 03:58:06.043605137 +0300
+@@ -1191,8 +1191,8 @@
+    struct inode *inode = NULL;
+    long err;
+
+-   if (filp && filp->f_dentry) {
+-      inode = filp->f_dentry->d_inode;
++   if (filp && filp->f_path.dentry) {
++      inode = filp->f_path.dentry->d_inode;
+    }
+    err = VNetFileOpIoctl(inode, filp, iocmd, ioarg);
+    return err;
+diff -ur a/vmnet-only/userif.c c/vmnet-only/userif.c
+--- a/vmnet-only/userif.c	2015-02-07 03:54:17.000000000 +0300
++++ c/vmnet-only/userif.c	2015-02-24 03:58:06.043605137 +0300
+@@ -523,7 +523,15 @@
+       .iov_base = buf,
+       .iov_len  = len,
+    };
+-   return skb_copy_datagram_iovec(skb, 0, &iov, len);
++
++
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 19, 0)
++	return skb_copy_datagram_iovec(skb, 0, &iov, len);
++#else
++	struct iov_iter to;
++	iov_iter_init(&to, READ, &iov, 1, len);
++	return skb_copy_datagram_iter(skb, 0, &to, len);
++#endif
+ }
+ 
+ 
+diff -ur a/vmnet-only/vm_device_version.h c/vmnet-only/vm_device_version.h
+--- a/vmnet-only/vm_device_version.h	2015-02-07 03:54:16.000000000 +0300
++++ c/vmnet-only/vm_device_version.h	2015-02-24 03:58:06.044604981 +0300
+@@ -53,7 +53,9 @@
+  *    VMware HD Audio codec
+  *    VMware HD Audio controller
+  */
++#ifndef PCI_VENDOR_ID_VMWARE                    
+ #define PCI_VENDOR_ID_VMWARE                    0x15AD
++#endif
+ #define PCI_DEVICE_ID_VMWARE_SVGA2              0x0405
+ #define PCI_DEVICE_ID_VMWARE_SVGA               0x0710
+ #define PCI_DEVICE_ID_VMWARE_VGA                0x0711
