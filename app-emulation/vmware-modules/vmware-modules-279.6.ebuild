@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Exp $
 
@@ -89,6 +89,15 @@ src_prepare() {
 	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-readlink.patch"
 	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-01-vsock.patch"
 	kernel_is ge 3 17 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.17-00-netdev.patch"
+	kernel_is ge 3 18 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.18-00-version-redefined.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-00-compat-namei.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-01-dentry.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-02-vmblock-path.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-03-iovec.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-04-iovec.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-05-vmci_qpair.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-06-vsock.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-07-vsock.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user

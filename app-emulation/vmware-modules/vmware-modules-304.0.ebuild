@@ -21,7 +21,8 @@ IUSE="pax_kernel +vmci +vsock"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-workstation-11.1.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-7.1.${PV_MINOR}*
+	=app-emulation/vmware-workstation-11.1.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
@@ -78,22 +79,22 @@ src_prepare() {
 	use pax_kernel && epatch "${FILESDIR}/${PV_MAJOR}-hardened.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
 
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/304-3.10-00-dentry.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/304-3.10-01-inode.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/304-3.10-02-control.patch"
-	kernel_is ge 3 11 0 && epatch "${FILESDIR}/304-3.10-03-inline.patch"
-	kernel_is ge 3 11 0 && epatch "${FILESDIR}/304-3.11-00-readdir.patch"
-	kernel_is ge 3 11 0 && epatch "${FILESDIR}/304-3.11-01-filldir.patch"
-	kernel_is ge 3 15 0 && epatch "${FILESDIR}/304-3.15-00-vsock.patch"
-	kernel_is ge 3 18 0 && epatch "${FILESDIR}/304-3.18-00-version-redefined.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-00-compat-namei.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-01-dentry.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-02-vmblock-path.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-03-iovec.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-04-iovec.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-05-vmci_qpair.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-06-vsock.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/304-3.19-07-vsock.patch"
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-00-dentry.patch"
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-01-inode.patch"
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-02-control.patch"
+	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-03-inline.patch"
+	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-00-readdir.patch"
+	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-01-filldir.patch"
+	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-vsock.patch"
+	kernel_is ge 3 18 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.18-00-version-redefined.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-00-compat-namei.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-01-dentry.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-02-vmblock-path.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-03-iovec.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-04-iovec.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-05-vmci_qpair.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-06-vsock.patch"
+	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-07-vsock.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
