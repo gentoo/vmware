@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,9 +27,9 @@ RESTRICT="strip"
 DEPEND="
 	>=dev-lang/perl-5
 	dev-libs/expat
-	dev-libs/glib
+	dev-libs/glib:2
 	dev-libs/libxml2
-	dev-libs/openssl
+	dev-libs/openssl:0.9.8
 	dev-perl/Archive-Zip
 	dev-perl/Class-MethodMaker
 	dev-perl/Crypt-SSLeay
