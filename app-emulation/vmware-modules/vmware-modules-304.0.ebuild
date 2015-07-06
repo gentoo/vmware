@@ -74,6 +74,10 @@ src_unpack() {
 src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-include.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
+	use pax_kernel && epatch "${FILESDIR}/${PV_MAJOR}-hardened.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
+
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/304-3.10-00-dentry.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/304-3.10-01-inode.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/304-3.10-02-control.patch"
