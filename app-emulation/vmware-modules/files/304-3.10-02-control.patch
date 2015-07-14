@@ -1,3 +1,5 @@
+The API to create proc entries now takes the file ops structure directly, instead of being set after the fact
+Using new __getname/__putname API
 --- a/vmblock-only/linux/control.c	2015-02-07 03:11:55.000000000 +0300
 +++ c/vmblock-only/linux/control.c	2015-02-24 03:58:06.038605919 +0300
 @@ -208,9 +208,11 @@

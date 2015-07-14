@@ -1,3 +1,4 @@
+Some parts of the iovec API were replaced by the similar message API. Refactoring the code to use that.
 diff -rupN vsock-only/linux/af_vsock.c vsock-only.new/linux/af_vsock.c
 --- vsock-only/linux/af_vsock.c	2015-05-05 11:26:05.145081792 -0400
 +++ vsock-only.new/linux/af_vsock.c	2015-05-05 11:30:54.304097466 -0400

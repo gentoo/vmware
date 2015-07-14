@@ -1,3 +1,4 @@
+Some parts of the iovec API were replaced by the similar message API. Refactoring the code to use that.
 --- a/vmci-only/linux/vmciKernelIf.c	2015-02-07 03:11:55.000000000 +0300
 +++ c/vmci-only/linux/vmciKernelIf.c	2015-02-24 03:58:06.041605450 +0300
 @@ -40,6 +40,7 @@

@@ -1,3 +1,4 @@
+A copy of this since it is no longer exported by the kernel headers
 --- a/vmblock-only/shared/compat_namei.h	2015-02-07 03:11:55.000000000 +0300
 +++ c/vmblock-only/shared/compat_namei.h	2015-02-24 03:51:25.235286047 +0300
 @@ -21,6 +21,20 @@

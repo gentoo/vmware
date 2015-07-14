@@ -1,3 +1,4 @@
+Hushes some (but not all warnings) relating to redefinitions of this define
 --- a/vmci-only/shared/vm_device_version.h	2015-02-07 03:11:55.000000000 +0300
 +++ c/vmci-only/shared/vm_device_version.h	2015-02-24 03:58:06.041605450 +0300
 @@ -53,7 +53,9 @@
