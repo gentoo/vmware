@@ -1,0 +1,21 @@
+#!/bin/bash
+
+[[ -f ${HOME}/.vmwareoverlayrc ]] && source ${HOME}/.vmwareoverlayrc
+
+CVS_PATH="${CVS_PATH:-${HOME}/Gentoo/gentoo-x86}"
+OVERLAY_PATH="${OVERLAY_PATH:-${HOME}/Gentoo/vmware}"
+
+echo cd "${OVERLAY_PATH}"
+cd "${OVERLAY_PATH}"
+
+for name in $(
+	find . -type f |
+		grep -v '/Manifest$' |
+		grep -v '/ChangeLog' |
+		grep -v '^\./\.git' |
+		grep -v '^\./profiles' |
+		grep -v '^\./metadata' |
+		grep -v '^\./scripts' ) ;
+do
+	cp -v "$name" "${CVS_PATH}/${name#./}"
+done
