@@ -204,7 +204,7 @@ src_install() {
 	local initscript="${T}/vmware.rc"
 
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-3.0.rc" > "${initscript}" || die
+		"${FILESDIR}/vmware-11.2.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware || die
 
 	# fill in variable placeholders
