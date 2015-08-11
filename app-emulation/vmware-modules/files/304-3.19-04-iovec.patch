@@ -9,41 +9,23 @@ Some parts of the iovec API were replaced by the similar message API. Refactorin
  
  #include "compat_highmem.h"
  #include "compat_interrupt.h"
-@@ -1196,21 +1197,21 @@
-       } else {
-          toCopy = size - bytesCopied;
+@@ -1224,3 +1225,3 @@
        }
 -
 +      /* Code cloned from kernels drivers/misc/vmw_vmci/vmci_queue_pair.c */
        if (isIovec) {
+@@ -1227,1 +1228,1 @@
 -         struct iovec *iov = (struct iovec *)src;
--         int err;
 +         struct msghdr *msg = (struct msghdr *)src;
-+         int err;
- 
+@@ -1230,2 +1231,2 @@
 -         /* The iovec will track bytesCopied internally. */
 -         err = memcpy_fromiovec((uint8 *)va + pageOffset, iov, toCopy);
--         if (err != 0) {
--            if (kernelIf->host) {
--               kunmap(kernelIf->u.h.page[pageIndex]);
 +         /* The iovec will track bytes_copied internally. */
 +         err = memcpy_from_msg((u8 *)va + pageOffset, msg, toCopy);
-+         if (err != 0) {
-+            if (kernelIf->host)
-+               kunmap(kernelIf->u.h.page[pageIndex]);
-+               return VMCI_ERROR_INVALID_ARGS;
-             }
--            return VMCI_ERROR_INVALID_ARGS;
--         }
--      } else {
+@@ -1239,1 +1240,1 @@
 -         memcpy((uint8 *)va + pageOffset, (uint8 *)src + bytesCopied, toCopy);
-+        } else {
-+            memcpy((u8 *)va + pageOffset,
-+                   (u8 *)src + bytesCopied, toCopy);
-       }
- 
-       bytesCopied += toCopy;
-@@ -1273,11 +1274,11 @@
++         memcpy((u8 *)va + pageOffset, (u8 *)src + bytesCopied, toCopy);
+@@ -1300,11 +1301,11 @@
        }
  
        if (isIovec) {
