@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils versionator fdo-mime gnome2-utils pax-utils vmware-bundle
+inherit eutils versionator fdo-mime gnome2-utils pax-utils systemd vmware-bundle
 
 MY_PN="VMware-Player"
 MY_PV=$(get_version_component_range 1-3)
@@ -205,6 +205,9 @@ src_install() {
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
 		"${FILESDIR}/vmware-11.0.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware || die
+
+	systemd_dounit "${FILESDIR}/vmware-usbarbitrator.service"
+	systemd_dounit "${FILESDIR}/vmware-network.service"
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
