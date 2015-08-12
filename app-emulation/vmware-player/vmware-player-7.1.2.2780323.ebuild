@@ -156,17 +156,16 @@ src_install() {
 	exeinto "${VM_INSTALL_DIR}"/lib/vmware/setup
 	doexe vmware-config
 
-    # install ovftool
-    if use ovftool; then
-        cd "${S}"
+	# install ovftool
+	if use ovftool; then
+		cd "${S}"
 
-        insinto "${VM_INSTALL_DIR}"/lib/vmware-ovftool
-        doins -r vmware-ovftool/*
+		insinto "${VM_INSTALL_DIR}"/lib/vmware-ovftool
+		doins -r vmware-ovftool/*
 
-        chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
-        dosym "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
-    fi
-
+		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
+		dosym "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
+	fi
 
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmplayer{,-daemon} \
