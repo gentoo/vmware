@@ -22,7 +22,7 @@ SRC_URI="
 LICENSE="vmware GPL-2"
 SLOT="0"
 KEYWORDS="-* ~amd64"
-IUSE="cups doc +vmware-tools"
+IUSE="cups doc ovftool +vmware-tools"
 RESTRICT="strip"
 
 # vmware-workstation should not use virtual/libc as this is a
@@ -93,10 +93,12 @@ src_unpack() {
 			vmware-usbarbitrator \
 			vmware-network-editor \
 			vmware-player-setup
-			#vmware-ovftool
 	do
 		vmware-bundle_extract-bundle-component "${bundle}" "${component}" "${S}"
 	done
+
+	use ovftool && \
+		vmware-bundle_extract-bundle-component "${bundle}" vmware-ovftool
 }
 
 src_prepare() {
@@ -153,6 +155,18 @@ src_install() {
 
 	exeinto "${VM_INSTALL_DIR}"/lib/vmware/setup
 	doexe vmware-config
+
+    # install ovftool
+    if use ovftool; then
+        cd "${S}"
+
+        insinto "${VM_INSTALL_DIR}"/lib/vmware-ovftool
+        doins -r vmware-ovftool/*
+
+        chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
+        dosym "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
+    fi
+
 
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmplayer{,-daemon} \
