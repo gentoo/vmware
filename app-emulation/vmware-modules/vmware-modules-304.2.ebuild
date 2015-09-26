@@ -82,19 +82,20 @@ src_prepare() {
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-00-dentry.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-01-inode.patch"
 	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-02-control.patch"
-	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-03-inline.patch"
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-03-inline.patch"
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-00-readdir.patch"
 	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-01-filldir.patch"
 	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-vsock.patch"
 	kernel_is ge 3 18 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.18-00-version-redefined.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-00-compat-namei.patch"
-	#kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-01-dentry.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-02-vmblock-path.patch"
-	#kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-03-iovec.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-04-iovec.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-05-vmci_qpair.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-06-vsock.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-07-vsock.patch"
+	kernel_is ge 4 01 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.01-00-vsock.patch"
+	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-00-nd_set_link.patch"
+	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-01-sk_alloc.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
