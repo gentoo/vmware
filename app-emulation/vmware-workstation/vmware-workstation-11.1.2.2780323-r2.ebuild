@@ -38,6 +38,15 @@ BUNDLED_LIBS="
 	libXfixes.so.3
 	libXft.so.2
 	libXinerama.so.1
+	libXrandr.so.2
+	libXrender.so.1
+	libaio.so.1
+	libatk-1.0.so.0
+	libatkmm-1.6.so.1
+	libatspi.so.0
+	libcairo.so.2
+	libcairomm-1.0.so.1
+	libcurl.so.4
 "
 
 BUNDLED_LIB_DEPENDS="
@@ -49,20 +58,27 @@ BUNDLED_LIB_DEPENDS="
 	x11-libs/libXfixes
 	x11-libs/libXft
 	x11-libs/libXinerama
+	x11-libs/libXrandr
+	x11-libs/libXrender
+	dev-libs/libaio
+	dev-libs/atk
+	dev-cpp/atkmm
+	app-accessibility/at-spi2-core
+	x11-libs/cairo
+	dev-cpp/cairomm
+	net-misc/curl
 "
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
-RDEPEND="dev-cpp/cairomm
+RDEPEND="
 	dev-cpp/glibmm:2
 	dev-cpp/gtkmm:2.4
 	dev-cpp/libgnomecanvasmm
 	dev-cpp/pangomm
-	dev-libs/atk
 	dev-libs/glib:2
 	dev-libs/icu
 	dev-libs/expat
-	dev-libs/libaio
 	=dev-libs/libgcrypt-1.5*
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
@@ -78,13 +94,11 @@ RDEPEND="dev-cpp/cairomm
 	media-libs/libpng:1.2
 	media-libs/libpng
 	media-libs/tiff:3
-	net-misc/curl
 	cups? ( net-print/cups )
 	sys-devel/gcc
 	sys-fs/fuse
 	sys-libs/glibc
 	sys-libs/zlib
-	x11-libs/cairo
 	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
@@ -93,8 +107,6 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/libxcb
 	x11-libs/libXext
 	x11-libs/libXi
-	x11-libs/libXrandr
-	x11-libs/libXrender
 	x11-libs/libXtst
 	x11-libs/pango
 	x11-libs/pangox-compat
