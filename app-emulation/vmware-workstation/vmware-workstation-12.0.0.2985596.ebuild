@@ -212,7 +212,7 @@ src_install() {
 		doins -r lib/*
 
 		into "${VM_INSTALL_DIR}"
-		for tool in  vmware-{hostd,wssc-adminTool} ; do
+		for tool in vmware-hostd wssc-adminTool ; do
 			cat > "${T}/${tool}" <<-EOF
 				#!/usr/bin/env bash
 				set -e
@@ -296,7 +296,7 @@ src_install() {
 	fperms 4711 "${VM_INSTALL_DIR}"/bin/vmware-mount
 	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
 	if use server; then
-		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-{hostd,wssc-adminTool}
+		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{vmware-hostd,wssc-adminTool}
 		fperms 4711 "${VM_INSTALL_DIR}"/sbin/vmware-authd
 		fperms 1777 "${VM_DATA_STORE_DIR}"
 	fi
