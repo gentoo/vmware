@@ -42,7 +42,7 @@ RDEPEND="dev-cpp/cairomm
 	=dev-libs/libgcrypt-1.5*
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
-	dev-libs/openssl:1.0.1
+	=dev-libs/openssl-1.0.1*
 	dev-libs/xmlrpc-c
 	gnome-base/libgnomecanvas
 	gnome-base/libgtop:2
