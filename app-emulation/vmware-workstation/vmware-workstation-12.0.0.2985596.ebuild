@@ -120,7 +120,7 @@ src_unpack() {
 
 	if use vix; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-core vmware-vix
-		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-lib-Workstation1100andvSphere600 vmware-vix
+		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-lib-Workstation1200 vmware-vix
 	fi
 	if use ovftool; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-ovftool
@@ -169,10 +169,10 @@ src_install() {
 	doins -r lib/*
 
 	# Bug 432918
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.0.9.8
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.0.9.8/libssl.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.0.9.8
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.1/libcrypto.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.1.0.1
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.1.0.1
 
 	# install the ancillaries
 	insinto /usr
