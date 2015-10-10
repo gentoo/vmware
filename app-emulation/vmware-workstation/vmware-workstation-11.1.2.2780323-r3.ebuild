@@ -82,7 +82,7 @@ BUNDLED_LIB_DEPENDS="
 	media-libs/freetype
 	sys-fs/fuse
 	x11-libs/gtk+:2
-	>=dev-libs/libgcrypt-1.5.0:0/11
+	=dev-libs/libgcrypt-1.5*
 	x11-libs/gdk-pixbuf:2
 	dev-cpp/gtkmm:2.4
 	dev-libs/glib:2
