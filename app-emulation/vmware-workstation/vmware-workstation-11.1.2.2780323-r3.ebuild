@@ -47,6 +47,17 @@ BUNDLED_LIBS="
 	libcairo.so.2
 	libcairomm-1.0.so.1
 	libcurl.so.4
+	libdbus-1.so.3
+	libfontconfig.so.1
+	libfreetype.so.6
+	libfuse.so.2
+	libgailutil.so.18
+	libgdk-x11-2.0.so.0
+	libgcrypt.so.11
+	libgdk_pixbuf-2.0.so.0
+	libgdkmm-2.4.so.1
+	libgio-2.0.so.0
+	libgiomm-2.4.so.1
 "
 
 BUNDLED_LIB_DEPENDS="
@@ -67,19 +78,24 @@ BUNDLED_LIB_DEPENDS="
 	x11-libs/cairo
 	dev-cpp/cairomm
 	net-misc/curl
+	media-libs/fontconfig
+	media-libs/freetype
+	sys-fs/fuse
+	x11-libs/gtk+:2
+	>=dev-libs/libgcrypt-1.5.0:0/11
+	x11-libs/gdk-pixbuf:2
+	dev-cpp/gtkmm:2.4
+	dev-libs/glib:2
+	dev-cpp/glibmm:2
 "
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
-	dev-cpp/glibmm:2
-	dev-cpp/gtkmm:2.4
 	dev-cpp/libgnomecanvasmm
 	dev-cpp/pangomm
-	dev-libs/glib:2
 	dev-libs/icu
 	dev-libs/expat
-	>=dev-libs/libgcrypt-1.5.0:0/11
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
 	dev-libs/openssl:0.9.8
@@ -88,18 +104,14 @@ RDEPEND="
 	gnome-base/libgtop:2
 	gnome-base/librsvg:2
 	gnome-base/orbit
-	media-libs/fontconfig
-	media-libs/freetype
 	media-libs/libart_lgpl
 	media-libs/libpng:1.2
 	media-libs/libpng
 	media-libs/tiff:3
 	cups? ( net-print/cups )
 	sys-devel/gcc
-	sys-fs/fuse
 	sys-libs/glibc
 	sys-libs/zlib
-	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
 	x11-libs/libSM
@@ -114,6 +126,7 @@ RDEPEND="
 	x11-themes/hicolor-icon-theme
 	!app-emulation/vmware-player
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
+	sys-apps/dbus
 "
 PDEPEND="~app-emulation/vmware-modules-304.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
