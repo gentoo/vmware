@@ -189,7 +189,9 @@ src_prepare() {
 
 	find "${S}" -name '*.a' -delete
 
-	clean_bundled_libs
+	if ! use bundled-libs ; then
+		clean_bundled_libs
+	fi
 
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
