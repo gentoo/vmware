@@ -29,14 +29,6 @@ RESTRICT="mirror strip"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
 
-BUNDLED_LIBS_PATCH="
-	libvmplayer.so
-	libvmware-enter-serial.so
-	libvmware-fuseUI.so
-	libgcr.so.0
-	libgksu2.so.0
-"
-
 BUNDLED_LIBS="
 	libXau.so.6
 	libXcomposite.so.1
@@ -139,8 +131,6 @@ RDEPEND="
 PDEPEND="~app-emulation/vmware-modules-304.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
-DEPEND="dev-util/patchelf"
-
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
 VM_DATA_STORE_DIR="/var/lib/vmware/Shared VMs"
@@ -187,15 +177,6 @@ clean_bundled_libs() {
 	done
 }
 
-patch_bundled_libs() {
-	for libname in ${BUNDLED_LIBS_PATCH} ; do
-		if [[ -f "${S}"/lib/lib/${libname}/${libname} ]]; then 
-			einfo "Setting RPATH of ${libname}"
-			patchelf --set-rpath "${VM_INSTALL_DIR}"/lib/vmware/lib "${S}"/lib/lib/${libname}/${libname} || die "Failed patching ${libname}"
-		fi
-	done
-}
-
 src_prepare() {
 	rm -f  bin/vmware-modconfig
 	rm -rf lib/modules/binary
@@ -211,7 +192,6 @@ src_prepare() {
 	if ! use bundled-libs ; then
 		clean_bundled_libs
 	fi
-	patch_bundled_libs
 
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
