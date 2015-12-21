@@ -14,7 +14,7 @@ MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
 SYSTEMD_UNITS_TAG="gentoo-01"
 
-DESCRIPTION="Emulate a complete PC on your PC without the usual performance overhead of most emulators"
+DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
 BASE_URI="https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/core/"
 SRC_URI="
@@ -25,7 +25,7 @@ LICENSE="vmware GPL-2"
 SLOT="0"
 KEYWORDS="-* ~amd64"
 IUSE="cups bundled-libs doc ovftool server vix vmware-tools"
-RESTRICT="mirror strip"
+RESTRICT="mirror strip preserve-libs"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
 
