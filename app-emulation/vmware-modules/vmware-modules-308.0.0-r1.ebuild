@@ -7,7 +7,7 @@ EAPI=5
 inherit eutils flag-o-matic linux-info linux-mod user versionator udev
 
 PV_MAJOR=$(get_major_version)
-PV_MINOR=$(get_version_component_range 2)
+PV_MINOR=$(get_version_component_range 2-3)
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="http://www.vmware.com/"
@@ -18,11 +18,12 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="pax_kernel +vmci +vsock"
+REQUIRED_USE="!vsock? ( !vmci )"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-player-12.0.${PV_MINOR}*
-	=app-emulation/vmware-workstation-12.0.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-12.${PV_MINOR}*
+	=app-emulation/vmware-workstation-12.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
@@ -113,4 +114,34 @@ src_install() {
 		KERNEL=="vsock", GROUP="vmware", MODE="660"
 	EOF
 	udev_dorules "${udevrules}"
+
+ 	if ! use vmci ; then
+ 		dodir /etc/modprobe.d/
+
+ 		cat > "${D}"/etc/modprobe.d/vmware.conf <<-EOF
+			# Support for vmware vmci in kernel module
+			alias vmci	vmw_vmci
+		EOF
+
+		export installed_modprobe_conf=1
+ 	fi
+ 	if ! use vsock ; then
+ 		dodir /etc/modprobe.d/
+ 		cat >> "${D}"/etc/modprobe.d/vmware.conf <<-EOF
+			# Support for vmware vsock in kernel module
+			alias vsock	vmw_vsock_vmci_transport
+		EOF
+
+		export installed_modprobe_conf=1
+ 	fi
+}
+
+pkg_postinst() {
+ 	if [ "${installed_modprobe_conf}"x == "x"  ] ; then
+		if [ -f ${ROOT}/etc/modprobe.d/vmware.conf ] ; then
+			ewarn "Please check the /etc/modprobe.d/vmware.conf file and"
+			ewarn "possible conflicts when using vmci and/or vsock modules built"
+			ewarn "out of kernel"
+		fi
+	fi
 }

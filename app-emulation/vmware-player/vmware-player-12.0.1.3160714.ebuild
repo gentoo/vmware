@@ -8,7 +8,7 @@ inherit eutils versionator readme.gentoo fdo-mime gnome2-utils pax-utils systemd
 
 MY_PN="VMware-Player"
 MY_PV=$(get_version_component_range 1-3)
-PV_MINOR=$(get_version_component_range 3)
+PV_MODULES="308.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
@@ -76,7 +76,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/pango
 	x11-libs/startup-notification
 	!app-emulation/vmware-workstation"
-PDEPEND="~app-emulation/vmware-modules-308.${PV_MINOR}
+PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
@@ -121,6 +121,8 @@ To be able to run ${PN} your user must be in the vmware group.
 }
 
 src_install() {
+	local major_minor=$(get_version_component_range 1-2 "${PV}")
+
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
 	dobin bin/* || die "failed to install bin"
@@ -218,7 +220,7 @@ src_install() {
 	local initscript="${T}/vmware.rc"
 
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-12.${PV_MINOR}.rc" > "${initscript}" || die
+		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware || die
 
 	systemd_dounit "${FILESDIR}/vmware-usbarbitrator.service"

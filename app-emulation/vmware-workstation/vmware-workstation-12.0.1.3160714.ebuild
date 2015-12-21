@@ -8,7 +8,7 @@ inherit eutils versionator readme.gentoo fdo-mime systemd gnome2-utils pam vmwar
 
 MY_PN="VMware-Workstation"
 MY_PV=$(get_version_component_range 1-3)
-PV_MINOR=$(get_version_component_range 3)
+PV_MODULES="308.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
@@ -85,7 +85,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/startup-notification
 	x11-themes/hicolor-icon-theme
 	!app-emulation/vmware-player"
-PDEPEND="~app-emulation/vmware-modules-308.${PV_MINOR}
+PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
@@ -356,7 +356,7 @@ src_install() {
 	# install the init.d script
 	local initscript="${T}/vmware.rc"
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript}
+		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}"
 	newinitd "${initscript}" vmware
 
 	if use server; then

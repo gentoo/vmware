@@ -7,7 +7,7 @@ EAPI=5
 inherit eutils flag-o-matic linux-info linux-mod user versionator udev
 
 PV_MAJOR=$(get_major_version)
-PV_MINOR=$(get_version_component_range 2)
+PV_MINOR=$(get_version_component_range 2-3)
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="http://www.vmware.com/"
@@ -22,8 +22,8 @@ REQUIRED_USE="!vsock? ( !vmci )"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-player-12.0.${PV_MINOR}*
-	=app-emulation/vmware-workstation-12.0.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-12.${PV_MINOR}*
+	=app-emulation/vmware-workstation-12.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
@@ -98,7 +98,6 @@ src_prepare() {
 	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-00-nd_set_link.patch"
 	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-01-sk_alloc.patch"
 	kernel_is ge 4 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-vmci-misc_deregister.patch"
-	kernel_is ge 4 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-vmmon-misc_deregister.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
