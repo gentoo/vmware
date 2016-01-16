@@ -223,9 +223,9 @@ src_install() {
 
 	# Bug 432918
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.1/libcrypto.so.1.0.1 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so/libcrypto.so.1.0.1
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.1.0.1
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so/libssl.so.1.0.1
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.1.0.1
 
 	# install the ancillaries
 	insinto /usr
