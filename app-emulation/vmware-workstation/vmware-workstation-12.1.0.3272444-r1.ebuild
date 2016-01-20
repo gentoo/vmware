@@ -46,6 +46,7 @@ BUNDLED_LIBS="
 	libatspi.so.0
 	libcairo.so.2
 	libcairomm-1.0.so.1
+	libcrypto.so.1.0.1
 	libcurl.so.4
 	libdbus-1.so.3
 	libexpat.so.0
@@ -82,11 +83,10 @@ BUNDLED_LIBS="
 	libpng12.so.0
 	librsvg-2.so.2
 	libsigc-2.0.so.0
+	libssl.so.1.0.1
 	libstdc++.so.6
 	libxml2.so.2
 	libz.so.1
-	libcrypto.so.1.0.1
-	libssl.so.1.0.1
 "
 
 BUNDLED_LIB_DEPENDS="
