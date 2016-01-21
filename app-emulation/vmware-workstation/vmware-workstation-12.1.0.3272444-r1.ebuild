@@ -90,7 +90,6 @@ BUNDLED_LIBS="
 "
 
 BUNDLED_LIB_DEPENDS="
-	|| ( dev-libs/libgcrypt:0/11 dev-libs/libgcrypt:11/11 )
 	app-accessibility/at-spi2-core
 	dev-cpp/atkmm
 	dev-cpp/cairomm
@@ -101,6 +100,7 @@ BUNDLED_LIB_DEPENDS="
 	dev-libs/expat
 	dev-libs/glib:2
 	dev-libs/libaio
+	dev-libs/libgcrypt:11/11
 	dev-libs/libgpg-error
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
@@ -140,6 +140,7 @@ RDEPEND="
 	dev-libs/icu
 	dev-libs/json-c
 	dev-libs/libcroco
+	dev-libs/libgcrypt:0/20
 	media-libs/alsa-lib
 	media-libs/libart_lgpl
 	media-libs/libvorbis
@@ -581,6 +582,11 @@ pkg_postinst() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
 	readme.gentoo_pkg_postinst
+
+	ewarn "${P} is using an old version of libgcrypt library which"
+	ewarn "is going to be soon removed from portage due to security reasons"
+	ewarn "(see https://bugs.gentoo.org/show_bug.cgi?id=541564)."
+	ewarn "Until vmware is fixed upstream you're exposed to security issues!"
 }
 
 pkg_prerm() {
