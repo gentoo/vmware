@@ -100,6 +100,7 @@ src_prepare() {
 	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-00-nd_set_link.patch"
 	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-01-sk_alloc.patch"
 	kernel_is ge 4 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-vmci-misc_deregister.patch"
+	kernel_is ge 4 05 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.05-00-vmblock-follow_link.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
