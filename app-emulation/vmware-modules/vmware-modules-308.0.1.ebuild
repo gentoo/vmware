@@ -138,6 +138,7 @@ src_install() {
 }
 
 pkg_postinst() {
+	linux-mod_pkg_postinst
  	if [ "${installed_modprobe_conf}"x == "x"  ] ; then
 		if [ -f ${ROOT}/etc/modprobe.d/vmware.conf ] ; then
 			ewarn "Please check the /etc/modprobe.d/vmware.conf file and"
