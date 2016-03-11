@@ -406,7 +406,7 @@ src_install() {
 
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmware vmplayer{,-daemon} licenseTool vmamqpd \
-			vmware-{acetool,enter-serial,gksu,fuseUI,modconfig{,-console},netcfg,tray,unity-helper,zenity} ; do
+			vmware-{acetool,enter-serial,gksu,fuseUI,modconfig{,-console},netcfg,tray,zenity} ; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer

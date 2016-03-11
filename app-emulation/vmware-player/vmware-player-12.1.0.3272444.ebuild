@@ -173,7 +173,7 @@ src_install() {
 
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmplayer{,-daemon} \
-			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
+			vmware-{acetool,modconfig{,-console},gksu,fuseUI} ; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
