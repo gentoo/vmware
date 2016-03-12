@@ -49,7 +49,6 @@ BUNDLED_LIBS="
 	libcrypto.so.1.0.1
 	libcurl.so.4
 	libdbus-1.so.3
-	libexpat.so.0
 	libfontconfig.so.1
 	libfreetype.so.6
 	libfuse.so.2
@@ -97,7 +96,6 @@ BUNDLED_LIB_DEPENDS="
 	dev-cpp/gtkmm:2.4
 	dev-cpp/pangomm
 	dev-libs/atk
-	dev-libs/expat
 	dev-libs/glib:2
 	dev-libs/libaio
 	dev-libs/libgcrypt:11/11
@@ -139,6 +137,7 @@ BUNDLED_LIB_DEPENDS="
 RDEPEND="
 	app-arch/bzip2
 	dev-libs/dbus-glib
+	dev-libs/expat
 	dev-libs/gmp:0
 	dev-libs/icu
 	dev-libs/json-c
