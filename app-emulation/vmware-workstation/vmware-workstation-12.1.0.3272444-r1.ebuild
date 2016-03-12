@@ -505,8 +505,10 @@ src_install() {
 	fi
 
 	# fill in variable placeholders
-	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
+	if use bundled-libs ; then
+		sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
+			-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
+	fi
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware:g" \
 		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/${PN}.desktop"
