@@ -175,8 +175,13 @@ RDEPEND="
 	x11-libs/startup-notification
 	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
-	!app-emulation/vmware-player
+	bundled-libs? (
+		media-libs/jbigkit:0/2.1
+		media-libs/tiff:3
+		virtual/jpeg:62
+	)
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
+	!app-emulation/vmware-player
 "
 PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
@@ -226,6 +231,8 @@ clean_bundled_libs() {
 	for libname in ${BUNDLED_LIBS} ; do
 		rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
 	done
+
+	rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
 
 	# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
 	# (needed by libcds.so) which seem to be compiled from openssl-1.0.1h.
