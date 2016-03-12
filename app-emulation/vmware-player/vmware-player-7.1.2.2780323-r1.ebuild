@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils versionator readme.gentoo fdo-mime gnome2-utils pax-utils systemd vmware-bundle
+inherit eutils versionator readme.gentoo-r1 fdo-mime gnome2-utils pax-utils systemd vmware-bundle
 
 MY_PN="VMware-Player"
 MY_PV=$(get_version_component_range 1-3)
@@ -245,7 +245,7 @@ pkg_preinst() {
 pkg_postinst() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
-	readme.gentoo_pkg_postinst
+	readme.gentoo_print_elog
 }
 
 pkg_prerm() {

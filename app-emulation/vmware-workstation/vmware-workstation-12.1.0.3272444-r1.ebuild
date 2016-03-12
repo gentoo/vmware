@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils versionator readme.gentoo fdo-mime systemd gnome2-utils pam vmware-bundle
+inherit eutils versionator readme.gentoo-r1 fdo-mime systemd gnome2-utils pam vmware-bundle
 
 MY_PN="VMware-Workstation"
 MY_PV=$(get_version_component_range 1-3)
@@ -608,7 +608,7 @@ pkg_preinst() {
 pkg_postinst() {
 	fdo-mime_desktop_database_update
 	gnome2_icon_cache_update
-	readme.gentoo_pkg_postinst
+	readme.gentoo_print_elog
 
 	ewarn "${P} is using an old version of libgcrypt library which"
 	ewarn "is going to be soon removed from portage due to security reasons"
