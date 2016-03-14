@@ -61,7 +61,6 @@ BUNDLED_LIBS="
 	libgdkmm-2.4.so.1
 	libgio-2.0.so.0
 	libgiomm-2.4.so.1
-	libgksu2.so.0
 	libglib-2.0.so.0
 	libglibmm-2.4.so.1
 	libglibmm_generate_extra_defs-2.4.so.1
@@ -71,7 +70,6 @@ BUNDLED_LIBS="
 	libgthread-2.0.so.0
 	libgtk-x11-2.0.so.0
 	libgtkmm-2.4.so.1
-	libgtop-2.0.so.7
 	libpango-1.0.so.0
 	libpangocairo-1.0.so.0
 	libpangoft2-1.0.so.0
@@ -104,7 +102,6 @@ BUNDLED_LIB_DEPENDS="
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
 	dev-libs/openssl:0
-	gnome-base/libgtop:2
 	gnome-base/librsvg:2
 	media-libs/fontconfig
 	media-libs/freetype
@@ -127,7 +124,6 @@ BUNDLED_LIB_DEPENDS="
 	x11-libs/libXinerama
 	x11-libs/libXrandr
 	x11-libs/libXrender
-	x11-libs/libgksu
 	x11-libs/pango
 	x11-libs/pangox-compat
 	x11-libs/pixman
@@ -421,7 +417,7 @@ src_install() {
 	# fix permissions
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/{appLoader,fusermount,launcher.sh,mkisofs,vmware-remotemks}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/wrapper-gtk24.sh
-	use bundled-libs && fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/libgksu2.so.0/gksu-run-helper
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/libgksu2.so.0/gksu-run-helper
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/setup/vmware-config
 	fperms 4711 "${VM_INSTALL_DIR}"/bin/vmware-mount
 	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
