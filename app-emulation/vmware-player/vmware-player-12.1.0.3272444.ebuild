@@ -8,7 +8,7 @@ inherit eutils versionator readme.gentoo-r1 fdo-mime gnome2-utils pax-utils syst
 
 MY_PN="VMware-Player"
 MY_PV=$(get_version_component_range 1-3)
-PV_MINOR=$(get_version_component_range 3)
+PV_MODULES="308.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
@@ -76,7 +76,7 @@ RDEPEND="dev-cpp/cairomm
 	x11-libs/pango
 	x11-libs/startup-notification
 	!app-emulation/vmware-workstation"
-PDEPEND="~app-emulation/vmware-modules-304.${PV_MINOR}
+PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
 S=${WORKDIR}
@@ -121,6 +121,8 @@ To be able to run ${PN} your user must be in the vmware group.
 }
 
 src_install() {
+	local major_minor=$(get_version_component_range 1-2 "${PV}")
+
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
 	dobin bin/* || die "failed to install bin"
@@ -130,10 +132,10 @@ src_install() {
 	doins -r lib/*
 
 	# Bug 432918
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.0.9.8
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.0.9.8/libssl.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.0.9.8
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.1/libcrypto.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so/libcrypto.so.1.0.1
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so/libssl.so.1.0.1
 
 	# https://github.com/gentoo/vmware/issues/7
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/ /usr/$(get_libdir)/vmware
@@ -171,7 +173,7 @@ src_install() {
 
 	# create symlinks for the various tools
 	local tool ; for tool in thnuclnt vmplayer{,-daemon} \
-			vmware-{acetool,unity-helper,modconfig{,-console},gksu,fuseUI} ; do
+			vmware-{acetool,modconfig{,-console},gksu,fuseUI} ; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
@@ -218,7 +220,7 @@ src_install() {
 	local initscript="${T}/vmware.rc"
 
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-11.${PV_MINOR}.rc" > "${initscript}" || die
+		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware || die
 
 	systemd_dounit "${FILESDIR}/vmware-usbarbitrator.service"

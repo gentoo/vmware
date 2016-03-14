@@ -7,7 +7,7 @@ EAPI=5
 inherit eutils flag-o-matic linux-info linux-mod user versionator udev
 
 PV_MAJOR=$(get_major_version)
-PV_MINOR=$(get_version_component_range 2)
+PV_MINOR=$(get_version_component_range 2-3)
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="http://www.vmware.com/"
@@ -16,13 +16,13 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="pax_kernel +vmci +vsock"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-player-7.1.${PV_MINOR}*
-	=app-emulation/vmware-workstation-11.1.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-12.${PV_MINOR}*
+	=app-emulation/vmware-workstation-12.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
@@ -58,7 +58,9 @@ pkg_setup() {
 	BUILD_TARGETS="auto-build KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
 
 	enewgroup "${VMWARE_GROUP}"
+
 	filter-flags -mfpmath=sse -mavx -mpclmul -maes
+	append-cflags -mno-sse  # Found a problem similar to bug #492964
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 		MODULE_NAMES="${MODULE_NAMES} ${mod}(misc:${S}/${mod}-only)"
@@ -96,7 +98,8 @@ src_prepare() {
 	kernel_is ge 4 01 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.01-00-vsock.patch"
 	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-00-nd_set_link.patch"
 	kernel_is ge 4 02 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-01-sk_alloc.patch"
-	kernel_is ge 4 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-misc_deregister.patch"
+	kernel_is ge 4 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-vmci-misc_deregister.patch"
+	kernel_is ge 4 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-vmmon-misc_deregister.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
