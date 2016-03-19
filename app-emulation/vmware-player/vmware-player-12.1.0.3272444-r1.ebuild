@@ -181,7 +181,7 @@ RDEPEND="
 "
 PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
-DEPEND="dev-util/bsdiff"
+DEPEND=">=dev-util/patchelf-0.9"
 
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
@@ -223,15 +223,11 @@ clean_bundled_libs() {
 	# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
 	# in libcds.so to be able to use system libs.
 	pushd >/dev/null .
-	einfo "Patching libcds.so"
 	cd "${S}"/lib/lib/libcds.so
-	cp libcds.so "${T}"/libcds.so
-	# The patch is created with patchelf > 0.8 (so using the live repository) and bsdiff:
-	# The following command should be replaced in the future with:
-	#   patchelf --replace-needed libssl.so.1.0.{1,0} \
-	#            --replace-needed libcrypto.so.1.0.{1,0} \
-	#            libcds.so
-	bspatch "${T}"/libcds.so libcds.so "${FILESDIR}"/${P}-unbundle-libcds.patch
+	einfo "Patching libcds.so"
+	patchelf --replace-needed libssl.so.1.0.{1,0} \
+	         --replace-needed libcrypto.so.1.0.{1,0} \
+	         libcds.so
 	popd >/dev/null
 }
 
