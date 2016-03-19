@@ -242,6 +242,17 @@ clean_bundled_libs() {
 	         --replace-needed libcrypto.so.1.0.{1,0} \
 	         libcds.so
 	popd >/dev/null
+
+	# vmware-workstation seems to use a custom version of libgksu2.so, for this reason
+	# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
+	# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
+	# preserve-libs mechanism to be triggered when a system lib is available (but not required)
+	pushd >/dev/null .
+	cd "${S}"/lib/lib/libvmware-gksu.so
+	einfo "Patching libvmware-gksu.so"
+	patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
+	         libvmware-gksu.so
+	popd >/dev/null
 }
 
 src_prepare() {
