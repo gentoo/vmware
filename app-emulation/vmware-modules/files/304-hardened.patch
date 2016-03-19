@@ -2,7 +2,7 @@ diff --git a/vmmon-only/linux/driver.c b/vmmon-only/linux/driver.c
 index b21dd44..960c2aa 100644
 --- a/vmmon-only/linux/driver.c
 +++ b/vmmon-only/linux/driver.c
-@@ -178,7 +178,16 @@ static struct vm_operations_struct vmuser_mops = {
+@@ -178,7 +178,22 @@ static struct vm_operations_struct vmuser_mops = {
  #endif
  };
  
@@ -10,19 +10,25 @@ index b21dd44..960c2aa 100644
 +static struct file_operations vmuser_fops = {
 +   .owner = THIS_MODULE,
 +   .poll = LinuxDriverPoll,
-+   .unlocked_ioctl = LinuxDriver_Ioctl,
-+   .compat_ioctl = LinuxDriver_Ioctl,
++#ifdef HAVE_UNLOCKED_IOCTL
++   .unlocked_ioctl = LinuxDriver_UnlockedIoctl,
++#else
++   .ioctl = LinuxDriver_Ioctl,
++#endif
++#ifdef HAVE_COMPAT_IOCTL
++   .compat_ioctl = LinuxDriver_UnlockedIoctl,
++#endif
 +   .open = LinuxDriver_Open,
 +   .release = LinuxDriver_Close,
 +   .mmap = LinuxDriverMmap
 +};
 +
  static struct timer_list tscTimer;
- static Atomic_uint32 tsckHz;
- static VmTimeStart tsckHzStartTime;
-@@ -357,21 +372,6 @@ init_module(void)
-    linuxState.fastClockPriority = -20;
-    linuxState.swapSize = VMMON_UNKNOWN_SWAP_SIZE;
+ 
+ /*
+@@ -357,27 +372,6 @@ init_module(void)
+    spin_lock_init(&linuxState.pollListLock);
+ #endif
  
 -   /*
 -    * Initialize the file_operations structure. Because this code is always
@@ -33,8 +39,14 @@ index b21dd44..960c2aa 100644
 -   memset(&vmuser_fops, 0, sizeof vmuser_fops);
 -   vmuser_fops.owner = THIS_MODULE;
 -   vmuser_fops.poll = LinuxDriverPoll;
--   vmuser_fops.unlocked_ioctl = LinuxDriver_Ioctl;
--   vmuser_fops.compat_ioctl = LinuxDriver_Ioctl;
+-#ifdef HAVE_UNLOCKED_IOCTL
+-   vmuser_fops.unlocked_ioctl = LinuxDriver_UnlockedIoctl;
+-#else
+-   vmuser_fops.ioctl = LinuxDriver_Ioctl;
+-#endif
+-#ifdef HAVE_COMPAT_IOCTL
+-   vmuser_fops.compat_ioctl = LinuxDriver_UnlockedIoctl;
+-#endif
 -   vmuser_fops.open = LinuxDriver_Open;
 -   vmuser_fops.release = LinuxDriver_Close;
 -   vmuser_fops.mmap = LinuxDriverMmap;
@@ -46,7 +58,7 @@ diff --git a/vmnet-only/driver.c b/vmnet-only/driver.c
 index b12b982..40bd4cf 100644
 --- a/vmnet-only/driver.c
 +++ b/vmnet-only/driver.c
-@@ -165,7 +165,16 @@ static long  VNetFileOpUnlockedIoctl(struct file * filp,
+@@ -165,7 +165,22 @@ static long  VNetFileOpUnlockedIoctl(struct file * filp,
                                       unsigned int iocmd, unsigned long ioarg);
  #endif
  
@@ -56,15 +68,21 @@ index b12b982..40bd4cf 100644
 +   .read = VNetFileOpRead,
 +   .write = VNetFileOpWrite,
 +   .poll = VNetFileOpPoll,
++#ifdef HAVE_UNLOCKED_IOCTL
 +   .unlocked_ioctl = VNetFileOpUnlockedIoctl,
++#else
++   .ioctl = VNetFileOpIoctl,
++#endif
++#ifdef HAVE_COMPAT_IOCTL
 +   .compat_ioctl = VNetFileOpUnlockedIoctl,
++#endif
 +   .open = VNetFileOpOpen,
 +   .release = VNetFileOpClose
 +};
  
  /*
   * Utility functions
-@@ -476,22 +491,6 @@ init_module(void)
+@@ -476,28 +491,6 @@ init_module(void)
        goto err_proto;
     }
  
@@ -79,8 +97,14 @@ index b12b982..40bd4cf 100644
 -   vnetFileOps.read = VNetFileOpRead;
 -   vnetFileOps.write = VNetFileOpWrite;
 -   vnetFileOps.poll = VNetFileOpPoll;
+-#ifdef HAVE_UNLOCKED_IOCTL
 -   vnetFileOps.unlocked_ioctl = VNetFileOpUnlockedIoctl;
+-#else
+-   vnetFileOps.ioctl = VNetFileOpIoctl;
+-#endif
+-#ifdef HAVE_COMPAT_IOCTL
 -   vnetFileOps.compat_ioctl = VNetFileOpUnlockedIoctl;
+-#endif
 -   vnetFileOps.open = VNetFileOpOpen;
 -   vnetFileOps.release = VNetFileOpClose;
 -
