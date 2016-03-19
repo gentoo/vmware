@@ -18,13 +18,13 @@ DESCRIPTION="Emulate a complete PC without the performance overhead of most emul
 HOMEPAGE="http://www.vmware.com/products/player/"
 BASE_URI="https://softwareupdate.vmware.com/cds/vmw-desktop/player/${MY_PV}/${PV_BUILD}/linux/core/"
 SRC_URI="
-	amd64? ( ${BASE_URI}${MY_P}.x86_64.bundle.tar )
+	${BASE_URI}${MY_P}.x86_64.bundle.tar
 	https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz -> vmware-systemd-${SYSTEMD_UNITS_TAG}.tgz
-	"
+"
 
 LICENSE="vmware GPL-2"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="-* ~amd64"
 IUSE="bundled-libs cups doc ovftool +vmware-tools"
 RESTRICT="mirror strip preserve-libs"
 
@@ -177,7 +177,7 @@ RDEPEND="
 		virtual/jpeg:62
 	)
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
-	!app-emulation/vmware-player
+	!app-emulation/vmware-workstation
 "
 PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
@@ -341,9 +341,10 @@ src_install() {
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 	EOF
-	doenvd "${envd}"
 
 	use bundled-libs && echo 'VMWARE_USE_SHIPPED_LIBS=1' >> "${envd}"
+
+	doenvd "${envd}"
 
 	# create the configuration
 	dodir /etc/vmware
@@ -373,7 +374,6 @@ src_install() {
 		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware
 
-
 	# fill in variable placeholders
 	if use bundled-libs ; then
 		sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
@@ -382,6 +382,7 @@ src_install() {
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
 		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/vmware-player.desktop" || die
+
 	# install systemd unit files
 	systemd_dounit "${WORKDIR}/systemd-vmware-${SYSTEMD_UNITS_TAG}/"*.{service,target}
 
