@@ -181,7 +181,7 @@ RDEPEND="
 "
 PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
 	vmware-tools? ( app-emulation/vmware-tools )"
-DEPEND="dev-util/bsdiff"
+DEPEND=">=dev-util/patchelf-0.9"
 
 S=${WORKDIR}
 VM_INSTALL_DIR="/opt/vmware"
@@ -238,14 +238,20 @@ clean_bundled_libs() {
 	pushd >/dev/null .
 	einfo "Patching libcds.so"
 	cd "${S}"/lib/lib/libcds.so || die
-	cp libcds.so "${T}"/libcds.so || die
-	# The patch is created with patchelf > 0.8 (so using the live repository), bsdiff, and base64:
-	# The following command should be replaced in the future with:
-	#   patchelf --replace-needed libssl.so.1.0.{1,0} \
-	#            --replace-needed libcrypto.so.1.0.{1,0} \
-	#            libcds.so
-	base64 -d "${FILESDIR}"/${P}-unbundle-libcds.patch.base64 > "${T}"/${P}-unbundle-libcds.patch || die
-	bspatch "${T}"/libcds.so libcds.so "${T}"/${P}-unbundle-libcds.patch || die
+	patchelf --replace-needed libssl.so.1.0.{1,0} \
+	         --replace-needed libcrypto.so.1.0.{1,0} \
+	         libcds.so || die
+	popd >/dev/null
+
+	# vmware-workstation seems to use a custom version of libgksu2.so, for this reason
+	# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
+	# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
+	# preserve-libs mechanism to be triggered when a system lib is available (but not required)
+	pushd >/dev/null .
+	einfo "Patching libvmware-gksu.so"
+	cd "${S}"/lib/lib/libvmware-gksu.so || die
+	patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
+	         libvmware-gksu.so || die
 	popd >/dev/null
 }
 
