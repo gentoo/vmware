@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -16,13 +16,13 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="-* ~amd64"
 IUSE="pax_kernel +vmci +vsock"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-player-6.0.${PV_MINOR}*
-	=app-emulation/vmware-workstation-10.0.${PV_MINOR}* )"
+	|| ( =app-emulation/vmware-player-7.1.${PV_MINOR}*
+	=app-emulation/vmware-workstation-11.1.${PV_MINOR}* )"
 
 S=${WORKDIR}
 
@@ -58,7 +58,7 @@ pkg_setup() {
 	BUILD_TARGETS="auto-build KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
 
 	enewgroup "${VMWARE_GROUP}"
-	filter-flags -mfpmath=sse -mavx -mpclmul -maes
+	filter-flags -mfpmath=sse
 
 	for mod in ${VMWARE_MODULE_LIST}; do
 		MODULE_NAMES="${MODULE_NAMES} ${mod}(misc:${S}/${mod}-only)"
@@ -76,29 +76,31 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-kernel-dir.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-makefile-include.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-netdevice.patch"
-	use pax_kernel && epatch "${FILESDIR}/279-hardened.patch"
+	use pax_kernel && epatch "${FILESDIR}/${PV_MAJOR}-hardened.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-apic.patch"
-	kernel_is ge 3 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-putname.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-vmblock.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.10-00-userns.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-01-getname.patch"
-	#kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-03-deprecated.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-04-dentry.patch"
-	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-05-inode.patch"
-	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-filldir.patch"
-	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-readlink.patch"
-	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-01-vsock.patch"
-	kernel_is ge 3 17 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.17-00-netdev.patch"
+
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-00-dentry.patch"
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-01-inode.patch"
+	kernel_is ge 3 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-02-control.patch"
+	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.10-03-inline.patch"
+	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-00-readdir.patch"
+	kernel_is ge 3 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.11-01-filldir.patch"
+	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.15-00-vsock.patch"
 	kernel_is ge 3 18 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.18-00-version-redefined.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-00-compat-namei.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-01-dentry.patch"
+	#kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-01-dentry.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-02-vmblock-path.patch"
-	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-03-iovec.patch"
+	#kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-03-iovec.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-04-iovec.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-05-vmci_qpair.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-06-vsock.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-3.19-07-vsock.patch"
-	kernel_is ge 4 2 0  && epatch "${FILESDIR}/${PV_MAJOR}-4.2-00-cookie.patch"
+	kernel_is ge 4 2 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.2-00-inode_op.patch"
+	kernel_is ge 4 2 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.2-01-vmci_vmalloc.patch"
+	kernel_is ge 4 2 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.2-02-vsock.patch"
+	kernel_is ge 4 2 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.2-03-vsock.patch"
+	kernel_is ge 4 3 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.3-00-misc_deregister.patch"
+	kernel_is ge 4 5 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.5-00-get_link.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user

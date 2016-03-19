@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -117,31 +117,31 @@ src_install() {
 	EOF
 	udev_dorules "${udevrules}"
 
- 	if ! use vmci ; then
- 		dodir /etc/modprobe.d/
+	if ! use vmci ; then
+		dodir /etc/modprobe.d/
 
- 		cat > "${D}"/etc/modprobe.d/vmware.conf <<-EOF
+		cat > "${D}"/etc/modprobe.d/vmware.conf <<-EOF
 			# Support for vmware vmci in kernel module
 			alias vmci	vmw_vmci
 		EOF
 
 		export installed_modprobe_conf=1
- 	fi
- 	if ! use vsock ; then
- 		dodir /etc/modprobe.d/
- 		cat >> "${D}"/etc/modprobe.d/vmware.conf <<-EOF
+	fi
+	if ! use vsock ; then
+		dodir /etc/modprobe.d/
+		cat >> "${D}"/etc/modprobe.d/vmware.conf <<-EOF
 			# Support for vmware vsock in kernel module
 			alias vsock	vmw_vsock_vmci_transport
 		EOF
 
 		export installed_modprobe_conf=1
- 	fi
+	fi
 }
 
 pkg_postinst() {
 	linux-mod_pkg_postinst
- 	if [ "${installed_modprobe_conf}"x == "x"  ] ; then
-		if [ -f ${ROOT}/etc/modprobe.d/vmware.conf ] ; then
+	if [ "${installed_modprobe_conf}"x == "x"  ] ; then
+		if [ -f "${ROOT}/etc/modprobe.d/vmware.conf" ] ; then
 			ewarn "Please check the /etc/modprobe.d/vmware.conf file and"
 			ewarn "possible conflicts when using vmci and/or vsock modules built"
 			ewarn "out of kernel"
