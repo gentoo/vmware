@@ -237,14 +237,15 @@ clean_bundled_libs() {
 	# in libcds.so to be able to use system libs.
 	pushd >/dev/null .
 	einfo "Patching libcds.so"
-	cd "${S}"/lib/lib/libcds.so
-	cp libcds.so "${T}"/libcds.so
-	# The patch is created with patchelf > 0.8 (so using the live repository) and bsdiff:
+	cd "${S}"/lib/lib/libcds.so || die
+	cp libcds.so "${T}"/libcds.so || die
+	# The patch is created with patchelf > 0.8 (so using the live repository), bsdiff, and base64:
 	# The following command should be replaced in the future with:
 	#   patchelf --replace-needed libssl.so.1.0.{1,0} \
 	#            --replace-needed libcrypto.so.1.0.{1,0} \
 	#            libcds.so
-	bspatch "${T}"/libcds.so libcds.so "${FILESDIR}"/${P}-unbundle-libcds.patch
+	base64 -d "${FILESDIR}"/${P}-unbundle-libcds.patch.base64 > "${T}"/${P}-unbundle-libcds.patch || die
+	bspatch "${T}"/libcds.so libcds.so "${T}"/${P}-unbundle-libcds.patch || die
 	popd >/dev/null
 }
 
