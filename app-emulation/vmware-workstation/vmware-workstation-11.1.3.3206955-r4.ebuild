@@ -25,7 +25,7 @@ LICENSE="vmware GPL-2"
 SLOT="0"
 KEYWORDS="-* ~amd64"
 IUSE="cups bundled-libs doc ovftool server vix vmware-tools"
-RESTRICT="mirror strip preserve-libs"
+RESTRICT="mirror strip"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
 
@@ -82,7 +82,7 @@ BUNDLED_LIB_DEPENDS="
 	media-libs/freetype
 	sys-fs/fuse
 	x11-libs/gtk+:2
-	=dev-libs/libgcrypt-1.5*
+	|| ( dev-libs/libgcrypt:0/11 dev-libs/libgcrypt:11/11 )
 	x11-libs/gdk-pixbuf:2
 	dev-cpp/gtkmm:2.4
 	dev-libs/glib:2
@@ -98,7 +98,7 @@ RDEPEND="
 	dev-libs/expat
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
-	dev-libs/openssl:0.9.8
+	dev-libs/openssl:0
 	dev-libs/xmlrpc-c
 	gnome-base/libgnomecanvas
 	gnome-base/libgtop:2
@@ -222,10 +222,10 @@ src_install() {
 	doins -r lib/*
 
 	# Bug 432918
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.0.9.8
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.0.9.8/libssl.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.0.9.8
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.1/libcrypto.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.1.0.1
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.1.0.1
 
 	# install the ancillaries
 	insinto /usr
