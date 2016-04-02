@@ -88,7 +88,6 @@ BUNDLED_LIBS="
 "
 
 BUNDLED_LIB_DEPENDS="
-	app-accessibility/at-spi2-core
 	dev-cpp/atkmm
 	dev-cpp/cairomm
 	dev-cpp/glibmm:2
@@ -96,19 +95,15 @@ BUNDLED_LIB_DEPENDS="
 	dev-cpp/pangomm
 	dev-libs/atk
 	dev-libs/glib:2
-	dev-libs/libaio
 	dev-libs/libgcrypt:11/11
 	dev-libs/libgpg-error
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
 	dev-libs/openssl:0
-	gnome-base/librsvg:2
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libpng:1.2
 	net-misc/curl
-	sys-apps/dbus
-	sys-apps/pcsc-lite
 	sys-fs/fuse
 	sys-libs/zlib
 	x11-libs/cairo
@@ -118,61 +113,29 @@ BUNDLED_LIB_DEPENDS="
 	x11-libs/libXcomposite
 	x11-libs/libXcursor
 	x11-libs/libXdamage
-	x11-libs/libXdmcp
 	x11-libs/libXfixes
-	x11-libs/libXft
 	x11-libs/libXinerama
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	x11-libs/pango
-	x11-libs/pangox-compat
 	x11-libs/pixman
 "
 
 # vmware should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
-	app-arch/bzip2
-	dev-libs/dbus-glib
-	dev-libs/expat
-	dev-libs/gmp:0
-	dev-libs/icu
-	dev-libs/json-c
-	dev-libs/libcroco
-	dev-libs/libffi
-	dev-libs/libgcrypt:0/20
-	dev-libs/libtasn1:0/6
-	dev-libs/nettle:0/6
-	gnome-base/gconf
-	gnome-base/libgnome-keyring
-	media-gfx/graphite2
 	media-libs/alsa-lib
-	media-libs/harfbuzz:0/0.9.18
-	media-libs/libart_lgpl
-	media-libs/libpng:0
-	media-libs/libvorbis
-	media-libs/mesa
-	net-dns/libidn
-	net-libs/gnutls
 	net-print/cups
-	sys-apps/tcp-wrappers
-	sys-apps/util-linux
-	x11-libs/libICE
-	x11-libs/libSM
 	x11-libs/libX11
 	x11-libs/libXext
 	x11-libs/libXi
 	x11-libs/libXtst
-	x11-libs/libXxf86vm
-	x11-libs/libdrm
-	x11-libs/libxcb
-	x11-libs/libxshmfence
 	x11-libs/startup-notification
-	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
 	bundled-libs? (
-		media-libs/jbigkit:0/2.1
 		media-libs/tiff:3
+		x11-libs/libICE
+		x11-libs/libSM
 		virtual/jpeg:62
 	)
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
