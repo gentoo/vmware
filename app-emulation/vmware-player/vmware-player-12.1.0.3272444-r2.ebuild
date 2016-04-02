@@ -26,7 +26,7 @@ LICENSE="vmware GPL-2 GPL-3"
 SLOT="0"
 KEYWORDS="-* ~amd64"
 IUSE="bundled-libs cups doc ovftool +vmware-tools"
-RESTRICT="mirror strip preserve-libs"
+RESTRICT="mirror strip"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
 
@@ -185,11 +185,11 @@ clean_bundled_libs() {
 	# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
 	# in libcds.so to be able to use system libs.
 	pushd >/dev/null .
-	cd "${S}"/lib/lib/libcds.so
 	einfo "Patching libcds.so"
+	cd "${S}"/lib/lib/libcds.so || die
 	patchelf --replace-needed libssl.so.1.0.{1,0} \
 	         --replace-needed libcrypto.so.1.0.{1,0} \
-	         libcds.so
+	         libcds.so || die
 	popd >/dev/null
 
 	# vmware-player seems to use a custom version of libgksu2.so, for this reason
@@ -197,10 +197,10 @@ clean_bundled_libs() {
 	# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
 	# preserve-libs mechanism to be triggered when a system lib is available (but not required)
 	pushd >/dev/null .
-	cd "${S}"/lib/lib/libvmware-gksu.so
 	einfo "Patching libvmware-gksu.so"
+	cd "${S}"/lib/lib/libvmware-gksu.so || die
 	patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
-	         libvmware-gksu.so
+	         libvmware-gksu.so || die
 	popd >/dev/null
 }
 
@@ -303,7 +303,6 @@ src_install() {
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 	EOF
-
 	use bundled-libs && echo 'VMWARE_USE_SHIPPED_LIBS=1' >> "${envd}"
 
 	doenvd "${envd}"
