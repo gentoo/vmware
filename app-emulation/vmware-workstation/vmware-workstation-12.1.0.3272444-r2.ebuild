@@ -111,10 +111,8 @@ BUNDLED_LIB_DEPENDS="
 	x11-libs/gtk+:2
 	x11-libs/libXau
 	x11-libs/libXcomposite
-	x11-libs/libXcursor
 	x11-libs/libXdamage
 	x11-libs/libXfixes
-	x11-libs/libXinerama
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	x11-libs/pango
@@ -127,8 +125,10 @@ RDEPEND="
 	media-libs/alsa-lib
 	net-print/cups
 	x11-libs/libX11
+	x11-libs/libXcursor
 	x11-libs/libXext
 	x11-libs/libXi
+	x11-libs/libXinerama
 	x11-libs/libXtst
 	x11-libs/startup-notification
 	x11-themes/hicolor-icon-theme
@@ -186,35 +186,62 @@ src_unpack() {
 }
 
 clean_bundled_libs() {
-	einfo "Removing bundled libraries"
-	for libname in ${BUNDLED_LIBS} ; do
-		rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
-	done
+	if ! use bundled-libs ; then
+		einfo "Removing bundled libraries"
+		for libname in ${BUNDLED_LIBS} ; do
+			rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
+		done
 
-	rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
+		rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
 
-	# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
-	# (needed by libcds.so) which seem to be compiled from openssl-1.0.1h.
-	# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
-	# in libcds.so to be able to use system libs.
-	pushd >/dev/null .
-	einfo "Patching libcds.so"
-	cd "${S}"/lib/lib/libcds.so || die
-	patchelf --replace-needed libssl.so.1.0.{1,0} \
-	         --replace-needed libcrypto.so.1.0.{1,0} \
-	         libcds.so || die
-	popd >/dev/null
+		# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
+		# (needed by libcds.so) which seem to be compiled from openssl-1.0.1h.
+		# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
+		# in libcds.so to be able to use system libs.
+		pushd >/dev/null .
+		einfo "Patching libcds.so"
+		cd "${S}"/lib/lib/libcds.so || die
+		patchelf --replace-needed libssl.so.1.0.{1,0} \
+				 --replace-needed libcrypto.so.1.0.{1,0} \
+				 libcds.so || die
+		popd >/dev/null
 
-	# vmware-workstation seems to use a custom version of libgksu2.so, for this reason
-	# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
-	# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
-	# preserve-libs mechanism to be triggered when a system lib is available (but not required)
-	pushd >/dev/null .
-	einfo "Patching libvmware-gksu.so"
-	cd "${S}"/lib/lib/libvmware-gksu.so || die
-	patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
-	         libvmware-gksu.so || die
-	popd >/dev/null
+		# vmware-workstation seems to use a custom version of libgksu2.so, for this reason
+		# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
+		# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
+		# preserve-libs mechanism to be triggered when a system lib is available (but not required)
+		pushd >/dev/null .
+		einfo "Patching libvmware-gksu.so"
+		cd "${S}"/lib/lib/libvmware-gksu.so || die
+		patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
+				 libvmware-gksu.so || die
+		popd >/dev/null
+	else
+		# if librsvg is not installed in the system then vmware doesn't start
+		pushd >/dev/null .
+		einfo "Patching svg_loader.so"
+		cd "${S}"/lib/libconf/lib/gtk-2.0/2.10.0/loaders || die
+		patchelf --set-rpath "\$ORIGIN/../../../../../lib/librsvg-2.so.2" \
+				 svg_loader.so || die
+		popd >/dev/null
+
+		# vmware, even with VMWARE_USE_SHIPPED_LIBS set, uses the system lib
+		# for glib and fontconfig when a newer version is found. Let's force to use
+		# always the bundled versions to avoid a mix of system and bundled libs ...
+		pushd >/dev/null .
+		einfo "Patching appLoader"
+		cd "${S}"/lib/bin || die
+		patchelf --set-rpath "\$ORIGIN/../lib/libglib-2.0.so.0:\$ORIGIN/../lib/libfontconfig.so.1" \
+				 appLoader || die
+		popd >/dev/null
+		# ... this depends on previous appLoader patching, probably it is not mandatory but cleans the log
+		pushd >/dev/null .
+		einfo "Patching libfontconfig.so.1"
+		cd "${S}"/lib/lib/libfontconfig.so.1 || die
+		patchelf --set-rpath "\$ORIGIN/../libexpat.so.0" \
+				 libfontconfig.so.1 || die
+		popd >/dev/null
+	fi
 }
 
 src_prepare() {
@@ -227,9 +254,7 @@ src_prepare() {
 		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
 	fi
 
-	if ! use bundled-libs ; then
-		clean_bundled_libs
-	fi
+	clean_bundled_libs
 
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
