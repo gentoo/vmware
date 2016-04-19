@@ -224,23 +224,6 @@ clean_bundled_libs() {
 		patchelf --set-rpath "\$ORIGIN/../../../../../lib/librsvg-2.so.2" \
 				 svg_loader.so || die
 		popd >/dev/null
-
-		# vmware, even with VMWARE_USE_SHIPPED_LIBS set, uses the system lib
-		# for glib and fontconfig when a newer version is found. Let's force to use
-		# always the bundled versions to avoid a mix of system and bundled libs ...
-		pushd >/dev/null .
-		einfo "Patching appLoader"
-		cd "${S}"/lib/bin || die
-		patchelf --set-rpath "\$ORIGIN/../lib/libglib-2.0.so.0:\$ORIGIN/../lib/libfontconfig.so.1" \
-				 appLoader || die
-		popd >/dev/null
-		# ... this depends on previous appLoader patching, probably it is not mandatory but cleans the log
-		pushd >/dev/null .
-		einfo "Patching libfontconfig.so.1"
-		cd "${S}"/lib/lib/libfontconfig.so.1 || die
-		patchelf --set-rpath "\$ORIGIN/../libexpat.so.0" \
-				 libfontconfig.so.1 || die
-		popd >/dev/null
 	fi
 }
 
