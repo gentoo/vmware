@@ -88,7 +88,6 @@ BUNDLED_LIBS="
 "
 
 BUNDLED_LIB_DEPENDS="
-	app-accessibility/at-spi2-core
 	dev-cpp/atkmm
 	dev-cpp/cairomm
 	dev-cpp/glibmm:2
@@ -96,19 +95,15 @@ BUNDLED_LIB_DEPENDS="
 	dev-cpp/pangomm
 	dev-libs/atk
 	dev-libs/glib:2
-	dev-libs/libaio
 	dev-libs/libgcrypt:11/11
 	dev-libs/libgpg-error
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
 	dev-libs/openssl:0
-	gnome-base/librsvg:2
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libpng:1.2
 	net-misc/curl
-	sys-apps/dbus
-	sys-apps/pcsc-lite
 	sys-fs/fuse
 	sys-libs/zlib
 	x11-libs/cairo
@@ -116,63 +111,31 @@ BUNDLED_LIB_DEPENDS="
 	x11-libs/gtk+:2
 	x11-libs/libXau
 	x11-libs/libXcomposite
-	x11-libs/libXcursor
 	x11-libs/libXdamage
-	x11-libs/libXdmcp
 	x11-libs/libXfixes
-	x11-libs/libXft
-	x11-libs/libXinerama
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	x11-libs/pango
-	x11-libs/pangox-compat
 	x11-libs/pixman
 "
 
 # vmware should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
-	app-arch/bzip2
-	dev-libs/dbus-glib
-	dev-libs/expat
-	dev-libs/gmp:0
-	dev-libs/icu
-	dev-libs/json-c
-	dev-libs/libcroco
-	dev-libs/libffi
-	dev-libs/libgcrypt:0/20
-	dev-libs/libtasn1:0/6
-	dev-libs/nettle:0/6
-	gnome-base/gconf
-	gnome-base/libgnome-keyring
-	media-gfx/graphite2
 	media-libs/alsa-lib
-	media-libs/harfbuzz:0/0.9.18
-	media-libs/libart_lgpl
-	media-libs/libpng:0
-	media-libs/libvorbis
-	media-libs/mesa
-	net-dns/libidn
-	net-libs/gnutls
 	net-print/cups
-	sys-apps/tcp-wrappers
-	sys-apps/util-linux
-	x11-libs/libICE
-	x11-libs/libSM
 	x11-libs/libX11
+	x11-libs/libXcursor
 	x11-libs/libXext
 	x11-libs/libXi
+	x11-libs/libXinerama
 	x11-libs/libXtst
-	x11-libs/libXxf86vm
-	x11-libs/libdrm
-	x11-libs/libxcb
-	x11-libs/libxshmfence
 	x11-libs/startup-notification
-	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
 	bundled-libs? (
-		media-libs/jbigkit:0/2.1
 		media-libs/tiff:3
+		x11-libs/libICE
+		x11-libs/libSM
 		virtual/jpeg:62
 	)
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
@@ -223,35 +186,45 @@ src_unpack() {
 }
 
 clean_bundled_libs() {
-	einfo "Removing bundled libraries"
-	for libname in ${BUNDLED_LIBS} ; do
-		rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
-	done
+	if ! use bundled-libs ; then
+		einfo "Removing bundled libraries"
+		for libname in ${BUNDLED_LIBS} ; do
+			rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
+		done
 
-	rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
+		rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
 
-	# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
-	# (needed by libcds.so) which seem to be compiled from openssl-1.0.1h.
-	# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
-	# in libcds.so to be able to use system libs.
-	pushd >/dev/null .
-	einfo "Patching libcds.so"
-	cd "${S}"/lib/lib/libcds.so || die
-	patchelf --replace-needed libssl.so.1.0.{1,0} \
-	         --replace-needed libcrypto.so.1.0.{1,0} \
-	         libcds.so || die
-	popd >/dev/null
+		# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
+		# (needed by libcds.so) which seem to be compiled from openssl-1.0.1h.
+		# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
+		# in libcds.so to be able to use system libs.
+		pushd >/dev/null .
+		einfo "Patching libcds.so"
+		cd "${S}"/lib/lib/libcds.so || die
+		patchelf --replace-needed libssl.so.1.0.{1,0} \
+				 --replace-needed libcrypto.so.1.0.{1,0} \
+				 libcds.so || die
+		popd >/dev/null
 
-	# vmware-workstation seems to use a custom version of libgksu2.so, for this reason
-	# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
-	# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
-	# preserve-libs mechanism to be triggered when a system lib is available (but not required)
-	pushd >/dev/null .
-	einfo "Patching libvmware-gksu.so"
-	cd "${S}"/lib/lib/libvmware-gksu.so || die
-	patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
-	         libvmware-gksu.so || die
-	popd >/dev/null
+		# vmware-workstation seems to use a custom version of libgksu2.so, for this reason
+		# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
+		# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
+		# preserve-libs mechanism to be triggered when a system lib is available (but not required)
+		pushd >/dev/null .
+		einfo "Patching libvmware-gksu.so"
+		cd "${S}"/lib/lib/libvmware-gksu.so || die
+		patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
+				 libvmware-gksu.so || die
+		popd >/dev/null
+	else
+		# if librsvg is not installed in the system then vmware doesn't start
+		pushd >/dev/null .
+		einfo "Patching svg_loader.so"
+		cd "${S}"/lib/libconf/lib/gtk-2.0/2.10.0/loaders || die
+		patchelf --set-rpath "\$ORIGIN/../../../../../lib/librsvg-2.so.2" \
+				 svg_loader.so || die
+		popd >/dev/null
+	fi
 }
 
 src_prepare() {
@@ -264,9 +237,7 @@ src_prepare() {
 		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
 	fi
 
-	if ! use bundled-libs ; then
-		clean_bundled_libs
-	fi
+	clean_bundled_libs
 
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
