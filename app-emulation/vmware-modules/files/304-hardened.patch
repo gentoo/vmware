@@ -82,7 +82,7 @@ index b12b982..40bd4cf 100644
  
  /*
   * Utility functions
-@@ -476,28 +491,6 @@ init_module(void)
+@@ -476,22 +491,6 @@ init_module(void)
        goto err_proto;
     }
  
@@ -97,14 +97,8 @@ index b12b982..40bd4cf 100644
 -   vnetFileOps.read = VNetFileOpRead;
 -   vnetFileOps.write = VNetFileOpWrite;
 -   vnetFileOps.poll = VNetFileOpPoll;
--#ifdef HAVE_UNLOCKED_IOCTL
 -   vnetFileOps.unlocked_ioctl = VNetFileOpUnlockedIoctl;
--#else
--   vnetFileOps.ioctl = VNetFileOpIoctl;
--#endif
--#ifdef HAVE_COMPAT_IOCTL
 -   vnetFileOps.compat_ioctl = VNetFileOpUnlockedIoctl;
--#endif
 -   vnetFileOps.open = VNetFileOpOpen;
 -   vnetFileOps.release = VNetFileOpClose;
 -
