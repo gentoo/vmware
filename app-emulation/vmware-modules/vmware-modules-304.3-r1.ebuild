@@ -104,6 +104,7 @@ src_prepare() {
 	kernel_is ge 4 6 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.6-00-user-pages.patch"
 	kernel_is ge 4 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.7-00-trans_start.patch"
 	kernel_is ge 4 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.7-01-readlink_copy.patch"
+	kernel_is ge 4 8 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.8-00-nr_anon_mapped.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
