@@ -101,11 +101,13 @@ src_prepare() {
 	kernel_is ge 4 2 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.02-01-sk_alloc.patch"
 	kernel_is ge 4 3 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.03-00-vmci-misc_deregister.patch"
 	kernel_is ge 4 5 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.05-00-vmblock-follow_link.patch"
-	kernel_is ge 4 6 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.06-00-user-pages.patch"
+	kernel_is ge 4 6 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.06-00-user-pages-p1.patch"
+	kernel_is ge 4 6 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.06-00-user-pages-p2.patch"
 	kernel_is ge 4 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.07-00-trans_start.patch"
 	kernel_is ge 4 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.07-01-readlink_copy.patch"
 	kernel_is ge 4 8 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.08-00-nr_anon_mapped.patch"
 	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.09-00-user-pages.patch"
+	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-generic_readlink.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user

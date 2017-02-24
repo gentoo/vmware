@@ -4,81 +4,65 @@
     int retval;
  
     down_read(&current->mm->mmap_sem);
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
-+   retval = get_user_pages(addr,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
++   retval = get_user_pages(addr, 1, 1, 0, &page, NULL);
 +#else
     retval = get_user_pages(current, current->mm, addr,
-+#endif
                             1, 1, 0, &page, NULL);
++#endif
     up_read(&current->mm->mmap_sem);
  
 --- ./vmci-only/linux/vmciKernelIf.c.old	2016-05-19 18:57:04.344658673 +0200
 +++ ./vmci-only/linux/vmciKernelIf.c	2016-05-19 19:03:28.600680159 +0200
-@@ -1835,7 +1835,11 @@
-       if (dirty) {
-          set_page_dirty(pages[i]);
-       }
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
-+      put_page(pages[i]);
-+#else
-       page_cache_release(pages[i]);
-+#endif
-       pages[i] = NULL;
-    }
- }
-@@ -2049,9 +2053,13 @@
+@@ -2049,6 +2049,13 @@
     int err = VMCI_SUCCESS;
  
     down_write(&current->mm->mmap_sem);
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
 +   retval = get_user_pages((VA)produceUVA,
++                           produceQ->kernelIf->numPages,
++                           1, 0,
++                           produceQ->kernelIf->u.h.headerPage,
++                           NULL);
 +#else
     retval = get_user_pages(current,
                             current->mm,
                             (VA)produceUVA,
-+#endif
-                            produceQ->kernelIf->numPages,
+@@ -2056,6 +2063,7 @@
                             1, 0,
                             produceQ->kernelIf->u.h.headerPage,
-@@ -2063,9 +2071,13 @@
-       goto out;
-    }
- 
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
-+   retval = get_user_pages((VA)consumeUVA,
-+#else
-    retval = get_user_pages(current,
-                            current->mm,
-                            (VA)consumeUVA,
+                            NULL);
 +#endif
-                            consumeQ->kernelIf->numPages,
-                            1, 0,
-                            consumeQ->kernelIf->u.h.headerPage,
+    if (retval < produceQ->kernelIf->numPages) {
+       Log("get_user_pages(produce) failed (retval=%d)\n", retval);
+       VMCIReleasePages(produceQ->kernelIf->u.h.headerPage, retval, FALSE);
 --- ./vmmon-only/linux/hostif.c.old	2016-05-19 18:50:42.872637343 +0200
 +++ ./vmmon-only/linux/hostif.c	2016-05-19 18:53:40.208647259 +0200
 @@ -1163,7 +1163,11 @@
     int retval;
  
     down_read(&current->mm->mmap_sem);
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
-+   retval = get_user_pages((unsigned long)uvAddr,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
++   retval = get_user_pages((unsigned long)uvAddr, numPages, 0, 0, ppages, NULL);
 +#else
     retval = get_user_pages(current, current->mm, (unsigned long)uvAddr,
-+#endif
                             numPages, 0, 0, ppages, NULL);
++#endif
     up_read(&current->mm->mmap_sem);
  
 --- ./vmnet-only/userif.c.old	2016-05-19 18:52:45.904644222 +0200
 +++ ./vmnet-only/userif.c	2016-05-19 18:53:28.599646610 +0200
-@@ -113,7 +113,11 @@
+@@ -113,8 +113,12 @@
     int retval;
  
     down_read(&current->mm->mmap_sem);
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
-+   retval = get_user_pages(addr,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
++   retval = get_user_pages(addr, 1, 1, 0, &page, NULL);
 +#else
     retval = get_user_pages(current, current->mm, addr,
+-			   1, 1, 0, &page, NULL);
++                           1, 1, 0, &page, NULL);
 +#endif
- 			   1, 1, 0, &page, NULL);
     up_read(&current->mm->mmap_sem);
  
+    if (retval != 1) {
