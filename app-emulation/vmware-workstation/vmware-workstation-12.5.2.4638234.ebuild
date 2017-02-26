@@ -84,7 +84,6 @@ BUNDLED_LIBS="
 	libssl.so.1.0.1
 	libstdc++.so.6
 	libxml2.so.2
-	libz.so.1
 "
 
 BUNDLED_LIB_DEPENDS="
