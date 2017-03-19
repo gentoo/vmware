@@ -1,0 +1,26 @@
+--- ./vmnet-only/userif.c	2017-02-23 12:29:00.909852764 +0100
++++ ./vmnet-only/userif.c.new	2017-02-23 12:28:51.309852227 +0100
+@@ -113,7 +113,9 @@
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++   retval = get_user_pages(addr, 1, FOLL_WRITE, &page, NULL);
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
+    retval = get_user_pages(addr, 1, 1, 0, &page, NULL);
+ #else
+    retval = get_user_pages(current, current->mm, addr,
+--- ./vmmon-only/linux/hostif.c	2017-02-23 12:19:59.772822506 +0100
++++ ./vmmon-only/linux/hostif.c.new	2017-02-23 12:26:42.661845034 +0100
+@@ -1167,7 +1167,9 @@
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++   retval = get_user_pages((unsigned long)uvAddr, numPages, 0, ppages, NULL);
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
+    retval = get_user_pages((unsigned long)uvAddr, numPages, 0, 0, ppages, NULL);
+ #else
+    retval = get_user_pages(current, current->mm, (unsigned long)uvAddr,
