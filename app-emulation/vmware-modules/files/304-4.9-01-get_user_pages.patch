@@ -1,0 +1,20 @@
+diff -rupN vmnet-only.bak/userif.c vmnet-only/userif.c
+--- vmnet-only.bak/userif.c	2017-04-05 10:44:29.166143701 -0400
++++ vmnet-only/userif.c	2017-04-05 10:45:46.443146453 -0400
+@@ -113,12 +113,16 @@ UserifLockPage(VA addr) // IN
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++   retval = get_user_pages(addr, 1, FOLL_WRITE, &page, NULL);
++#else
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
+    retval = get_user_pages(addr,
+ #else
+    retval = get_user_pages(current, current->mm, addr,
+ #endif
+ 			   1, 1, 0, &page, NULL);
++#endif
+    up_read(&current->mm->mmap_sem);
+ 
+    if (retval != 1) {

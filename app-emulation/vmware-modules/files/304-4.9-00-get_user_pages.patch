@@ -1,0 +1,20 @@
+--- vmmon-only.bak/linux/hostif.c       2017-04-05 10:10:24.522070886 -0400
++++ vmmon-only/linux/hostif.c   2017-04-05 10:13:35.871077701 -0400
+@@ -1171,12 +1171,16 @@ HostIFGetUserPages(void *uvAddr,
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++       retval = get_user_pages((unsigned long)uvAddr, numPages, 0, ppages, NULL);
++#else
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 99)
+    retval = get_user_pages((unsigned long)uvAddr,
+ #else
+    retval = get_user_pages(current, current->mm, (unsigned long)uvAddr,
+ #endif
+                            numPages, 0, 0, ppages, NULL);
++#endif
+    up_read(&current->mm->mmap_sem);
+ 
+    return retval != numPages;
+
