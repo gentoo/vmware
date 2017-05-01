@@ -1,0 +1,71 @@
+--- vmblock-only/linux/inode.c	2017-05-01 09:18:51.485126334 -0600
++++ vmblock-only/linux/inode.c	2017-05-01 09:18:57.570099359 -0600
+@@ -24,6 +24,7 @@
+  */
+ 
+ #include "driver-config.h"
++#include <linux/cred.h>
+ #include <linux/module.h>
+ #include <linux/fs.h>
+ #include <linux/time.h>
+--- vmmon-only/linux/driver.c	2017-05-01 09:31:34.660429487 -0600
++++ vmmon-only/linux/driver.c	2017-05-01 09:38:09.576077448 -0600
+@@ -28,6 +28,7 @@
+ #include <linux/slab.h>
+ #include <linux/smp.h>
+ #include <linux/wait.h>
++#include <linux/signal.h>
+ 
+ #include <asm/hw_irq.h> /* for CALL_FUNCTION_VECTOR */
+ 
+--- vmmon-only/linux/hostif.c	2017-05-01 09:38:56.364057351 -0600
++++ vmmon-only/linux/hostif.c	2017-05-01 09:41:04.400018245 -0600
+@@ -34,6 +34,8 @@
+ #include <linux/delay.h>
+ #include <linux/file.h>
+ #include <linux/kernel.h>
++#include <linux/sched.h>
++#include <linux/sched/signal.h>
+ 
+ #include <linux/vmalloc.h>
+ #include <linux/slab.h>
+--- vmci-only/linux/driver.c	2017-05-01 09:47:43.398001154 -0600
++++ vmci-only/linux/driver.c	2017-05-01 09:47:54.690002288 -0600
+@@ -24,6 +24,7 @@
+ #include <asm/atomic.h>
+ #include <asm/io.h>
+ 
++#include <linux/cred.h>
+ #include <linux/file.h>
+ #include <linux/fs.h>
+ #include <linux/init.h>
+--- vmci-only/linux/vmciKernelIf.c	2017-05-01 09:48:51.021008717 -0600
++++ vmci-only/linux/vmciKernelIf.c	2017-05-01 09:49:02.526010021 -0600
+@@ -41,6 +41,7 @@
+ #include <linux/vmalloc.h>
+ #include <linux/wait.h>
+ #include <linux/skbuff.h>
++#include <linux/sched/signal.h>
+ 
+ #include "compat_highmem.h"
+ #include "compat_interrupt.h"
+--- vmnet-only/userif.c	2017-05-01 09:52:24.700037667 -0600
++++ vmnet-only/userif.c	2017-05-01 09:52:32.564038911 -0600
+@@ -36,6 +36,7 @@
+ #include <linux/slab.h>
+ #include <linux/version.h>
+ #include <linux/wait.h>
++#include <linux/sched/signal.h>
+ 
+ #include <net/checksum.h>
+ #include <net/sock.h>
+--- vsock-only/linux/af_vsock.c	2017-05-01 09:54:06.959054721 -0600
++++ vsock-only/linux/af_vsock.c	2017-05-01 09:54:28.533058556 -0600
+@@ -106,6 +106,7 @@
+ #include <linux/list.h>
+ #include <linux/wait.h>
+ #include <linux/init.h>
++#include <linux/sched/signal.h>
+ #include <asm/io.h>
+ #if defined(__x86_64__) && LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 12)
+ #   include <linux/ioctl32.h>
