@@ -1,7 +1,7 @@
 #!/sbin/openrc-run
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 depend() {
 	need localmount
@@ -15,13 +15,37 @@ start() {
 	eend $?
 	ebegin Starting VMware services
 	
-	# quiet for vmci because it may not be there
-	modprobe -vq vmci || modprobe -v vmw_vmci
-	eend $?
+	# vmci might be:
+	# 1) built as external kernel module
+	# 2) built as internal kernel module (with name vmw_vmci)
+	# 3) embedded in the kernel
+	for mod in /lib/modules/$(uname -r)/misc/vmci.ko \
+		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko ;
+	do
+		if [[ -f "${mod}" ]] ; then
+			modprobe -v $(basename "${mod}" .ko)
+			eend $?
+			break
+		fi
+	done
 	
-	# vmci or vmw_vmci was loaded by the previous modprobe 
+	# vsock might be:
+	# 1) built as external kernel module
+	# 2) built as internal kernel module (with name vmw_vsock_vmci_transport)
+	# 3) embedded in the kernel
+	for mod in /lib/modules/$(uname -r)/misc/vsock.ko \
+		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko ;
+	do
+		if [[ -f "${mod}" ]] ; then
+			modprobe -v $(basename "${mod}" .ko)
+			eend $?
+			break
+		fi
+	done
+
+	# vmci or vsock were already loaded by the previous modprobe,
 	# no need to do it here
-	modprobe -av vmmon vsock vmblock vmnet 
+	modprobe -av vmmon vmblock vmnet 
 	eend $?
 	@@BINDIR@@/vmware-networks --start
 	eend $?
@@ -35,10 +59,34 @@ stop() {
 	@@BINDIR@@/vmware-networks --stop 
 	eend $?
 	ebegin Stopping VMware services
-	modprobe -rv vsock vmmon vmblock vmnet
+	modprobe -rv vmmon vmblock vmnet
 	eend $?
 	
-	# quiet for vmci because it may not be there
-	modprobe -rvq vmci || modprobe -rv vmw_vmci
-	eend $?
+	# vsock might be:
+	# 1) built as external kernel module
+	# 2) built as internal kernel module (with name vmw_vsock_vmci_transport)
+	# 3) embedded in the kernel
+	for mod in /lib/modules/$(uname -r)/misc/vsock.ko \
+		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko ;
+	do
+		if [[ -f "${mod}" ]] ; then
+			modprobe -rv $(basename "${mod}" .ko)
+			eend $?
+			break
+		fi
+	done
+
+	# vmci might be:
+	# 1) built as external kernel module
+	# 2) built as internal kernel module (with name vmw_vmci)
+	# 3) embedded in the kernel
+	for mod in /lib/modules/$(uname -r)/misc/vmci.ko \
+		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko ;
+	do
+		if [[ -f "${mod}" ]] ; then
+			modprobe -rv $(basename "${mod}" .ko)
+			eend $?
+			break
+		fi
+	done
 }
