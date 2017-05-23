@@ -107,7 +107,13 @@ src_prepare() {
 	kernel_is ge 4 8 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.8-00-nr_anon_mapped.patch"
 	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.9-00-get_user_pages.patch"
 	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.9-01-get_user_pages.patch"
-	
+	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.9-02-get_user_pages.patch"
+	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-generic_readlink.patch"
+	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-00-missing-headers-p1.patch"
+	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-00-missing-headers-p2.patch"
+	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-01-vsock-lockdep.patch"
+	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-02-vmmon.patch"
+
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
 }
