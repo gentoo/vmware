@@ -275,6 +275,13 @@ src_install() {
 			"${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1
 	fi
 
+	# bug 616958
+	# system libs don't work anymore with embedeed zlib because it doesn't support ZLIB_1.2.9,
+	# add this hack to bypass embedded zlib which is always loaded and required during startup
+	# of vmware since 12.5.x
+	dosym /$(get_libdir)/libz.so.1 \
+			"${VM_INSTALL_DIR}"/lib/vmware/lib/libz.so.1/libz.so.1
+
 	# install the ancillaries
 	insinto /usr
 	doins -r share
