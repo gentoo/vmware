@@ -1,0 +1,103 @@
+diff -Nuar a/vmci-only/linux/driver.c b/vmci-only/linux/driver.c
+--- a/vmci-only/linux/driver.c	2016-05-16 12:08:02.000000000 +0300
++++ b/vmci-only/linux/driver.c	2016-05-16 12:13:36.000000000 +0300
+@@ -1468,7 +1468,7 @@
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
+-   retval = get_user_pages(current, current->mm, addr,
++   retval = get_user_pages_remote(current, current->mm, addr,
+                            1, 1, 0, &page, NULL);
+    up_read(&current->mm->mmap_sem);
+ 
+diff -Nuar a/vmci-only/linux/vmciKernelIf.c b/vmci-only/linux/vmciKernelIf.c
+--- a/vmci-only/linux/vmciKernelIf.c	2016-05-16 12:08:02.000000000 +0300
++++ b/vmci-only/linux/vmciKernelIf.c	2016-05-16 12:13:25.000000000 +0300
+@@ -35,7 +35,7 @@
+ #  error "Linux kernels before 2.6.9 are not supported."
+ #endif
+ 
+-#include <linux/mm.h>           /* For vmalloc_to_page() and get_user_pages()*/
++#include <linux/mm.h>           /* For vmalloc_to_page() and get_user_pages_remote()*/
+ #include <linux/pagemap.h>      /* For page_cache_release() */
+ #include <linux/socket.h>       /* For memcpy_{to,from}iovec(). */
+ #include <linux/vmalloc.h>
+@@ -1812,7 +1812,7 @@
+  * VMCIReleasePageStorePages --
+  *
+  *       Helper function to release pages in the PageStoreAttachInfo
+- *       previously obtained using get_user_pages.
++ *       previously obtained using get_user_pages_remote.
+  *
+  * Results:
+  *       None.
+@@ -2049,7 +2049,7 @@
+    int err = VMCI_SUCCESS;
+ 
+    down_write(&current->mm->mmap_sem);
+-   retval = get_user_pages(current,
++   retval = get_user_pages_remote(current,
+                            current->mm,
+                            (VA)produceUVA,
+                            produceQ->kernelIf->numPages,
+@@ -2057,13 +2057,13 @@
+                            produceQ->kernelIf->u.h.headerPage,
+                            NULL);
+    if (retval < produceQ->kernelIf->numPages) {
+-      Log("get_user_pages(produce) failed (retval=%d)\n", retval);
++      Log("get_user_pages_remote(produce) failed (retval=%d)\n", retval);
+       VMCIReleasePages(produceQ->kernelIf->u.h.headerPage, retval, FALSE);
+       err = VMCI_ERROR_NO_MEM;
+       goto out;
+    }
+ 
+-   retval = get_user_pages(current,
++   retval = get_user_pages_remote(current,
+                            current->mm,
+                            (VA)consumeUVA,
+                            consumeQ->kernelIf->numPages,
+@@ -2071,7 +2071,7 @@
+                            consumeQ->kernelIf->u.h.headerPage,
+                            NULL);
+    if (retval < consumeQ->kernelIf->numPages) {
+-      Log("get_user_pages(consume) failed (retval=%d)\n", retval);
++      Log("get_user_pages_remote(consume) failed (retval=%d)\n", retval);
+       VMCIReleasePages(consumeQ->kernelIf->u.h.headerPage, retval, FALSE);
+       VMCIReleasePages(produceQ->kernelIf->u.h.headerPage,
+                        produceQ->kernelIf->numPages, FALSE);
+diff -Nuar a/vmmon-only/linux/driver.c b/vmmon-only/linux/driver.c
+--- a/vmmon-only/linux/driver.c	2016-05-16 12:08:02.000000000 +0300
++++ b/vmmon-only/linux/driver.c	2016-05-16 12:11:55.000000000 +0300
+@@ -1058,7 +1058,7 @@
+    if (err) {
+       return err;
+    }
+-   /* Clear VM_IO, otherwise SuSE's kernels refuse to do get_user_pages */
++   /* Clear VM_IO, otherwise SuSE's kernels refuse to do get_user_pages_remote */
+    vma->vm_flags &= ~VM_IO;
+ 
+    return 0;
+diff -Nuar a/vmmon-only/linux/hostif.c b/vmmon-only/linux/hostif.c
+--- a/vmmon-only/linux/hostif.c	2016-05-16 12:08:02.000000000 +0300
++++ b/vmmon-only/linux/hostif.c	2016-05-16 12:12:24.000000000 +0300
+@@ -1163,7 +1163,7 @@
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
+-   retval = get_user_pages(current, current->mm, (unsigned long)uvAddr,
++   retval = get_user_pages_remote(current, current->mm, (unsigned long)uvAddr,
+                            numPages, 0, 0, ppages, NULL);
+    up_read(&current->mm->mmap_sem);
+ 
+diff -Nuar a/vmnet-only/userif.c b/vmnet-only/userif.c
+--- a/vmnet-only/userif.c	2016-04-15 02:48:47.000000000 +0300
++++ b/vmnet-only/userif.c	2016-05-16 12:11:27.000000000 +0300
+@@ -113,7 +113,7 @@
+    int retval;
+ 
+    down_read(&current->mm->mmap_sem);
+-   retval = get_user_pages(current, current->mm, addr,
++   retval = get_user_pages_remote(current, current->mm, addr,
+ 			   1, 1, 0, &page, NULL);
+    up_read(&current->mm->mmap_sem);
+ 
