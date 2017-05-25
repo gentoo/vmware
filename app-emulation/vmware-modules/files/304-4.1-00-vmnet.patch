@@ -1,0 +1,17 @@
+nf_hookfn changed in 4.1
+--- a/vmnet-only/filter.c    2013-08-27 20:29:04.000000000 +0100
++++ b/vmnet-only/filter.c    2015-08-11 21:57:51.188231884 +0300
+@@ -213,9 +213,13 @@
+ #else
+                  struct sk_buff **pskb,                // IN:
+ #endif
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 1, 0)
++                 const struct nf_hook_state *state)
++#else
+                  const struct net_device *in,          // IN:
+                  const struct net_device *out,         // IN:
+                  int (*okfn)(struct sk_buff *))        // IN:
++#endif
+ {
+ #ifndef VMW_NFHOOK_USES_SKB
+    struct sk_buff *skb = *pskb;
