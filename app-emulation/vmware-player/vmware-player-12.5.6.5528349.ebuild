@@ -46,7 +46,6 @@ BUNDLED_LIBS="
 	libatkmm-1.6.so.1
 	libatspi.so.0
 	libcairo.so.2
-	libcairomm-1.0.so.1
 	libcrypto.so.1.0.1
 	libcurl.so.4
 	libdbus-1.so.3
@@ -58,18 +57,14 @@ BUNDLED_LIBS="
 	libgcrypt.so.11
 	libgdk-x11-2.0.so.0
 	libgdk_pixbuf-2.0.so.0
-	libgdkmm-2.4.so.1
 	libgio-2.0.so.0
-	libgiomm-2.4.so.1
 	libglib-2.0.so.0
-	libglibmm-2.4.so.1
 	libglibmm_generate_extra_defs-2.4.so.1
 	libgmodule-2.0.so.0
 	libgobject-2.0.so.0
 	libgpg-error.so.0
 	libgthread-2.0.so.0
 	libgtk-x11-2.0.so.0
-	libgtkmm-2.4.so.1
 	libpango-1.0.so.0
 	libpangocairo-1.0.so.0
 	libpangoft2-1.0.so.0
@@ -88,9 +83,6 @@ BUNDLED_LIBS="
 
 BUNDLED_LIB_DEPENDS="
 	dev-cpp/atkmm
-	dev-cpp/cairomm
-	dev-cpp/glibmm:2
-	dev-cpp/gtkmm:2.4
 	dev-cpp/pangomm
 	dev-libs/atk
 	dev-libs/glib:2
@@ -227,7 +219,6 @@ env-update && source /etc/profile\n
 Before you can use ${PN}, you must configure a default network setup.
 You can do this by running 'emerge --config ${PN}'.\n
 To be able to run ${PN} your user must be in the vmware group.\n
-You MUST set USE=bundled-libs if you are running gcc-5, otherwise vmware will not start.
 "
 }
 
@@ -317,7 +308,6 @@ src_install() {
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 	EOF
-	use bundled-libs && echo 'VMWARE_USE_SHIPPED_LIBS=1' >> "${envd}"
 
 	doenvd "${envd}"
 
