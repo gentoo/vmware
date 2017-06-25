@@ -1,10 +1,10 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-inherit eutils versionator readme.gentoo fdo-mime gnome2-utils pax-utils systemd vmware-bundle
+inherit eutils versionator readme.gentoo fdo-mime systemd gnome2-utils pax-utils vmware-bundle
 
 MY_PN="VMware-Player"
 MY_PV=$(get_version_component_range 1-3)
@@ -12,70 +12,120 @@ PV_MINOR=$(get_version_component_range 3)
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
-DESCRIPTION="Emulate a complete PC without the usual performance overhead of most emulators"
+SYSTEMD_UNITS_TAG="gentoo-02"
+
+DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/player/"
 BASE_URI="https://softwareupdate.vmware.com/cds/vmw-desktop/player/${MY_PV}/${PV_BUILD}/linux/core/"
 SRC_URI="
 	amd64? ( ${BASE_URI}${MY_P}.x86_64.bundle.tar )
+	https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz -> vmware-systemd-${SYSTEMD_UNITS_TAG}.tgz
 	"
-
 LICENSE="vmware GPL-2"
 SLOT="0"
 KEYWORDS="-* ~amd64"
-IUSE="cups doc ovftool +vmware-tools"
-RESTRICT="strip"
+IUSE="bundled-libs cups doc ovftool +vmware-tools"
+RESTRICT="mirror strip"
+
+BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
+
+BUNDLED_LIBS="
+	libXau.so.6
+	libXcomposite.so.1
+	libXcursor.so.1
+	libXdamage.so.1
+	libXdmcp.so.6
+	libXfixes.so.3
+	libXft.so.2
+	libXinerama.so.1
+	libXrandr.so.2
+	libXrender.so.1
+	libatk-1.0.so.0
+	libatkmm-1.6.so.1
+	libatspi.so.0
+	libcairo.so.2
+	libcairomm-1.0.so.1
+	libcurl.so.4
+	libdbus-1.so.3
+	libfontconfig.so.1
+	libfreetype.so.6
+	libfuse.so.2
+	libgailutil.so.18
+	libgdk-x11-2.0.so.0
+	libgcrypt.so.11
+	libgdk_pixbuf-2.0.so.0
+	libgdkmm-2.4.so.1
+	libgio-2.0.so.0
+	libgiomm-2.4.so.1
+"
+
+BUNDLED_LIB_DEPENDS="
+	x11-libs/libXau
+	x11-libs/libXcomposite
+	x11-libs/libXcursor
+	x11-libs/libXdamage
+	x11-libs/libXdmcp
+	x11-libs/libXfixes
+	x11-libs/libXft
+	x11-libs/libXinerama
+	x11-libs/libXrandr
+	x11-libs/libXrender
+	dev-libs/atk
+	dev-cpp/atkmm
+	app-accessibility/at-spi2-core
+	x11-libs/cairo
+	dev-cpp/cairomm
+	net-misc/curl
+	media-libs/fontconfig
+	media-libs/freetype
+	sys-fs/fuse
+	x11-libs/gtk+:2
+	|| ( dev-libs/libgcrypt:0/11 dev-libs/libgcrypt:11/11 )
+	x11-libs/gdk-pixbuf:2
+	dev-cpp/gtkmm:2.4
+	dev-libs/glib:2
+	dev-cpp/glibmm:2
+"
 
 # vmware-workstation should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
-RDEPEND="dev-cpp/cairomm
-	dev-cpp/glibmm:2
-	dev-cpp/gtkmm:2.4
-	dev-cpp/libgnomecanvasmm:2.6
-	dev-cpp/pangomm:1.4
-	dev-libs/atk
-	dev-libs/glib:2
-	dev-libs/libaio
+RDEPEND="
+	dev-cpp/libgnomecanvasmm
+	dev-cpp/pangomm
+	dev-libs/icu
+	dev-libs/expat
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
-	=dev-libs/openssl-0.9.8*
+	dev-libs/openssl:0
 	dev-libs/xmlrpc-c
 	gnome-base/libgnomecanvas
 	gnome-base/libgtop:2
 	gnome-base/librsvg:2
 	gnome-base/orbit
-	media-libs/fontconfig
-	media-libs/freetype
 	media-libs/libart_lgpl
-	=media-libs/libpng-1.2*
-	net-misc/curl
+	media-libs/libpng:1.2
+	media-libs/libpng
+	media-libs/tiff:3
 	cups? ( net-print/cups )
 	sys-devel/gcc
-	sys-fs/fuse
 	sys-libs/glibc
 	sys-libs/zlib
-	x11-libs/cairo
-	x11-libs/gtk+:2
 	x11-libs/libgksu
 	x11-libs/libICE
 	x11-libs/libSM
 	x11-libs/libX11
-	x11-libs/libXau
 	x11-libs/libxcb
-	x11-libs/libXcomposite
-	x11-libs/libXcursor
-	x11-libs/libXdamage
-	x11-libs/libXdmcp
 	x11-libs/libXext
-	x11-libs/libXfixes
-	x11-libs/libXft
 	x11-libs/libXi
-	x11-libs/libXinerama
-	x11-libs/libXrandr
-	x11-libs/libXrender
 	x11-libs/libXtst
 	x11-libs/pango
+	x11-libs/pangox-compat
 	x11-libs/startup-notification
-	!app-emulation/vmware-workstation"
+	x11-themes/hicolor-icon-theme
+	!app-emulation/vmware-workstation
+	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
+	sys-apps/dbus
+"
 PDEPEND="~app-emulation/vmware-modules-304.${PV_MINOR}
 	vmware-tools? ( app-emulation/vmware-tools )"
 
@@ -84,25 +134,34 @@ VM_INSTALL_DIR="/opt/vmware"
 
 QA_PREBUILT="/opt/*"
 
-QA_WX_LOAD="opt/vmware/lib/vmware/bin/vmware-vmx-stats opt/vmware/lib/vmware/bin/vmware-vmx-debug opt/vmware/lib/vmware/bin/vmware-vmx"
+QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/vmware/lib/vmware/bin/vmware-vmx-stats opt/vmware/lib/vmware/bin/vmware-vmx-debug opt/vmware/lib/vmware/bin/vmware-vmx"
 
 src_unpack() {
 	default
-	local bundle=${A%.tar}
+	local bundle=${MY_P}.x86_64.bundle
 
-	local component ; for component in \
-			vmware-player \
-			vmware-player-app \
-			vmware-vmx \
-			vmware-usbarbitrator \
-			vmware-network-editor \
-			vmware-player-setup
+	local component; for component in \
+		vmware-player \
+		vmware-player-app \
+		vmware-player-setup \
+		vmware-vmx \
+		vmware-network-editor \
+		vmware-usbarbitrator
 	do
 		vmware-bundle_extract-bundle-component "${bundle}" "${component}" "${S}"
 	done
 
-	use ovftool && \
+	if use ovftool; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-ovftool
+	fi
+
+}
+
+clean_bundled_libs() {
+	einfo Removing bundled libraries
+	for libname in ${BUNDLED_LIBS} ; do
+		rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
+	done
 }
 
 src_prepare() {
@@ -111,29 +170,43 @@ src_prepare() {
 	# Bug 459566
 	mv lib/libvmware-netcfg.so lib/lib/
 
+	find "${S}" -name '*.a' -delete
+
+	if ! use bundled-libs ; then
+		clean_bundled_libs
+	fi
+
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
 env-update && source /etc/profile\n
 Before you can use ${PN}, you must configure a default network setup.
 You can do this by running 'emerge --config ${PN}'.\n
-To be able to run ${PN} your user must be in the vmware group.
+To be able to run ${PN} your user must be in the vmware group.\n
+You MUST set USE=bundled-libs if you are running gcc-5, otherwise vmware will not start.
 "
 }
 
 src_install() {
+	local major_minor=$(get_version_component_range 1-2 "${PV}")
+
+	# revdep-rebuild entry
+	insinto /etc/revdep-rebuild
+	echo "SEARCH_DIRS_MASK=\"${VM_INSTALL_DIR}\"" >> ${T}/10${PN}
+	doins "${T}"/10${PN}
+
 	# install the binaries
 	into "${VM_INSTALL_DIR}"
-	dobin bin/* || die "failed to install bin"
+	dobin bin/*
 
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/*
 
 	# Bug 432918
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.0.9.8/libcrypto.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.0.9.8
-	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.0.9.8/libssl.so.0.9.8 \
-		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.0.9.8
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.1/libcrypto.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libcrypto.so.1.0.1
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1 \
+		"${VM_INSTALL_DIR}"/lib/vmware/lib/libvmwarebase.so.0/libssl.so.1.0.1
 
 	# https://github.com/gentoo/vmware/issues/7
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/ /usr/$(get_libdir)/vmware
@@ -150,13 +223,17 @@ src_install() {
 		doins -r etc/cups/*
 	fi
 
+	insinto /etc/xdg
+	doins -r etc/xdg/*
+
 	# install documentation
 	if use doc; then
 		dodoc doc/*
 	fi
 
-	exeinto "${VM_INSTALL_DIR}"/lib/vmware/setup
-	doexe vmware-config
+	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
+	doins vmware-config
+
 
 	# install ovftool
 	if use ovftool; then
@@ -190,10 +267,13 @@ src_install() {
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 	EOF
-	doenvd "${envd}" || die
+
+	use bundled-libs && echo 'VMWARE_USE_SHIPPED_LIBS=1' >> "${envd}"
+
+	doenvd "${envd}"
 
 	# create the configuration
-	dodir /etc/vmware || die
+	dodir /etc/vmware
 
 	cat > "${D}"/etc/vmware/bootstrap <<-EOF
 		BINDIR='${VM_INSTALL_DIR}/bin'
@@ -216,20 +296,20 @@ src_install() {
 
 	# install the init.d script
 	local initscript="${T}/vmware.rc"
-
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-11.${PV_MINOR}.rc" > "${initscript}" || die
-	newinitd "${initscript}" vmware || die
+		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}" || die
+	newinitd "${initscript}" vmware
 
-	systemd_dounit "${FILESDIR}/vmware-usbarbitrator.service"
-	systemd_dounit "${FILESDIR}/vmware-network.service"
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
 		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
 		-e "/^Encoding/d" \
-		-i "${D}/usr/share/applications/${PN}.desktop" || die
+		-i "${D}/usr/share/applications/vmware-player.desktop" || die
+
+	# install systemd unit files
+	systemd_dounit "${WORKDIR}/systemd-vmware-${SYSTEMD_UNITS_TAG}/"*.{service,target}
 
 	readme.gentoo_create_doc
 }

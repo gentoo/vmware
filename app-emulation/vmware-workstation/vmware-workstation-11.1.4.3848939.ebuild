@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -12,7 +12,7 @@ PV_MINOR=$(get_version_component_range 3)
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 
-SYSTEMD_UNITS_TAG="gentoo-01"
+SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
@@ -24,7 +24,7 @@ SRC_URI="
 LICENSE="vmware GPL-2"
 SLOT="0"
 KEYWORDS="-* ~amd64"
-IUSE="cups bundled-libs doc ovftool server vix vmware-tools"
+IUSE="bundled-libs cups doc ovftool server vix +vmware-tools"
 RESTRICT="mirror strip"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
@@ -138,17 +138,17 @@ VM_HOSTD_USER="root"
 
 QA_PREBUILT="/opt/*"
 
-QA_WX_LOAD="/opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 /opt/vmware/lib/vmware/bin/vmware-vmx-stats /opt/vmware/lib/vmware/bin/vmware-vmx-debug /opt/vmware/lib/vmware/bin/vmware-vmx"
+QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/vmware/lib/vmware/bin/vmware-vmx-stats opt/vmware/lib/vmware/bin/vmware-vmx-debug opt/vmware/lib/vmware/bin/vmware-vmx"
 
 src_unpack() {
 	default
-	local bundle
-	use amd64 && bundle=${MY_P}.x86_64.bundle
+	local bundle=${MY_P}.x86_64.bundle
+
 	local component; for component in \
-		vmware-vmx \
+		vmware-workstation \
 		vmware-player-app \
 		vmware-player-setup \
-		vmware-workstation \
+		vmware-vmx \
 		vmware-network-editor \
 		vmware-network-editor-ui \
 		vmware-usbarbitrator \
@@ -157,6 +157,10 @@ src_unpack() {
 		vmware-bundle_extract-bundle-component "${bundle}" "${component}" "${S}"
 	done
 
+	if use ovftool; then
+		vmware-bundle_extract-bundle-component "${bundle}" vmware-ovftool
+	fi
+
 	if use server; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-workstation-server #"${S}"
 	fi
@@ -164,9 +168,6 @@ src_unpack() {
 	if use vix; then
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-core vmware-vix
 		vmware-bundle_extract-bundle-component "${bundle}" vmware-vix-lib-Workstation1100andvSphere600 vmware-vix
-	fi
-	if use ovftool; then
-		vmware-bundle_extract-bundle-component "${bundle}" vmware-ovftool
 	fi
 }
 
@@ -178,7 +179,7 @@ clean_bundled_libs() {
 }
 
 src_prepare() {
-	rm -f  bin/vmware-modconfig
+	rm -f bin/vmware-modconfig
 	rm -rf lib/modules/binary
 	# Bug 459566
 	mv lib/libvmware-netcfg.so lib/lib/
@@ -196,7 +197,7 @@ src_prepare() {
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
 env-update && source /etc/profile\n
-Before you can use vmware workstation, you must configure a default network setup.
+Before you can use ${PN}, you must configure a default network setup.
 You can do this by running 'emerge --config ${PN}'.\n
 To be able to run ${PN} your user must be in the vmware group.\n
 You MUST set USE=bundled-libs if you are running gcc-5, otherwise vmware will not start.
@@ -205,8 +206,6 @@ You MUST set USE=bundled-libs if you are running gcc-5, otherwise vmware will no
 
 src_install() {
 	local major_minor=$(get_version_component_range 1-2 "${PV}")
-	local major_minor_revision=$(get_version_component_range 1-3 "${PV}")
-	local build=$(get_version_component_range 4 "${PV}")
 
 	# revdep-rebuild entry
 	insinto /etc/revdep-rebuild
@@ -392,11 +391,11 @@ src_install() {
 		VMBLOCK_CONFED = "yes"
 		VSOCK_CONFED = "yes"
 		NETWORKING = "yes"
-		player.product.version = "${major_minor_revision}"
-		product.version = "${major_minor_revision}"
-		product.buildNumber = "${build}"
+		player.product.version = "${MY_PV}"
+		product.buildNumber = "${PV_BUILD}"
+		product.version = "${MY_PV}"
 		product.name = "VMware Workstation"
-		workstation.product.version = "${major_minor_revision}"
+		workstation.product.version = "${MY_PV}"
 	EOF
 
 	if use vix; then
@@ -418,7 +417,7 @@ src_install() {
 	# install the init.d script
 	local initscript="${T}/vmware.rc"
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-		"${FILESDIR}/vmware-${major_minor}.rc" > ${initscript}
+		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware
 
 	if use server; then
@@ -434,13 +433,13 @@ src_install() {
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}}
+		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
+	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
+		-e "/^Encoding/d" \
+		-i "${D}/usr/share/applications/vmware-player.desktop" || die
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware:g" \
 		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/${PN}.desktop"
-	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
-		-e "/^Encoding/d" \
-		-i "${D}/usr/share/applications/vmware-player.desktop"
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
 		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/vmware-netcfg.desktop"
