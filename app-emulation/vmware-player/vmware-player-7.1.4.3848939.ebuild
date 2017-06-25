@@ -79,7 +79,7 @@ BUNDLED_LIB_DEPENDS="
 	media-libs/freetype
 	sys-fs/fuse
 	x11-libs/gtk+:2
-	|| ( dev-libs/libgcrypt:0/11 dev-libs/libgcrypt:11/11 )
+	dev-libs/libgcrypt:11/11
 	x11-libs/gdk-pixbuf:2
 	dev-cpp/gtkmm:2.4
 	dev-libs/glib:2
@@ -233,7 +233,6 @@ src_install() {
 	insinto "${VM_INSTALL_DIR}"/lib/vmware/setup
 	doins vmware-config
 
-
 	# install ovftool
 	if use ovftool; then
 		cd "${S}"
@@ -298,7 +297,6 @@ src_install() {
 	sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
 		"${FILESDIR}/vmware-${major_minor}.rc" > "${initscript}" || die
 	newinitd "${initscript}" vmware
-
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
