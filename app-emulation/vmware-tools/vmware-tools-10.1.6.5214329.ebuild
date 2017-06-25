@@ -19,7 +19,7 @@ IUSE=""
 DEPEND=""
 RDEPEND=""
 
-IUSE_VMWARE_GUEST="freebsd linux netware solaris windows winPre2k"
+IUSE_VMWARE_GUEST="freebsd linux netware solaris windows winPre2k winPreVista"
 
 VM_INSTALL_DIR="/opt/vmware"
 
