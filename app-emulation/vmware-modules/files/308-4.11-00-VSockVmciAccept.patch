@@ -1,0 +1,34 @@
+--- vsock-only/linux/af_vsock.c	2017-05-01 09:56:02.921051146 -0600
++++ vsock-only/linux/af_vsock.c	2017-05-01 10:00:47.267012420 -0600
+@@ -213,7 +213,12 @@
+                                  struct sockaddr *addr, int addrLen, int flags);
+ static int VSockVmciStreamConnect(struct socket *sock,
+                                   struct sockaddr *addr, int addrLen, int flags);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++static int VSockVmciAccept(struct socket *sock, struct socket *newsock, int flags,
++			   bool kern);
++#else
+ static int VSockVmciAccept(struct socket *sock, struct socket *newsock, int flags);
++#endif
+ static int VSockVmciGetname(struct socket *sock,
+                             struct sockaddr *addr, int *addrLen, int peer);
+ static unsigned int VSockVmciPoll(struct file *file,
+@@ -3769,10 +3774,18 @@
+  *----------------------------------------------------------------------------
+  */
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 11, 0)
++static int
++VSockVmciAccept(struct socket *sock,     // IN
++                struct socket *newsock,  // IN/OUT
++                int flags,               // IN
++		bool kern)               // IN
++#else
+ static int
+ VSockVmciAccept(struct socket *sock,     // IN
+                 struct socket *newsock,  // IN/OUT
+                 int flags)               // IN
++#endif
+ {
+    struct sock *listener;
+    int err;
