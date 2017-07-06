@@ -1,0 +1,17 @@
+--- ./vmci-only/linux/driver.c	2017-07-06 12:12:38.860458601 -0600
++++ ./vmci-only/linux/driver.c.new	2017-07-06 12:21:09.986139888 -0600
+@@ -1726,11 +1726,11 @@
+       vmci_dev.msix_entries[i].vector = i;
+    }
+ 
+-   result = pci_enable_msix(pdev, vmci_dev.msix_entries, VMCI_MAX_INTRS);
++   result = pci_enable_msix_exact(pdev, vmci_dev.msix_entries, VMCI_MAX_INTRS);
+    if (!result) {
+       vmci_dev.exclusive_vectors = TRUE;
+-   } else if (result > 0) {
+-      result = pci_enable_msix(pdev, vmci_dev.msix_entries, 1);
++   } else {
++      result = pci_enable_msix_exact(pdev, vmci_dev.msix_entries, 1);
+    }
+    return result;
+ }
