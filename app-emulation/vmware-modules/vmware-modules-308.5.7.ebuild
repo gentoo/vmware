@@ -107,9 +107,6 @@ src_prepare() {
 	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-generic_readlink.patch"
 	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-00-missing-headers.patch"
 	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-01-vsock-lockdep.patch"
-	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-00-vmblock-current_time.patch"
-	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-01-vmci-do_once.patch"
-	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-02-vmci-pci_enable_msix.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
