@@ -1,0 +1,11 @@
+--- vmnet-only/bridge.c	2017-06-20 04:54:39.000000000 +0200
++++ vmnet-only/bridge.c.new	2017-08-18 11:16:20.979974593 +0200
+@@ -636,7 +636,7 @@
+ 	 unsigned long flags;
+ 	 int i;
+ 
+-	 atomic_inc(&clone->users);
++	 refcount_inc(&clone->users);
+ 
+ 	 clone->dev = dev;
+ 	 clone->protocol = eth_type_trans(clone, dev);
