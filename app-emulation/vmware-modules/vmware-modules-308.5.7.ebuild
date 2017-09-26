@@ -111,6 +111,7 @@ src_prepare() {
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-01-vmci-do_once.patch"
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-02-vmci-pci_enable_msix.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmnet-refcount.patch"
+	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-01-vmmon-page-accounting.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
