@@ -1,0 +1,14 @@
+--- vmmon-only/linux/hostif.c	2017-10-26 00:16:39.496498131 +0200
++++ vmmon-only/linux/hostif.c.new	2017-10-26 00:20:35.154511309 +0200
+@@ -1596,7 +1596,11 @@
+    unsigned int hugePages = (vm == NULL) ? 0 :
+       BYTES_2_PAGES(vm->memInfo.hugePageBytes);
+    unsigned int lockedPages = global_page_state(NR_PAGETABLE) +
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 13, 0)
++                              global_node_page_state(NR_SLAB_UNRECLAIMABLE) +
++#else
+                               global_page_state(NR_SLAB_UNRECLAIMABLE) +
++#endif
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 8, 0)
+                               global_node_page_state(NR_UNEVICTABLE) +
+ #else

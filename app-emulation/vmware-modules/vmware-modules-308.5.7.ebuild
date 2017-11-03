@@ -102,6 +102,7 @@ src_prepare() {
 	kernel_is ge 4 5 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.05-00-vmblock-follow_link.patch"
 	kernel_is ge 4 6 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.06-00-user-pages.patch"
 	kernel_is ge 4 7 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.07-01-readlink_copy.patch"
+	kernel_is ge 4 8 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.08-00-vmmon-fix-page-accounting.patch"
 	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.09-00-user-pages.patch"
 	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-generic_readlink.patch"
 	kernel_is ge 4 11 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.11-00-missing-headers.patch"
@@ -110,6 +111,7 @@ src_prepare() {
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-01-vmci-do_once.patch"
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-02-vmci-pci_enable_msix.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmnet-refcount.patch"
+	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-01-vmmon-fix-page-accounting.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
