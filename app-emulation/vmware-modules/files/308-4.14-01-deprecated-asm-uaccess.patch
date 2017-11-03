@@ -1,0 +1,50 @@
+--- vmblock-only/linux/control.c	2017-10-26 00:35:44.391562150 +0200
++++ vmblock-only/linux/control.c.new	2017-10-26 00:44:31.803591641 +0200
+@@ -29,7 +29,7 @@
+ #include <linux/stat.h>
+ #include <linux/fs.h>
+ 
+-#include <asm/uaccess.h>
++#include <linux/uaccess.h>
+ 
+ #include "vmblockInt.h"
+ #include "block.h"
+--- ./vsock-only/shared/compat_uaccess.h	2017-06-20 04:29:39.000000000 +0200
++++ ./vsock-only/shared/compat_uaccess.h.new	2017-10-26 01:09:20.867674903 +0200
+@@ -21,7 +21,9 @@
+ 
+ 
+ /* User space access functions moved in 2.1.7 to asm/uaccess.h --hpreg */
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 1, 7)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 10, 0)
++#   include <linux/uaccess.h>
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 1, 7)
+ #   include <asm/uaccess.h>
+ #else
+ #   include <asm/segment.h>
+--- ./vmci-only/shared/compat_uaccess.h	2017-06-20 04:29:39.000000000 +0200
++++ ./vmci-only/shared/compat_uaccess.h.new	2017-10-26 01:08:43.547672817 +0200
+@@ -21,7 +21,9 @@
+ 
+ 
+ /* User space access functions moved in 2.1.7 to asm/uaccess.h --hpreg */
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 1, 7)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 10, 0)
++#   include <linux/uaccess.h>
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 1, 7)
+ #   include <asm/uaccess.h>
+ #else
+ #   include <asm/segment.h>
+--- ./vmblock-only/shared/compat_uaccess.h	2017-06-20 04:29:39.000000000 +0200
++++ ./vmblock-only/shared/compat_uaccess.h.new	2017-10-26 01:07:48.915669762 +0200
+@@ -21,7 +21,9 @@
+ 
+ 
+ /* User space access functions moved in 2.1.7 to asm/uaccess.h --hpreg */
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 1, 7)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 10, 0)
++#   include <linux/uaccess.h>
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(2, 1, 7)
+ #   include <asm/uaccess.h>
+ #else
+ #   include <asm/segment.h>
