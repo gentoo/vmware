@@ -172,7 +172,7 @@ clean_bundled_libs() {
 		rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
 
 		# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
-		# (needed by libcds.so) which seem to be compiled from openssl-1.0.1h.
+		# (needed by libcds.so) which seem to be compiled from openssl-1.0.2l.
 		# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
 		# in libcds.so to be able to use system libs.
 		pushd >/dev/null .
