@@ -1,0 +1,105 @@
+--- vmmon-only/linux/hostif.c	2017-12-04 23:49:53.485615520 +0100
++++ vmmon-only/linux/hostif.c.orig	2017-12-04 23:54:13.982630086 +0100
+@@ -1780,7 +1780,11 @@
+  */
+ 
+ static void
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++HostIFUptimeResyncMono(struct timer_list *data)  // IN: ignored
++#else
+ HostIFUptimeResyncMono(unsigned long data)  // IN: ignored
++#endif
+ {
+    unsigned long jifs;
+    uintptr_t flags;
+@@ -1842,8 +1846,12 @@
+                   -(tv.tv_usec * (UPTIME_FREQ / 1000000) + 
+                     tv.tv_sec * UPTIME_FREQ));
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++   timer_setup(&uptimeState.timer, HostIFUptimeResyncMono, 0);
++#else
+    init_timer(&uptimeState.timer);
+    uptimeState.timer.function = HostIFUptimeResyncMono;
++#endif
+    mod_timer(&uptimeState.timer, jiffies + HZ);
+ }
+ 
+--- vmmon-only/linux/driver.c	2017-12-04 23:49:53.061615496 +0100
++++ vmmon-only/linux/driver.c.orig	2017-12-04 23:53:26.086627408 +0100
+@@ -115,7 +115,11 @@
+ #endif
+ static int LinuxDriverMmap(struct file *filp, struct vm_area_struct *vma);
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++static void LinuxDriverPollTimeout(struct timer_list *clientData);
++#else
+ static void LinuxDriverPollTimeout(unsigned long clientData);
++#endif
+ static unsigned int LinuxDriverEstimateTSCkHz(void);
+ 
+ static struct vm_operations_struct vmuser_mops = {
+@@ -227,7 +231,11 @@
+  *----------------------------------------------------------------------
+  */
+ static void
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++LinuxDriverEstimateTSCkHzDeferred(struct timer_list *data)
++#else
+ LinuxDriverEstimateTSCkHzDeferred(unsigned long data)
++#endif
+ {
+    LinuxDriverEstimateTSCkHz();
+ }
+@@ -265,9 +273,11 @@
+    }
+ 
+    Vmx86_ReadTSCAndUptime(&tsckHzStartTime);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 15, 0)
+    tscTimer.function = LinuxDriverEstimateTSCkHzDeferred;
+-   tscTimer.expires  = jiffies + 4 * HZ;
+    tscTimer.data     = 0;
++#endif
++   tscTimer.expires  = jiffies + 4 * HZ;
+    add_timer(&tscTimer);
+ }
+ 
+@@ -309,9 +319,14 @@
+     */
+ 
+    init_waitqueue_head(&linuxState.pollQueue);
++
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++   timer_setup(&linuxState.pollTimer, LinuxDriverPollTimeout, 0);
++#else
+    init_timer(&linuxState.pollTimer);
+    linuxState.pollTimer.data = 0;
+    linuxState.pollTimer.function = LinuxDriverPollTimeout;
++#endif
+ 
+    linuxState.fastClockThread = NULL;
+    linuxState.fastClockFile = NULL;
+@@ -360,7 +375,11 @@
+        linuxState.deviceName, linuxState.major, linuxState.minor);
+ 
+    HostIF_InitUptime();
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++   timer_setup(&tscTimer, LinuxDriverEstimateTSCkHzDeferred, 0UL);
++#else
+    init_timer(&tscTimer);
++#endif
+    LinuxDriverInitTSCkHz();
+    Vmx86_InitIDList();
+ 
+@@ -858,7 +877,11 @@
+  */
+ 
+ static void
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
++LinuxDriverPollTimeout(struct timer_list *clientData)  // IN:
++#else
+ LinuxDriverPollTimeout(unsigned long clientData)  // IN:
++#endif
+ {
+    LinuxDriverWakeUp(FALSE);
+ }
