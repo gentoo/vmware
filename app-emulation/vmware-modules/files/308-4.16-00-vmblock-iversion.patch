@@ -1,0 +1,25 @@
+--- ./vmblock-only/linux/inode.c	2018-02-20 16:33:44.296417858 +0100
++++ ./vmblock-only/linux/inode.c.new	2018-02-20 17:33:24.525618051 +0100
+@@ -30,6 +30,10 @@
+ #include <linux/namei.h>
+ #include <linux/cred.h>
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 16, 0)
++#include <linux/iversion.h>
++#endif
++
+ #include "vmblockInt.h"
+ #include "filesystem.h"
+ #include "block.h"
+@@ -155,7 +159,11 @@
+ 
+    inode->i_mode = S_IFLNK | S_IRWXUGO;
+    inode->i_size = INODE_TO_IINFO(inode)->nameLen;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 16, 0)
++   inode_set_iversion(inode, 1);
++#else
+    inode->i_version = 1;
++#endif
+    inode->i_atime = inode->i_mtime = inode->i_ctime = current_time(inode);
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 10, 0)
+    inode->i_uid = inode->i_gid = 0;
