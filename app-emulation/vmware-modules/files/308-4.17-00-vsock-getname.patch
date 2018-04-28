@@ -1,0 +1,36 @@
+--- vsock-only/linux/af_vsock.c	2018-04-28 17:46:58.489492168 +0200
++++ vsock-only/linux/af_vsock.c.new	2018-04-28 17:46:49.528491470 +0200
+@@ -215,7 +215,11 @@
+                                   struct sockaddr *addr, int addrLen, int flags);
+ static int VSockVmciAccept(struct socket *sock, struct socket *newsock, int flags, bool kern);
+ static int VSockVmciGetname(struct socket *sock,
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 17, 0)
+                             struct sockaddr *addr, int *addrLen, int peer);
++#else
++                            struct sockaddr *addr, int peer);
++#endif
+ static unsigned int VSockVmciPoll(struct file *file,
+                                   struct socket *sock, poll_table *wait);
+ static int VSockVmciListen(struct socket *sock, int backlog);
+@@ -3878,7 +3882,9 @@
+ static int
+ VSockVmciGetname(struct socket *sock,    // IN
+                  struct sockaddr *addr,  // OUT
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 17, 0)
+                  int *addrLen,           // OUT
++#endif
+                  int peer)               // IN
+ {
+    int err;
+@@ -3914,7 +3920,11 @@
+     */
+    ASSERT_ON_COMPILE(sizeof *vmciAddr <= 128);
+    memcpy(addr, vmciAddr, sizeof *vmciAddr);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 17, 0)
+    *addrLen = sizeof *vmciAddr;
++#else
++   err = sizeof *vmciAddr;
++#endif
+ 
+ out:
+    release_sock(sk);
