@@ -121,6 +121,9 @@ src_prepare() {
 	kernel_is ge 4 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.15-00-init_timer.patch"
 	kernel_is ge 4 16 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.16-00-vmblock-iversion.patch"
 	kernel_is ge 4 17 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.17-00-vsock-getname.patch"
+	kernel_is ge 5 00 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.00-00-totalram_pages.patch"
+	kernel_is ge 5 00 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.00-01-access_ok.patch"
+	kernel_is ge 5 00 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.00-02-do_gettimeofday.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user

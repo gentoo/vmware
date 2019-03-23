@@ -1,0 +1,16 @@
+--- ./vmmon-only/linux/hostif.c	2019-03-19 23:19:56.087316621 +0100
++++ ./vmmon-only/linux/hostif.c.new	2019-03-19 23:41:53.902419159 +0100
+@@ -1575,9 +1575,13 @@
+     * since at least 2.6.0.
+     */
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    extern unsigned long totalram_pages;
+ 
+    unsigned int totalPhysicalPages = totalram_pages;
++#else
++   unsigned int totalPhysicalPages = totalram_pages();
++#endif
+ 
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 28)
+    return MemDefaults_CalcMaxLockedPages(totalPhysicalPages);

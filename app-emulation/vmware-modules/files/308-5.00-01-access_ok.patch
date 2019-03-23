@@ -1,0 +1,42 @@
+--- ./vmmon-only/linux/hostif.c	2019-03-21 23:28:27.735722426 +0100
++++ ./vmmon-only/linux/hostif.c.new	2019-03-21 23:40:55.262780590 +0100
+@@ -3597,7 +3597,11 @@
+ 
+    ASSERT(handle);
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    if (!access_ok(VERIFY_WRITE, p, size)) {
++#else
++   if (!access_ok(p, size)) {
++#endif
+       printk(KERN_ERR "%s: Couldn't verify write to uva 0x%p with size %"
+              FMTSZ"u\n", __func__, p, size);
+ 
+--- ./vmnet-only/userif.c	2018-01-09 08:13:21.000000000 +0100
++++ ./vmnet-only/userif.c.new	2019-03-22 00:09:58.432916225 +0100
+@@ -157,7 +157,11 @@
+                  struct page **p, // OUT: locked page
+                  void **ptr)      // OUT: kernel mapped pointer
+ {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    if (!access_ok(VERIFY_WRITE, (void *)uAddr, size) ||
++#else
++   if (!access_ok((void *)uAddr, size) ||
++#endif
+        (((uAddr + size - 1) & ~(PAGE_SIZE - 1)) !=
+         (uAddr & ~(PAGE_SIZE - 1)))) {
+       return -EINVAL;
+--- ./vmci-only/linux/driver.c	2019-03-22 00:10:40.166919472 +0100
++++ ./vmci-only/linux/driver.c.new	2019-03-22 00:11:52.528925103 +0100
+@@ -1439,7 +1439,11 @@
+ VMCIUserVAInvalidPointer(VA uva,      // IN:
+                          size_t size) // IN:
+ {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    return !access_ok(VERIFY_WRITE, (void *)uva, size);
++#else
++   return !access_ok((void *)uva, size);
++#endif
+ }
+ 
+ 

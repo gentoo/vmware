@@ -1,0 +1,108 @@
+--- ./vmmon-only/linux/hostif.c	2019-03-21 23:45:15.452800836 +0100
++++ ./vmmon-only/linux/hostif.c.new	2019-03-21 23:55:42.963849662 +0100
+@@ -1709,7 +1709,11 @@
+ static uint64
+ HostIFReadUptimeWork(unsigned long *j)  // OUT: current jiffies 
+ {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    struct timeval tv;
++#else
++   struct timespec64 ts;
++#endif
+    uint64 monotime, uptime, upBase, monoBase;
+    int64 diff;
+    uint32 version;
+@@ -1727,13 +1731,21 @@
+       monoBase = uptimeState.monotimeBase;
+    } while (!VersionedAtomic_EndTryRead(&uptimeState.version, version));
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    do_gettimeofday(&tv);
++#else
++   ktime_get_real_ts64(&ts);
++#endif
+    upBase = Atomic_Read64(&uptimeState.uptimeBase);
+    
+    monotime = (uint64)(jifs - jifBase) * (UPTIME_FREQ / HZ);
+    monotime += monoBase;
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    uptime = tv.tv_usec * (UPTIME_FREQ / 1000000) + tv.tv_sec * UPTIME_FREQ;
++#else
++   uptime = ts.tv_nsec / NSEC_PER_USEC	* (UPTIME_FREQ / 1000000) + ts.tv_sec * UPTIME_FREQ;
++#endif
+    uptime += upBase;
+    
+    /* 
+@@ -1842,6 +1854,7 @@
+ void
+ HostIF_InitUptime(void)
+ {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+    struct timeval tv;
+ 
+    uptimeState.jiffiesBase = jiffies;
+@@ -1849,6 +1862,15 @@
+    Atomic_Write64(&uptimeState.uptimeBase, 
+                   -(tv.tv_usec * (UPTIME_FREQ / 1000000) + 
+                     tv.tv_sec * UPTIME_FREQ));
++#else
++   struct timespec64 ts;
++
++   uptimeState.jiffiesBase = jiffies;
++   ktime_get_real_ts64(&ts);
++   Atomic_Write64(&uptimeState.uptimeBase, 
++                  -(ts.tv_nsec / NSEC_PER_USEC	* (UPTIME_FREQ / 1000000) + 
++                    ts.tv_sec * UPTIME_FREQ));
++#endif
+ 
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
+    timer_setup(&uptimeState.timer, HostIFUptimeResyncMono, 0);
+--- ./vmmon-only/linux/driver.c	2019-03-21 23:45:15.277800822 +0100
++++ ./vmmon-only/linux/driver.c.new	2019-03-21 23:50:55.619827304 +0100
+@@ -760,14 +760,23 @@
+ LinuxDriverWakeUp(Bool selective)  // IN:
+ {
+    if (selective && linuxState.pollList != NULL) {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+       struct timeval tv;
++#else
++      struct timespec64 ts;
++#endif
+       VmTimeType now;
+       VMLinux *p;
+       VMLinux *next;
+ 
+       HostIF_PollListLock(1);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+       do_gettimeofday(&tv);
+       now = tv.tv_sec * 1000000ULL + tv.tv_usec;
++#else
++      ktime_get_real_ts64(&ts);
++      now = ts.tv_sec * 1000000ULL + ts.tv_nsec / NSEC_PER_USEC;
++#endif
+ 
+       for (p = linuxState.pollList; p != NULL; p = next) {
+          next = p->pollForw;
+@@ -834,12 +843,21 @@
+       }
+    } else {
+       if (linuxState.fastClockThread && vmLinux->pollTimeoutPtr != NULL) {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 0, 0)
+          struct timeval tv;
+ 
+          do_gettimeofday(&tv);
+          poll_wait(filp, &vmLinux->pollQueue, wait);
+          vmLinux->pollTime = *vmLinux->pollTimeoutPtr +
+                                        tv.tv_sec * 1000000ULL + tv.tv_usec;
++#else
++         struct timespec64 ts;
++
++         ktime_get_real_ts64(&ts);
++         poll_wait(filp, &vmLinux->pollQueue, wait);
++         vmLinux->pollTime = *vmLinux->pollTimeoutPtr +
++                                       ts.tv_sec * 1000000ULL + ts.tv_nsec / NSEC_PER_USEC;
++#endif
+          if (vmLinux->pollBack == NULL) {
+             HostIF_PollListLock(2);
+             if (vmLinux->pollBack == NULL) {
