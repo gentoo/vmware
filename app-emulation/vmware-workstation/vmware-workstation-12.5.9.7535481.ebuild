@@ -53,7 +53,6 @@ BUNDLED_LIBS="
 	libfuse.so.2
 	libgailutil.so.18
 	libgcc_s.so.1
-	libgcrypt.so.11
 	libgdk-x11-2.0.so.0
 	libgdk_pixbuf-2.0.so.0
 	libgio-2.0.so.0
@@ -85,7 +84,6 @@ BUNDLED_LIB_DEPENDS="
 	dev-cpp/pangomm
 	dev-libs/atk
 	dev-libs/glib:2
-	dev-libs/libgcrypt:11/11
 	dev-libs/libgpg-error
 	dev-libs/libsigc++:2
 	dev-libs/libxml2
@@ -579,9 +577,10 @@ pkg_postinst() {
 	readme.gentoo_print_elog
 
 	ewarn "${P} is using an old version of libgcrypt library which"
-	ewarn "is going to be soon removed from portage due to security reasons"
-	ewarn "(see https://bugs.gentoo.org/show_bug.cgi?id=541564)."
-	ewarn "Until vmware is fixed upstream you're exposed to security issues!"
+	ewarn "has been removed from portage due to security reasons"
+	ewarn "(see also bugs #567382 or #656372)."
+	ewarn "This version of vmware is not going to be fixed upstream (EOL)"
+	ewarn "so you're exposed to security issues!"
 }
 
 pkg_prerm() {
