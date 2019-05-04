@@ -1,0 +1,38 @@
+--- ./vmmon-only/linux/hostif.c	2019-05-04 17:33:42.135920654 +0200
++++ ./vmmon-only/linux/hostif.c.new	2019-05-04 17:37:02.428936239 +0200
+@@ -2298,7 +2298,11 @@
+    int ret;
+    
+    old_fs = get_fs();
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0)
++   set_fs(KERNEL_DS);
++#else
+    set_fs(get_ds());
++#endif
+    r = APICR_TO_ADDR(r, APICR_VERSION);
+    ret = HostIF_CopyFromUser(&dummy, (void*)r, sizeof(dummy));
+    set_fs(old_fs);
+@@ -2499,7 +2503,11 @@
+    }
+ 
+    old_fs = get_fs();
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0)
++   set_fs(KERNEL_DS);
++#else
+    set_fs(get_ds());
++#endif
+ 
+    {
+       struct poll_wqueues table;
+@@ -2628,7 +2636,11 @@
+    }
+ 
+    old_fs = get_fs();
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 1, 0)
++   set_fs(KERNEL_DS);
++#else
+    set_fs(get_ds());
++#endif
+ 
+    /*
+     * Always write sizeof(uint64) bytes. This works fine for eventfd and
