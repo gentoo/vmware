@@ -1,0 +1,52 @@
+--- ./vmnet-only/userif.c	2020-03-22 00:10:12.265769247 +0100
++++ ./vmnet-only/userif.c.new	2020-03-22 00:13:38.735785312 +0100
+@@ -86,9 +86,12 @@
+ #if COMPAT_LINUX_VERSION_CHECK_LT(3, 2, 0)
+ #   define compat_kmap(page) kmap(page)
+ #   define compat_kunmap(page) kunmap(page)
+-#else
++#elif COMPAT_LINUX_VERSION_CHECK_LT(5, 4, 0)
+ #   define compat_kmap(page) kmap((page).p)
+ #   define compat_kunmap(page) kunmap((page).p)
++#else
++#   define compat_kmap(page) kmap(page)
++#   define compat_kunmap(page) kunmap(page)
+ #endif
+ 
+ /*
+@@ -598,20 +601,35 @@
+    for (frag = skb_shinfo(skb)->frags;
+ 	frag != skb_shinfo(skb)->frags + skb_shinfo(skb)->nr_frags;
+ 	frag++) {
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
+       if (frag->size > 0) {
++#else
++      if (skb_frag_size(frag) > 0) {
++#endif
+ 	 unsigned int tmpCsum;
+ 	 const void *vaddr;
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
+ 	 vaddr = compat_kmap(frag->page);
+ 	 tmpCsum = csum_and_copy_to_user(vaddr + frag->page_offset,
+ 					 curr, frag->size, 0, &err);
+ 	 compat_kunmap(frag->page);
++#else
++	 vaddr = compat_kmap(skb_frag_page(frag));
++	 tmpCsum = csum_and_copy_to_user(vaddr + skb_frag_off(frag),
++					 curr, skb_frag_size(frag), 0, &err);
++	 compat_kunmap(skb_frag_page(frag));
++#endif
+ 
+ 	 if (err) {
+ 	    return err;
+ 	 }
+ 	 csum = csum_block_add(csum, tmpCsum, curr - buf);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 4, 0)
+ 	 curr += frag->size;
++#else
++	 curr += skb_frag_size(frag);
++#endif
+       }
+    }
+ 
