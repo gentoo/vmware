@@ -1,0 +1,14 @@
+--- ./vmmon-only/linux/hostif.c	2019-08-09 11:03:35.984541672 +0200
++++ ./vmmon-only/linux/hostif.c.new	2019-08-09 11:37:39.484542449 +0200
+@@ -3583,7 +3583,11 @@
+       }
+    } else {
+       if (linuxState.fastClockThread) {
++#if LINUX_VERSION_CODE > KERNEL_VERSION(5, 2, 99)
++         send_sig(SIGKILL, linuxState.fastClockThread, 1);
++#else
+          force_sig(SIGKILL, linuxState.fastClockThread);
++#endif
+          kthread_stop(linuxState.fastClockThread);
+ 	 close_rtc(linuxState.fastClockFile, current->files);
+ 
