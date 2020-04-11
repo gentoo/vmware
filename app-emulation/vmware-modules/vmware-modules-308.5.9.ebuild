@@ -51,11 +51,16 @@ pkg_setup() {
 	VMWARE_MODULE_LIST_ALL="vmblock vmmon vmnet vmci vsock"
 	VMWARE_MODULE_LIST="vmblock vmmon vmnet"
 	use vmci && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmci"
-	use vsock && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vsock"
+	use vsock && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vsock" # vsock must be listed AFTER vmci
 
 	VMWARE_MOD_DIR="${PN}-${PVR}"
 
-	BUILD_TARGETS="auto-build KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
+	BUILD_TARGETS="auto-build"
+	BUILD_PARAMS="KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
+	# Since kernel 5.5 (commit 39808e451fdf) the Module.symvers is not read automatically
+	# but an extra parameter KBUILD_EXTRA_SYMBOLS has been defined for that purpose.
+	# Here vsock needs symbols defined by vmci
+	kernel_is ge 5 5 0 && BUILD_PARAMS="${BUILD_PARAMS} KBUILD_EXTRA_SYMBOLS=${S}/Module.symvers"
 
 	enewgroup "${VMWARE_GROUP}"
 
