@@ -1,0 +1,46 @@
+--- ./vmblock-only/linux/control.c	2020-04-11 16:28:51.246510041 +0200
++++ ./vmblock-only/linux/control.c.new	2020-04-11 16:55:29.826634425 +0200
+@@ -46,12 +46,18 @@
+ 
+ 
+ static struct proc_dir_entry *controlProcDirEntry;
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 6, 0)
+ struct file_operations ControlFileOps = {
+    .owner   = THIS_MODULE,
+    .write   = ControlFileOpWrite,
+    .release = ControlFileOpRelease,
+ };
+-
++#else
++struct proc_ops ControlFileOps = {
++   .proc_write   = ControlFileOpWrite,
++   .proc_release = ControlFileOpRelease,
++};
++#endif
+ 
+ /* Public initialization/cleanup routines */
+ 
+--- ./vmnet-only/procfs.c	2018-01-09 08:13:21.000000000 +0100
++++ ./vmnet-only/procfs.c.new	2020-04-11 17:28:05.017786557 +0200
+@@ -161,12 +161,21 @@
+ }
+ 
+ /* Our procfs callbacks.  We only need to specialize open. */
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 6, 0)
+ static struct file_operations fops = {
+    .open    = VNetProcOpen,
+    .read    = seq_read,
+    .llseek  = seq_lseek,
+    .release = single_release,
+ };
++#else
++static struct proc_ops fops = {
++   .proc_open    = VNetProcOpen,
++   .proc_read    = seq_read,
++   .proc_lseek   = seq_lseek,
++   .proc_release = single_release,
++};
++#endif
+ #endif
+ 
+ 

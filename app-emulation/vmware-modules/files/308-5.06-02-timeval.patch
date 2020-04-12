@@ -1,0 +1,20 @@
+--- ./vsock-only/linux/af_vsock.c	2020-04-11 17:30:47.815799224 +0200
++++ ./vsock-only/linux/af_vsock.c.new	2020-04-11 18:04:49.565958091 +0200
+@@ -4415,7 +4415,7 @@
+       break;
+ 
+    case SO_VMCI_CONNECT_TIMEOUT: {
+-      struct timeval tv;
++      struct __kernel_old_timeval tv;
+       COPY_IN(tv);
+       if (tv.tv_sec >= 0 && tv.tv_usec < USEC_PER_SEC &&
+           tv.tv_sec < (MAX_SCHEDULE_TIMEOUT/HZ - 1)) {
+@@ -4510,7 +4510,7 @@
+       break;
+ 
+    case SO_VMCI_CONNECT_TIMEOUT: {
+-      struct timeval tv;
++      struct __kernel_old_timeval tv;
+       tv.tv_sec = vsk->connectTimeout / HZ;
+       tv.tv_usec = (vsk->connectTimeout - tv.tv_sec * HZ) * (1000000 / HZ);
+       COPY_OUT(tv);

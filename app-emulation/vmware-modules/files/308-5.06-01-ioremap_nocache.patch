@@ -1,0 +1,14 @@
+--- ./vmmon-only/linux/hostif.c	2020-04-11 17:06:49.676687324 +0200
++++ ./vmmon-only/linux/hostif.c.new	2020-04-11 17:24:17.482768853 +0200
+@@ -2335,7 +2335,11 @@
+    volatile void *hostapic;
+ 
+    ASSERT_ON_COMPILE(APICR_SIZE <= PAGE_SIZE);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 6, 0)
+    hostapic = (volatile void *) ioremap_nocache(ma, PAGE_SIZE);
++#else
++   hostapic = (volatile void *) ioremap(ma, PAGE_SIZE);
++#endif
+    if (hostapic) {
+       if ((APIC_VERSIONREG(hostapic) & 0xF0) == 0x10) {
+ 	 vm->hostAPIC.base = (volatile uint32 (*)[4]) hostapic;

@@ -133,6 +133,9 @@ src_prepare() {
 	kernel_is ge 5 01 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.01-01-kernel_ds.patch"
 	kernel_is ge 5 03 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.03-00-force_sig.patch"
 	kernel_is ge 5 04 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.04-00-skb_frag_t.patch"
+	kernel_is ge 5 06 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.06-00-proc_create.patch"
+	kernel_is ge 5 06 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.06-01-ioremap_nocache.patch"
+	kernel_is ge 5 06 0 && epatch "${FILESDIR}/${PV_MAJOR}-5.06-02-timeval.patch"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	epatch_user
