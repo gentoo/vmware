@@ -24,94 +24,17 @@ SRC_URI="
 LICENSE="vmware GPL-2 GPL-3"
 SLOT="0"
 KEYWORDS="-* ~amd64"
-IUSE="bundled-libs cups doc ovftool +vmware-tools"
+IUSE="cups doc ovftool +vmware-tools"
 RESTRICT="mirror strip"
-
-BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
-
-BUNDLED_LIBS="
-	libXau.so.6
-	libXcomposite.so.1
-	libXcursor.so.1
-	libXdamage.so.1
-	libXdmcp.so.6
-	libXfixes.so.3
-	libXft.so.2
-	libXinerama.so.1
-	libXrandr.so.2
-	libXrender.so.1
-	libaio.so.1
-	libatk-1.0.so.0
-	libatkmm-1.6.so.1
-	libatspi.so.0
-	libcairo.so.2
-	libcrypto.so.1.0.1
-	libcurl.so.4
-	libdbus-1.so.3
-	libfontconfig.so.1
-	libfreetype.so.6
-	libfuse.so.2
-	libgailutil.so.18
-	libgcc_s.so.1
-	libgdk-x11-2.0.so.0
-	libgdk_pixbuf-2.0.so.0
-	libgio-2.0.so.0
-	libglib-2.0.so.0
-	libglibmm_generate_extra_defs-2.4.so.1
-	libgmodule-2.0.so.0
-	libgobject-2.0.so.0
-	libgpg-error.so.0
-	libgthread-2.0.so.0
-	libgtk-x11-2.0.so.0
-	libpango-1.0.so.0
-	libpangocairo-1.0.so.0
-	libpangoft2-1.0.so.0
-	libpangomm-1.4.so.1
-	libpangox-1.0.so.0
-	libpangoxft-1.0.so.0
-	libpcsclite.so.1
-	libpixman-1.so.0
-	libpng12.so.0
-	librsvg-2.so.2
-	libsigc-2.0.so.0
-	libssl.so.1.0.1
-	libstdc++.so.6
-	libxml2.so.2
-"
-
-BUNDLED_LIB_DEPENDS="
-	dev-cpp/atkmm
-	dev-cpp/pangomm
-	dev-libs/atk
-	dev-libs/glib:2
-	dev-libs/libgpg-error
-	dev-libs/libsigc++:2
-	dev-libs/libxml2
-	dev-libs/openssl:0
-	media-libs/fontconfig
-	media-libs/freetype
-	media-libs/libpng:1.2
-	net-misc/curl
-	sys-fs/fuse
-	sys-libs/zlib
-	x11-libs/cairo
-	x11-libs/gdk-pixbuf:2
-	x11-libs/gtk+:2
-	x11-libs/libXau
-	x11-libs/libXcomposite
-	x11-libs/libXdamage
-	x11-libs/libXfixes
-	x11-libs/libXrandr
-	x11-libs/libXrender
-	x11-libs/pango
-	x11-libs/pixman
-"
 
 # vmware should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
 	media-libs/alsa-lib
 	net-print/cups
+	virtual/jpeg:62
+	x11-libs/libICE
+	x11-libs/libSM
 	x11-libs/libX11
 	x11-libs/libXcursor
 	x11-libs/libXext
@@ -120,12 +43,6 @@ RDEPEND="
 	x11-libs/libXtst
 	x11-libs/startup-notification
 	x11-themes/hicolor-icon-theme
-	bundled-libs? (
-		x11-libs/libICE
-		x11-libs/libSM
-		virtual/jpeg:62
-	)
-	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
 	!app-emulation/vmware-workstation
 "
 PDEPEND="~app-emulation/vmware-modules-${PV_MODULES}
@@ -159,55 +76,19 @@ src_unpack() {
 	fi
 }
 
-clean_bundled_libs() {
-	if ! use bundled-libs ; then
-		einfo "Removing bundled libraries"
-		for libname in ${BUNDLED_LIBS} ; do
-			rm -rv "${S}"/lib/lib/${libname} || die "Failed removing bundled ${libname}"
-		done
-
-		rm -rv "${S}"/lib/libconf || die "Failed removing bundled gtk conf libs"
-
-		# Among the bundled libs there are libcrypto.so.1.0.1 and libssl.so.1.0.1
-		# (needed by libcds.so) which seem to be compiled from openssl-1.0.2l.
-		# Upstream real sonames are *so.1.0.0 so it's necessary to fix DT_NEEDED link
-		# in libcds.so to be able to use system libs.
-		pushd >/dev/null .
-		einfo "Patching libcds.so"
-		cd "${S}"/lib/lib/libcds.so || die
-		patchelf --replace-needed libssl.so.1.0.{1,0} \
-				 --replace-needed libcrypto.so.1.0.{1,0} \
-				 libcds.so || die
-		popd >/dev/null
-
-		# vmware-player seems to use a custom version of libgksu2.so, for this reason
-		# we leave the bundled version. The libvmware-gksu.so library declares simply DT_NEEDED
-		# libgksu2.so.0 but it uses at runtime the bundled version, patch the lib to avoid portage
-		# preserve-libs mechanism to be triggered when a system lib is available (but not required)
-		pushd >/dev/null .
-		einfo "Patching libvmware-gksu.so"
-		cd "${S}"/lib/lib/libvmware-gksu.so || die
-		patchelf --set-rpath "\$ORIGIN/../libgksu2.so.0" \
-				 libvmware-gksu.so || die
-		popd >/dev/null
-	else
-		# if librsvg is not installed in the system then vmware doesn't start
-		pushd >/dev/null .
-		einfo "Patching svg_loader.so"
-		cd "${S}"/lib/libconf/lib/gtk-2.0/2.10.0/loaders || die
-		patchelf --set-rpath "\$ORIGIN/../../../../../lib/librsvg-2.so.2" \
-				 svg_loader.so || die
-		popd >/dev/null
-	fi
-}
-
 src_prepare() {
 	rm -f bin/vmware-modconfig
 	rm -rf lib/modules/binary
 	# Bug 459566
 	mv lib/libvmware-netcfg.so lib/lib/
 
-	clean_bundled_libs
+	# if librsvg is not installed in the system then vmware doesn't start
+	pushd >/dev/null .
+	einfo "Patching svg_loader.so"
+	cd "${S}"/lib/libconf/lib/gtk-2.0/2.10.0/loaders || die
+	patchelf --set-rpath "\$ORIGIN/../../../../../lib/librsvg-2.so.2" \
+		svg_loader.so || die
+	popd >/dev/null
 
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
@@ -233,17 +114,6 @@ src_install() {
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r lib/*
-
-	# workaround for hardcoded search paths needed during shared objects loading
-	if ! use bundled-libs ; then
-		dosym /usr/$(get_libdir)/libglib-2.0.so.0 \
-			"${VM_INSTALL_DIR}"/lib/vmware/lib/libglib-2.0.so.0/libglib-2.0.so.0
-		# Bug 432918
-		dosym /usr/$(get_libdir)/libcrypto.so.1.0.0 \
-			"${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.1/libcrypto.so.1.0.1
-		dosym /usr/$(get_libdir)/libssl.so.1.0.0 \
-			"${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.1/libssl.so.1.0.1
-	fi
 
 	# bug 616958
 	# system libs don't work anymore with embedeed zlib because it doesn't support ZLIB_1.2.9,
@@ -336,10 +206,8 @@ src_install() {
 	newinitd "${initscript}" vmware
 
 	# fill in variable placeholders
-	if use bundled-libs ; then
-		sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-			-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
-	fi
+	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
+		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/{gtk-2.0/{gdk-pixbuf.loaders,gtk.immodules},pango/pango{.modules,rc}} || die
 	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
 		-e "/^Encoding/d" \
 		-i "${D}/usr/share/applications/vmware-player.desktop" || die
