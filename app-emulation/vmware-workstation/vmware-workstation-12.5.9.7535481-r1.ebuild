@@ -30,9 +30,12 @@ RESTRICT="mirror strip"
 # vmware should not use virtual/libc as this is a
 # precompiled binary package thats linked to glibc.
 RDEPEND="
+	|| (
+		>=media-libs/libjpeg-turbo-1.3.0-r3:0
+		>=media-libs/jpeg-6b-r12:62
+	)
 	media-libs/alsa-lib
 	net-print/cups
-	virtual/jpeg:62
 	x11-libs/libICE
 	x11-libs/libSM
 	x11-libs/libX11
