@@ -21,7 +21,7 @@ start() {
 	for mod in /lib/modules/$(uname -r)/misc/vmci.ko \
 		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko ;
 	do
-		if [[ -f "${mod}" ]] ; then
+		if [ -f "${mod}" ] ; then
 			modprobe -v $(basename "${mod}" .ko)
 			eend $?
 			break
@@ -35,7 +35,7 @@ start() {
 	for mod in /lib/modules/$(uname -r)/misc/vsock.ko \
 		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko ;
 	do
-		if [[ -f "${mod}" ]] ; then
+		if [ -f "${mod}" ] ; then
 			modprobe -v $(basename "${mod}" .ko)
 			eend $?
 			break
@@ -68,7 +68,7 @@ stop() {
 	for mod in /lib/modules/$(uname -r)/misc/vsock.ko \
 		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko ;
 	do
-		if [[ -f "${mod}" ]] ; then
+		if [ -f "${mod}" ] ; then
 			modprobe -rv $(basename "${mod}" .ko)
 			eend $?
 			break
@@ -82,7 +82,7 @@ stop() {
 	for mod in /lib/modules/$(uname -r)/misc/vmci.ko \
 		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko ;
 	do
-		if [[ -f "${mod}" ]] ; then
+		if [ -f "${mod}" ] ; then
 			modprobe -rv $(basename "${mod}" .ko)
 			eend $?
 			break
